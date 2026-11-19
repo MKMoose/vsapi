@@ -3,6 +3,8 @@ using System.IO;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
+using System;
 
 #nullable disable
 
@@ -431,62 +433,70 @@ namespace Vintagestory.API.Common
             writer.Write(Bounciness);
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+            => ((IParticlePropertiesProvider)this).FromBytes(reader, resolver);
+
+        public void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
             basePos = new Vec3d(reader.ReadDouble(), reader.ReadDouble(), reader.ReadDouble());
 
             DieInAir = reader.ReadBoolean();
             DieInLiquid = reader.ReadBoolean();
             SwimOnLiquid = reader.ReadBoolean();
-            HsvaColor = new NatFloat[] { NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader) };
-            GravityEffect = NatFloat.createFromBytes(reader);
-            LifeLength = NatFloat.createFromBytes(reader);
-            PosOffset = new NatFloat[] { NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader) };
-            Quantity = NatFloat.createFromBytes(reader);
-            Size = NatFloat.createFromBytes(reader);
-            Velocity = new NatFloat[] { NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader), NatFloat.createFromBytes(reader) };
+            HsvaColor = new NatFloat[] { NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader) };
+            GravityEffect = NatFloat.CreateFromBytes(ref reader);
+            LifeLength = NatFloat.CreateFromBytes(ref reader);
+            PosOffset = new NatFloat[] { NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader) };
+            Quantity = NatFloat.CreateFromBytes(ref reader);
+            Size = NatFloat.CreateFromBytes(ref reader);
+            Velocity = new NatFloat[] { NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader), NatFloat.CreateFromBytes(ref reader) };
             ParticleModel = (EnumParticleModel)reader.ReadByte();
             VertexFlags = reader.ReadInt32();
 
             if (!reader.ReadBoolean())
             {
-                OpacityEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                OpacityEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                RedEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                RedEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                GreenEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                GreenEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                BlueEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                BlueEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
-            SizeEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+            SizeEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             SelfPropelled = reader.ReadBoolean();
             TerrainCollision = reader.ReadBoolean();
             ColorByBlock = reader.ReadBoolean();
 
             if (reader.ReadBoolean())
             {
-                VelocityEvolve[0] = EvolvingNatFloat.CreateFromBytes(reader);
-                VelocityEvolve[1] = EvolvingNatFloat.CreateFromBytes(reader);
-                VelocityEvolve[2] = EvolvingNatFloat.CreateFromBytes(reader);
+                if (VelocityEvolve == null || VelocityEvolve.Length != 3)
+                {
+                    VelocityEvolve = new EvolvingNatFloat[3];
+                }
+                VelocityEvolve[0] = EvolvingNatFloat.CreateFromBytes(ref reader);
+                VelocityEvolve[1] = EvolvingNatFloat.CreateFromBytes(ref reader);
+                VelocityEvolve[2] = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
-            SecondarySpawnInterval = NatFloat.createFromBytes(reader);
+            SecondarySpawnInterval = NatFloat.CreateFromBytes(ref reader);
             int secondaryPropCount = reader.ReadInt32();
             if (secondaryPropCount > 0)
             {
                 SecondaryParticles = new AdvancedParticleProperties[secondaryPropCount];
                 for (int i = 0; i < secondaryPropCount; i++)
                 {
-                    SecondaryParticles[i] = AdvancedParticleProperties.createFromBytes(reader, resolver);
+                    SecondaryParticles[i] = AdvancedParticleProperties.CreateFromBytes(ref reader, resolver);
                 }
             }
 
@@ -496,7 +506,7 @@ namespace Vintagestory.API.Common
                 DeathParticles = new AdvancedParticleProperties[deathPropCount];
                 for (int i = 0; i < deathPropCount; i++)
                 {
-                    DeathParticles[i] = AdvancedParticleProperties.createFromBytes(reader, resolver);
+                    DeathParticles[i] = AdvancedParticleProperties.CreateFromBytes(ref reader, resolver);
                 }
             }
 
@@ -504,10 +514,14 @@ namespace Vintagestory.API.Common
             Bounciness = reader.ReadSingle();
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static AdvancedParticleProperties createFromBytes(BinaryReader reader, IWorldAccessor resolver)
+            => reader.UnsafeActAsBinarySpanReader(resolver, CreateFromBytes);
+
+        public static AdvancedParticleProperties CreateFromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            AdvancedParticleProperties temp = new AdvancedParticleProperties();
-            temp.FromBytes(reader, resolver);
+            var temp = new AdvancedParticleProperties();
+            temp.FromBytes(ref reader, resolver);
             return temp;
         }
 
@@ -515,14 +529,14 @@ namespace Vintagestory.API.Common
         {
             AdvancedParticleProperties cloned = new AdvancedParticleProperties();
 
-            // Because I'm lazy
-            using (MemoryStream ms = new MemoryStream())
+            var ms = new MemoryStream();
+            using(var writer = new BinaryWriter(ms, System.Text.Encoding.UTF8, true))
             {
-                BinaryWriter writer = new BinaryWriter(ms);
                 ToBytes(writer);
-                ms.Position = 0; // Dunno if needed
-                cloned.FromBytes(new BinaryReader(ms), null);
             }
+
+            var reader = ms.UnsafeAsBinarySpanReader();
+            cloned.FromBytes(ref reader, null);
 
             return cloned;
         }

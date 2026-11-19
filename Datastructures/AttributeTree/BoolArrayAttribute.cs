@@ -1,51 +1,52 @@
 using System;
 using System.IO;
 
-#nullable disable
+namespace Vintagestory.API.Datastructures;
 
-namespace Vintagestory.API.Datastructures
+public class BoolArrayAttribute : ArrayAttribute<bool>, IAttribute
 {
-    public class BoolArrayAttribute : ArrayAttribute<bool>, IAttribute
+    public BoolArrayAttribute()
     {
-        public BoolArrayAttribute()
-        {
 
-        }
+    }
 
-        public BoolArrayAttribute(bool[] value)
-        {
-            this.value = value;
-        }
+    public BoolArrayAttribute(bool[] value)
+    {
+        this.value = value;
+    }
 
-        public void ToBytes(BinaryWriter stream)
+    public void ToBytes(BinaryWriter stream)
+    {
+        var values = this.value;
+        stream.Write(values.Length);
+        for (int i = 0; i < values.Length; i++)
         {
-            var values = this.value;
-            stream.Write(values.Length);
-            for (int i = 0; i < values.Length; i++)
-            {
-                stream.Write(values[i]);
-            }
+            stream.Write(values[i]);
         }
+    }
 
-        public void FromBytes(BinaryReader stream)
-        {
-            int quantity = stream.ReadInt32();
-            bool[] values = GC.AllocateUninitializedArray<bool>(quantity);
-            for (int i = 0; i < quantity; i++)
-            {
-                values[i] = stream.ReadBoolean();
-            }
-            this.value = values;
-        }
+    [Obsolete("Use the BinarySpanReader overload.", true)]
+    public void FromBytes(BinaryReader reader)
+        => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-        public int GetAttributeId()
+    public void FromBytes(ref BinarySpanReader reader)
+    {
+        int quantity = reader.ReadInt32();
+        bool[] values = GC.AllocateUninitializedArray<bool>(quantity);
+        for (int i = 0; i < quantity; i++)
         {
-            return 16;
+            values[i] = reader.ReadBoolean();
         }
+        this.value = values;
+    }
 
-        public IAttribute Clone()
-        {
-            return new BoolArrayAttribute((bool[])value.Clone());
-        }
+    public int GetAttributeId()
+    {
+        return 16;
+    }
+
+    public IAttribute Clone()
+    {
+        return new BoolArrayAttribute((bool[])value.Clone());
     }
 }

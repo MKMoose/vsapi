@@ -1,14 +1,33 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using Vintagestory.API.Config;
 
 namespace Vintagestory.API.Common
 {
     public static class JsonUtil
     {
+        public static JsonLoadSettings DefaultLoadSettings { get; private set; } = new();
+
+        public static void setupLoadSettings(bool ramOptimized)
+        {
+            DefaultLoadSettings = new JsonLoadSettings()
+            {
+                LineInfoHandling = ramOptimized ? LineInfoHandling.Ignore : LineInfoHandling.Load
+            };
+        }
+
+        public static System.Text.Json.JsonSerializerOptions DefaultTextJsonSerializerOptions { get; } = new()
+        {
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            IncludeFields = true,
+            WriteIndented = true
+        };
+
         public static void Populate<T>(this JToken value, T target) where T : class
         {
             using (var sr = value.CreateReader())
@@ -105,6 +124,12 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         public static T? ToObject<T>(string text, string domain, JsonSerializerSettings? settings = null)
         {
+            // Special parsing for JTokens to leave out array comments, which would otherwise get included from deserialize
+            if (typeof(JToken).IsAssignableFrom(typeof(T)))
+            {
+                if (string.IsNullOrWhiteSpace(text)) return default;
+                return (T)(object)JToken.Parse(text, DefaultLoadSettings);
+            }
             if (domain != GlobalConstants.DefaultDomain)
             {
                 if (settings == null)
@@ -112,8 +137,8 @@ namespace Vintagestory.API.Common
                     settings = new JsonSerializerSettings();
                 }
                 settings.Converters.Add(new AssetLocationJsonParser(domain));
-            }   
-            
+            }
+
             return JsonConvert.DeserializeObject<T>(text, settings);
         }
 
@@ -137,6 +162,65 @@ namespace Vintagestory.API.Common
             }
 
             return token.ToObject<T>(JsonSerializer.Create(settings));
+        }
+
+        /// <summary>
+        /// Serializes an object to a file using System.Text.Json.
+        /// Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotations to include and exclude them.
+        /// The defaults for what to include and exclude are different from Newtonsoft.Json.
+        /// </summary>
+        /// <param name="path">Filepath</param>
+        /// <param name="data"></param>
+        /// <param name="settings">If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All) </param>
+        /// <typeparam name="T"></typeparam>
+        public static void SerializeFastToFile<T>(string path, T data, System.Text.Json.JsonSerializerOptions? settings = null)
+        {
+            settings ??= DefaultTextJsonSerializerOptions;
+            using var fileStream = File.Open(path, FileMode.Create);
+            System.Text.Json.JsonSerializer.Serialize(fileStream, data, settings);
+        }
+
+        /// <summary>
+        /// Serializes an object to a string using System.Text.Json.
+        /// Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotation to include and exclude them.
+        /// The defaults for what to include and exclude are different from Newtonsoft.Json.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="settings">If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All) </param>
+        /// <typeparam name="T"></typeparam>
+        public static string SerializeFast<T>(T data, System.Text.Json.JsonSerializerOptions? settings = null)
+        {
+            settings ??= DefaultTextJsonSerializerOptions;
+            return System.Text.Json.JsonSerializer.Serialize(data, settings);
+        }
+
+        /// <summary>
+        /// Deserializes a string using System.Text.Json.
+        /// Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotation to include and exclude them.
+        /// The defaults for what to include and exclude are different from Newtonsoft.Json.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="settings">If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All) </param>
+        /// <typeparam name="T"></typeparam>
+        public static T? DeserializeFast<T>(string json, System.Text.Json.JsonSerializerOptions? settings = null)
+        {
+            settings ??= DefaultTextJsonSerializerOptions;
+            return System.Text.Json.JsonSerializer.Deserialize<T>(json, settings);
+        }
+
+        /// <summary>
+        /// Deserializes a file using System.Text.Json.
+        /// Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotations to include and exclude them.
+        /// The defaults for what to include and exclude are different from Newtonsoft.Json.
+        /// </summary>
+        /// <param name="path">Filepath</param>
+        /// <param name="settings">If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All) </param>
+        /// <typeparam name="T"></typeparam>
+        public static T? DeserializeFastFromFile<T>(string path, System.Text.Json.JsonSerializerOptions? settings = null)
+        {
+            settings ??= DefaultTextJsonSerializerOptions;
+            using var fileStream = File.Open(path, FileMode.Open);
+            return System.Text.Json.JsonSerializer.Deserialize<T>(fileStream, settings);
         }
     }
 

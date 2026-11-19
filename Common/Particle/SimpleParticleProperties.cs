@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -249,14 +250,18 @@ namespace Vintagestory.API.Common
             writer.Write(IgnoreUserConfig);
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+            => reader.UnsafeActAsBinarySpanReader(resolver, FromBytes);
+
+        public void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
             MinQuantity = reader.ReadSingle();
             AddQuantity = reader.ReadSingle();
-            MinPos = Vec3d.CreateFromBytes(reader);
-            AddPos = Vec3d.CreateFromBytes(reader);
-            MinVelocity = Vec3f.CreateFromBytes(reader);
-            AddVelocity = Vec3f.CreateFromBytes(reader);
+            MinPos = Vec3d.CreateFromBytes(ref reader);
+            AddPos = Vec3d.CreateFromBytes(ref reader);
+            MinVelocity = Vec3f.CreateFromBytes(ref reader);
+            AddVelocity = Vec3f.CreateFromBytes(ref reader);
             LifeLength = reader.ReadSingle();
             GravityEffect = reader.ReadSingle();
             MinSize = reader.ReadSingle();
@@ -269,27 +274,27 @@ namespace Vintagestory.API.Common
 
             if (!reader.ReadBoolean())
             {
-                OpacityEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                OpacityEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                RedEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                RedEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                GreenEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                GreenEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                BlueEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                BlueEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
             if (!reader.ReadBoolean())
             {
-                SizeEvolve = EvolvingNatFloat.CreateFromBytes(reader);
+                SizeEvolve = EvolvingNatFloat.CreateFromBytes(ref reader);
             }
 
 
@@ -346,26 +351,20 @@ namespace Vintagestory.API.Common
             MinPos.Z = particlePos.Z;
         }
 
-        public SimpleParticleProperties Clone(IWorldAccessor worldForResovle)
+        public SimpleParticleProperties Clone(IWorldAccessor worldForResolve)
         {
             var cloned = new SimpleParticleProperties();
 
-            using (MemoryStream ms = new MemoryStream())
+            var ms = new MemoryStream();
+            using (var writer = new BinaryWriter(ms, System.Text.Encoding.UTF8, true))
             {
-                using (BinaryWriter writer = new BinaryWriter(ms, System.Text.Encoding.UTF8, true))
-                {
-                    ToBytes(writer);
-                }
-                ms.Position = 0;
-                using (BinaryReader reader = new BinaryReader(ms, System.Text.Encoding.UTF8))
-                {
-                    cloned.FromBytes(reader, worldForResovle);
-                }
+                ToBytes(writer);
             }
+
+            var reader = ms.UnsafeAsBinarySpanReader();
+            cloned.FromBytes(ref reader, worldForResolve);
 
             return cloned;
         }
-
-
     }
 }

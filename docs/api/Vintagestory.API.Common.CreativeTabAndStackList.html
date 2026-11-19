@@ -289,12 +289,49 @@ public string[] Tabs</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void FromBytes(BinaryReader reader, IClassRegistryAPI registry)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the BinarySpanReader overload.&quot;, true)]
+public void FromBytes(BinaryReader reader, IClassRegistryAPI registry)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd><p>The reader to read the json.</p>
+</dd>
+    <dt><code>registry</code> <a class="xref" href="Vintagestory.API.Common.IClassRegistryAPI.html">IClassRegistryAPI</a></dt>
+    <dd><p>The registry of blocks and items.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_CreativeTabAndStackList_FromBytes_" data-uid="Vintagestory.API.Common.CreativeTabAndStackList.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_CreativeTabAndStackList_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Common_IClassRegistryAPI_" data-uid="Vintagestory.API.Common.CreativeTabAndStackList.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Common.IClassRegistryAPI)">
+  FromBytes(ref BinarySpanReader, IClassRegistryAPI)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reads the blocks and items from the Json files and converts them to an array of tabs which contain those blocks and items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI registry)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd><p>The reader to read the json.</p>
 </dd>
     <dt><code>registry</code> <a class="xref" href="Vintagestory.API.Common.IClassRegistryAPI.html">IClassRegistryAPI</a></dt>

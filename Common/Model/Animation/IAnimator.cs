@@ -5,8 +5,6 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-#nullable disable
-
 namespace Vintagestory.API.Common
 {
     public class AttachmentPointAndPose
@@ -20,12 +18,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// The pose shared across all entities using the same shape. Don't use. It's used internally for calculating the animation state. Once calculated, the value is copied over to AnimModelMatrix
         /// </summary>
-        public ElementPose CachedPose;
+        public ElementPose? CachedPose;
 
         /// <summary>
         /// The attachment point
         /// </summary>
-        public AttachmentPoint AttachPoint;
+        public required AttachmentPoint AttachPoint;
 
         public AttachmentPointAndPose()
         {
@@ -79,7 +77,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         RunningAnimation[] Animations { get; }
 
-        RunningAnimation GetAnimationState(string code);
+        RunningAnimation? GetAnimationState(string code);
 
         /// <summary>
         /// Whether or not to calculate the animation matrices, required for GetAttachmentPointPose() to deliver correct values. Default on on the client, server side only on when the creature is dead
@@ -91,9 +89,9 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        AttachmentPointAndPose GetAttachmentPointPose(string code);
+        AttachmentPointAndPose? GetAttachmentPointPose(string code);
 
-        ElementPose GetPosebyName(string name, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase);
+        ElementPose? GetPosebyName(string name, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// The event fired on each frame.
@@ -119,12 +117,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// The animator for this animation manager
         /// </summary>
-        IAnimator Animator { get; set; }
+        IAnimator? Animator { get; set; }
 
         /// <summary>
         /// The head controller for this manager.
         /// </summary>
-        IHeadController HeadController { get; set; }
+        IHeadController? HeadController { get; set; }
 
         /// <summary>
         /// Initialization call for the animation manager.
@@ -140,7 +138,7 @@ namespace Vintagestory.API.Common
 
         bool IsAnimationActive(params string[] anims);
 
-        RunningAnimation GetAnimationState(string anim);
+        RunningAnimation? GetAnimationState(string anim);
 
         /// <summary>
         /// Starts an animation based on the AnimationMetaData, if it exists; returns false if it does not exist (or if unable to start it, e.g. because it is already playing)
@@ -161,13 +159,13 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="configCode">The json code.</param>
         /// <returns></returns>
-        bool StartAnimation(string configCode);
+        bool StartAnimation(string? configCode);
 
         /// <summary>
         /// Stops the animation.
         /// </summary>
         /// <param name="code">The code to stop the animation on</param>
-        void StopAnimation(string code);
+        void StopAnimation(string? code);
 
         /// <summary>
         /// Stops all currently playing animations
@@ -220,11 +218,11 @@ namespace Vintagestory.API.Common
         /// If given animation is running, will set its progress to the first animation frame
         /// </summary>
         /// <param name="beginholdAnim"></param>
-        void ResetAnimation(string beginholdAnim);
+        void ResetAnimation(string? beginholdAnim);
 
         void RegisterFrameCallback(AnimFrameCallback trigger);
 
-        IAnimator LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements);
+        IAnimator? LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements);
         void CopyOverAnimStates(RunningAnimation[] copyOverAnims, IAnimator animator);
     }
 }

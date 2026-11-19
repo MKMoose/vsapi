@@ -698,6 +698,49 @@ public virtual void OnLoadCollectibleMappings(IWorldAccessor worldForNewMappings
 
 
 
+  <a id="Vintagestory_API_Common_BlockEntityBehavior_OnPlacementBySchematicCustom_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnPlacementBySchematicCustom*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockEntityBehavior_OnPlacementBySchematicCustom_Vintagestory_API_Server_ICoreServerAPI_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Datastructures_ITreeAttribute_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnPlacementBySchematicCustom(Vintagestory.API.Server.ICoreServerAPI,Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Datastructures.ITreeAttribute)">
+  OnPlacementBySchematicCustom(ICoreServerAPI, IBlockAccessor, ITreeAttribute)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when a schematic is placed, the tree may contain special data for example to spawn door keys per dungeon.
+The custom data needs to be supplied via the SchematicPlacementData.Attributes when calling PlaceEntitiesAndBlockEntities or PlacePartial</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool OnPlacementBySchematicCustom(ICoreServerAPI sapi, IBlockAccessor worldAccessor, ITreeAttribute schematicTreeData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sapi</code> <a class="xref" href="Vintagestory.API.Server.ICoreServerAPI.html">ICoreServerAPI</a></dt>
+    <dd></dd>
+    <dt><code>worldAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dd></dd>
+    <dt><code>schematicTreeData</code> <a class="xref" href="Vintagestory.API.Datastructures.ITreeAttribute.html">ITreeAttribute</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>return true if the ITreeAttribute was modified</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedClientPacket_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedClientPacket*"></a>
 
   <h3 id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedClientPacket_Vintagestory_API_Common_IPlayer_System_Int32_System_Byte___" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedClientPacket(Vintagestory.API.Common.IPlayer,System.Int32,System.Byte[])">
@@ -709,16 +752,54 @@ public virtual void OnLoadCollectibleMappings(IWorldAccessor worldForNewMappings
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the SerializedData overload. Never override both.&quot;)]
+public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetId, byte[] packetData)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>fromPlayer</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
     <dd></dd>
-    <dt><code>packetid</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dt><code>packetData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedClientPacket_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedClientPacket*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_Vintagestory_API_Datastructures_SerializedData_Vintagestory_API_Common_BlockEntity_CachedAccessPerms__" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedClientPacket(Vintagestory.API.Server.IServerPlayer,System.Int32,Vintagestory.API.Datastructures.SerializedData,Vintagestory.API.Common.BlockEntity.CachedAccessPerms@)">
+  OnReceivedClientPacket(IServerPlayer, int, SerializedData, ref CachedAccessPerms)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnReceivedClientPacket(IServerPlayer fromPlayer, int packetId, SerializedData packetData, ref BlockEntity.CachedAccessPerms perms)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fromPlayer</code> <a class="xref" href="Vintagestory.API.Server.IServerPlayer.html">IServerPlayer</a></dt>
+    <dd></dd>
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>packetData</code> <a class="xref" href="Vintagestory.API.Datastructures.SerializedData.html">SerializedData</a></dt>
+    <dd></dd>
+    <dt><code>perms</code> <a class="xref" href="Vintagestory.API.Common.BlockEntity.html">BlockEntity</a>.<a class="xref" href="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.html">CachedAccessPerms</a></dt>
     <dd></dd>
   </dl>
 
@@ -744,14 +825,48 @@ public virtual void OnLoadCollectibleMappings(IWorldAccessor worldForNewMappings
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void OnReceivedServerPacket(int packetid, byte[] data)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the SerializedData overload. Never override both.&quot;)]
+public virtual void OnReceivedServerPacket(int packetId, byte[] packetData)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>packetid</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dt><code>packetData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedServerPacket_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedServerPacket*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockEntityBehavior_OnReceivedServerPacket_System_Int32_Vintagestory_API_Datastructures_SerializedData_" data-uid="Vintagestory.API.Common.BlockEntityBehavior.OnReceivedServerPacket(System.Int32,Vintagestory.API.Datastructures.SerializedData)">
+  OnReceivedServerPacket(int, SerializedData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>packetData</code> <a class="xref" href="Vintagestory.API.Datastructures.SerializedData.html">SerializedData</a></dt>
     <dd></dd>
   </dl>
 

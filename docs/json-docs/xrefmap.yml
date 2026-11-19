@@ -13,6 +13,18 @@ references:
   commentId: T:Vintagestory.API.Client.BlendedOverlayTexture
   fullName: Vintagestory.API.Client.BlendedOverlayTexture
   nameWithType: BlendedOverlayTexture
+- uid: Vintagestory.API.Client.BlendedOverlayTexture.Alpha
+  name: Alpha
+  href: jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.html#Vintagestory_API_Client_BlendedOverlayTexture_Alpha
+  commentId: F:Vintagestory.API.Client.BlendedOverlayTexture.Alpha
+  fullName: Vintagestory.API.Client.BlendedOverlayTexture.Alpha
+  nameWithType: BlendedOverlayTexture.Alpha
+- uid: Vintagestory.API.Client.BlendedOverlayTexture.AppliedTo
+  name: AppliedTo
+  href: jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.html#Vintagestory_API_Client_BlendedOverlayTexture_AppliedTo
+  commentId: F:Vintagestory.API.Client.BlendedOverlayTexture.AppliedTo
+  fullName: Vintagestory.API.Client.BlendedOverlayTexture.AppliedTo
+  nameWithType: BlendedOverlayTexture.AppliedTo
 - uid: Vintagestory.API.Client.BlendedOverlayTexture.Base
   name: Base
   href: jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.html#Vintagestory_API_Client_BlendedOverlayTexture_Base
@@ -25,6 +37,18 @@ references:
   commentId: F:Vintagestory.API.Client.BlendedOverlayTexture.BlendMode
   fullName: Vintagestory.API.Client.BlendedOverlayTexture.BlendMode
   nameWithType: BlendedOverlayTexture.BlendMode
+- uid: Vintagestory.API.Client.BlendedOverlayTexture.OffsetX
+  name: OffsetX
+  href: jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.html#Vintagestory_API_Client_BlendedOverlayTexture_OffsetX
+  commentId: F:Vintagestory.API.Client.BlendedOverlayTexture.OffsetX
+  fullName: Vintagestory.API.Client.BlendedOverlayTexture.OffsetX
+  nameWithType: BlendedOverlayTexture.OffsetX
+- uid: Vintagestory.API.Client.BlendedOverlayTexture.OffsetY
+  name: OffsetY
+  href: jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.html#Vintagestory_API_Client_BlendedOverlayTexture_OffsetY
+  commentId: F:Vintagestory.API.Client.BlendedOverlayTexture.OffsetY
+  fullName: Vintagestory.API.Client.BlendedOverlayTexture.OffsetY
+  nameWithType: BlendedOverlayTexture.OffsetY
 - uid: Vintagestory.API.Client.CompositeTexture
   name: CompositeTexture
   href: jsondocs/Vintagestory.API.Client.CompositeTexture.html
@@ -53,6 +77,13 @@ references:
   name: BlendedOverlays
   href: jsondocs/Vintagestory.API.Client.CompositeTexture.html#Vintagestory_API_Client_CompositeTexture_BlendedOverlays
   commentId: F:Vintagestory.API.Client.CompositeTexture.BlendedOverlays
+  fullName: Vintagestory.API.Client.CompositeTexture.BlendedOverlays
+  nameWithType: CompositeTexture.BlendedOverlays
+- uid: Vintagestory.API.Client.CompositeTexture.BlendedOverlays*
+  name: BlendedOverlays
+  href: jsondocs/Vintagestory.API.Client.CompositeTexture.html#Vintagestory_API_Client_CompositeTexture_BlendedOverlays_
+  commentId: Overload:Vintagestory.API.Client.CompositeTexture.BlendedOverlays
+  isSpec: "True"
   fullName: Vintagestory.API.Client.CompositeTexture.BlendedOverlays
   nameWithType: CompositeTexture.BlendedOverlays
 - uid: Vintagestory.API.Client.CompositeTexture.Overlays
@@ -882,10 +913,23 @@ references:
   commentId: F:Vintagestory.API.Common.AnimationMetaData.MulWithWalkSpeed
   fullName: Vintagestory.API.Common.AnimationMetaData.MulWithWalkSpeed
   nameWithType: AnimationMetaData.MulWithWalkSpeed
+- uid: Vintagestory.API.Common.AnimationMetaData.SuppressDefaultAnimation
+  name: SuppressDefaultAnimation
+  href: jsondocs/Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_SuppressDefaultAnimation
+  commentId: F:Vintagestory.API.Common.AnimationMetaData.SuppressDefaultAnimation
+  fullName: Vintagestory.API.Common.AnimationMetaData.SuppressDefaultAnimation
+  nameWithType: AnimationMetaData.SuppressDefaultAnimation
 - uid: Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation
   name: SupressDefaultAnimation
   href: jsondocs/Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation
   commentId: F:Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation
+  fullName: Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation
+  nameWithType: AnimationMetaData.SupressDefaultAnimation
+- uid: Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation*
+  name: SupressDefaultAnimation
+  href: jsondocs/Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation_
+  commentId: Overload:Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation
+  isSpec: "True"
   fullName: Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation
   nameWithType: AnimationMetaData.SupressDefaultAnimation
 - uid: Vintagestory.API.Common.AnimationMetaData.TriggeredBy
@@ -2010,6 +2054,12 @@ references:
   commentId: T:Vintagestory.API.Common.Entities.PhysicsBehaviorBase
   fullName: Vintagestory.API.Common.Entities.PhysicsBehaviorBase
   nameWithType: PhysicsBehaviorBase
+- uid: Vintagestory.API.Common.Entities.PhysicsBehaviorBase.MaxWalkableSlopeGrade
+  name: MaxWalkableSlopeGrade
+  href: jsondocs/Vintagestory.API.Common.Entities.PhysicsBehaviorBase.html#Vintagestory_API_Common_Entities_PhysicsBehaviorBase_MaxWalkableSlopeGrade
+  commentId: F:Vintagestory.API.Common.Entities.PhysicsBehaviorBase.MaxWalkableSlopeGrade
+  fullName: Vintagestory.API.Common.Entities.PhysicsBehaviorBase.MaxWalkableSlopeGrade
+  nameWithType: PhysicsBehaviorBase.MaxWalkableSlopeGrade
 - uid: Vintagestory.API.Common.Entities.QuantityByGroup
   name: QuantityByGroup
   href: jsondocs/Vintagestory.API.Common.Entities.QuantityByGroup.html
@@ -3246,6 +3296,32 @@ references:
   commentId: F:Vintagestory.API.Common.FoodNutritionProperties.Health
   fullName: Vintagestory.API.Common.FoodNutritionProperties.Health
   nameWithType: FoodNutritionProperties.Health
+- uid: Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec
+  name: HealthDurationSec
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_HealthDurationSec
+  commentId: F:Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec
+  nameWithType: FoodNutritionProperties.HealthDurationSec
+- uid: Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec*
+  name: HealthDurationSec
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_HealthDurationSec_
+  commentId: Overload:Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec
+  isSpec: "True"
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec
+  nameWithType: FoodNutritionProperties.HealthDurationSec
+- uid: Vintagestory.API.Common.FoodNutritionProperties.HealthTicks
+  name: HealthTicks
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_HealthTicks
+  commentId: F:Vintagestory.API.Common.FoodNutritionProperties.HealthTicks
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.HealthTicks
+  nameWithType: FoodNutritionProperties.HealthTicks
+- uid: Vintagestory.API.Common.FoodNutritionProperties.HealthTicks*
+  name: HealthTicks
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_HealthTicks_
+  commentId: Overload:Vintagestory.API.Common.FoodNutritionProperties.HealthTicks
+  isSpec: "True"
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.HealthTicks
+  nameWithType: FoodNutritionProperties.HealthTicks
 - uid: Vintagestory.API.Common.FoodNutritionProperties.Intoxication
   name: Intoxication
   href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_Intoxication
@@ -3278,6 +3354,12 @@ references:
   commentId: F:Vintagestory.API.Common.FoodNutritionProperties.Satiety
   fullName: Vintagestory.API.Common.FoodNutritionProperties.Satiety
   nameWithType: FoodNutritionProperties.Satiety
+- uid: Vintagestory.API.Common.FoodNutritionProperties.SatietyLossDelay
+  name: SatietyLossDelay
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_SatietyLossDelay
+  commentId: F:Vintagestory.API.Common.FoodNutritionProperties.SatietyLossDelay
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.SatietyLossDelay
+  nameWithType: FoodNutritionProperties.SatietyLossDelay
 - uid: Vintagestory.API.Common.FoodNutritionProperties.Saturation
   name: Saturation
   href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_Saturation
@@ -3295,6 +3377,13 @@ references:
   name: SaturationLossDelay
   href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_SaturationLossDelay
   commentId: F:Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay
+  fullName: Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay
+  nameWithType: FoodNutritionProperties.SaturationLossDelay
+- uid: Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay*
+  name: SaturationLossDelay
+  href: jsondocs/Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_SaturationLossDelay_
+  commentId: Overload:Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay
+  isSpec: "True"
   fullName: Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay
   nameWithType: FoodNutritionProperties.SaturationLossDelay
 - uid: Vintagestory.API.Common.GridRecipe
@@ -4158,6 +4247,24 @@ references:
   commentId: T:Vintagestory.API.MathTools.EnumColorBlendMode
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode
   nameWithType: EnumColorBlendMode
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMask
+  name: AlphaMask
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_AlphaMask
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMask
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMask
+  nameWithType: EnumColorBlendMode.AlphaMask
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhite
+  name: AlphaMaskBlackAndWhite
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_AlphaMaskBlackAndWhite
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhite
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhite
+  nameWithType: EnumColorBlendMode.AlphaMaskBlackAndWhite
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhiteInverted
+  name: AlphaMaskBlackAndWhiteInverted
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_AlphaMaskBlackAndWhiteInverted
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhiteInverted
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.AlphaMaskBlackAndWhiteInverted
+  nameWithType: EnumColorBlendMode.AlphaMaskBlackAndWhiteInverted
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.ColorBurn
   name: ColorBurn
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_ColorBurn
@@ -4176,24 +4283,60 @@ references:
   commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.Darken
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode.Darken
   nameWithType: EnumColorBlendMode.Darken
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.HueBlend
+  name: HueBlend
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_HueBlend
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.HueBlend
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.HueBlend
+  nameWithType: EnumColorBlendMode.HueBlend
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.HueSaturationBlend
+  name: HueSaturationBlend
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_HueSaturationBlend
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.HueSaturationBlend
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.HueSaturationBlend
+  nameWithType: EnumColorBlendMode.HueSaturationBlend
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.HueShift
+  name: HueShift
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_HueShift
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.HueShift
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.HueShift
+  nameWithType: EnumColorBlendMode.HueShift
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.Lighten
   name: Lighten
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Lighten
   commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.Lighten
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode.Lighten
   nameWithType: EnumColorBlendMode.Lighten
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.LuminosityBlend
+  name: LuminosityBlend
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_LuminosityBlend
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.LuminosityBlend
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.LuminosityBlend
+  nameWithType: EnumColorBlendMode.LuminosityBlend
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.Multiply
   name: Multiply
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Multiply
   commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.Multiply
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode.Multiply
   nameWithType: EnumColorBlendMode.Multiply
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.MultiplyPreserveAlpha
+  name: MultiplyPreserveAlpha
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_MultiplyPreserveAlpha
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.MultiplyPreserveAlpha
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.MultiplyPreserveAlpha
+  nameWithType: EnumColorBlendMode.MultiplyPreserveAlpha
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.Normal
   name: Normal
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Normal
   commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.Normal
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode.Normal
   nameWithType: EnumColorBlendMode.Normal
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.NormalPreserveAlpha
+  name: NormalPreserveAlpha
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_NormalPreserveAlpha
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.NormalPreserveAlpha
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.NormalPreserveAlpha
+  nameWithType: EnumColorBlendMode.NormalPreserveAlpha
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.Overlay
   name: Overlay
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Overlay
@@ -4206,6 +4349,18 @@ references:
   commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.OverlayCutout
   fullName: Vintagestory.API.MathTools.EnumColorBlendMode.OverlayCutout
   nameWithType: EnumColorBlendMode.OverlayCutout
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.Replace
+  name: Replace
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Replace
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.Replace
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.Replace
+  nameWithType: EnumColorBlendMode.Replace
+- uid: Vintagestory.API.MathTools.EnumColorBlendMode.SaturationBlend
+  name: SaturationBlend
+  href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_SaturationBlend
+  commentId: M:Vintagestory.API.MathTools.EnumColorBlendMode.SaturationBlend
+  fullName: Vintagestory.API.MathTools.EnumColorBlendMode.SaturationBlend
+  nameWithType: EnumColorBlendMode.SaturationBlend
 - uid: Vintagestory.API.MathTools.EnumColorBlendMode.Screen
   name: Screen
   href: jsondocs/Vintagestory.API.MathTools.EnumColorBlendMode.html#Vintagestory_API_MathTools_EnumColorBlendMode_Screen
@@ -4798,6 +4953,84 @@ references:
   isSpec: "True"
   fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeBySlotCode
   nameWithType: AttributeAttachableToEntity.AttachedShapeBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant
+  name: AttachedShapeByVariant
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariant
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant
+  nameWithType: AttributeAttachableToEntity.AttachedShapeByVariant
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant*
+  name: AttachedShapeByVariant
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariant_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant
+  nameWithType: AttributeAttachableToEntity.AttachedShapeByVariant
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+  name: AttachedShapeByVariantBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariantBySlotCode
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode*
+  name: AttachedShapeByVariantBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariantBySlotCode_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures
+  name: AttachedTextures
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTextures
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures
+  nameWithType: AttributeAttachableToEntity.AttachedTextures
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures*
+  name: AttachedTextures
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTextures_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures
+  nameWithType: AttributeAttachableToEntity.AttachedTextures
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode
+  name: AttachedTexturesBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesBySlotCode
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode*
+  name: AttachedTexturesBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesBySlotCode_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant
+  name: AttachedTexturesByVariant
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariant
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesByVariant
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant*
+  name: AttachedTexturesByVariant
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariant_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesByVariant
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+  name: AttachedTexturesByVariantBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariantBySlotCode
+  commentId: F:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+- uid: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode*
+  name: AttachedTexturesByVariantBySlotCode
+  href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariantBySlotCode_
+  commentId: Overload:Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
+  nameWithType: AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode
 - uid: Vintagestory.GameContent.AttributeAttachableToEntity.CategoryCode
   name: CategoryCode
   href: jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.html#Vintagestory_GameContent_AttributeAttachableToEntity_CategoryCode
@@ -6423,18 +6656,38 @@ references:
   commentId: T:Vintagestory.GameContent.EntityBehaviorGait
   fullName: Vintagestory.GameContent.EntityBehaviorGait
   nameWithType: EntityBehaviorGait
-- uid: Vintagestory.GameContent.EntityBehaviorGait.gaits
-  name: gaits
-  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_gaits
-  commentId: F:Vintagestory.GameContent.EntityBehaviorGait.gaits
-  fullName: Vintagestory.GameContent.EntityBehaviorGait.gaits
-  nameWithType: EntityBehaviorGait.gaits
-- uid: Vintagestory.GameContent.EntityBehaviorGait.idleGait
-  name: idleGait
-  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_idleGait
-  commentId: F:Vintagestory.GameContent.EntityBehaviorGait.idleGait
-  fullName: Vintagestory.GameContent.EntityBehaviorGait.idleGait
-  nameWithType: EntityBehaviorGait.idleGait
+- uid: Vintagestory.GameContent.EntityBehaviorGait.Gaits
+  name: Gaits
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_Gaits
+  commentId: F:Vintagestory.GameContent.EntityBehaviorGait.Gaits
+  fullName: Vintagestory.GameContent.EntityBehaviorGait.Gaits
+  nameWithType: EntityBehaviorGait.Gaits
+- uid: Vintagestory.GameContent.EntityBehaviorGait.Gaits*
+  name: Gaits
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_Gaits_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorGait.Gaits
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorGait.Gaits
+  nameWithType: EntityBehaviorGait.Gaits
+- uid: Vintagestory.GameContent.EntityBehaviorGait.IdleGaits
+  name: IdleGaits
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_IdleGaits
+  commentId: F:Vintagestory.GameContent.EntityBehaviorGait.IdleGaits
+  fullName: Vintagestory.GameContent.EntityBehaviorGait.IdleGaits
+  nameWithType: EntityBehaviorGait.IdleGaits
+- uid: Vintagestory.GameContent.EntityBehaviorGait.IdleGaits*
+  name: IdleGaits
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_IdleGaits_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorGait.IdleGaits
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorGait.IdleGaits
+  nameWithType: EntityBehaviorGait.IdleGaits
+- uid: Vintagestory.GameContent.EntityBehaviorGait.NavigateUsingGaits
+  name: NavigateUsingGaits
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorGait.html#Vintagestory_GameContent_EntityBehaviorGait_NavigateUsingGaits
+  commentId: F:Vintagestory.GameContent.EntityBehaviorGait.NavigateUsingGaits
+  fullName: Vintagestory.GameContent.EntityBehaviorGait.NavigateUsingGaits
+  nameWithType: EntityBehaviorGait.NavigateUsingGaits
 - uid: Vintagestory.GameContent.EntityBehaviorGrow
   name: EntityBehaviorGrow
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorGrow.html
@@ -6647,6 +6900,71 @@ references:
   isSpec: "True"
   fullName: Vintagestory.GameContent.EntityBehaviorHunger.MaxSaturation
   nameWithType: EntityBehaviorHunger.MaxSaturation
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump
+  name: SatietyLossPerJump
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerJump
+  commentId: F:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump
+  nameWithType: EntityBehaviorHunger.SatietyLossPerJump
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump*
+  name: SatietyLossPerJump
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerJump_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerJump
+  nameWithType: EntityBehaviorHunger.SatietyLossPerJump
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond
+  name: SatietyLossPerMovementSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerMovementSecond
+  commentId: F:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerMovementSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond*
+  name: SatietyLossPerMovementSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerMovementSecond_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerMovementSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerMovementSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond
+  name: SatietyLossPerSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSecond
+  commentId: F:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond*
+  name: SatietyLossPerSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSecond_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond
+  name: SatietyLossPerSprintSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSprintSecond
+  commentId: F:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSprintSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond*
+  name: SatietyLossPerSprintSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSprintSecond_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSprintSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSprintSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond
+  name: SatietyLossPerSwimSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSwimSecond
+  commentId: F:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSwimSecond
+- uid: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond*
+  name: SatietyLossPerSwimSecond
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_SatietyLossPerSwimSecond_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorHunger.SatietyLossPerSwimSecond
+  nameWithType: EntityBehaviorHunger.SatietyLossPerSwimSecond
 - uid: Vintagestory.GameContent.EntityBehaviorHunger.Saturation
   name: Saturation
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorHunger.html#Vintagestory_GameContent_EntityBehaviorHunger_Saturation
@@ -6672,6 +6990,60 @@ references:
   commentId: P:Vintagestory.GameContent.EntityBehaviorIdleAnimations.randomIdleAnimations
   fullName: Vintagestory.GameContent.EntityBehaviorIdleAnimations.randomIdleAnimations
   nameWithType: EntityBehaviorIdleAnimations.randomIdleAnimations
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider
+  name: EntityBehaviorKinematicCollider
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html
+  commentId: T:Vintagestory.GameContent.EntityBehaviorKinematicCollider
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider
+  nameWithType: EntityBehaviorKinematicCollider
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CarryEntities
+  name: CarryEntities
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_CarryEntities
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.CarryEntities
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CarryEntities
+  nameWithType: EntityBehaviorKinematicCollider.CarryEntities
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.ColliderCode
+  name: ColliderCode
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_ColliderCode
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.ColliderCode
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.ColliderCode
+  nameWithType: EntityBehaviorKinematicCollider.ColliderCode
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionBoxes
+  name: CollisionBoxes
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_CollisionBoxes
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionBoxes
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionBoxes
+  nameWithType: EntityBehaviorKinematicCollider.CollisionBoxes
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionLayer
+  name: CollisionLayer
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_CollisionLayer
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionLayer
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionLayer
+  nameWithType: EntityBehaviorKinematicCollider.CollisionLayer
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionMask
+  name: CollisionMask
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_CollisionMask
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionMask
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionMask
+  nameWithType: EntityBehaviorKinematicCollider.CollisionMask
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionShape
+  name: CollisionShape
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_CollisionShape
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionShape
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.CollisionShape
+  nameWithType: EntityBehaviorKinematicCollider.CollisionShape
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.KeepsSupportedEntitiesDry
+  name: KeepsSupportedEntitiesDry
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_KeepsSupportedEntitiesDry
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.KeepsSupportedEntitiesDry
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.KeepsSupportedEntitiesDry
+  nameWithType: EntityBehaviorKinematicCollider.KeepsSupportedEntitiesDry
+- uid: Vintagestory.GameContent.EntityBehaviorKinematicCollider.RotateWithEntity
+  name: RotateWithEntity
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html#Vintagestory_GameContent_EntityBehaviorKinematicCollider_RotateWithEntity
+  commentId: F:Vintagestory.GameContent.EntityBehaviorKinematicCollider.RotateWithEntity
+  fullName: Vintagestory.GameContent.EntityBehaviorKinematicCollider.RotateWithEntity
+  nameWithType: EntityBehaviorKinematicCollider.RotateWithEntity
 - uid: Vintagestory.GameContent.EntityBehaviorMilkable
   name: EntityBehaviorMilkable
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorMilkable.html
@@ -6744,12 +7116,49 @@ references:
   commentId: T:Vintagestory.GameContent.EntityBehaviorMultiply
   fullName: Vintagestory.GameContent.EntityBehaviorMultiply
   nameWithType: EntityBehaviorMultiply
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks
+  name: CrowdingDistanceChecks
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingDistanceChecks
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks
+  nameWithType: EntityBehaviorMultiply.CrowdingDistanceChecks
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks*
+  name: CrowdingDistanceChecks
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingDistanceChecks_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks
+  nameWithType: EntityBehaviorMultiply.CrowdingDistanceChecks
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingTags
+  name: CrowdingTags
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingTags
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingTags
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingTags
+  nameWithType: EntityBehaviorMultiply.CrowdingTags
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageChance
+  name: MiscarriageChance
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_MiscarriageChance
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageChance
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageChance
+  nameWithType: EntityBehaviorMultiply.MiscarriageChance
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageCooldown
+  name: MiscarriageCooldown
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_MiscarriageCooldown
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageCooldown
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageCooldown
+  nameWithType: EntityBehaviorMultiply.MiscarriageCooldown
 - uid: Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyDays
   name: PregnancyDays
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_PregnancyDays
   commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyDays
   fullName: Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyDays
   nameWithType: EntityBehaviorMultiply.PregnancyDays
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyLengthVariation
+  name: PregnancyLengthVariation
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_PregnancyLengthVariation
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyLengthVariation
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyLengthVariation
+  nameWithType: EntityBehaviorMultiply.PregnancyLengthVariation
 - uid: Vintagestory.GameContent.EntityBehaviorMultiply.RequiresNearbyEntityCodes
   name: RequiresNearbyEntityCodes
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_RequiresNearbyEntityCodes
@@ -6768,6 +7177,12 @@ references:
   commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.SpawnEntityCodes
   fullName: Vintagestory.GameContent.EntityBehaviorMultiply.SpawnEntityCodes
   nameWithType: EntityBehaviorMultiply.SpawnEntityCodes
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityChance
+  name: SpawnQuantityChance
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_SpawnQuantityChance
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityChance
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityChance
+  nameWithType: EntityBehaviorMultiply.SpawnQuantityChance
 - uid: Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityMax
   name: SpawnQuantityMax
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_SpawnQuantityMax
@@ -6780,6 +7195,25 @@ references:
   commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityMin
   fullName: Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityMin
   nameWithType: EntityBehaviorMultiply.SpawnQuantityMin
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity
+  name: SquareMetersPerEntity
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_SquareMetersPerEntity
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity
+  nameWithType: EntityBehaviorMultiply.SquareMetersPerEntity
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity*
+  name: SquareMetersPerEntity
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_SquareMetersPerEntity_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity
+  nameWithType: EntityBehaviorMultiply.SquareMetersPerEntity
+- uid: Vintagestory.GameContent.EntityBehaviorMultiply.ViabilityCheckDelay
+  name: ViabilityCheckDelay
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_ViabilityCheckDelay
+  commentId: F:Vintagestory.GameContent.EntityBehaviorMultiply.ViabilityCheckDelay
+  fullName: Vintagestory.GameContent.EntityBehaviorMultiply.ViabilityCheckDelay
+  nameWithType: EntityBehaviorMultiply.ViabilityCheckDelay
 - uid: Vintagestory.GameContent.EntityBehaviorMultiply.requiresNearbyEntityCode
   name: requiresNearbyEntityCode
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorMultiply.html#Vintagestory_GameContent_EntityBehaviorMultiply_requiresNearbyEntityCode
@@ -6848,6 +7282,19 @@ references:
   isSpec: "True"
   fullName: Vintagestory.GameContent.EntityBehaviorNameTag.RenderRange
   nameWithType: EntityBehaviorNameTag.RenderRange
+- uid: Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName
+  name: ReplaceDefaultName
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorNameTag.html#Vintagestory_GameContent_EntityBehaviorNameTag_ReplaceDefaultName
+  commentId: F:Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName
+  fullName: Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName
+  nameWithType: EntityBehaviorNameTag.ReplaceDefaultName
+- uid: Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName*
+  name: ReplaceDefaultName
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorNameTag.html#Vintagestory_GameContent_EntityBehaviorNameTag_ReplaceDefaultName_
+  commentId: Overload:Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName
+  isSpec: "True"
+  fullName: Vintagestory.GameContent.EntityBehaviorNameTag.ReplaceDefaultName
+  nameWithType: EntityBehaviorNameTag.ReplaceDefaultName
 - uid: Vintagestory.GameContent.EntityBehaviorNameTag.ShowOnlyWhenTargeted
   name: ShowOnlyWhenTargeted
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorNameTag.html#Vintagestory_GameContent_EntityBehaviorNameTag_ShowOnlyWhenTargeted
@@ -7042,7 +7489,7 @@ references:
 - uid: Vintagestory.GameContent.EntityBehaviorRideable.saddleBreaksRequired
   name: saddleBreaksRequired
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorRideable.html#Vintagestory_GameContent_EntityBehaviorRideable_saddleBreaksRequired
-  commentId: P:Vintagestory.GameContent.EntityBehaviorRideable.saddleBreaksRequired
+  commentId: F:Vintagestory.GameContent.EntityBehaviorRideable.saddleBreaksRequired
   fullName: Vintagestory.GameContent.EntityBehaviorRideable.saddleBreaksRequired
   nameWithType: EntityBehaviorRideable.saddleBreaksRequired
 - uid: Vintagestory.GameContent.EntityBehaviorRideable.tamedEntityCode
@@ -7099,12 +7546,12 @@ references:
   commentId: T:Vintagestory.GameContent.EntityBehaviorSelectionBoxes
   fullName: Vintagestory.GameContent.EntityBehaviorSelectionBoxes
   nameWithType: EntityBehaviorSelectionBoxes
-- uid: Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxCodes
-  name: selectionBoxCodes
-  href: jsondocs/Vintagestory.GameContent.EntityBehaviorSelectionBoxes.html#Vintagestory_GameContent_EntityBehaviorSelectionBoxes_selectionBoxCodes
-  commentId: F:Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxCodes
-  fullName: Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxCodes
-  nameWithType: EntityBehaviorSelectionBoxes.selectionBoxCodes
+- uid: Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxConfigs
+  name: selectionBoxConfigs
+  href: jsondocs/Vintagestory.GameContent.EntityBehaviorSelectionBoxes.html#Vintagestory_GameContent_EntityBehaviorSelectionBoxes_selectionBoxConfigs
+  commentId: F:Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxConfigs
+  fullName: Vintagestory.GameContent.EntityBehaviorSelectionBoxes.selectionBoxConfigs
+  nameWithType: EntityBehaviorSelectionBoxes.selectionBoxConfigs
 - uid: Vintagestory.GameContent.EntityBehaviorSemiTamed
   name: EntityBehaviorSemiTamed
   href: jsondocs/Vintagestory.GameContent.EntityBehaviorSemiTamed.html
@@ -7232,12 +7679,12 @@ references:
   commentId: F:Vintagestory.GameContent.GaitMeta.Natural
   fullName: Vintagestory.GameContent.GaitMeta.Natural
   nameWithType: GaitMeta.Natural
-- uid: Vintagestory.GameContent.GaitMeta.Sound
-  name: Sound
-  href: jsondocs/Vintagestory.GameContent.GaitMeta.html#Vintagestory_GameContent_GaitMeta_Sound
-  commentId: F:Vintagestory.GameContent.GaitMeta.Sound
-  fullName: Vintagestory.GameContent.GaitMeta.Sound
-  nameWithType: GaitMeta.Sound
+- uid: Vintagestory.GameContent.GaitMeta.SoundCode
+  name: SoundCode
+  href: jsondocs/Vintagestory.GameContent.GaitMeta.html#Vintagestory_GameContent_GaitMeta_SoundCode
+  commentId: F:Vintagestory.GameContent.GaitMeta.SoundCode
+  fullName: Vintagestory.GameContent.GaitMeta.SoundCode
+  nameWithType: GaitMeta.SoundCode
 - uid: Vintagestory.GameContent.GaitMeta.StaminaCost
   name: StaminaCost
   href: jsondocs/Vintagestory.GameContent.GaitMeta.html#Vintagestory_GameContent_GaitMeta_StaminaCost
@@ -7250,12 +7697,72 @@ references:
   commentId: F:Vintagestory.GameContent.GaitMeta.YawMultiplier
   fullName: Vintagestory.GameContent.GaitMeta.YawMultiplier
   nameWithType: GaitMeta.YawMultiplier
+- uid: Vintagestory.GameContent.InPieProperties
+  name: InPieProperties
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html
+  commentId: T:Vintagestory.GameContent.InPieProperties
+  fullName: Vintagestory.GameContent.InPieProperties
+  nameWithType: InPieProperties
+- uid: Vintagestory.GameContent.InPieProperties.AllowMixing
+  name: AllowMixing
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_AllowMixing
+  commentId: F:Vintagestory.GameContent.InPieProperties.AllowMixing
+  fullName: Vintagestory.GameContent.InPieProperties.AllowMixing
+  nameWithType: InPieProperties.AllowMixing
+- uid: Vintagestory.GameContent.InPieProperties.FoodCategory
+  name: FoodCategory
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_FoodCategory
+  commentId: F:Vintagestory.GameContent.InPieProperties.FoodCategory
+  fullName: Vintagestory.GameContent.InPieProperties.FoodCategory
+  nameWithType: InPieProperties.FoodCategory
+- uid: Vintagestory.GameContent.InPieProperties.MixingCodes
+  name: MixingCodes
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_MixingCodes
+  commentId: F:Vintagestory.GameContent.InPieProperties.MixingCodes
+  fullName: Vintagestory.GameContent.InPieProperties.MixingCodes
+  nameWithType: InPieProperties.MixingCodes
+- uid: Vintagestory.GameContent.InPieProperties.PartType
+  name: PartType
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_PartType
+  commentId: F:Vintagestory.GameContent.InPieProperties.PartType
+  fullName: Vintagestory.GameContent.InPieProperties.PartType
+  nameWithType: InPieProperties.PartType
+- uid: Vintagestory.GameContent.InPieProperties.PortionSize
+  name: PortionSize
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_PortionSize
+  commentId: F:Vintagestory.GameContent.InPieProperties.PortionSize
+  fullName: Vintagestory.GameContent.InPieProperties.PortionSize
+  nameWithType: InPieProperties.PortionSize
+- uid: Vintagestory.GameContent.InPieProperties.PortionSizeLitres
+  name: PortionSizeLitres
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_PortionSizeLitres
+  commentId: F:Vintagestory.GameContent.InPieProperties.PortionSizeLitres
+  fullName: Vintagestory.GameContent.InPieProperties.PortionSizeLitres
+  nameWithType: InPieProperties.PortionSizeLitres
+- uid: Vintagestory.GameContent.InPieProperties.Texture
+  name: Texture
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_Texture
+  commentId: F:Vintagestory.GameContent.InPieProperties.Texture
+  fullName: Vintagestory.GameContent.InPieProperties.Texture
+  nameWithType: InPieProperties.Texture
+- uid: Vintagestory.GameContent.InPieProperties.ToppingShapeElement
+  name: ToppingShapeElement
+  href: jsondocs/Vintagestory.GameContent.InPieProperties.html#Vintagestory_GameContent_InPieProperties_ToppingShapeElement
+  commentId: F:Vintagestory.GameContent.InPieProperties.ToppingShapeElement
+  fullName: Vintagestory.GameContent.InPieProperties.ToppingShapeElement
+  nameWithType: InPieProperties.ToppingShapeElement
 - uid: Vintagestory.GameContent.KnappingRecipe
   name: KnappingRecipe
   href: jsondocs/Vintagestory.GameContent.KnappingRecipe.html
   commentId: T:Vintagestory.GameContent.KnappingRecipe
   fullName: Vintagestory.GameContent.KnappingRecipe
   nameWithType: KnappingRecipe
+- uid: Vintagestory.GameContent.LiquidTopOpenContainerProps
+  name: LiquidTopOpenContainerProps
+  href: jsondocs/Vintagestory.GameContent.LiquidTopOpenContainerProps.html
+  commentId: T:Vintagestory.GameContent.LiquidTopOpenContainerProps
+  fullName: Vintagestory.GameContent.LiquidTopOpenContainerProps
+  nameWithType: LiquidTopOpenContainerProps
 - uid: Vintagestory.GameContent.Mechanics
   name: Vintagestory.GameContent.Mechanics
   href: jsondocs/Vintagestory.GameContent.Mechanics.html
@@ -7286,6 +7793,12 @@ references:
   commentId: F:Vintagestory.GameContent.MetalAlloyIngredient.MinRatio
   fullName: Vintagestory.GameContent.MetalAlloyIngredient.MinRatio
   nameWithType: MetalAlloyIngredient.MinRatio
+- uid: Vintagestory.GameContent.PieTopCrustType
+  name: PieTopCrustType
+  href: jsondocs/Vintagestory.GameContent.PieTopCrustType.html
+  commentId: T:Vintagestory.GameContent.PieTopCrustType
+  fullName: Vintagestory.GameContent.PieTopCrustType
+  nameWithType: PieTopCrustType
 - uid: Vintagestory.GameContent.SkinnablePart
   name: SkinnablePart
   href: jsondocs/Vintagestory.GameContent.SkinnablePart.html
@@ -7436,6 +7949,12 @@ references:
   commentId: F:Vintagestory.GameContent.TextAreaConfig.MaxHeight
   fullName: Vintagestory.GameContent.TextAreaConfig.MaxHeight
   nameWithType: TextAreaConfig.MaxHeight
+- uid: Vintagestory.GameContent.TextAreaConfig.MaxLength
+  name: MaxLength
+  href: jsondocs/Vintagestory.GameContent.TextAreaConfig.html#Vintagestory_GameContent_TextAreaConfig_MaxLength
+  commentId: F:Vintagestory.GameContent.TextAreaConfig.MaxLength
+  fullName: Vintagestory.GameContent.TextAreaConfig.MaxLength
+  nameWithType: TextAreaConfig.MaxLength
 - uid: Vintagestory.GameContent.TextAreaConfig.MaxWidth
   name: MaxWidth
   href: jsondocs/Vintagestory.GameContent.TextAreaConfig.html#Vintagestory_GameContent_TextAreaConfig_MaxWidth
@@ -7484,6 +8003,12 @@ references:
   commentId: F:Vintagestory.GameContent.TextAreaConfig.textVoxelWidth
   fullName: Vintagestory.GameContent.TextAreaConfig.textVoxelWidth
   nameWithType: TextAreaConfig.textVoxelWidth
+- uid: Vintagestory.GameContent.WaterTightContainableProps
+  name: WaterTightContainableProps
+  href: jsondocs/Vintagestory.GameContent.WaterTightContainableProps.html
+  commentId: T:Vintagestory.GameContent.WaterTightContainableProps
+  fullName: Vintagestory.GameContent.WaterTightContainableProps
+  nameWithType: WaterTightContainableProps
 - uid: Vintagestory.GameContent.WearableSlotConfig
   name: WearableSlotConfig
   href: jsondocs/Vintagestory.GameContent.WearableSlotConfig.html
@@ -7671,6 +8196,12 @@ references:
   commentId: F:Vintagestory.ServerMods.NoObf.BlockType.Ambientocclusion
   fullName: Vintagestory.ServerMods.NoObf.BlockType.Ambientocclusion
   nameWithType: BlockType.Ambientocclusion
+- uid: Vintagestory.ServerMods.NoObf.BlockType.BleedCornerOverlayTexture
+  name: BleedCornerOverlayTexture
+  href: jsondocs/Vintagestory.ServerMods.NoObf.BlockType.html#Vintagestory_ServerMods_NoObf_BlockType_BleedCornerOverlayTexture
+  commentId: F:Vintagestory.ServerMods.NoObf.BlockType.BleedCornerOverlayTexture
+  fullName: Vintagestory.ServerMods.NoObf.BlockType.BleedCornerOverlayTexture
+  nameWithType: BlockType.BleedCornerOverlayTexture
 - uid: Vintagestory.ServerMods.NoObf.BlockType.BleedGroup
   name: BleedGroup
   href: jsondocs/Vintagestory.ServerMods.NoObf.BlockType.html#Vintagestory_ServerMods_NoObf_BlockType_BleedGroup
@@ -8128,6 +8659,12 @@ references:
   commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.CrushingProps
   fullName: Vintagestory.ServerMods.NoObf.CollectibleType.CrushingProps
   nameWithType: CollectibleType.CrushingProps
+- uid: Vintagestory.ServerMods.NoObf.CollectibleType.DamageType
+  name: DamageType
+  href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_DamageType
+  commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.DamageType
+  fullName: Vintagestory.ServerMods.NoObf.CollectibleType.DamageType
+  nameWithType: CollectibleType.DamageType
 - uid: Vintagestory.ServerMods.NoObf.CollectibleType.DamagedBy
   name: DamagedBy
   href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_DamagedBy
@@ -8219,12 +8756,36 @@ references:
   commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitAnimation
   fullName: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitAnimation
   nameWithType: CollectibleType.HeldTpHitAnimation
+- uid: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitCombo
+  name: HeldTpHitCombo
+  href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitCombo
+  commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitCombo
+  fullName: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitCombo
+  nameWithType: CollectibleType.HeldTpHitCombo
+- uid: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitComboAim
+  name: HeldTpHitComboAim
+  href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitComboAim
+  commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitComboAim
+  fullName: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitComboAim
+  nameWithType: CollectibleType.HeldTpHitComboAim
+- uid: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitSprintAnimation
+  name: HeldTpHitSprintAnimation
+  href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitSprintAnimation
+  commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitSprintAnimation
+  fullName: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitSprintAnimation
+  nameWithType: CollectibleType.HeldTpHitSprintAnimation
 - uid: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpUseAnimation
   name: HeldTpUseAnimation
   href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpUseAnimation
   commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpUseAnimation
   fullName: Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpUseAnimation
   nameWithType: CollectibleType.HeldTpUseAnimation
+- uid: Vintagestory.ServerMods.NoObf.CollectibleType.KnockbackStrength
+  name: KnockbackStrength
+  href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_KnockbackStrength
+  commentId: F:Vintagestory.ServerMods.NoObf.CollectibleType.KnockbackStrength
+  fullName: Vintagestory.ServerMods.NoObf.CollectibleType.KnockbackStrength
+  nameWithType: CollectibleType.KnockbackStrength
 - uid: Vintagestory.ServerMods.NoObf.CollectibleType.LightHsv
   name: LightHsv
   href: jsondocs/Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_LightHsv
@@ -8455,6 +9016,12 @@ references:
   commentId: F:Vintagestory.ServerMods.NoObf.EntityType.DeadSelectionBoxSize
   fullName: Vintagestory.ServerMods.NoObf.EntityType.DeadSelectionBoxSize
   nameWithType: EntityType.DeadSelectionBoxSize
+- uid: Vintagestory.ServerMods.NoObf.EntityType.DebugColor
+  name: DebugColor
+  href: jsondocs/Vintagestory.ServerMods.NoObf.EntityType.html#Vintagestory_ServerMods_NoObf_EntityType_DebugColor
+  commentId: F:Vintagestory.ServerMods.NoObf.EntityType.DebugColor
+  fullName: Vintagestory.ServerMods.NoObf.EntityType.DebugColor
+  nameWithType: EntityType.DebugColor
 - uid: Vintagestory.ServerMods.NoObf.EntityType.Drops
   name: Drops
   href: jsondocs/Vintagestory.ServerMods.NoObf.EntityType.html#Vintagestory_ServerMods_NoObf_EntityType_Drops

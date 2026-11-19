@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -23,7 +23,9 @@ public class PModuleOnGround : PModule
     // Time the player can walk off an edge before gravity applies.
     private float coyoteTimer;
     // Getting knocked back disables coyote time for a while
-    private float antiCoyoteTimer;
+    private float knockBackTimer;
+
+    private float knockbackStrength;
 
     private double motionDeltaX;
     private double motionDeltaZ;
@@ -37,7 +39,7 @@ public class PModuleOnGround : PModule
     {
         bool onGround = entity.OnGround && !entity.Swimming;
 
-        if (onGround && antiCoyoteTimer <= 0)
+        if (onGround && knockBackTimer <= 0)
         {
             coyoteTimer = 0.15f;
         }
@@ -45,11 +47,12 @@ public class PModuleOnGround : PModule
         if (coyoteTimer > 0)
         {
             if (entity.Attributes.GetInt("dmgkb") > 0)
-        {
-            coyoteTimer = 0;
-            antiCoyoteTimer = 0.16f;
+            {
+                coyoteTimer = 0;
+                knockbackStrength = Math.Min(1f, (float)entity.WatchedAttributes.GetDouble("kbstrength") * 4);
+                knockBackTimer = knockbackStrength;
                 return onGround;    //  Effectively:     return onGround || coyoteTimer > 0;
-        }
+            }
 
             return true;
         }
@@ -62,10 +65,19 @@ public class PModuleOnGround : PModule
         // Tick coyote time.
         coyoteTimer -= dt;
 
-        if (antiCoyoteTimer > 0) antiCoyoteTimer = Math.Max(0, antiCoyoteTimer - dt);    // radfast 6.2.25: coded for performance, antiCoyoteTimer is rarely non-zero, only following knockback
+        if (knockBackTimer > 0)
+        {
+            knockBackTimer = Math.Max(0, knockBackTimer - dt);
+        }
+
+        if (knockBackTimer > knockbackStrength / 2)
+        {
+            return;
+        }
 
         // Get block below's drag - or lack thereof, in the case of ice :)
-        float belowBlockDragMultiplier = entity.World.BlockAccessor.GetBlockRaw((int)pos.X, (int)(pos.InternalY - 0.05f), (int)pos.Z).DragMultiplier;
+        Block belowBlock = entity.World.BlockAccessor.GetBlockRaw((int)pos.X, (int)(pos.InternalY - 0.05f), (int)pos.Z);
+        float belowBlockDragMultiplier = !entity.FeetInLiquid && belowBlock.IsLiquid() ? 1 : belowBlock.DragMultiplier;
 
         // Only accumulator in physics modules.
         float accum = Math.Min(1, this.accum + dt);    // Local variable for accum for performance, we set back the field at the end of checks
@@ -77,6 +89,13 @@ public class PModuleOnGround : PModule
         double walkZ = controls.WalkVector.Z * multiplier;
         var motion = pos.Motion;
         double groundDrag = 1 - groundDragFactor;
+
+        if (knockBackTimer > 0f)
+        {
+            walkX = walkZ = 0;
+            groundDrag += groundDragFactor * knockBackTimer / knockbackStrength;
+        }
+
         while (accum > frameTime)                   // radfast 6.2.25: This is always going to be true at least once and likely twice on a server, as frameTime is so small. Therefore in perfomance terms it's OK to get the belowBlock even prior to testing this condition
         {
             accum -= frameTime;
@@ -110,6 +129,7 @@ public class PModuleOnGround : PModule
             // Play jump sound.
             IPlayer player = entityPlayer?.World.PlayerByUid(entityPlayer.PlayerUID);
             entity.PlayEntitySound("jump", player);
+            entity.OnEntityJump();
         }
     }
 }

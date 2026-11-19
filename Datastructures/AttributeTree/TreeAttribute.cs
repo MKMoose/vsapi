@@ -1,8 +1,8 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,19 +10,18 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
-
-#nullable disable
+using Vintagestory.Datastructures;
 
 namespace Vintagestory.API.Datastructures
 {
     public static class TreeAttributeUtil
     {
-        public static Vec3i GetVec3i(this ITreeAttribute tree, string code, Vec3i defaultValue = null)
+        public static Vec3i? GetVec3i(this ITreeAttribute tree, string code, Vec3i? defaultValue = null)
         {
             if (!(tree.TryGetAttribute(code + "X", out var attr) && attr is IntAttribute codeX)) return defaultValue;
             return new Vec3i(codeX.value, tree.GetInt(code + "Y"), tree.GetInt(code + "Z"));
         }
-        public static BlockPos GetBlockPos(this ITreeAttribute tree, string code, BlockPos defaultValue = null)
+        public static BlockPos? GetBlockPos(this ITreeAttribute tree, string code, BlockPos? defaultValue = null)
         {
             if (!(tree.TryGetAttribute(code + "X", out var attr) && attr is IntAttribute codeX)) return defaultValue;
             return new BlockPos(codeX.value, tree.GetInt(code + "Y"), tree.GetInt(code + "Z"));
@@ -43,7 +42,7 @@ namespace Vintagestory.API.Datastructures
             tree.SetInt(code + "Z", value.Z);
         }
 
-        public static Vec3i[] GetVec3is(this ITreeAttribute tree, string code, Vec3i[] defaultValue = null)
+        public static Vec3i[]? GetVec3is(this ITreeAttribute tree, string code, Vec3i[]? defaultValue = null)
         {
             if (!(tree.TryGetAttribute(code + "X", out var attrX) && attrX is IntArrayAttribute codeX)) return defaultValue;
             if (!(tree.TryGetAttribute(code + "Y", out var attrY) && attrY is IntArrayAttribute codeY)) return defaultValue;
@@ -88,7 +87,7 @@ namespace Vintagestory.API.Datastructures
     /// <summary>
     /// A datastructure to hold generic data for most primitives (int, string, float, etc.). But can also hold generic data using the ByteArrayAttribute + class serialization
     /// </summary>
-    public class TreeAttribute : ITreeAttribute
+    public class TreeAttribute : ITreeAttribute, IHashWithIgnoredAttributes
     {
         private const int AttributeID = 6;
         public static Dictionary<int, Type> AttributeIdMapping = new Dictionary<int, Type>();
@@ -101,17 +100,11 @@ namespace Vintagestory.API.Datastructures
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public IAttribute this[string key]
+        [DisallowNull]
+        public IAttribute? this[string key]
         {
-            get
-            {
-                return attributes.TryGetValue(key);
-            }
-
-            set
-            {
-                attributes[key] = value;
-            }
+            get => attributes.TryGetValue(key);
+            set => attributes[key] = value;
         }
 
         /// <summary>
@@ -155,6 +148,7 @@ namespace Vintagestory.API.Datastructures
             RegisterAttribute(14, typeof(TreeArrayAttribute));
             RegisterAttribute(15, typeof(LongArrayAttribute));
             RegisterAttribute(16, typeof(BoolArrayAttribute));
+            RegisterAttribute(17, typeof(ByteArray2DAttribute));
         }
 
         public static void RegisterAttribute(int attrId, Type type)
@@ -167,23 +161,28 @@ namespace Vintagestory.API.Datastructures
 
         }
 
+        [Obsolete("Prefer the ReadOnlySpan overload.")]
         public static TreeAttribute CreateFromBytes(byte[] blockEntityData)
         {
-            TreeAttribute tree = new TreeAttribute();
-            using (MemoryStream ms = new MemoryStream(blockEntityData))
-            {
-                using (BinaryReader reader = new BinaryReader(ms))
-                {
-                    tree.FromBytes(reader);
-                }
-            }
+            return CreateFromBytes(blockEntityData.AsSpan());
+        }
+
+        public static TreeAttribute CreateFromBytes(ReadOnlySpan<byte> blockEntityData)
+        {
+            var tree = new TreeAttribute();
+
+            var reader = new BinarySpanReader(blockEntityData);
+
+            tree.FromBytes(ref reader);
 
             return tree;
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
+        public virtual void FromBytes(BinaryReader reader)
+            => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-
-        public virtual void FromBytes(BinaryReader stream)
+        public virtual void FromBytes(ref BinarySpanReader reader)
         {
             if (depth > 30)
             {
@@ -194,19 +193,19 @@ namespace Vintagestory.API.Datastructures
             attributes.Clear();
 
             byte attrId;
-            while ((attrId = stream.ReadByte()) != 0)
+            while ((attrId = reader.ReadByte()) != 0)
             {
-                string key = string.Intern(stream.ReadString());
+                string key = string.Intern(reader.ReadString());
 
                 Type t = AttributeIdMapping[attrId];
-                IAttribute attr = (IAttribute)Activator.CreateInstance(t);
+                IAttribute attr = (IAttribute)Activator.CreateInstance(t)!;
 
                 if (attr is TreeAttribute)
                 {
                     ((TreeAttribute)attr).depth = depth + 1;
                 }
 
-                attr.FromBytes(stream);
+                attr.FromBytes(ref reader);
 
                 attributes[key] = attr;
             }
@@ -225,15 +224,16 @@ namespace Vintagestory.API.Datastructures
             }
         }
 
+        [Obsolete("Prefer using the ReadOnlySpan overload.")]
         public virtual void FromBytes(byte[] data)
         {
-            using (MemoryStream ms = new MemoryStream(data))
-            {
-                using (BinaryReader reader = new BinaryReader(ms))
-                {
-                    FromBytes(reader);
-                }
-            }
+            FromBytes(data.AsSpan());
+        }
+
+        public virtual void FromBytes(ReadOnlySpan<byte> data)
+        {
+            var reader = new BinarySpanReader(data);
+            FromBytes(ref reader);
         }
 
 
@@ -309,7 +309,7 @@ namespace Vintagestory.API.Datastructures
         }
 
 
-        public IAttribute GetAttribute(string key)
+        public IAttribute? GetAttribute(string key)
         {
             return attributes.TryGetValue(key);
         }
@@ -324,7 +324,7 @@ namespace Vintagestory.API.Datastructures
             return attributes.ContainsKey(key);
         }
 
-        public bool TryGetAttribute(string key, out IAttribute value)
+        public bool TryGetAttribute(string key, [NotNullWhen(true)] out IAttribute? value)
         {
             return attributes.TryGetValue(key, out value);
         }
@@ -332,7 +332,7 @@ namespace Vintagestory.API.Datastructures
 
         #region Quick access methods
 
-        public IAttribute GetAttributeByPath(string path)
+        public IAttribute? GetAttributeByPath(string path)
         {
             if (!path.Contains('/')) return this[path];
 
@@ -343,7 +343,7 @@ namespace Vintagestory.API.Datastructures
             // Traverse down the tree hierarchy
             for (int i = 0; i < parts.Length - 1; i++)
             {
-                IAttribute attr = treeAttr[parts[i]];
+                IAttribute? attr = treeAttr[parts[i]];
 
                 if (attr is ITreeAttribute)
                 {
@@ -368,7 +368,7 @@ namespace Vintagestory.API.Datastructures
             // Traverse down the tree hierarchy
             for (int i = 0; i < parts.Length - 1; i++)
             {
-                IAttribute attr = treeAttr[parts[i]];
+                IAttribute? attr = treeAttr[parts[i]];
 
                 if (attr is ITreeAttribute)
                 {
@@ -400,7 +400,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="value"></param>
         public virtual void SetBool(string key, bool value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<bool> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<bool> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -416,7 +416,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="value"></param>
         public virtual void SetInt(string key, int value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<int> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<int> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -431,7 +431,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="value"></param>
         public virtual void SetLong(string key, long value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<long> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<long> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -446,7 +446,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="value"></param>
         public virtual void SetDouble(string key, double value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<double> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<double> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -462,7 +462,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="value"></param>
         public virtual void SetFloat(string key, float value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<float> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<float> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -472,7 +472,7 @@ namespace Vintagestory.API.Datastructures
 
         public virtual void SetString(string key, string value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<string> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ScalarAttribute<string> sattr)
             {
                 sattr.SetValue(value);
                 return;
@@ -482,9 +482,9 @@ namespace Vintagestory.API.Datastructures
 
         public virtual void SetStringArray(string key, string[] values)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<string[]> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ArrayAttribute<string> sattr)
             {
-                sattr.SetValue(values);
+                sattr.value = values;
                 return;
             }
             attributes[key] = new StringArrayAttribute(values);
@@ -493,16 +493,27 @@ namespace Vintagestory.API.Datastructures
         /// <summary>
         /// Creates a byte[] attribute with given key and value
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
         public virtual void SetBytes(string key, byte[] value)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ScalarAttribute<byte[]> sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ArrayAttribute<byte> sattr)
             {
-                sattr.SetValue(value);
+                sattr.value = value;
                 return;
             }
             attributes[key] = new ByteArrayAttribute(value);
+        }
+
+        /// <summary>
+        /// Creates a byte[,] attribute with given key and value
+        /// </summary>
+        public virtual void Set2DByteArray(string key, byte[,] value)
+        {
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is Array2DAttribute<byte> battr)
+            {
+                battr.value = value;
+                return;
+            }
+            attributes[key] = new ByteArray2DAttribute(value);
         }
 
         public virtual void SetAttribute(string key, IAttribute value)
@@ -517,7 +528,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="itemstack"></param>
         public void SetItemstack(string key, ItemStack itemstack)
         {
-            if (attributes.TryGetValue(key, out IAttribute attr) && attr is ItemstackAttribute sattr)
+            if (attributes.TryGetValue(key, out IAttribute? attr) && attr is ItemstackAttribute sattr)
             {
                 sattr.SetValue(itemstack);
                 return;
@@ -568,7 +579,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual bool GetBool(string key, bool defaultValue = false)
         {
-            BoolAttribute attr = attributes.TryGetValue(key) as BoolAttribute;
+            BoolAttribute? attr = attributes.TryGetValue(key) as BoolAttribute;
             return attr == null ? defaultValue : attr.value;
         }
 
@@ -580,7 +591,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual int GetInt(string key, int defaultValue = 0)
         {
-            IntAttribute attr = attributes.TryGetValue(key) as IntAttribute;
+            IntAttribute? attr = attributes.TryGetValue(key) as IntAttribute;
             return attr == null ? defaultValue : attr.value;
         }
 
@@ -597,13 +608,14 @@ namespace Vintagestory.API.Datastructures
 
         public virtual bool GetAsBool(string key, bool defaultValue = false)
         {
-            IAttribute attr = attributes.TryGetValue(key);
-            if (attr is IntAttribute) return (int)attr.GetValue() > 0;
-            if (attr is FloatAttribute) return (float)attr.GetValue() > 0;
-            if (attr is DoubleAttribute) return (double)attr.GetValue() > 0;
-            if (attr is LongAttribute) return (long)attr.GetValue() > 0;
-            if (attr is StringAttribute) return (string)attr.GetValue() == "true" || (string)attr.GetValue() == "1";
-            if (attr is BoolAttribute) return (bool)attr.GetValue();
+            if (!attributes.TryGetValue(key, out IAttribute? attr)) return defaultValue;
+
+            if (attr is IntAttribute intAttr) return intAttr.value > 0;
+            if (attr is FloatAttribute floatAttr) return floatAttr.value > 0;
+            if (attr is DoubleAttribute doubleAttr) return doubleAttr.value > 0;
+            if (attr is LongAttribute longAttr) return longAttr.value > 0;
+            if (attr is StringAttribute stringAttr) return stringAttr.value == "true" || stringAttr.value == "1";
+            if (attr is BoolAttribute boolAttr) return boolAttr.value;
             return defaultValue;
         }
 
@@ -615,12 +627,13 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual double GetDecimal(string key, double defaultValue = 0)
         {
-            IAttribute attr = attributes.TryGetValue(key);
-            if (attr is IntAttribute) return (int)attr.GetValue();
-            if (attr is FloatAttribute) return (float)attr.GetValue();
-            if (attr is DoubleAttribute) return (double)attr.GetValue();
-            if (attr is LongAttribute) return (long)attr.GetValue();
-            if (attr is StringAttribute) return ((string)attr.GetValue()).ToDouble();
+            if (!attributes.TryGetValue(key, out IAttribute? attr)) return defaultValue;
+
+            if (attr is IntAttribute intAttr) return intAttr.value;
+            if (attr is FloatAttribute floatAttr) return floatAttr.value;
+            if (attr is DoubleAttribute doubleAttr) return doubleAttr.value;
+            if (attr is LongAttribute longAttr) return longAttr.value;
+            if (attr is StringAttribute stringAttr) return stringAttr.value.ToDouble();
 
             return defaultValue;
         }
@@ -633,7 +646,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual double GetDouble(string key, double defaultValue = 0)
         {
-            DoubleAttribute attr = attributes.TryGetValue(key) as DoubleAttribute;
+            DoubleAttribute? attr = attributes.TryGetValue(key) as DoubleAttribute;
             return attr == null ? defaultValue : attr.value;
         }
 
@@ -645,7 +658,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual float GetFloat(string key, float defaultValue = 0)
         {
-            FloatAttribute attr = attributes.TryGetValue(key) as FloatAttribute;
+            FloatAttribute? attr = attributes.TryGetValue(key) as FloatAttribute;
             return attr == null ? defaultValue : attr.value;
         }
 
@@ -656,9 +669,9 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public virtual string GetString(string key, string defaultValue = null)
+        public virtual string? GetString(string key, string? defaultValue = null)
         {
-            string val = (attributes.TryGetValue(key) as StringAttribute)?.value;
+            string? val = (attributes.TryGetValue(key) as StringAttribute)?.value;
             return val == null ? defaultValue : string.Intern(val);
         }
 
@@ -668,9 +681,9 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public virtual string GetAsString(string key, string defaultValue = null)
+        public virtual string? GetAsString(string key, string? defaultValue = null)
         {
-            string val = attributes.TryGetValue(key)?.GetValue().ToString();
+            string? val = attributes.TryGetValue(key)?.GetValue()?.ToString();
             return val == null ? defaultValue : val;
         }
 
@@ -680,22 +693,27 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public virtual string[] GetStringArray(string key, string[] defaultValue = null)
+        public virtual string[]? GetStringArray(string key, string[]? defaultValue = null)
         {
-            string[] val = (attributes.TryGetValue(key) as StringArrayAttribute)?.value;
+            string[]? val = (attributes.TryGetValue(key) as StringArrayAttribute)?.value;
             return val == null ? defaultValue : val;
         }
 
         /// <summary>
         /// Retrieves a byte array or defaultValue if key is not found
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-
-        public virtual byte[] GetBytes(string key, byte[] defaultValue = null)
+        public virtual byte[]? GetBytes(string key, byte[]? defaultValue = null)
         {
-            byte[] val = (attributes.TryGetValue(key) as ByteArrayAttribute)?.value;
+            byte[]? val = (attributes.TryGetValue(key) as ByteArrayAttribute)?.value;
+            return val == null ? defaultValue : val;
+        }
+
+        /// <summary>
+        /// Retrieves a byte[,] array or defaultValue if key is not found
+        /// </summary>
+        public virtual byte[,]? Get2DByteArray(string key, byte[,]? defaultValue = null)
+        {
+            byte[,]? val = (attributes.TryGetValue(key) as ByteArray2DAttribute)?.value;
             return val == null ? defaultValue : val;
         }
 
@@ -704,7 +722,7 @@ namespace Vintagestory.API.Datastructures
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public virtual ITreeAttribute GetTreeAttribute(string key)
+        public virtual ITreeAttribute? GetTreeAttribute(string key)
         {
             return attributes.TryGetValue(key) as ITreeAttribute;
         }
@@ -738,9 +756,9 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public ItemStack GetItemstack(string key, ItemStack defaultValue = null)
+        public ItemStack? GetItemstack(string key, ItemStack? defaultValue = null)
         {
-            ItemStack stack = ((ItemstackAttribute)attributes.TryGetValue(key))?.value;
+            ItemStack? stack = ((ItemstackAttribute)attributes.TryGetValue(key))?.value;
             return stack == null ? defaultValue : stack;
         }
 
@@ -752,7 +770,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual long GetLong(string key, long defaultValue = 0)
         {
-            LongAttribute attr = (LongAttribute)attributes.TryGetValue(key);
+            LongAttribute? attr = (LongAttribute)attributes.TryGetValue(key);
             return attr == null ? defaultValue : attr.value;
         }
 
@@ -766,14 +784,14 @@ namespace Vintagestory.API.Datastructures
             return ((LongAttribute)attributes.TryGetValue(key))?.value;
         }
 
-        public virtual ModelTransform GetModelTransform(string key)
+        public virtual ModelTransform? GetModelTransform(string key)
         {
-            ITreeAttribute attr = GetTreeAttribute(key);
+            ITreeAttribute? attr = GetTreeAttribute(key);
             if (attr == null) return null;
 
-            ITreeAttribute torigin = attr.GetTreeAttribute("origin");
-            ITreeAttribute trotation = attr.GetTreeAttribute("rotation");
-            ITreeAttribute ttranslation = attr.GetTreeAttribute("translation");
+            ITreeAttribute? torigin = attr.GetTreeAttribute("origin");
+            ITreeAttribute? trotation = attr.GetTreeAttribute("rotation");
+            ITreeAttribute? ttranslation = attr.GetTreeAttribute("translation");
             float scale = attr.GetFloat("scale", 1);
 
             FastVec3f origin = new FastVec3f(0.5f, 0.5f, 0.5f);
@@ -848,25 +866,25 @@ namespace Vintagestory.API.Datastructures
 
         /// <summary>
         /// Returns true if given tree contains all of elements of this one, but given tree may contain also more elements. Individual node values are exactly matched.
+        /// Ignores anything in GlobalConstants.IgnoredStackAttributes.
         /// </summary>
         /// <param name="worldForResolve"></param>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool IsSubSetOf(IWorldAccessor worldForResolve, IAttribute other)
+        public bool IsSubSetOf(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? other)
         {
-            if (!(other is TreeAttribute)) return false;
-            TreeAttribute otherTree = (TreeAttribute)other;
+            if (other is not TreeAttribute otherTree) return false;
 
             if (attributes.Count > otherTree.attributes.Count) return false;
 
             foreach (var val in attributes)
             {
                 if (GlobalConstants.IgnoredStackAttributes.Contains(val.Key)) continue;
-                if (!otherTree.attributes.TryGetValue(val.Key, out IAttribute otherAttribute)) return false;
+                if (!otherTree.attributes.TryGetValue(val.Key, out IAttribute? otherAttribute)) return false;
 
-                if (val.Value is TreeAttribute)
+                if (val.Value is TreeAttribute tree)
                 {
-                    if (!(otherAttribute as TreeAttribute).IsSubSetOf(worldForResolve, val.Value)) return false;
+                    if (!tree.IsSubSetOf(worldForResolve, otherAttribute)) return false;
                 } else
                 {
                     if (!otherAttribute.Equals(worldForResolve, val.Value)) return false;
@@ -882,10 +900,9 @@ namespace Vintagestory.API.Datastructures
         /// <param name="worldForResolve"></param>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(IWorldAccessor worldForResolve, IAttribute other)
+        public bool Equals(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? other)
         {
-            if (!(other is TreeAttribute)) return false;
-            TreeAttribute otherTree = (TreeAttribute)other;
+            if (other is not TreeAttribute otherTree) return false;
 
             if (attributes.Count != otherTree.attributes.Count) return false;
 
@@ -899,19 +916,18 @@ namespace Vintagestory.API.Datastructures
             return true;
         }
 
-        public bool Equals(IWorldAccessor worldForResolve, IAttribute other, params string[] ignorePaths)
+        public bool Equals(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? other, params string[]? ignorePaths)
         {
             return Equals(worldForResolve, other, "", ignorePaths);
         }
 
-        public bool Equals(IWorldAccessor worldForResolve, IAttribute other, string currentPath, params string[] ignorePaths)
+        public bool Equals(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? other, string currentPath, params string[]? ignorePaths)
         {
-            if (!(other is TreeAttribute)) return false;
-            TreeAttribute otherTree = (TreeAttribute)other;
+            if (other is not TreeAttribute otherTree) return false;
 
             if ((ignorePaths == null || ignorePaths.Length == 0) && attributes.Count != otherTree.attributes.Count) return false;
-            
-            // Test 1 and 2: 
+
+            // Test 1 and 2:
             // - Check for exists in a, but missing in b
             // - Check for a != b
             foreach (var val in attributes)
@@ -922,14 +938,14 @@ namespace Vintagestory.API.Datastructures
 
                 IAttribute otherAttr = otherTree.attributes[val.Key];
 
-                if (otherAttr is TreeAttribute)
+                if (otherAttr is TreeAttribute treeAttr)
                 {
-                    if (!((TreeAttribute)otherAttr).Equals(worldForResolve, val.Value, currentPath, ignorePaths)) return false;
+                    if (!treeAttr.Equals(worldForResolve, val.Value, curPath, ignorePaths)) return false;
                 } else
                 {
-                    if (otherAttr is ItemstackAttribute)
+                    if (otherAttr is ItemstackAttribute itemstackAttr)
                     {
-                        if (!(otherAttr as ItemstackAttribute).Equals(worldForResolve, val.Value, ignorePaths))
+                        if (!itemstackAttr.Equals(worldForResolve, val.Value, ignorePaths))
                         {
                             return false;
                         }
@@ -937,11 +953,11 @@ namespace Vintagestory.API.Datastructures
                     {
                         if (!otherAttr.Equals(worldForResolve, val.Value)) return false;
                     }
-                    
+
                 }
             }
 
-            // Test 3: 
+            // Test 3:
             // - Check for exists in b, but missing in a
             foreach (var val in otherTree.attributes)
             {
@@ -962,7 +978,7 @@ namespace Vintagestory.API.Datastructures
             return ToJsonToken(attributes);
         }
 
-        public static IAttribute FromJson(string json)
+        public static IAttribute? FromJson(string json)
         {
             return new JsonObject(JToken.Parse(json)).ToAttribute();
         }
@@ -990,7 +1006,7 @@ namespace Vintagestory.API.Datastructures
         /// Merges the sourceTree into the current one
         /// </summary>
         /// <param name="sourceTree"></param>
-        public virtual void MergeTree(ITreeAttribute sourceTree)
+        public virtual void MergeTree(ITreeAttribute? sourceTree)
         {
             if (sourceTree is TreeAttribute srcTree)
             {
@@ -1013,7 +1029,7 @@ namespace Vintagestory.API.Datastructures
 
         protected static void MergeAttribute(TreeAttribute dstTree, string srcKey, IAttribute srcAttr)
         {
-            IAttribute dstAttr;
+            IAttribute? dstAttr;
             dstAttr = dstTree.attributes.TryGetValue(srcKey);
 
             if (dstAttr == null)
@@ -1029,11 +1045,24 @@ namespace Vintagestory.API.Datastructures
 
             if (srcAttr is ITreeAttribute)
             {
-                MergeTree(dstAttr as TreeAttribute, srcAttr as TreeAttribute);
+                MergeTree((TreeAttribute)dstAttr, (TreeAttribute)srcAttr);
             }
             else
             {
                 dstTree.attributes[srcKey] = srcAttr.Clone();
+            }
+        }
+
+        /// <summary>
+        /// If the key is found in the given tree, shallow-copies it into this one. Otherwise does nothing.
+        /// Faster than calling HasAttribute and then GetAttribute.
+        /// </summary>
+        public void TryCopyAttribute(string key, ITreeAttribute from)
+        {
+            from.TryGetAttribute(key, out IAttribute? attribute);
+            if (attribute != null)
+            {
+                this.SetAttribute(key, attribute);
             }
         }
 
@@ -1070,7 +1099,7 @@ namespace Vintagestory.API.Datastructures
             return GetHashCode(null);
         }
 
-        public int GetHashCode(string[] ignoredAttributes)
+        public int GetHashCode(string[]? ignoredAttributes)
         {
             int hashcode = 0;
             int i = 0;
@@ -1088,6 +1117,17 @@ namespace Vintagestory.API.Datastructures
                     else
                     {
                         hashcode ^= val.Key.GetHashCode() ^ tree.GetHashCode(ignoredAttributes);
+                    }
+                }
+                else if (val.Value is IHashWithIgnoredAttributes ihwia)
+                {
+                    if (i == 0)
+                    {
+                        hashcode = val.Key.GetHashCode() ^ ihwia.GetHashCode(ignoredAttributes);
+                    }
+                    else
+                    {
+                        hashcode ^= val.Key.GetHashCode() ^ ihwia.GetHashCode(ignoredAttributes);
                     }
                 }
                 else

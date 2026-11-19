@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.Common;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
 #nullable disable
@@ -59,8 +59,22 @@ namespace Vintagestory.API.Server
         /// <summary>
         /// Disconnects (kicks) a player from the server with given reason. Does nothing if this player is not connected.
         /// </summary>
-        /// <param name = "message">Message displayed to the player</param>
-        void Disconnect(string message);
+        /// <param name = "logMessage">Message displayed in logs</param>
+        void Disconnect(string logMessage);
+
+        /// <summary>
+        /// Disconnects (kicks) a player from the server with given reason. Does nothing if this player is not connected.
+        /// </summary>
+        /// <param name="logMessage">Message displayed in logs</param>
+        /// <param name="playerMessage">Message displayed to the player</param>
+        void Disconnect(string logMessage, string playerMessage);
+
+        /// <summary>
+        /// Sends a redirection request to the specified client. The target server has to be public!
+        /// </summary>
+        /// <param name = "host">The host of the target server</param>
+        /// <param name = "name"></param>
+        void SendPlayerRedirect(string host, string name);
 
         /// <summary>
         /// Shows a vibrating red text in the players screen. If message is null the client will try to find a language entry using supplied code prefixed with 'ingameerror-' (which is recommended so that the errors are translated to the users local language)

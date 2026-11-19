@@ -47,14 +47,21 @@ namespace Vintagestory.API.Datastructures
             }
             else
             {
-                cuboids[Count].Set(
-                    cuboid.X1 + x,
-                    cuboid.Y1 + y % BlockPos.DimensionBoundary,
-                    cuboid.Z1 + z,
-                    cuboid.X2 + x,
-                    cuboid.Y2 + y % BlockPos.DimensionBoundary,
-                    cuboid.Z2 + z
-                );
+                if (cuboid.IsRotated() || cuboids[Count] is RotatedCuboidd)
+                {
+                    cuboids[Count] = cuboid.OffsetCopyDouble(x, y % BlockPos.DimensionBoundary, z);
+                }
+                else
+                {
+                    cuboids[Count].Set(
+                        cuboid.X1 + x,
+                        cuboid.Y1 + y % BlockPos.DimensionBoundary,
+                        cuboid.Z1 + z,
+                        cuboid.X2 + x,
+                        cuboid.Y2 + y % BlockPos.DimensionBoundary,
+                        cuboid.Z2 + z
+                    );
+                }
                 positions[Count].Set(x, y, z);
                 blocks[Count] = block;
             }

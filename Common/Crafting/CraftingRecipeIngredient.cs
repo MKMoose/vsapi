@@ -276,14 +276,11 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
             resolvedItemStack = new ItemStack(item, Quantity);
         }
 
-        if (Attributes != null)
+        IAttribute? attributes = Attributes?.ToAttribute();
+        if (attributes is ITreeAttribute treeAttribute)
         {
-            IAttribute? attributes = Attributes.ToAttribute();
-            if (attributes is ITreeAttribute treeAttribute)
-            {
-                ResolvedAttributes = treeAttribute;
-                if (deduplicationIndex < 0) resolvedItemStack.Attributes = treeAttribute;
-            }
+            ResolvedAttributes = treeAttribute;
+            if (deduplicationIndex < 0) resolvedItemStack.Attributes = treeAttribute;
         }
 
         ResolvedItemStack = resolvedItemStack;
@@ -294,7 +291,7 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
     private int AddToFastSearchRecipes(IWorldAccessor world, IRecipeBase recipe)
     {
         var dict = world.FastSearchRecipesByIngredient;
-        var packed = new FastSearchCraftingRecipeIngredient(this);
+        var packed = new FastSearchCraftingRecipeIngredient(this, world);
         int index = dict.IndexOf(packed);
         if (index >= 0)
         {
@@ -311,9 +308,9 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
         return index;
     }
 
-    public virtual bool SatisfiesAsIngredient(ItemStack inputStack, bool checkStackSize = true)
+    public virtual bool SatisfiesAsIngredient(ItemStack? inputStack, bool checkStackSize = true)
     {
-        if (inputStack == null || inputStack.Collectible == null) return false;
+        if (inputStack?.Collectible == null) return false;
 
         if (MatchingType != EnumRecipeMatchType.Exact)
         {
@@ -322,6 +319,9 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
             if (checkStackSize && inputStack.StackSize < Quantity) return false;
             if (SkipVariants != null && WildcardUtil.Match(Code, inputStack.Collectible.Code, SkipVariants)) return false;
             if (!CheckTags(inputStack, inputStack.Collectible)) return false;
+            var treeAttribute = ResolvedAttributes ?? Attributes?.ToAttribute() as ITreeAttribute;
+            if (treeAttribute == null) return true;
+            if (world == null || !treeAttribute.IsSubSetOf(world, inputStack.Attributes)) return false;
         }
         else
         {
@@ -478,7 +478,7 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
         Tags.ToBytes(writer);
     }
 
-    public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+    public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
     {
         MatchingType = (EnumRecipeMatchType)reader.ReadInt32();
         Type = (EnumItemClass)reader.ReadInt32();
@@ -490,7 +490,7 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
         Quantity = reader.ReadInt32();
         if (MatchingType == EnumRecipeMatchType.Exact && reader.ReadBoolean())
         {
-            resolvedItemStack = new ItemStack(reader, resolver);
+            resolvedItemStack = new ItemStack(ref reader, resolver);
         }
 
         Consume = reader.ReadBoolean();
@@ -519,20 +519,20 @@ public class CraftingRecipeIngredient : IRecipeIngredient, IRecipeOutput
         bool haveConsumedStack = reader.ReadBoolean();
         if (haveConsumedStack)
         {
-            JsonItemStack returnedStack = new();
-            returnedStack.FromBytes(reader, resolver.ClassRegistry);
+            JsonItemStack returnedStack = new JsonItemStack { Code = null! };
+            returnedStack.FromBytes(ref reader, resolver.ClassRegistry);
             returnedStack.ResolvedItemStack?.ResolveBlockOrItem(resolver);
             ReturnedStack = returnedStack;
         }
 
         if (reader.ReadBoolean())
         {
-            RecipeAttributes = new JsonObject(JToken.Parse(reader.ReadString()));
+            RecipeAttributes = new JsonObject(JToken.Parse(reader.ReadString(), JsonUtil.DefaultLoadSettings));
         }
 
         Id = reader.ReadString().DeDuplicate();
 
-        Tags = ComplexTagConditionExtensions.FromBytes(reader);
+        Tags = ComplexTagConditionExtensions.FromBytes(ref reader);
     }
 
 
@@ -579,22 +579,30 @@ public class FastSearchCraftingRecipeIngredient : IRecipeIngredientBase, IEquata
     public ComplexTagCondition<TagSet> Tags { get; set; }
     public string[]? AllowedVariants { get; set; }
     public string[]? SkipVariants { get; set; }
+    public JsonObject? Attributes { get; set; }
     public EnumRecipeMatchType MatchingType { get; set; }
-
     public ItemStack? ResolvedItemStack { get; set; }
 
-    public FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient parent)
+    IWorldAccessor? world;
+
+    public FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient parent, IWorldAccessor worldForResolve)
     {
         Type = parent.Type;
         Code = parent.Code;
         Tags = parent.Tags;
         AllowedVariants = parent.AllowedVariants;
         SkipVariants = parent.SkipVariants;
+        var resolvedAttributes = parent.ResolvedItemStack?.Attributes?.ToJsonToken() ?? parent.ResolvedAttributes?.ToJsonToken();
+        Attributes = parent.Attributes ?? (resolvedAttributes != null ? JsonObject.FromJson(resolvedAttributes) : null);
+        
+        if (Attributes?.Token == null || Attributes.Token is JObject { Count: 0 }) Attributes = null;
+        world = worldForResolve;
     }
 
     public override int GetHashCode()           // Important because these will be Key in an OrderedDictionary
     {
-        return Code == null ? 0 : Code.Path.GetHashCode();
+        if (Code == null) return 0;
+        return Code.Path.GetHashCode() ^ (Attributes?.Token is { } token ? JToken.EqualityComparer.GetHashCode(token) : 0);
     }
 
     public override bool Equals(Object? obj)
@@ -627,12 +635,12 @@ public class FastSearchCraftingRecipeIngredient : IRecipeIngredientBase, IEquata
         }
         else if (!SkipVariants.DeepEquals(other.SkipVariants)) return false;
 
-        return true;
+        return JToken.DeepEquals(Attributes?.Token, other.Attributes?.Token);
     }
 
-    public bool SatisfiesAsIngredient(ItemStack inputStack, bool unused = default)
+    public bool SatisfiesAsIngredient(ItemStack? inputStack, bool unused = default)
     {
-        if (inputStack == null || inputStack.Collectible == null) return false;
+        if (inputStack?.Collectible == null) return false;
 
         if (MatchingType != EnumRecipeMatchType.Exact)
         {
@@ -640,6 +648,8 @@ public class FastSearchCraftingRecipeIngredient : IRecipeIngredientBase, IEquata
             if (Code != null && !WildcardUtil.Match(Code, inputStack.Collectible.Code, AllowedVariants)) return false;
             if (SkipVariants != null && WildcardUtil.Match(Code, inputStack.Collectible.Code, SkipVariants)) return false;
             if (!CraftingRecipeIngredient.CheckTags(Tags, inputStack, inputStack.Collectible)) return false;
+            if (Attributes?.ToAttribute() is not ITreeAttribute treeAttribute) return true;
+            if (world == null || !treeAttribute.IsSubSetOf(world, inputStack.Attributes)) return false;
         }
         else
         {

@@ -84,7 +84,7 @@ public abstract class RecipeBase : IRecipeBase, IConcreteCloneable<RecipeBase>
     #endregion
 
     /// <summary>
-    /// The ID of the  Automatically generated when the recipe is loaded.
+    /// The ID of the recipe. Automatically generated when the recipe is loaded.
     /// </summary>
 
     public int RecipeId { get; set; }
@@ -156,7 +156,7 @@ public abstract class RecipeBase : IRecipeBase, IConcreteCloneable<RecipeBase>
         }
     }
 
-    public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+    public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
     {
         Name = new AssetLocation(reader.ReadString());
         ShowInCreatedBy = reader.ReadBoolean();
@@ -165,7 +165,7 @@ public abstract class RecipeBase : IRecipeBase, IConcreteCloneable<RecipeBase>
         if (!reader.ReadBoolean())
         {
             string json = reader.ReadString();
-            Attributes = new JsonObject(JToken.Parse(json));
+            Attributes = new JsonObject(JToken.Parse(json, JsonUtil.DefaultLoadSettings));
         }
 
         if (reader.ReadBoolean())
@@ -424,6 +424,15 @@ public abstract class RecipeBase : IRecipeBase, IConcreteCloneable<RecipeBase>
                 default:
                     break;
             }
+
+            var attributeWildcards = ingredient.RecipeAttributes?["attributeWildcards"].AsArray<string>();
+            if (attributeWildcards == null) continue;
+            foreach (var wildcard in attributeWildcards)
+            {
+                if (wildcard == null || !AllowedVariants.TryGetValue(wildcard, out var variantsList)) continue;
+                if (!mappings.TryGetValue(wildcard, out _)) mappings[wildcard] = variantsList.ToHashSet();
+            }
+            ingredient.MatchingType = EnumRecipeMatchType.AdvancedWildcard;
         }
 
         return mappings;

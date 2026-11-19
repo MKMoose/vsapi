@@ -211,7 +211,7 @@ Returns null if no mod with that mod ID was found.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Mod GetMod(string modID)</code></pre>
+    <pre><code class="lang-csharp hljs">Mod? GetMod(string modID)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -250,7 +250,7 @@ Returns null if no mod with that name was found.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ModSystem GetModSystem(string fullName)</code></pre>
+    <pre><code class="lang-csharp hljs">ModSystem? GetModSystem(string fullName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -278,7 +278,7 @@ Returns null if no mod with that name was found.</p>
   <a id="Vintagestory_API_Common_IModLoader_GetModSystem_" data-uid="Vintagestory.API.Common.IModLoader.GetModSystem*"></a>
 
   <h3 id="Vintagestory_API_Common_IModLoader_GetModSystem__1_System_Boolean_" data-uid="Vintagestory.API.Common.IModLoader.GetModSystem``1(System.Boolean)">
-  GetModSystem&lt;T&gt;(bool)
+  GetModSystem&lt;TModSystem&gt;(bool)
   
   </h3>
 
@@ -288,7 +288,7 @@ Returns null if no mod of that type was found.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T GetModSystem&lt;T&gt;(bool withInheritance = true) where T : ModSystem</code></pre>
+    <pre><code class="lang-csharp hljs">TModSystem? GetModSystem&lt;TModSystem&gt;(bool withInheritance = true) where TModSystem : ModSystem</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -299,13 +299,13 @@ Returns null if no mod of that type was found.</p>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">T</span></dt>
+    <dt><span class="xref">TModSystem</span></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
-    <dt><code>T</code></dt>
+    <dt><code>TModSystem</code></dt>
     <dd></dd>
   </dl>
 

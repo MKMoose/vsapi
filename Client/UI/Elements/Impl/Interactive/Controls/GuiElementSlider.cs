@@ -31,6 +31,8 @@ namespace Vintagestory.API.Client
 
         bool triggerOnMouseUp = false;
         bool didChangeValue = false;
+
+        public bool ShowFillValue { get; set; } = true;
         public bool TooltipExceedClipBounds { get; set; } = false;
         public bool ShowTextWhenResting { get; set; } = false;
 
@@ -57,7 +59,7 @@ namespace Vintagestory.API.Client
         int unscaledHandleWidth = 15;
         int unscaledHandleHeight = 35;
 
-        double handleWidth;
+        public double HandleWidth;
         double handleHeight;
         double padding;
 
@@ -98,7 +100,7 @@ namespace Vintagestory.API.Client
 
         public override void ComposeElements(Context ctxStatic, ImageSurface surfaceStatic)
         {
-            handleWidth = scaled(unscaledHandleWidth) * Scale;
+            HandleWidth = scaled(unscaledHandleWidth) * Scale;
             handleHeight = scaled(unscaledHandleHeight) * Scale;
             padding = scaled(unscaledPadding) * Scale;
 
@@ -124,13 +126,13 @@ namespace Vintagestory.API.Client
 
         internal void ComposeHandleElement()
         {
-            ImageSurface surface = new ImageSurface(Format.Argb32, (int)handleWidth + 4, (int)handleHeight + 4);
+            ImageSurface surface = new ImageSurface(Format.Argb32, (int)HandleWidth + 4, (int)handleHeight + 4);
             Context ctx = genContext(surface);
 
             ctx.SetSourceRGBA(1, 1, 1, 0);
             ctx.Paint();
 
-            RoundRectangle(ctx, 2, 2, handleWidth, handleHeight, 1);
+            RoundRectangle(ctx, 2, 2, HandleWidth, handleHeight, 1);
             if (!enabled)
             {
                 ctx.SetSourceRGB(43 / 255.0, 33 / 255.0, 24 / 255.0);
@@ -181,7 +183,7 @@ namespace Vintagestory.API.Client
         internal void ComposeRestingTextElement()
         {
             ElementBounds bounds = new ElementBounds().WithFixedPadding(7).WithParent(ElementBounds.Empty);
-            double sliderWidth = Bounds.InnerWidth - 2 * padding - handleWidth / 2;
+            double sliderWidth = Bounds.InnerWidth - 2 * padding - HandleWidth / 2;
             double handlePosition = sliderWidth * (1.0 * currentValue - minValue) / (maxValue - minValue);
 
             string text = currentValue + unit;
@@ -209,7 +211,9 @@ namespace Vintagestory.API.Client
 
         internal void ComposeFillTexture()
         {
-            double sliderWidth = Bounds.InnerWidth - 2 * padding - handleWidth / 2;
+            if (!ShowFillValue) return;
+
+            double sliderWidth = Bounds.InnerWidth - 2 * padding - HandleWidth / 2;
             double handlePosition = sliderWidth * (1.0 * currentValue - minValue) / (maxValue - minValue);
             double insetHeight = Bounds.InnerHeight - 2 * padding;
 
@@ -237,15 +241,12 @@ namespace Vintagestory.API.Client
                 api.Render.RenderTexture(alarmValueTexture.TextureId, Bounds.renderX + alarmTextureRect.X, Bounds.renderY + alarmTextureRect.Y, alarmTextureRect.Width, alarmTextureRect.Height);
             }
 
-            double sliderWidth = Bounds.InnerWidth - 2 * padding - handleWidth / 2;
-
-            // Translate current value into position
-            double handlePosition = sliderWidth * (1.0 * currentValue - minValue) / (maxValue - minValue);
+            double handlePosition = GetHandleXPosition();
             double insetHeight = Bounds.InnerHeight - 2 * padding;
             double dy = (handleHeight - Bounds.OuterHeight + padding) / 2;
 
-            api.Render.Render2DTexturePremultipliedAlpha(sliderFillTexture.TextureId, Bounds.renderX + padding, Bounds.renderY + padding, (int)(handlePosition + 5), (int)insetHeight);
-            api.Render.Render2DTexturePremultipliedAlpha(handleTexture.TextureId, Bounds.renderX + handlePosition, Bounds.renderY - dy, (int)handleWidth + 4, (int)handleHeight + 4);
+            if (ShowFillValue) api.Render.Render2DTexturePremultipliedAlpha(sliderFillTexture.TextureId, Bounds.renderX + padding, Bounds.renderY + padding, (int)(handlePosition + 5), (int)insetHeight);
+            api.Render.Render2DTexturePremultipliedAlpha(handleTexture.TextureId, Bounds.renderX + handlePosition, Bounds.renderY - dy, (int)HandleWidth + 4, (int)handleHeight + 4);
 
 
             if (mouseDownOnSlider || mouseOnSlider)
@@ -254,7 +255,7 @@ namespace Vintagestory.API.Client
                 ElementBounds elemBounds = textElem.Bounds;
                 api.Render.Render2DTexturePremultipliedAlpha(
                     hoverTextTexture.TextureId,
-                    (int)(Bounds.renderX + padding + handlePosition - elemBounds.OuterWidth / 2 + handleWidth / 2),
+                    (int)(Bounds.renderX + padding + handlePosition - elemBounds.OuterWidth / 2 + HandleWidth / 2),
                     (int)(Bounds.renderY - scaled(20) - elemBounds.OuterHeight),
                     elemBounds.OuterWidthInt,
                     elemBounds.OuterHeightInt,
@@ -266,7 +267,7 @@ namespace Vintagestory.API.Client
             {
                 api.Render.PushScissor(Bounds, true);
                 ElementBounds elemBounds = textElemResting.Bounds;
-                double xOffset = (handlePosition - 10) < elemBounds.InnerWidth ? (Bounds.renderX + padding + handlePosition - elemBounds.OuterWidth / 2 + handleWidth / 2 + (restingTextTexture.Width / 2) + 10) : (int)Bounds.renderX;
+                double xOffset = (handlePosition - 10) < elemBounds.InnerWidth ? (Bounds.renderX + padding + handlePosition - elemBounds.OuterWidth / 2 + HandleWidth / 2 + (restingTextTexture.Width / 2) + 10) : (int)Bounds.renderX;
                 api.Render.Render2DTexturePremultipliedAlpha(
                     restingTextTexture.TextureId,
                     xOffset,
@@ -279,9 +280,12 @@ namespace Vintagestory.API.Client
             }
         }
 
-
-
-
+        public double GetHandleXPosition()
+        {
+            double sliderWidth = Bounds.InnerWidth - 2 * padding - HandleWidth / 2;
+            // Translate current value into position
+            return sliderWidth * (1.0 * currentValue - minValue) / (maxValue - minValue);
+        }
 
         void MakeAlarmValueTexture()
         {
@@ -341,7 +345,6 @@ namespace Vintagestory.API.Client
             }
         }
 
-
         public override void OnMouseWheel(ICoreClientAPI api, MouseWheelEventArgs args)
         {
             if (!enabled) return;
@@ -349,9 +352,13 @@ namespace Vintagestory.API.Client
             if (!Bounds.PointInside(api.Input.MouseX, api.Input.MouseY)) return;
             args.SetHandled(true);
 
+            // If we have horizontal scrolling we want to use that, otherwise we use vertical scrolling as a backup
+            int offset = args.DeltaX != 0 ? -args.DeltaXInt : args.DeltaYInt;
+            if (offset == 0) return;
+
             int curIndex = allowValues.IndexOf(currentValue);
-            int newIndex = curIndex == -1 ? 0 : curIndex + Math.Sign(args.deltaPrecise);
-            if (newIndex < 0 || newIndex >= allowValues.Count) return;
+            int newIndex = curIndex == -1 ? 0 : curIndex + offset;
+            newIndex = Math.Clamp(newIndex, 0, allowValues.Count - 1);
             currentValue = allowValues[newIndex];
 
             ComposeHoverTextElement();
@@ -403,7 +410,7 @@ namespace Vintagestory.API.Client
 
         bool updateValue(int mouseX)
         {
-            double sliderWidth = Bounds.InnerWidth - 2 * padding - handleWidth / 2;
+            double sliderWidth = Bounds.InnerWidth - 2 * padding - HandleWidth / 2;
             // Translate mouse position into current value
             double mouseDeltaX = GameMath.Clamp(mouseX - Bounds.renderX - padding, 0, sliderWidth);
 
@@ -494,6 +501,8 @@ namespace Vintagestory.API.Client
         public void SetValue(int currentValue)
         {
             this.currentValue = currentValue;
+            ComposeHoverTextElement();
+            ComposeFillTexture();
         }
 
         /// <summary>

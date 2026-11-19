@@ -142,9 +142,11 @@ namespace Vintagestory.API.Common
         int EntitiesCount { get; }
 
         /// <summary>
-        /// An array holding block Entities currently residing in this chunk. This array may be larger than the amount of block entities in the chunk.
+        /// A dictionary holding block Entities currently residing in this chunk. This array may be larger than the amount of block entities in the chunk.
+        /// The key is index32 within the chunk; calling code can combine that with the chunk coordinates to create a BlockPos or FastBlockPos if it needs it - for example using FastBlockPos.FromIndex3d()
+        /// <br/>Note also, each BlockEntity holds its own pos in a field anyhow
         /// </summary>
-        Dictionary<BlockPos, BlockEntity> BlockEntities { get; set; }
+        Dictionary<int, BlockEntity> BlockEntities { get; set; }
 
         /// <summary>
         /// Blockdata and Light might be compressed, always call this method if you want to access these
@@ -280,6 +282,13 @@ namespace Vintagestory.API.Common
         /// <param name="pos"></param>
         /// <returns></returns>
         BlockEntity GetLocalBlockEntityAtBlockPos(BlockPos pos);
+
+        /// <summary>
+        /// Retrieve a block entity from this chunk
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        BlockEntity GetLocalBlockEntityAtBlockPos(FastBlockPos pos);
 
         /// <summary>
         /// Sets a decor block to the side of an existing block. Use air block (id 0) to remove a decor.<br/>

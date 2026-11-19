@@ -14,7 +14,7 @@ namespace Vintagestory.API.Client
     /// </summary>
     public class GuiElementDialogTitleBar : GuiElementTextBase
     {
-        GuiElementListMenu listMenu;
+        GuiElementListMenu listMenu; // list of what?
 
         Action OnClose;
         internal GuiComposer baseComposer;
@@ -38,13 +38,18 @@ namespace Vintagestory.API.Client
         Vec2i movingStartPos = new Vec2i();
         ElementBounds parentBoundsBefore = null;
 
-        
+        private bool immersiveMouseModeSettingValue = false;
+
+
+
 
 
         public bool Movable
         {
             get { return movable; }
         }
+
+        public bool DisplayMoveModesInImmersiveMode { get; set; } = true;
 
         /// <summary>
         /// Creates a new title bar.  
@@ -75,7 +80,7 @@ namespace Vintagestory.API.Client
             baseComposer = composer;
         }
 
-        private void onSelectionChanged(string val, bool on)
+        public void onSelectionChanged(string val, bool on)
         {
             SetUpMovableState(val);
         }
@@ -195,19 +200,26 @@ namespace Vintagestory.API.Client
             ctx.SetSourceRGBA(GuiStyle.DialogDefaultTextColor);
             api.Gui.Icons.DrawCross(ctx, crossX, iconY, crossWidth, crossSize);
 
-            ctx.Operator = Operator.Over;
-            api.Gui.Icons.Drawmenuicon_svg(ctx, (int)menuX+2, (int)iconY+2, (int)menuSize, (int)menuSize, new double[] { 0, 0, 0, 0.3 });
-            ctx.Operator = Operator.Source;
-            api.Gui.Icons.Drawmenuicon_svg(ctx, (int)menuX, (int)iconY+1, (int)menuSize, (int)menuSize, GuiStyle.DialogDefaultTextColor);
+            immersiveMouseModeSettingValue = api.Settings.Bool["immersiveMouseMode"];
+            if (DisplayMoveModesInImmersiveMode || !immersiveMouseModeSettingValue)
+            {
+                ctx.Operator = Operator.Over;
+                api.Gui.Icons.Drawmenuicon_svg(ctx, (int)menuX + 2, (int)iconY + 2, (int)menuSize, (int)menuSize, new double[] { 0, 0, 0, 0.3 });
+                ctx.Operator = Operator.Source;
+                api.Gui.Icons.Drawmenuicon_svg(ctx, (int)menuX, (int)iconY + 1, (int)menuSize, (int)menuSize, GuiStyle.DialogDefaultTextColor);
+            }
+                
 
             ctx.Operator = Operator.Over;
 
             ComposeHoverIcons();
 
-
-            listMenu.Bounds.fixedX = (Bounds.absX + menuIconRect.X - Bounds.absX) / RuntimeEnv.GUIScale;
-
-            listMenu.ComposeDynamicElements();
+            
+            if (DisplayMoveModesInImmersiveMode || !immersiveMouseModeSettingValue)
+            {
+                listMenu.Bounds.fixedX = (Bounds.absX + menuIconRect.X - Bounds.absX) / RuntimeEnv.GUIScale;
+                listMenu.ComposeDynamicElements();
+            }
         }
 
         private void ComposeHoverIcons()
@@ -272,13 +284,16 @@ namespace Vintagestory.API.Client
             {
                 api.Render.Render2DTexturePremultipliedAlpha(closeIconHoverTexture.TextureId, Bounds.absX + closeIconRect.X - scaled(1), Bounds.absY + closeIconRect.Y, closeIconRect.Width + 4, closeIconRect.Height + 4, 200);
             }
-            
-            if (menuIconRect.PointInside(mouseX - Bounds.absX, mouseY - Bounds.absY) || listMenu.IsOpened)
-            {
-                api.Render.Render2DTexturePremultipliedAlpha(menuIconHoverTexture.TextureId, Bounds.absX + menuIconRect.X, Bounds.absY + menuIconRect.Y, menuIconRect.Width + 4, menuIconRect.Height + 4, 200);
-            }
 
-            listMenu.RenderInteractiveElements(deltaTime);
+            if (DisplayMoveModesInImmersiveMode || !immersiveMouseModeSettingValue)
+            {
+                if (menuIconRect.PointInside(mouseX - Bounds.absX, mouseY - Bounds.absY) || listMenu.IsOpened)
+                {
+                    api.Render.Render2DTexturePremultipliedAlpha(menuIconHoverTexture.TextureId, Bounds.absX + menuIconRect.X, Bounds.absY + menuIconRect.Y, menuIconRect.Width + 4, menuIconRect.Height + 4, 200);
+                }
+
+                listMenu.RenderInteractiveElements(deltaTime);
+            }
         }
 
 
@@ -394,6 +409,20 @@ namespace Vintagestory.API.Client
             if (!composer.Composed)
             {
                 composer.AddInteractiveElement(new GuiElementDialogTitleBar(composer.Api, text, composer, onClose, font, bounds), key);
+            }
+
+            return composer;
+        }
+
+        public static GuiComposer AddDialogTitleBarUnmovableInImmersive(this GuiComposer composer, string text, Action onClose = null, CairoFont font = null, ElementBounds bounds = null, string key = null)
+        {
+            if (!composer.Composed)
+            {
+                GuiElementDialogTitleBar titleBar = new(composer.Api, text, composer, onClose, font, bounds);
+
+                composer.AddInteractiveElement(titleBar, key);
+
+                titleBar.DisplayMoveModesInImmersiveMode = false;
             }
 
             return composer;

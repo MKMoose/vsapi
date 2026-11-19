@@ -169,12 +169,12 @@ Class MouseWheelEventArgs
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The rough change in time since last called.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int delta</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use DeltaYInt instead.&quot;)]
+public int delta</code></pre>
   </div>
 
 
@@ -200,12 +200,12 @@ Class MouseWheelEventArgs
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The precise change in time since last called.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float deltaPrecise</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use DeltaY instead.&quot;)]
+public float deltaPrecise</code></pre>
   </div>
 
 
@@ -231,12 +231,12 @@ Class MouseWheelEventArgs
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The rough change in value.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int value</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IsFresh to determine if this is the first event of a continuous scroll instead.&quot;)]
+public int value</code></pre>
   </div>
 
 
@@ -262,12 +262,12 @@ Class MouseWheelEventArgs
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The precise change in value.</p>
-</div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float valuePrecise</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use IsFresh to determine if this is the first event of a continuous scroll instead.&quot;)]
+public float valuePrecise</code></pre>
   </div>
 
 
@@ -289,6 +289,166 @@ Class MouseWheelEventArgs
 
   <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaX_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaX*"></a>
+
+  <h3 id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaX" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaX">
+  DeltaX
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The X delta of the scroll.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float DeltaX { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaXInt_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaXInt*"></a>
+
+  <h3 id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaXInt" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaXInt">
+  DeltaXInt
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The X delta of the scroll as an int, accumulated every 50ms to simulate sensitivity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DeltaXInt { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaY_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaY*"></a>
+
+  <h3 id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaY" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaY">
+  DeltaY
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Y delta of the scroll.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float DeltaY { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaYInt_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaYInt*"></a>
+
+  <h3 id="Vintagestory_API_Client_MouseWheelEventArgs_DeltaYInt" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.DeltaYInt">
+  DeltaYInt
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The X delta of the scroll as an int, accumulated every 50ms to simulate sensitivity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int DeltaYInt { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_MouseWheelEventArgs_IsFresh_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.IsFresh*"></a>
+
+  <h3 id="Vintagestory_API_Client_MouseWheelEventArgs_IsFresh" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.IsFresh">
+  IsFresh
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether or not this is the first event to trigger in the last 50ms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsFresh { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
   <a id="Vintagestory_API_Client_MouseWheelEventArgs_IsHandled_" data-uid="Vintagestory.API.Client.MouseWheelEventArgs.IsHandled*"></a>

@@ -337,12 +337,51 @@ public bool Looping</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static AnimationSound CreateFromBytes(BinaryReader reader, string version)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static AnimationSound CreateFromBytes(BinaryReader reader, string version)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.AnimationSound.html">AnimationSound</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_AnimationSound_CreateFromBytes_" data-uid="Vintagestory.API.Common.AnimationSound.CreateFromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimationSound_CreateFromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_String_" data-uid="Vintagestory.API.Common.AnimationSound.CreateFromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.String)">
+  CreateFromBytes(ref BinarySpanReader, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AnimationSound CreateFromBytes(ref BinarySpanReader reader, string version)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>

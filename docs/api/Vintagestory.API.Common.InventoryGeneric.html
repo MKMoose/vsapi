@@ -257,6 +257,12 @@ Class InventoryGeneric
       <a class="xref" href="Vintagestory.API.Common.InventoryBase.html#Vintagestory_API_Common_InventoryBase_ActivateSlot_System_Int32_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemStackMoveOperation__">InventoryBase.ActivateSlot(int, ItemSlot, ref ItemStackMoveOperation)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.InventoryBase.html#Vintagestory_API_Common_InventoryBase_BeginMultiUpdate">InventoryBase.BeginMultiUpdate()</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.InventoryBase.html#Vintagestory_API_Common_InventoryBase_EndMultiUpdate">InventoryBase.EndMultiUpdate()</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.InventoryBase.html#Vintagestory_API_Common_InventoryBase_OnItemSlotModified_Vintagestory_API_Common_ItemSlot_">InventoryBase.OnItemSlotModified(ItemSlot)</a>
     </div>
     <div>
@@ -359,6 +365,9 @@ Class InventoryGeneric
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_Nearest__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Double__">EnumerableExtensions.Nearest&lt;T&gt;(IEnumerable&lt;T&gt;, Func&lt;T, double&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_WithoutNulls__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.WithoutNulls&lt;T&gt;(IEnumerable&lt;T?&gt;)</a>
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Util.ListExtensions.html#Vintagestory_API_Util_ListExtensions_Contains__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Boolean__">ListExtensions.Contains&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)</a>
@@ -491,6 +500,36 @@ Class InventoryGeneric
 
   <h2 class="section" id="fields">Fields
 </h2>
+
+
+
+  <h3 id="Vintagestory_API_Common_InventoryGeneric_OnDidAutoMove" data-uid="Vintagestory.API.Common.InventoryGeneric.OnDidAutoMove">
+  OnDidAutoMove
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DidAutoMoveDelegate OnDidAutoMove</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.DidAutoMoveDelegate.html">DidAutoMoveDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
 
 
 
@@ -800,6 +839,41 @@ Class InventoryGeneric
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>amount</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_InventoryGeneric_DidAutoMove_" data-uid="Vintagestory.API.Common.InventoryGeneric.DidAutoMove*"></a>
+
+  <h3 id="Vintagestory_API_Common_InventoryGeneric_DidAutoMove_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemSlot_System_Int32_" data-uid="Vintagestory.API.Common.InventoryGeneric.DidAutoMove(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.ItemSlot,System.Int32)">
+  DidAutoMove(ItemSlot, ItemSlot, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void DidAutoMove(ItemSlot sourceSlot, ItemSlot targetSlot, int qmoved)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceSlot</code> <a class="xref" href="Vintagestory.API.Common.ItemSlot.html">ItemSlot</a></dt>
+    <dd></dd>
+    <dt><code>targetSlot</code> <a class="xref" href="Vintagestory.API.Common.ItemSlot.html">ItemSlot</a></dt>
+    <dd></dd>
+    <dt><code>qmoved</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 

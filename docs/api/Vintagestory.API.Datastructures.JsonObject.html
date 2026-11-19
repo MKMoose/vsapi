@@ -165,6 +165,9 @@ Class JsonObject
       <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_Nearest__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Double__">EnumerableExtensions.Nearest&lt;T&gt;(IEnumerable&lt;T&gt;, Func&lt;T, double&gt;)</a>
   </div>
   <div>
+      <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_WithoutNulls__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.WithoutNulls&lt;T&gt;(IEnumerable&lt;T?&gt;)</a>
+  </div>
+  <div>
       <a class="xref" href="Vintagestory.API.Util.ListExtensions.html#Vintagestory_API_Util_ListExtensions_Contains__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Boolean__">ListExtensions.Contains&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)</a>
   </div>
   <div>
@@ -392,6 +395,42 @@ public bool Exists { get; }</code></pre>
 </h2>
 
 
+  <a id="Vintagestory_API_Datastructures_JsonObject_AllByWildcardKey_" data-uid="Vintagestory.API.Datastructures.JsonObject.AllByWildcardKey*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_JsonObject_AllByWildcardKey_System_String_" data-uid="Vintagestory.API.Datastructures.JsonObject.AllByWildcardKey(System.String)">
+  AllByWildcardKey(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;JsonObject&gt; AllByWildcardKey(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Vintagestory.API.Datastructures.JsonObject.html">JsonObject</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Datastructures_JsonObject_AsArray_" data-uid="Vintagestory.API.Datastructures.JsonObject.AsArray*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_JsonObject_AsArray" data-uid="Vintagestory.API.Datastructures.JsonObject.AsArray">
@@ -427,7 +466,7 @@ public bool Exists { get; }</code></pre>
   <a id="Vintagestory_API_Datastructures_JsonObject_AsArray_" data-uid="Vintagestory.API.Datastructures.JsonObject.AsArray*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_JsonObject_AsArray__1___0___System_String_" data-uid="Vintagestory.API.Datastructures.JsonObject.AsArray``1(``0[],System.String)">
-  AsArray&lt;T&gt;(T[]?, string)
+  AsArray&lt;T&gt;(T?[]?, string)
   
   </h3>
 
@@ -436,7 +475,7 @@ public bool Exists { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public T?[]? AsArray&lt;T&gt;(T[]? defaultValue = null, string defaultDomain = &quot;game&quot;)</code></pre>
+    <pre><code class="lang-csharp hljs">public T?[]? AsArray&lt;T&gt;(T?[]? defaultValue = null, string defaultDomain = &quot;game&quot;)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -648,6 +687,53 @@ public float[]? AsFloatArray(float[]? defaultValue = null)</code></pre>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_JsonObject_AsNonNullArray_" data-uid="Vintagestory.API.Datastructures.JsonObject.AsNonNullArray*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_JsonObject_AsNonNullArray__1_System_String___0___System_String_" data-uid="Vintagestory.API.Datastructures.JsonObject.AsNonNullArray``1(System.String,``0[],System.String)">
+  AsNonNullArray&lt;T&gt;(string, T[]?, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Turn the token into an array. Stops early, logs a warning, and returns the default value if any array entry is null or fails to parse.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T[]? AsNonNullArray&lt;T&gt;(string sourceForLogging, T[]? defaultValue = null, string defaultDomain = &quot;game&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sourceForLogging</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>defaultValue</code> T[]</dt>
+    <dd><p>If the conversion fails, this value is used instead</p>
+</dd>
+    <dt><code>defaultDomain</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt>T[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -967,6 +1053,42 @@ public string?[]? AsStringArray(string[]? defaultValue = null, string defaultDom
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_JsonObject_FirstByWildcardKey_" data-uid="Vintagestory.API.Datastructures.JsonObject.FirstByWildcardKey*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_JsonObject_FirstByWildcardKey_System_String_" data-uid="Vintagestory.API.Datastructures.JsonObject.FirstByWildcardKey(System.String)">
+  FirstByWildcardKey(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JsonObject? FirstByWildcardKey(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Datastructures.JsonObject.html">JsonObject</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

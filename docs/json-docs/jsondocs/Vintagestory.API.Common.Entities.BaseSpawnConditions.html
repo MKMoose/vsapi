@@ -201,7 +201,7 @@ and in locations where hostiles should not spawn.</li>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
-public string Group</code></pre>
+public string? Group</code></pre>
   </div>
 
 
@@ -234,7 +234,7 @@ public string Group</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;1&quot;, false)]
-public NatFloat HerdSize</code></pre>
+public NatFloat? HerdSize</code></pre>
   </div>
 
 
@@ -300,7 +300,7 @@ public EnumGetClimateMode ClimateValueMode</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
-public AssetLocation[] Companions</code></pre>
+public AssetLocation[]? Companions</code></pre>
   </div>
 
 
@@ -333,7 +333,7 @@ public AssetLocation[] Companions</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;air&quot;, false)]
-public AssetLocation[] InsideBlockCodes</code></pre>
+public AssetLocation[]? InsideBlockCodes</code></pre>
   </div>
 
 
@@ -533,7 +533,7 @@ public bool TryOnlySurface</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Obsolete&quot;, &quot;&quot;, false)]
 [Obsolete(&quot;Use HerdSize instead&quot;)]
-public NatFloat GroupSize { get; set; }</code></pre>
+public NatFloat? GroupSize { get; set; }</code></pre>
   </div>
 
 

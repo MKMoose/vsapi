@@ -46,7 +46,7 @@ namespace Vintagestory.API.Client
         /// <summary>
         /// The size of the large font. 40.
         /// </summary>
-        public static double LargeFontSize = 40; 
+        public static double LargeFontSize = 40;
 
         // Used for text boxes
         /// <summary>
@@ -69,7 +69,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         public static double SmallFontSize = 16;
 
-        // Used for itemstack quantities and in itemstack info box 
+        // Used for itemstack quantities and in itemstack info box
         /// <summary>
         /// The font size used for specific details like Item Stack size info. 14.
         /// </summary>
@@ -96,7 +96,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         public static int RightDialogMargin;
 
-        #region VS Color Palette 
+        #region VS Color Palette
         public static double[] ColorTime1 = new double[] { 56 / 255.0, 232 / 255.0, 183 / 255.0, 1 };
         public static double[] ColorTime2 = new double[] { 79 / 255.0, 98 / 255.0, 94 / 255.0, 1 };
 
@@ -227,7 +227,7 @@ namespace Vintagestory.API.Client
         /// The color of the title bar.
         /// </summary>
         public static double[] TitleBarColor = new double[] { 0, 0, 0, 0.2 };
-        
+
         /// <summary>
         /// The color of the macro icon.
         /// </summary>

@@ -116,7 +116,16 @@ namespace Vintagestory.API.Common
             ThreadPool.QueueUserWorkItem((_) =>
             {
                 int key = Inst.MarkStarted(caller);
-                callback();
+                try
+                {
+                    callback();
+                }
+                catch (OperationCanceledException) { /* silence! */ }
+                catch (Exception e)
+                {
+                    Inst.Logger.Warning("QueueTask: " + caller + " threw an exception!");
+                    Inst.Logger.Warning(e);
+                }
                 Inst.MarkEnded(key);
             });
         }
@@ -135,6 +144,7 @@ namespace Vintagestory.API.Common
                 {
                     await callback();
                 }
+                catch (OperationCanceledException) { /* silence! */ }
                 catch (Exception e)
                 {
                     Inst.Logger.Warning("QueueTask: " + caller + " threw an exception!");

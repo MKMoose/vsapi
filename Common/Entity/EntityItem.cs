@@ -49,7 +49,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         public override float MaterialDensity
         {
-            get { return (Slot.Itemstack?.Collectible != null) ? Slot.Itemstack.Collectible.MaterialDensity : 2000; }
+            get { return (Slot.Itemstack?.Collectible != null) ? Slot.Itemstack.Collectible.GetMaterialDensity(null, World, Slot) : 2000; }
         }
 
         /// <summary>
@@ -135,14 +135,15 @@ namespace Vintagestory.API.Common
 
 
             itemSpawnedMilliseconds = World.ElapsedMilliseconds;
-            Swimming = FeetInLiquid = World.BlockAccessor.GetBlock(Pos.AsBlockPos, BlockLayersAccess.Fluid).IsLiquid();
+            var ebpp = GetBehavior<EntityBehaviorPassivePhysics>();
+            var fluidBlock = World.BlockAccessor.GetBlock(Pos.AsBlockPos, BlockLayersAccess.Fluid);
+            Swimming = FeetInLiquid = fluidBlock.IsLiquid() && ebpp?.IsInsideDryCollider(Pos, fluidBlock) != true;
 
             tmpPos.Set(Pos.XInt, Pos.YInt, Pos.ZInt);
             tmpPos.SetDimension(Pos.Dimension);
             windLoss = World.BlockAccessor.GetDistanceToRainFall(tmpPos) / 4f;
 
-            var ebpp = GetBehavior<EntityBehaviorPassivePhysics>();
-            if (ebpp != null) ebpp.BoyancyMul = Itemstack.ItemAttributes?["boyancyMul"].AsFloat(1) ?? 1;
+            ebpp?.BoyancyMul = Itemstack.ItemAttributes?["boyancyMul"].AsFloat(1) ?? 1;
         }
 
         float getWindSpeedAccum = 0.25f;
@@ -214,7 +215,7 @@ namespace Vintagestory.API.Common
                         windSpeed.Z = Math.Max(0, Math.Abs(windSpeed.Z) - windLoss) * Math.Sign(windSpeed.Z);
                     }
 
-                    float fac = GameMath.Clamp(1000f / Itemstack.Collectible.MaterialDensity, 1f, 10);
+                    float fac = GameMath.Clamp(1000f / Itemstack.Collectible.GetMaterialDensity(null, World, Slot), 1f, 10);
 
                     Pos.Motion.X += windSpeed.X / 1000.0 * fac * GameMath.Clamp(1f / (1 + Math.Abs(Pos.Motion.X)), 0, 1);
                     Pos.Motion.Y += windSpeed.Y / 1000.0 * fac * GameMath.Clamp(1f / (1 + Math.Abs(Pos.Motion.Y)), 0, 1);
@@ -355,9 +356,9 @@ namespace Vintagestory.API.Common
             return base.ReceiveDamage(damageSource, damage);
         }
 
-        public override void FromBytes(BinaryReader reader, bool forClient)
+        public override void FromBytes(ref BinarySpanReader reader, bool forClient)
         {
-            base.FromBytes(reader, forClient);
+            base.FromBytes(ref reader, forClient);
 
             if (Itemstack != null)
             {

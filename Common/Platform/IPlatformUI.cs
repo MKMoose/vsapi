@@ -1,3 +1,4 @@
+using System.IO.MemoryMappedFiles;
 using OpenTK.Windowing.Desktop;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
@@ -40,6 +41,8 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <returns></returns>
         long GetRamCapacity();
+
+        MemoryMappedFile CreateOrOpenMemoryMappedFile(string name, long size);
 
         string GetCpuInfo();
 

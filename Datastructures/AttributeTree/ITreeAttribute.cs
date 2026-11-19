@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Vintagestory.API.Common;
-
-#nullable disable
 
 namespace Vintagestory.API.Datastructures
 {
@@ -16,7 +14,8 @@ namespace Vintagestory.API.Datastructures
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        IAttribute this[string key] { get; set; }
+        [DisallowNull]
+        IAttribute? this[string key] { get; set; }
 
         /// <summary>
         /// Amount of elements in this Tree attribute
@@ -41,7 +40,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        bool TryGetAttribute(string key, out IAttribute value);
+        bool TryGetAttribute(string key, [NotNullWhen(true)] out IAttribute? value);
 
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="value"></param>
         void SetDouble(string key, double value);
-        
+
 
         /// <summary>
         /// Creates a float attribute with given key and value
@@ -96,9 +95,12 @@ namespace Vintagestory.API.Datastructures
         /// <summary>
         /// Creates a byte[] attribute with given key and value
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
         void SetBytes(string key, byte[] value);
+
+        /// <summary>
+        /// Creates a byte[,] attribute with given key and value
+        /// </summary>
+        void Set2DByteArray(string key, byte[,] value);
 
         /// <summary>
         /// Sets given item stack with given key
@@ -167,7 +169,7 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        string GetAsString(string key, string defaultValue = null);
+        string? GetAsString(string key, string? defaultValue = null);
 
         /// <summary>
         /// Retrieves a long or null value if key is not found
@@ -220,15 +222,17 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        string GetString(string key, string defaultValue = null);
+        string? GetString(string key, string? defaultValue = null);
 
         /// <summary>
         /// Retrieves a byte array or defaultValue if key is not found
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        byte[] GetBytes(string key, byte[] defaultValue = null);
+        byte[]? GetBytes(string key, byte[]? defaultValue = null);
+
+        /// <summary>
+        /// Retrieves a 2D byte array or defaultValue if key is not found
+        /// </summary>
+        byte[,]? Get2DByteArray(string key, byte[,]? defaultValue = null);
 
         /// <summary>
         /// Retrieves an itemstack or defaultValue if key is not found. Be sure to call stack.ResolveBlockOrItem() after retrieving it.
@@ -236,15 +240,15 @@ namespace Vintagestory.API.Datastructures
         /// <param name="key"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        ItemStack GetItemstack(string key, ItemStack defaultValue = null);
-        
+        ItemStack? GetItemstack(string key, ItemStack? defaultValue = null);
+
         /// <summary>
         /// Retrieves an attribute tree or null if key is not found
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        ITreeAttribute GetTreeAttribute(string key);
-        
+        ITreeAttribute? GetTreeAttribute(string key);
+
         /// <summary>
         /// Retrieves an attribute tree or adds it if key is not found.
         /// Throws an exception if the key does exist but is not a tree.
@@ -272,9 +276,9 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         OrderedDictionary<string, IAttribute> SortedCopy(bool recursive = false);
 
-        bool Equals(IWorldAccessor worldForResolve, IAttribute attr, params string[] ignoreSubTrees);
+        bool Equals(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? attr, params string[] ignoreSubTrees);
         bool IsSubSetOf(IWorldAccessor worldForResolve, IAttribute other);
 
-        int GetHashCode(string[] ignoredAttributes);
+        int GetHashCode(string[]? ignoredAttributes);
     }
 }

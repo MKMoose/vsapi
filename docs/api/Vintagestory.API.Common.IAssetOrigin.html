@@ -282,7 +282,7 @@ Interface IAssetOrigin
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Loads the asset into memeory.</p>
+  <div class="markdown level1 summary"><p>Loads the asset into memory.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -327,6 +327,47 @@ Interface IAssetOrigin
   <dl class="parameters">
     <dt><code>asset</code> <a class="xref" href="Vintagestory.API.Common.IAsset.html">IAsset</a></dt>
     <dd><p>The asset to be loaded.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IAssetOrigin_TryResolveAsset_" data-uid="Vintagestory.API.Common.IAssetOrigin.TryResolveAsset*"></a>
+
+  <h3 id="Vintagestory_API_Common_IAssetOrigin_TryResolveAsset_System_String_Vintagestory_API_Common_IAsset__" data-uid="Vintagestory.API.Common.IAssetOrigin.TryResolveAsset(System.String,Vintagestory.API.Common.IAsset@)">
+  TryResolveAsset(string, out IAsset?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Attempts to resolve the asset from the given path without loading it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryResolveAsset(string filePath, out IAsset? asset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The path to the asset file.</p>
+</dd>
+    <dt><code>asset</code> <a class="xref" href="Vintagestory.API.Common.IAsset.html">IAsset</a></dt>
+    <dd><p>The resolved asset.</p>
 </dd>
   </dl>
 

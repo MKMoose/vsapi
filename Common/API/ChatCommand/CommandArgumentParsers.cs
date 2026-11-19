@@ -556,7 +556,7 @@ namespace Vintagestory.API.Common
         {
             var result = parse(args);
 
-            if (this.entities.Length > 100 && !args.Caller.HasPrivilege("largeentityselection"))
+            if (this.entities?.Length > 100 && !args.Caller.HasPrivilege("largeentityselection"))
             {
                 lastErrorMessage = Lang.Get("More than 100 entities selected ({0}). If you really need to select more, acquire the privilege 'largeentityselection'", this.entities.Length);
                 this.entities = Array.Empty<Entity>();
@@ -718,11 +718,13 @@ namespace Vintagestory.API.Common
                         if (eplr == null)
                         {
                             lastErrorMessage = "Can't use 'l' without source player";
+                            entities = Array.Empty<Entity>();
                             return EnumParseResult.Bad;
                         }
                         if (eplr.Player.CurrentEntitySelection == null)
                         {
                             lastErrorMessage = "Not looking at an entity";
+                            entities = Array.Empty<Entity>();
                             return EnumParseResult.Bad;
                         }
 
@@ -2042,20 +2044,17 @@ namespace Vintagestory.API.Common
             if (_api != null)
             {
                 var privileges = new HashSet<string>();
-                _api.Server.Config.Roles.ForEach(r =>
-                {
-                    privileges.AddRange(r.Privileges);
-                });
-                Value = privileges.First(privilege => privilege.Equals(privilegeString, StringComparison.InvariantCultureIgnoreCase));
+                _api.Server.Config.Roles.ForEach(r => privileges.AddRange(r.Privileges));
+                Value = privileges.FirstOrDefault(privilege => privilege.Equals(privilegeString, StringComparison.InvariantCultureIgnoreCase));
             }
             else
             {
-                Value = Privilege.AllCodes().First(
-                    privilege => privilege.Equals(privilegeString, StringComparison.InvariantCultureIgnoreCase));
+                Value = Privilege.AllCodes().FirstOrDefault(privilege => privilege.Equals(privilegeString, StringComparison.InvariantCultureIgnoreCase));
             }
+
             if (Value == null)
             {
-                lastErrorMessage = Lang.Get("No such privilege found: " + string.Join(", ", Privilege.AllCodes()));
+                lastErrorMessage = Lang.Get("cmd-err-no-such-privilege", privilegeString, string.Join(", ", Privilege.AllCodes()));
             }
 
 

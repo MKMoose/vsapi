@@ -9,7 +9,7 @@ using Vintagestory.API.Util;
 
 namespace Vintagestory.API.Common
 {
-    public class ItemStack : IItemStack
+    public class ItemStack : IItemStack, IHashWithIgnoredAttributes
     {
         /// <summary>
         /// Wether its a block Block or Item
@@ -148,35 +148,56 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Create a new itemstack from a byte serialized stream (without resolving the block/item)
         /// </summary>
-        /// <param name="reader"></param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public ItemStack(BinaryReader reader)
+            => reader.UnsafeActAsBinarySpanReader(FromBytes);
+
+        /// <summary>
+        /// Create a new itemstack from a byte serialized stream (without resolving the block/item)
+        /// </summary>
+        public ItemStack(ref BinarySpanReader reader)
         {
-            FromBytes(reader);
+            FromBytes(ref reader);
         }
 
         /// <summary>
         /// Create a new itemstack from a byte serialized array(without resolving the block/item)
         /// </summary>
-        /// <param name="data"></param>
-        public ItemStack(byte[] data)
+        [Obsolete("Prefer the ReadOnlySpan overload.")]
+        public ItemStack(byte[] data) : this(data.AsSpan()) { }
+
+        /// <summary>
+        /// Create a new itemstack from a byte serialized array(without resolving the block/item)
+        /// </summary>
+        public ItemStack(ReadOnlySpan<byte> data)
         {
-            using (var ms = new MemoryStream(data))
+            var reader = new BinarySpanReader(data);
+            FromBytes(ref reader);
+        }
+
+        /// <summary>
+        /// Create a new itemstack from a byte serialized stream (with resolving the block/item)
+        /// </summary>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
+        public ItemStack(BinaryReader reader, IWorldAccessor resolver)
+        {
+            ((IItemStack)this).FromBytes(reader);
+            if (Class == EnumItemClass.Block)
             {
-                using (var reader = new BinaryReader(ms))
-                {
-                    FromBytes(reader);
-                }
+                block = resolver.GetBlock(this.Id);
+            }
+            else
+            {
+                item = resolver.GetItem(Id);
             }
         }
 
         /// <summary>
         /// Create a new itemstack from a byte serialized stream (with resolving the block/item)
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="resolver"></param>
-        public ItemStack(BinaryReader reader, IWorldAccessor resolver)
+        public ItemStack(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            FromBytes(reader);
+            FromBytes(ref reader);
             if (Class == EnumItemClass.Block)
             {
                 block = resolver.GetBlock(this.Id);
@@ -334,16 +355,20 @@ namespace Vintagestory.API.Common
             stackAttributes.ToBytes(stream);
         }
 
+        /// <inheritdoc/>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
+        public void FromBytes(BinaryReader reader)
+            => reader.UnsafeActAsBinarySpanReader(FromBytes);
+
         /// <summary>
         /// Reads all the itemstacks properties from a series of bytes, including its stack attributes
         /// </summary>
-        /// <param name="stream"></param>
-        public void FromBytes(BinaryReader stream)
+        public void FromBytes(ref BinarySpanReader reader)
         {
-            Class = (EnumItemClass)stream.ReadInt32();
-            Id = stream.ReadInt32();
-            stacksize = stream.ReadInt32();
-            stackAttributes.FromBytes(stream);
+            Class = (EnumItemClass)reader.ReadInt32();
+            Id = reader.ReadInt32();
+            stacksize = reader.ReadInt32();
+            stackAttributes.FromBytes(ref reader);
         }
 
         /// <summary>

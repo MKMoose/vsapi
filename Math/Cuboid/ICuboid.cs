@@ -102,5 +102,7 @@ namespace Vintagestory.API.MathTools
         /// Creates a copy of the cuboid
         /// </summary>
         C Clone();
+
+        bool IsRotated() => false;
     }
 }

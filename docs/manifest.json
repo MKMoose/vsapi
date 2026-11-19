@@ -344,7 +344,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.BlendedOverlayTexture",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.BlendedOverlayTexture.yml\" sourcestartlinenumber=\"1\">Defines a texture to be overlayed on another texture. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.BlendedOverlayTexture.yml\" sourcestartlinenumber=\"1\">Defines a texture to be overlayed on another texture.\nOverlay textures no longer have to be of same size.\nOverlays are applied in reverse order, from last to first. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -698,6 +698,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.DictionaryTextureSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.DictionaryTextureSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.DictionaryTextureSource",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.DictionaryTextureSource.yml\" sourcestartlinenumber=\"1\">A concrete but flexible ITexPositionSource for use with custom code logic <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/ITextureSource.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Client.DrawDelegate.yml",
       "output": {
         ".html": {
@@ -754,6 +768,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.DropDownEntry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.DropDownEntry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.DropDownEntry",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.DropDownEntry.yml\" sourcestartlinenumber=\"1\">A value/name pair for use with dropdown elements. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Interactive/Controls/GuiElementDropDown.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Client.DrunkPerceptionEffect.yml",
       "output": {
         ".html": {
@@ -793,6 +821,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.ElementBounds",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ElementBounds.yml\" sourcestartlinenumber=\"1\">Box sizing model comparable to the box sizing model of cascading style sheets using &quot;position:relative;&quot;\nEach element has a position, size, padding and margin\nPadding is counted towards the size of the box, whereas margin is not <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/ElementBounds.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ElementHitbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ElementHitbox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ElementHitbox",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ElementHitbox.yml\" sourcestartlinenumber=\"1\">Represents an AABB hitbox for a model element with rendering capabilities. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ElementHitbox.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1100,7 +1142,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.EnumFrustumCullMode",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.EnumFrustumCullMode.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.EnumFrustumCullMode.yml\" sourcestartlinenumber=\"1\">Frustum culling mode <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1170,7 +1212,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.EnumLodPool",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.EnumLodPool.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.EnumLodPool.yml\" sourcestartlinenumber=\"1\">LOD level numbers used for the pool (values of LodLevel) <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1450,7 +1492,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.FrustumCulling",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.FrustumCulling.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.FrustumCulling.yml\" sourcestartlinenumber=\"1\">The frustum culler keeps the planes of the current view pyramid and tests whether an object is\ninside them All visibility rules live here and are used by both the single object checks\n(InFrustum and friends) and the batched version in PoolCullData <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2238,6 +2280,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.GuiElementServerCell.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.GuiElementServerCell.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.GuiElementServerCell",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.GuiElementServerCell.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Misc/GuiElementServerCell.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Client.GuiElementSkillItemGrid.yml",
       "output": {
         ".html": {
@@ -2504,6 +2560,62 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.Hud3DElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.Hud3DElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.Hud3DElement",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.Hud3DElement.yml\" sourcestartlinenumber=\"1\">Abstract base class for HUD elements rendered as 3D models in orthographic projection. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DElement.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.Hud3DFilterOverlaySet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.Hud3DFilterOverlaySet.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.Hud3DFilterOverlaySet",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.Hud3DFilterOverlaySet.yml\" sourcestartlinenumber=\"1\">Owns the selected-state overlay meshes for a group of filter buttons. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DFilterOverlaySet.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.Hud3DPanelScene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.Hud3DPanelScene.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.Hud3DPanelScene",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.Hud3DPanelScene.yml\" sourcestartlinenumber=\"1\">Reusable 3D panel scene that owns a shape, mesh, animator, raycaster, and\nscene-local tessellation state. This avoids mutating shared dialog texture\nsource state when a dialog needs multiple independently rendered shapes. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DPanelScene.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.Hud3DRaycastElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.Hud3DRaycastElement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.Hud3DRaycastElement",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.Hud3DRaycastElement.yml\" sourcestartlinenumber=\"1\">Abstract middle layer that adds raycaster-based mouse interaction to a 3D HUD element.\nExtracts hitboxes from the shape, raycasts on mouse events, and dispatches to virtual handlers. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DRaycastElement.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Client.HudElement.yml",
       "output": {
         ".html": {
@@ -2557,6 +2669,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.IBlockTextureAtlasAPI",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.IBlockTextureAtlasAPI.yml\" sourcestartlinenumber=\"1\">Block texture Atlas</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ICameraAPI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ICameraAPI.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ICameraAPI",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -3466,7 +3592,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.MeshDataPool",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.MeshDataPool.yml\" sourcestartlinenumber=\"1\">This is a modeldata pool, which can hold 400k vertices, 300k indices but not more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.MeshDataPool.yml\" sourcestartlinenumber=\"1\">A model data pool: one large buffer on the GPU that chunk meshes are packed into\nIt holds up to 400k vertices and 300k indices but never more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3480,7 +3606,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.MeshDataPoolManager",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.MeshDataPoolManager.yml\" sourcestartlinenumber=\"1\">Holds a collection of pools, usually for 1 render pass <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.MeshDataPoolManager.yml\" sourcestartlinenumber=\"1\">Holds a set of pools, usually for one render pass.\nA new mesh is first offered to the existing pools and if none of them takes it, a new pool is created. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3578,7 +3704,49 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.ModelDataPoolLocation",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ModelDataPoolLocation.yml\" sourcestartlinenumber=\"1\">Contains all the data for the given model pool. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ModelDataPoolLocation.yml\" sourcestartlinenumber=\"1\">Description of one pool part (one chunk mesh in one LOD and one render pass)</p>\n<p sourcefile=\"api/Vintagestory.API.Client.ModelDataPoolLocation.yml\" sourcestartlinenumber=\"3\">The flags Hide, LodLevel, FrustumVisible and CullVisible are properties: while the part is in a pool\nthey live in the pool slot arrays (PoolCullData) so culling reads them without touching this object\nAfter the part is removed from the pool the last values stay in this object</p>\n<p sourcefile=\"api/Vintagestory.API.Client.ModelDataPoolLocation.yml\" sourcestartlinenumber=\"7\">Note: this class implements no visibility rules All rules (the frustum test per mode, the LOD and\nview distance rule, the shadow pass threshold) live in FrustumCulling and the batched version\nlives in PoolCullData There is no separate per object version to keep in sync <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ModelHitboxGenerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ModelHitboxGenerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ModelHitboxGenerator",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ModelHitboxGenerator.yml\" sourcestartlinenumber=\"1\">Generates AABB hitboxes from Vintage Story Shape models. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelHitboxGenerator.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ModelHitboxTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ModelHitboxTransform.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ModelHitboxTransform",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ModelHitboxTransform.yml\" sourcestartlinenumber=\"1\">Handles transformation matrix building and ray transformations for 3D model raycasting.\nEncapsulates the logic for converting between screen space and model local space. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelHitboxTransform.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ModelRayCaster.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ModelRayCaster.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ModelRayCaster",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"1\">Performs raycasting against a 3D mesh to determine UV coordinates from screen clicks.\nAlso supports AABB-based hitbox detection for precise element selection.\nUseful for making clickable 3D UI elements.</p>\n<p sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"5\">Usage:</p>\n<ol sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"6\">\n<li sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"6\">Create raycaster: new ModelRayCaster(capi, () =&gt; yaw, () =&gt; pitch, () =&gt; scale, -1000)</li>\n<li sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"7\">Load hitboxes: rayCaster.LoadHitboxes(hitboxes)</li>\n<li sourcefile=\"api/Vintagestory.API.Client.ModelRayCaster.yml\" sourcestartlinenumber=\"8\">On click: rayCaster.RayCastToHitbox(mouseX, mouseY, out ElementHitbox hitbox) <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelRayCaster.cs>Open in GitHub</a></li>\n</ol>\n"
     },
     {
       "type": "ManagedReference",
@@ -3858,7 +4026,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.Plane",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.Plane.yml\" sourcestartlinenumber=\"1\">A plane of the form n.p + D = 0 A point in front of the plane gives a value above zero\nand a point behind it gives a value below zero</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4027,6 +4195,34 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.SelectionChangedDelegate",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ServerCellEntry.ProbeState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ServerCellEntry.ProbeState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ServerCellEntry.ProbeState",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Client.ServerCellEntry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Client.ServerCellEntry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Client.ServerCellEntry",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.ServerCellEntry.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Misc/ServerCellEntry.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4376,7 +4572,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.VisibleTestDelegate",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Client.VisibleTestDelegate.yml\" sourcestartlinenumber=\"1\">Visibility test delegate for external code</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -4828,6 +5024,62 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetChangedDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetChangedDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetChangedDelegate",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetChangedDelegate.yml\" sourcestartlinenumber=\"1\">Callback for when an asset has been changed.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetCollection-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetCollection-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetCollection<TAssetInterface>",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetCollection-1.yml\" sourcestartlinenumber=\"1\">Represents a collection of polymorphic asset types.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetConverter-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetConverter-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetConverter<T>",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetConverter-1.yml\" sourcestartlinenumber=\"1\">JSON converter for polymorphic asset definitions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetElementJsonConverter-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetElementJsonConverter-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetElementJsonConverter<TAsset, TDefinition>",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetElementJsonConverter-2.yml\" sourcestartlinenumber=\"1\">JSON converter for polymorphic asset element definitions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.AssetLocation.yml",
       "output": {
         ".html": {
@@ -4881,6 +5133,48 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.AssetLocationJsonParser",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetLocationJsonParser.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Util/JsonUtil.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetRegistry",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetRegistry.yml\" sourcestartlinenumber=\"1\">Manages registration, retrieval, and building of polymorphic asset types. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/AssetRegistry.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetSchemaGenerator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetSchemaGenerator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetSchemaGenerator",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetSchemaGenerator.yml\" sourcestartlinenumber=\"1\">JSON schema generator for polymorphic asset definitions. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/Json/AssetSchemaGenerator.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.AssetSchemaMetadataAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.AssetSchemaMetadataAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.AssetSchemaMetadataAttribute",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.AssetSchemaMetadataAttribute.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/Json/AssetSchemaGenerator.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -5738,6 +6032,90 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.Collider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.Collider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.Collider",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.Collider.yml\" sourcestartlinenumber=\"1\">A registration snapshot containing one or more world-space collision boxes. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/API/ICollisionScene.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ColliderTransform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ColliderTransform.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ColliderTransform",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ColliderTransform.yml\" sourcestartlinenumber=\"1\">An immutable rigid transform for collider-local geometry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.CollisionHit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.CollisionHit.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.CollisionHit",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.CollisionHit.yml\" sourcestartlinenumber=\"1\">The collider snapshot remains valid after scene changes.\nFractions run from zero to one along the supplied displacement, including endpoint contact.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.CollisionLayer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.CollisionLayer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.CollisionLayer",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.CollisionLayer.yml\" sourcestartlinenumber=\"1\">Unlisted bits are available for custom collision layers. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/API/CollisionQuery.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.CollisionLayerConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.CollisionLayerConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.CollisionLayerConverter",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.CollisionLayerConverter.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/API/CollisionQuery.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.CollisionQueryFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.CollisionQueryFilter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.CollisionQueryFilter",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.CollisionQueryFilter.yml\" sourcestartlinenumber=\"1\">Both the query mask and the collider mask must accept the other's layer.\nA null query filter bypasses filtering.\nA default filter accepts nothing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.ColorArgParser.yml",
       "output": {
         ".html": {
@@ -5976,6 +6354,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.CustomRegistryBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.CustomRegistryBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.CustomRegistryBase",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.CustomRegistryBase.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Crafting/RecipeRegistry.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.DamageSource.yml",
       "output": {
         ".html": {
@@ -6057,6 +6449,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.DialogClickDelegate",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.DialogClickDelegate.yml\" sourcestartlinenumber=\"1\">The delegate for a dialogue click.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.DidAutoMoveDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.DidAutoMoveDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.DidAutoMoveDelegate",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -6662,6 +7068,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.Entities.StandingColliderPose.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.Entities.StandingColliderPose.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.Entities.StandingColliderPose",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.Entities.StandingColliderPose.yml\" sourcestartlinenumber=\"1\">A standing pose sent with the player's position packet, in the carrying collider's local coordinates. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/StandingColliderSync.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.Entities.StandingColliderSync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.Entities.StandingColliderSync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.Entities.StandingColliderSync",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.Entities.StandingColliderSync.yml\" sourcestartlinenumber=\"1\">Synchronizes an entity's standing pose relative to an entity-owned collider.\nRemote clients resolve the collider's local registration and follow its predicted transform between pose packets. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/StandingColliderSync.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.Entities.SyncedEntityPos.yml",
       "output": {
         ".html": {
@@ -6886,6 +7320,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.EntityDropItemStack.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.EntityDropItemStack.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.EntityDropItemStack",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.EntityDropItemStack.yml\" sourcestartlinenumber=\"1\">Represents an itemstack that is dropped when killing or harvesting an entity <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Collectible/Block/BlockDropItemStack.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.EntityFloatStats.yml",
       "output": {
         ".html": {
@@ -6897,6 +7345,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.EntityFloatStats",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.EntityFloatStats.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityStats.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.EntityGroupDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.EntityGroupDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.EntityGroupDelegate",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -7642,6 +8104,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.EnumKeyFrameInterpolation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.EnumKeyFrameInterpolation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.EnumKeyFrameInterpolation",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.EnumKeyFrameInterpolation.yml\" sourcestartlinenumber=\"1\">Per-channel interpolation mode for the curve outgoing from a keyframe to the next one. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Model/Animation/AnimationKeyFrameElement.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.EnumLightLevelType.yml",
       "output": {
         ".html": {
@@ -8202,6 +8678,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ExpressionEvaluator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ExpressionEvaluator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ExpressionEvaluator",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ExpressionEvaluator.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/Json/ExpressionEvaluator.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.ExtraHandbookSection.yml",
       "output": {
         ".html": {
@@ -8524,6 +9014,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.HeldAttackDamageMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.HeldAttackDamageMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.HeldAttackDamageMode",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.HeldAttackDamageMode.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Combat/IHeldAttackDamageModes.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.HeldSounds.yml",
       "output": {
         ".html": {
@@ -8619,6 +9123,34 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.IAsset",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IAsset.yml\" sourcestartlinenumber=\"1\">Represents a loaded asset from the assets folder</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IAssetCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IAssetCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IAssetCollection",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IAssetInstance.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IAssetInstance.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IAssetInstance",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -8745,6 +9277,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.IBlockShapeSupplier",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IBlockShapeSupplier.yml\" sourcestartlinenumber=\"1\">Adds a tesselator to your block\nWARNING: please make sure whatever functions and fields you use with the OnTesselation event are THREAD SAFE!</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IBuildableAsset-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IBuildableAsset-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IBuildableAsset<TInstance>",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IBuildableAsset-1.yml\" sourcestartlinenumber=\"1\">Interface for buildable asset types.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -8930,6 +9476,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ICollisionScene.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ICollisionScene.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ICollisionScene",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ICollisionScene.yml\" sourcestartlinenumber=\"1\">Stores and queries persistent colliders outside the normal terrain and entity broad phases.\nRegistration changes and queries may run concurrently. Returned snapshots remain valid after their registration is updated or removed.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.ICombustible.yml",
       "output": {
         ".html": {
@@ -9000,6 +9560,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ICustomAttachableGear.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ICustomAttachableGear.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ICustomAttachableGear",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ICustomAttachableGear.yml\" sourcestartlinenumber=\"1\">Attachable that has custom logic for attaching gear shape to entity.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ICustomSnowAccumBehavior.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ICustomSnowAccumBehavior.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ICustomSnowAccumBehavior",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.IDrawYAdjustable.yml",
       "output": {
         ".html": {
@@ -9011,6 +9599,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.IDrawYAdjustable",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IDrawYAdjustable.yml\" sourcestartlinenumber=\"1\">Used for blocks (e.g. crops and dead crops) where the y-position might need to be adjusted at the time of tesselating an individual block</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IEntityColliderProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IEntityColliderProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IEntityColliderProvider",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IEntityColliderProvider.yml\" sourcestartlinenumber=\"1\">Resolves an entity-owned collider from a stable code shared by the client and server.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -9039,6 +9641,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.IEventAPI",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IEventAPI.yml\" sourcestartlinenumber=\"1\">Events that are available on the server and the client</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IExpressionEvaluator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IExpressionEvaluator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IExpressionEvaluator",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -9098,6 +9714,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IHeldAttackDamageModes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IHeldAttackDamageModes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IHeldAttackDamageModes",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.IHeldBag.yml",
       "output": {
         ".html": {
@@ -9123,6 +9753,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.IHeldHandAnimOverrider",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.IHeldParticleEmitter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.IHeldParticleEmitter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.IHeldParticleEmitter",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.IHeldParticleEmitter.yml\" sourcestartlinenumber=\"1\">A collectible that emits custom particles from its rendered position in an entity's hands.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -10470,6 +11114,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.NatFloatVar25Random.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.NatFloatVar25Random.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.NatFloatVar25Random",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.NatFloatVar25Random.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/SoundAttributes.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.NewInfSlotDelegate.yml",
       "output": {
         ".html": {
@@ -10635,6 +11293,34 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.OnInventorySlot",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.OnInventorySlot.yml\" sourcestartlinenumber=\"1\">Return false to stop walking the inventory</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.OnSchematicExport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.OnSchematicExport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.OnSchematicExport",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.OnSchematicImport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.OnSchematicImport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.OnSchematicImport",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -10876,6 +11562,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.PolymorphicAssetElementAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.PolymorphicAssetElementAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.PolymorphicAssetElementAttribute",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.PolymorphicAssetElementAttribute.yml\" sourcestartlinenumber=\"1\">Marks an interface as a polymorphic asset element type. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/PolymorphicAssetElementAttribute.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.PositionArgumentParserBase.yml",
       "output": {
         ".html": {
@@ -10974,6 +11674,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ProtectionModifiers.DamageReductionTableFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ProtectionModifiers.DamageReductionTableFile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ProtectionModifiers.DamageReductionTableFile",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ProtectionModifiers.EnumRoundingType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ProtectionModifiers.EnumRoundingType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ProtectionModifiers.EnumRoundingType",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.ProtectionModifiers.yml",
       "output": {
         ".html": {
@@ -10984,7 +11712,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.ProtectionModifiers",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ProtectionModifiers.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityAgent.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ProtectionModifiers.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/ProtectionModifiers.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11041,6 +11769,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.RecipeRegistryGeneric<T>",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.RegistersAssetTypesAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.RegistersAssetTypesAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.RegistersAssetTypesAttribute",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.RegistersAssetTypesAttribute.yml\" sourcestartlinenumber=\"1\">Marks a method as registering polymorphic asset types via <xref href=\"Vintagestory.API.Common.AssetRegistry\" data-throw-if-not-resolved=\"false\"></xref>. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/API/RegistersAssetTypesAttribute.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11181,6 +11923,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.Shape",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.Shape.yml\" sourcestartlinenumber=\"1\">The base shape for all json objects. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Model/Shape/Shape.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.ShapeColliderBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.ShapeColliderBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.ShapeColliderBuilder",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.ShapeColliderBuilder.yml\" sourcestartlinenumber=\"1\">Builds collision boxes from the cuboid elements of a model shape. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/Model/Shape/ShapeColliderBuilder.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11362,7 +12118,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.StatModifiers",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.StatModifiers.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityAgent.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.StatModifiers.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/StatModifiers.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -11548,20 +12304,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/Vintagestory.API.Common.TrySpawnGroupDelegate.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Vintagestory.API.Common.TrySpawnGroupDelegate.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Vintagestory.API.Common.TrySpawnGroupDelegate",
-      "Summary": null
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Common.TyronThreadPool.yml",
       "output": {
         ".html": {
@@ -11601,6 +12343,34 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Common.UpdateEntityDelegate",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.Variable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.Variable-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.Variable<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Common.VariableJsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Common.VariableJsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Common.VariableJsonConverter",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Common.VariableJsonConverter.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Assets/Polymorphic/Json/VariableConverter.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -12122,6 +12892,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.Array2DAttribute-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.Array2DAttribute-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.Array2DAttribute<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Datastructures.ArrayAttribute-1.yml",
       "output": {
         ".html": {
@@ -12133,6 +12917,174 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Datastructures.ArrayAttribute<T>",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReader",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction<T1>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction<T1, T2>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc<TR>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc<T1, TR>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction<T1>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction<T1, T2>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc<TR>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc<T1, TR>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.BinarySpanReaderExtensions",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.BinarySpanReaderExtensions.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/BinarySpanReader.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -12192,6 +13144,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.ByteArray2DAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.ByteArray2DAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.ByteArray2DAttribute",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.ByteArray2DAttribute.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/AttributeTree/ByteArray2DAttribute.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.Datastructures.ByteArrayAttribute.yml",
       "output": {
         ".html": {
@@ -12244,7 +13210,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Datastructures.CachedCuboidListFaster",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.CachedCuboidListFaster.yml\" sourcestartlinenumber=\"1\">Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.CachedCuboidListFaster.yml\" sourcestartlinenumber=\"1\">Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility.\nRotated cuboids are stored as their local AABB here — the rotation is dropped to keep the per-tick collision loop allocation-free. Use CachedCuboidList where rotation precision matters. <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -12567,6 +13533,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Datastructures.IAttribute",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.IAttribute.yml\" sourcestartlinenumber=\"1\">An attribute from an attribute tree</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.IHashWithIgnoredAttributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.IHashWithIgnoredAttributes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.IHashWithIgnoredAttributes",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.IHashWithIgnoredAttributes.yml\" sourcestartlinenumber=\"1\">An object that can contain attributes and ignore them when calculating hash</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -12903,6 +13883,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Datastructures.SequencesCache<TElement>",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Datastructures.SequencesCache-1.yml\" sourcestartlinenumber=\"1\">Thread-safe cache of sequences (ordered collections).\nIf two elements return 0 from 'CompareTo' call, they are treated as equal.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Datastructures.SerializedData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Datastructures.SerializedData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Datastructures.SerializedData",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -13256,6 +14250,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.BallisticsUtil.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.BallisticsUtil.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.BallisticsUtil",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.BallisticsUtil.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/BallisticsUtil.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.BlockFacing.yml",
       "output": {
         ".html": {
@@ -13340,6 +14348,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.CollisionPlane.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.CollisionPlane.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.CollisionPlane",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.CollisionPlane.yml\" sourcestartlinenumber=\"1\">A half-space constraint used to resolve movement against a collision surface.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.CollisionPlaneSolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.CollisionPlaneSolver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.CollisionPlaneSolver",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.CollisionPlaneSolver.yml\" sourcestartlinenumber=\"1\">Resolves a displacement against one or more collision planes. <a href=https://github.com/anegostudios/vsapi/blob/master///Math/CollisionPlaneSolver.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.CollisionPlaneSolverResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.CollisionPlaneSolverResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.CollisionPlaneSolverResult",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.CollisionTester.yml",
       "output": {
         ".html": {
@@ -13421,6 +14471,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.MathTools.Crc32Algorithm",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.Crc32Algorithm.yml\" sourcestartlinenumber=\"1\">Implementation of CRC-32.\nThis class supports several convenient static methods returning the CRC as UInt32.\nFrom <a href=\"https://github.com/force-net/Crc32.NET\" sourcefile=\"api/Vintagestory.API.MathTools.Crc32Algorithm.yml\" sourcestartlinenumber=\"3\">https://github.com/force-net/Crc32.NET</a> <a href=https://github.com/anegostudios/vsapi/blob/master///Math/Crc32Algorithm.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.CuboidContact.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.CuboidContact.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.CuboidContact",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.CuboidContact.yml\" sourcestartlinenumber=\"1\">The closest-axis contact between two cuboids. Separation is positive for a gap, zero for touching, and negative for penetration.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -13564,6 +14628,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.EnumINatFloatType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.EnumINatFloatType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.EnumINatFloatType",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.EnumINatFloatType.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/NatFloat.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.EnumIntersect.yml",
       "output": {
         ".html": {
@@ -13617,6 +14695,34 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.MathTools.EvolvingNatFloat",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.EvolvingNatFloat.yml\" sourcestartlinenumber=\"1\">A number generator whose return value changes over time, parametrized by a transform function and some constants</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.FastBlockPos.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.FastBlockPos.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.FastBlockPos",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.FastBlockPosComparer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.FastBlockPosComparer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.FastBlockPosComparer",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.FastBlockPosComparer.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/FastBlockPos.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -13760,6 +14866,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.INatFloat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.INatFloat.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.INatFloat",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.IRandom.yml",
       "output": {
         ".html": {
@@ -13770,6 +14890,20 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.MathTools.IRandom",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.IRotatedCuboid-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.IRotatedCuboid-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.IRotatedCuboid<T, C>",
       "Summary": null
     },
     {
@@ -13970,6 +15104,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.NatFloatConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.NatFloatConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.NatFloatConverter",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.NatFloatConverter.yml\" sourcestartlinenumber=\"1\">Reads the existing NatFloat JSON format into a mutable distribution or a shared immutable default. <a href=https://github.com/anegostudios/vsapi/blob/master///Math/NatFloatConverter.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.NatFloatOne.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.NatFloatOne.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.NatFloatOne",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.NatFloatOne.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/NatFloat.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.NewNormalizedSimplexFractalNoise.ColumnNoise.yml",
       "output": {
         ".html": {
@@ -14152,6 +15314,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidMath.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidMath.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.RotatedCuboidMath",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.RotatedCuboidMath.yml\" sourcestartlinenumber=\"1\">Math helpers for rotated cuboid (OBB) operations <a href=https://github.com/anegostudios/vsapi/blob/master///Math/Cuboid/RotatedCuboidMath.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidd.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidd.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.RotatedCuboidd",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.RotatedCuboidd.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/Cuboid/RotatedCuboidd.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidf.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.RotatedCuboidf.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.RotatedCuboidf",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.RotatedCuboidf.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Math/Cuboid/RotatedCuboidf.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.API.MathTools.ShapeUtil.yml",
       "output": {
         ".html": {
@@ -14331,6 +15535,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.MathTools.TransformFunction",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.MathTools.TransformedCuboidd.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.MathTools.TransformedCuboidd.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.MathTools.TransformedCuboidd",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.MathTools.TransformedCuboidd.yml\" sourcestartlinenumber=\"1\">A cuboid transformed by an affine matrix. Instances may be reused with <xref href=\"Vintagestory.API.MathTools.TransformedCuboidd.Set(Vintagestory.API.MathTools.Cuboidd%2cSystem.Double%5b%5d)\" data-throw-if-not-resolved=\"false\"></xref>. <a href=https://github.com/anegostudios/vsapi/blob/master///Math/Cuboid/TransformedCuboidd.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -14778,7 +15996,21 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Server.EnumProtectionLevel",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Server.EnumProtectionLevel.yml\" sourcestartlinenumber=\"1\">How strongly the Server should protect against hacking <a href=https://github.com/anegostudios/vsapi/blob/master///Server/EnumCheatProtectionLevel.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Server.EnumProtectionLevel.yml\" sourcestartlinenumber=\"1\">How strongly the Server should protect against hacking <a href=https://github.com/anegostudios/vsapi/blob/master///Server/EnumProtectionLevel.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Server.EnumProtectionLevelExtension.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Server.EnumProtectionLevelExtension.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Server.EnumProtectionLevelExtension",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Server.EnumProtectionLevelExtension.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Server/EnumProtectionLevel.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -15394,7 +16626,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Util.CustomFastSerializerAttribute",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.CustomFastSerializerAttribute.yml\" sourcestartlinenumber=\"1\">Indicates that the FastSerialize() method should call a custom method to serialize this field: the custom method being of the pattern FastSerializerDelegate <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.CustomFastSerializerAttribute.yml\" sourcestartlinenumber=\"1\">Indicates that the FastSerialize() method should call a custom method to serialize this field.\nThe custom method being of the pattern &quot;FastSerialize[memberName](ms, fieldId, ref count, ref position);&quot; ,\nwhere memberName will automatically strip a &quot;Serialized&quot; suffix from the field name for the called methode name, so &quot;EntitiesCount&quot; and &quot;EntitiesSerialized&quot; field will generate the following code: FastSerializeEntitiesCount(ms, 5, ref count, ref position); FastSerializeEntities(ms, 6, ref count, ref position);.\nThe FastSerializeEntitiesCount() and FastSerializeEntities() need to be implemented in the class by hand.\nSee FastSerializeGenerator.cs <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -15450,7 +16682,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Util.EnumerableExtensions",
-      "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.EnumerableExtensions.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Util/ArrayExtensions.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.EnumerableExtensions.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Util/EnumerableExtensions.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -15479,20 +16711,6 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Util.FastSerializer",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.FastSerializer.yml\" sourcestartlinenumber=\"1\">A faster implementation of a ProtoBuf serializer.\n<br>Note 1: for int and ushort and other primitives/structs, the default value of 0 will not be written (because the read value will be 0 anyhow, so not writing the 0 value makes no difference to what the reader eventually reads): except in arrays and other simple collections such as List, where 0 values will be written, so that the reader reads out all subsequent values in the array with the correct indexing\n<br>Note 2: for reference types including string, if the value is null then nothing will be written.  A read collection may therefore be shorter than the written collection, if the written collection included null values: be careful serializing arrays of reference types, if necessary replace null values with something else prior to serialization.  For convenience, one special exception here is arrays or lists of string: if a null string is in the array, FastSerializer will instead automatically write an empty string &quot;&quot;. (We don't do that for other reference types because it is not necessarily clear what the default non-null value should be....) <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/Vintagestory.API.Util.FastSerializerDelegate.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Vintagestory.API.Util.FastSerializerDelegate.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Vintagestory.API.Util.FastSerializerDelegate",
-      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -15689,6 +16907,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.API.Util.SerializerUtil",
       "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.SerializerUtil.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Util/SerializerUtil.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.API.Util.ShapeCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.API.Util.ShapeCache.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.API.Util.ShapeCache",
+      "Summary": "<p sourcefile=\"api/Vintagestory.API.Util.ShapeCache.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Util/ShapeCache.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -15958,6 +17190,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.Datastructures.ArrayPoolReturner-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.Datastructures.ArrayPoolReturner-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.Datastructures.ArrayPoolReturner<T>",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.Datastructures.EnumStructurePlacement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.Datastructures.EnumStructurePlacement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.Datastructures.EnumStructurePlacement",
+      "Summary": "<p sourcefile=\"api/Vintagestory.Datastructures.EnumStructurePlacement.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/SchematicPlacementData.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/Vintagestory.Datastructures.NaturalShape.yml",
       "output": {
         ".html": {
@@ -15969,6 +17229,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.Datastructures.NaturalShape",
       "Summary": "<p sourcefile=\"api/Vintagestory.Datastructures.NaturalShape.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/NaturalShape.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Vintagestory.Datastructures.SchematicPlacementData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Vintagestory.Datastructures.SchematicPlacementData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.Datastructures.SchematicPlacementData",
+      "Summary": "<p sourcefile=\"api/Vintagestory.Datastructures.SchematicPlacementData.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/SchematicPlacementData.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",

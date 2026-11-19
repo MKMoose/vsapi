@@ -548,6 +548,38 @@ Interface IWorldAccessor
 
 
 
+  <a id="Vintagestory_API_Common_IWorldAccessor_CollisionScene_" data-uid="Vintagestory.API.Common.IWorldAccessor.CollisionScene*"></a>
+
+  <h3 id="Vintagestory_API_Common_IWorldAccessor_CollisionScene" data-uid="Vintagestory.API.Common.IWorldAccessor.CollisionScene">
+  CollisionScene
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The scene of persistent colliders registered outside the normal terrain and entity broad phases.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICollisionScene CollisionScene { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ICollisionScene.html">ICollisionScene</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_IWorldAccessor_CollisionTester_" data-uid="Vintagestory.API.Common.IWorldAccessor.CollisionTester*"></a>
 
   <h3 id="Vintagestory_API_Common_IWorldAccessor_CollisionTester" data-uid="Vintagestory.API.Common.IWorldAccessor.CollisionTester">
@@ -715,7 +747,8 @@ Interface IWorldAccessor
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Whether the current side (client/server) is in entity debug mode</p>
+  <div class="markdown level1 summary"><p>Whether the current side (client/server) is in entity debug mode.
+On the client side this also checks if we are in creative mode.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1169,7 +1202,9 @@ Retrieving the list is not a very fast process, not suggested to be called every
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The world seed. Accessible on the server and the client</p>
+  <div class="markdown level1 summary"><p>The world seed. Accessible on the server and the client.
+Used for systems that need to generate server and client side position based randomness or the same sequence of random numbers
+This seed is not used to generate the world. The world generation seed is only accessible server side</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -1660,6 +1695,43 @@ DONT FORGET: Call .Begin() before getting/setting in a tight loop. Not calling i
 
 
 
+  <a id="Vintagestory_API_Common_IWorldAccessor_GetCustomRegistry_" data-uid="Vintagestory.API.Common.IWorldAccessor.GetCustomRegistry*"></a>
+
+  <h3 id="Vintagestory_API_Common_IWorldAccessor_GetCustomRegistry_System_String_" data-uid="Vintagestory.API.Common.IWorldAccessor.GetCustomRegistry(System.String)">
+  GetCustomRegistry(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieve a previously registered custom registry</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">CustomRegistryBase GetCustomRegistry(string code)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html">CustomRegistryBase</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_IWorldAccessor_GetEntitiesAround_" data-uid="Vintagestory.API.Common.IWorldAccessor.GetEntitiesAround*"></a>
 
   <h3 id="Vintagestory_API_Common_IWorldAccessor_GetEntitiesAround_Vintagestory_API_MathTools_Vec3d_System_Single_System_Single_Vintagestory_API_Common_ActionConsumable_Vintagestory_API_Common_Entities_Entity__" data-uid="Vintagestory.API.Common.IWorldAccessor.GetEntitiesAround(Vintagestory.API.MathTools.Vec3d,System.Single,System.Single,Vintagestory.API.Common.ActionConsumable{Vintagestory.API.Common.Entities.Entity})">
@@ -2063,7 +2135,8 @@ DONT FORGET: Call .Begin() before getting/setting in a tight loop. Not calling i
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">RecipeRegistryBase GetRecipeRegistry(string code)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use GetCustomRegistry instead&quot;)]
+CustomRegistryBase GetRecipeRegistry(string code)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -2074,7 +2147,7 @@ DONT FORGET: Call .Begin() before getting/setting in a tight loop. Not calling i
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Common.RecipeRegistryBase.html">RecipeRegistryBase</a></dt>
+    <dt><a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html">CustomRegistryBase</a></dt>
     <dd></dd>
   </dl>
 
@@ -2910,7 +2983,7 @@ DONT FORGET: Call .Begin() before getting/setting in a tight loop. Not calling i
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IPlayer PlayerByUid(string? playerUid)</code></pre>
+    <pre><code class="lang-csharp hljs">IPlayer? PlayerByUid(string? playerUid)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

@@ -103,7 +103,7 @@ Class NatFloat
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson]
-public class NatFloat</code></pre>
+public class NatFloat : INatFloat, IEquatable&lt;NatFloat&gt;</code></pre>
   </div>
 
 
@@ -117,6 +117,13 @@ public class NatFloat</code></pre>
     </dd>
   </dl>
 
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Vintagestory.API.MathTools.INatFloat.html">INatFloat</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a>&gt;</div>
+    </dd>
+  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -337,6 +344,37 @@ public float var</code></pre>
 </h2>
 
 
+  <a id="Vintagestory_API_MathTools_NatFloat_Average_" data-uid="Vintagestory.API.MathTools.NatFloat.Average*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_NatFloat_Average" data-uid="Vintagestory.API.MathTools.NatFloat.Average">
+  Average
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Average { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_MathTools_NatFloat_One_" data-uid="Vintagestory.API.MathTools.NatFloat.One*"></a>
 
   <h3 id="Vintagestory_API_MathTools_NatFloat_One" data-uid="Vintagestory.API.MathTools.NatFloat.One">
@@ -359,6 +397,37 @@ public float var</code></pre>
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_NatFloat_Type_" data-uid="Vintagestory.API.MathTools.NatFloat.Type*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_NatFloat_Type" data-uid="Vintagestory.API.MathTools.NatFloat.Type">
+  Type
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EnumINatFloatType Type { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.EnumINatFloatType.html">EnumINatFloatType</a></dt>
     <dd></dd>
   </dl>
 
@@ -473,6 +542,42 @@ public float var</code></pre>
 
 
 
+  <a id="Vintagestory_API_MathTools_NatFloat_CreateFromBytes_" data-uid="Vintagestory.API.MathTools.NatFloat.CreateFromBytes*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_NatFloat_CreateFromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.MathTools.NatFloat.CreateFromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  CreateFromBytes(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static NatFloat CreateFromBytes(ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_MathTools_NatFloat_Equals_" data-uid="Vintagestory.API.MathTools.NatFloat.Equals*"></a>
 
   <h3 id="Vintagestory_API_MathTools_NatFloat_Equals_System_Object_" data-uid="Vintagestory.API.MathTools.NatFloat.Equals(System.Object)">
@@ -519,7 +624,8 @@ public float var</code></pre>
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates whether the current object is equal to another object of the same type.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -529,13 +635,15 @@ public float var</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
-    <dd></dd>
+    <dd><p>An object to compare with this object.</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current object is equal to the <code class="paramref">other</code> parameter; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
   </dl>
 
 
@@ -559,12 +667,44 @@ public float var</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void FromBytes(BinaryReader reader)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public void FromBytes(BinaryReader reader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_NatFloat_FromBytes_" data-uid="Vintagestory.API.MathTools.NatFloat.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_NatFloat_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.MathTools.NatFloat.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  FromBytes(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FromBytes(ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -632,6 +772,37 @@ public float var</code></pre>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_NatFloat_ToNatFloat_" data-uid="Vintagestory.API.MathTools.NatFloat.ToNatFloat*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_NatFloat_ToNatFloat" data-uid="Vintagestory.API.MathTools.NatFloat.ToNatFloat">
+  ToNatFloat()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public NatFloat ToNatFloat()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -837,7 +1008,8 @@ public float var</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static NatFloat createFromBytes(BinaryReader reader)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static NatFloat createFromBytes(BinaryReader reader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

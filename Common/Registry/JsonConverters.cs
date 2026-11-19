@@ -19,7 +19,7 @@ namespace Vintagestory.API.Common
             // This causes: Newtonsoft.Json.JsonSerializationException: 'Unexpected token while deserializing object: EndObject.' wtf?
             //if (reader.Value == null) return new JsonObject(null);
 
-            JToken token = JToken.ReadFrom(reader);
+            JToken token = JToken.ReadFrom(reader, JsonUtil.DefaultLoadSettings);
             JsonObject var = new JsonObject(token);
             return var;
         }

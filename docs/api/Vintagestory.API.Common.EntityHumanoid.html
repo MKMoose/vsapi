@@ -218,6 +218,9 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_TryUnmount">EntityAgent.TryUnmount()</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_TryUnmount_System_Boolean_">EntityAgent.TryUnmount(bool)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_Die_Vintagestory_API_Common_EnumDespawnReason_Vintagestory_API_Common_DamageSource_">EntityAgent.Die(EnumDespawnReason, DamageSource)</a>
     </div>
     <div>
@@ -275,13 +278,16 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_ToBytes_System_IO_BinaryWriter_System_Boolean_">EntityAgent.ToBytes(BinaryWriter, bool)</a>
     </div>
     <div>
-      <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_FromBytes_System_IO_BinaryReader_System_Boolean_">EntityAgent.FromBytes(BinaryReader, bool)</a>
+      <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_">EntityAgent.FromBytes(ref BinarySpanReader, bool)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_SetHeadPositionToWatchedAttributes">EntityAgent.SetHeadPositionToWatchedAttributes()</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_GetHeadPositionFromWatchedAttributes">EntityAgent.GetHeadPositionFromWatchedAttributes()</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_RequestedHandUseCancelReason">EntityAgent.RequestedHandUseCancelReason</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.EntityAgent.html#Vintagestory_API_Common_EntityAgent_TryStopHandAction_System_Boolean_Vintagestory_API_Common_EnumItemUseCancelReason_">EntityAgent.TryStopHandAction(bool, EnumItemUseCancelReason)</a>
@@ -384,6 +390,9 @@ Class EntityHumanoid
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_EntityId">Entity.EntityId</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_LogicalId">Entity.LogicalId</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_SimulationRange">Entity.SimulationRange</a>
@@ -569,6 +578,12 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_DoInitialActiveCheck_Vintagestory_API_Common_ICoreAPI_">Entity.DoInitialActiveCheck(ICoreAPI)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_IsControlledByClient_Vintagestory_API_Common_EntityPlayer_">Entity.IsControlledByClient(EntityPlayer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_IsControlledByServer_Vintagestory_API_Common_IMountable_">Entity.IsControlledByServer(IMountable)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_InRangeOf_Vintagestory_API_MathTools_Vec3d_System_Single_System_Single_">Entity.InRangeOf(Vec3d, float, float)</a>
     </div>
     <div>
@@ -632,6 +647,9 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnFallToGround_System_Double_">Entity.OnFallToGround(double)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnEntityJump">Entity.OnEntityJump()</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnCollided">Entity.OnCollided()</a>
     </div>
     <div>
@@ -656,10 +674,16 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedServerPos_System_Boolean_">Entity.OnReceivedServerPos(bool)</a>
     </div>
     <div>
-      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_System_Byte___">Entity.OnReceivedClientPacket(IServerPlayer, int, byte[])</a>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Common_IPlayer_System_Int32_System_Byte___">Entity.OnReceivedClientPacket(IPlayer, int, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_Vintagestory_API_Datastructures_SerializedData_Vintagestory_API_Common_Entities_Entity_CachedAccessPerms__">Entity.OnReceivedClientPacket(IServerPlayer, int, SerializedData, ref Entity.CachedAccessPerms)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedServerPacket_System_Int32_System_Byte___">Entity.OnReceivedServerPacket(int, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedServerPacket_System_Int32_Vintagestory_API_Datastructures_SerializedData_">Entity.OnReceivedServerPacket(int, SerializedData)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_OnReceivedServerAnimations_System_Int32___System_Int32_System_Single___">Entity.OnReceivedServerAnimations(int[], int, float[])</a>
@@ -719,10 +743,22 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_FromBytes_System_IO_BinaryReader_System_Boolean_System_Collections_Generic_Dictionary_System_String_System_String__">Entity.FromBytes(BinaryReader, bool, Dictionary&lt;string, string&gt;)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_System_Collections_Generic_Dictionary_System_String_System_String__">Entity.FromBytes(ref BinarySpanReader, bool, Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_FromBytes_System_IO_BinaryReader_System_Boolean_">Entity.FromBytes(BinaryReader, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_fromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_">Entity.fromBytes(ref BinarySpanReader, bool)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_Revive">Entity.Revive()</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_PlayEntitySound_System_String_Vintagestory_API_Common_IPlayer_">Entity.PlayEntitySound(string, IPlayer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_TryGetEntitySound_System_String_System_Random_">Entity.TryGetEntitySound(string, Random)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html#Vintagestory_API_Common_Entities_Entity_CanCollect_Vintagestory_API_Common_Entities_Entity_">Entity.CanCollect(Entity)</a>
@@ -788,6 +824,9 @@ Class EntityHumanoid
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_Class">RegistryObject.Class</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_SourceFilePath">RegistryObject.SourceFilePath</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_CodeWithPath_System_String_">RegistryObject.CodeWithPath(string)</a>
     </div>
     <div>
@@ -840,6 +879,9 @@ Class EntityHumanoid
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_FillPlaceHolder_System_String_System_String_System_String_">RegistryObject.FillPlaceHolder(string, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_FillPlaceHolderOptimized_System_String_Vintagestory_API_Datastructures_OrderedDictionary_System_String_System_String__">RegistryObject.FillPlaceHolderOptimized(string, OrderedDictionary&lt;string, string&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>

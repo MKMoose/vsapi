@@ -34,6 +34,9 @@ namespace Vintagestory.API.Client
         double pressedYOffset;
         double nonPressedYOffset;
 
+        public string SoundName = "toggleswitch";
+        public bool SoundRandomizePitch = true;
+
         /// <summary>
         /// Is this element capable of being in the focus?
         /// </summary>
@@ -199,7 +202,7 @@ namespace Vintagestory.API.Client
 
             On = !On;
             handler?.Invoke(On);
-            api.Gui.PlaySound("toggleswitch");
+            api.Gui.PlaySound(SoundName, SoundRandomizePitch);
         }
 
         /// <summary>
@@ -231,7 +234,7 @@ namespace Vintagestory.API.Client
                 args.Handled = true;
                 On = !On;
                 handler?.Invoke(On);
-                api.Gui.PlaySound("toggleswitch");
+                api.Gui.PlaySound(SoundName, SoundRandomizePitch);
             }
         }
 

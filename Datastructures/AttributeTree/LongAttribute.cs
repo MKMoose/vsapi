@@ -1,39 +1,41 @@
-﻿using System.IO;
+using System;
+using System.IO;
 
-#nullable disable
+namespace Vintagestory.API.Datastructures;
 
-namespace Vintagestory.API.Datastructures
+public class LongAttribute : ScalarAttribute<long>, IAttribute
 {
-    public class LongAttribute : ScalarAttribute<long>, IAttribute
+    public LongAttribute()
     {
-        public LongAttribute()
-        {
 
-        }
+    }
 
-        public LongAttribute(long value)
-        {
-            this.value = value;
-        }
+    public LongAttribute(long value)
+    {
+        this.value = value;
+    }
 
-        public void FromBytes(BinaryReader stream)
-        {
-            value = stream.ReadInt64();
-        }
+    [Obsolete("Use the BinarySpanReader overload.", true)]
+    public void FromBytes(BinaryReader reader)
+        => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-        public void ToBytes(BinaryWriter stream)
-        {
-            stream.Write(value);
-        }
+    public void FromBytes(ref BinarySpanReader reader)
+    {
+        value = reader.ReadInt64();
+    }
 
-        public int GetAttributeId()
-        {
-            return 2;
-        }
+    public void ToBytes(BinaryWriter stream)
+    {
+        stream.Write(value);
+    }
 
-        public IAttribute Clone()
-        {
-            return new LongAttribute(value);
-        }
+    public int GetAttributeId()
+    {
+        return 2;
+    }
+
+    public IAttribute Clone()
+    {
+        return new LongAttribute(value);
     }
 }

@@ -6,7 +6,6 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 
-#nullable disable
 
 namespace Vintagestory.API.Common.Entities
 {
@@ -86,10 +85,10 @@ namespace Vintagestory.API.Common.Entities
         /// If defined, further constrains the spawning areas by a large scale 2D density map
         /// </summary>
         [DocumentAsJson("Optional", "null")]
-        public string[] RandomMapCodePool;
+        public string[]? RandomMapCodePool;
 
         [JsonIgnore]
-        public string MapCode = null;
+        public string? MapCode = null;
 
         /// <summary>
         /// If true, will check for suitable habitat size (e.g. when underwater and size of 2 will check that there is also water 2 blocks away in all directions
@@ -115,7 +114,7 @@ namespace Vintagestory.API.Common.Entities
             this.MapCode = conds.MapCode;
             if (conds.RandomMapCodePool != null)
             {
-                this.RandomMapCodePool = (string[])conds.RandomMapCodePool?.Clone();
+                this.RandomMapCodePool = conds.RandomMapCodePool?.Clone() as string[];
             }
             this.HabitatSize= conds.HabitatSize;
         }
@@ -133,6 +132,24 @@ namespace Vintagestory.API.Common.Entities
             if (MinShrubs > climate.ShrubDensity || MaxShrubs < climate.ShrubDensity) return false;
             if (MinForestOrShrubs > Math.Max(climate.ForestDensity, climate.ShrubDensity)) return false;
             return true;
+        }
+
+        public bool Matches(ClimateCondition? climate, int y, ICoreServerAPI sapi)
+        {
+            if (climate == null)
+            {
+                return true;
+            }
+            int sealevel = sapi.World.SeaLevel;
+            int maxheight = sapi.WorldManager.MapSizeY;
+            float highY = (y + 3f) > sealevel ? 1 + (y + 3f - sealevel) / (maxheight - sealevel) : (y + 3f) / sealevel;
+            float lowY = (y - 3f) > sealevel ? 1 + (y - 3f - sealevel) / (maxheight - sealevel) : (y - 3f) / sealevel;
+            return MatchesForestation(climate)
+                && MatchesClimate(climate)
+                && MinY <= highY && MaxY >= lowY;
+                // What if?
+                //&& minGeo <= climate.GeologicActivity && maxGeo >= climate.GeologicActivity
+                //&& minFertility <= climate.Fertility && maxFertility >= climate.Fertility;
         }
 
         public ClimateSpawnCondition Clone()
@@ -198,19 +215,19 @@ namespace Vintagestory.API.Common.Entities
         /// It is recommended to specify climate values here rather than setting them in the other spawn conditions.
         /// </summary>
         [DocumentAsJson("Recommended", "None")]
-        public ClimateSpawnCondition Climate;
+        public ClimateSpawnCondition? Climate;
 
         /// <summary>
         /// Runtime requirements for the object to spawn.
         /// </summary>
         [DocumentAsJson("Recommended", "None")]
-        public RuntimeSpawnConditions Runtime;
+        public RuntimeSpawnConditions? Runtime;
 
         /// <summary>
         /// Worldgen/region requirements for the object to spawn.
         /// </summary>
         [DocumentAsJson("Recommended", "None")]
-        public WorldGenSpawnConditions Worldgen;
+        public WorldGenSpawnConditions? Worldgen;
 
         public SpawnConditions Clone()
         {
@@ -249,7 +266,7 @@ namespace Vintagestory.API.Common.Entities
         /// A wildcard asset location which can group many entities together.
         /// </summary>
         [DocumentAsJson("Required")]
-        public AssetLocation Code;
+        public AssetLocation? Code;
     }
 
     /// <summary>
@@ -278,7 +295,7 @@ namespace Vintagestory.API.Common.Entities
         /// Using this with a group of "pig-*" will allow a max of 20 pig entities, regardless if male, female, or piglet.
         /// </summary>
         [DocumentAsJson("Optional", "None")]
-        public QuantityByGroup MaxQuantityByGroup = null;
+        public QuantityByGroup? MaxQuantityByGroup = null;
 
         /// <summary>
         /// The maximum number of this entity that can exist in the world is <see cref="MaxQuantity"/> x (current player count) x (this).
@@ -329,7 +346,7 @@ namespace Vintagestory.API.Common.Entities
                 MinDistanceToPlayer = MinDistanceToPlayer,
                 MaxQuantityByGroup = MaxQuantityByGroup,
                 SpawnCapPlayerScaling = SpawnCapPlayerScaling,
-                RandomMapCodePool = (string[])RandomMapCodePool?.Clone(),
+                RandomMapCodePool = RandomMapCodePool?.Clone() as string[],
                 MapCode = MapCode,
                 HabitatSize = HabitatSize
             };
@@ -348,7 +365,7 @@ namespace Vintagestory.API.Common.Entities
         /// The amount of times the object will attempt to spawn per chunk.
         /// </summary>
         [DocumentAsJson("Recommended", "0")]
-        public NatFloat TriesPerChunk = NatFloat.Zero;
+        public NatFloat? TriesPerChunk = NatFloat.Zero;
 
         public new WorldGenSpawnConditions Clone()
         {
@@ -373,7 +390,7 @@ namespace Vintagestory.API.Common.Entities
                 MinShrubs = MinShrubs,
                 MaxShrubs = MaxShrubs,
                 MinForestOrShrubs = MinForestOrShrubs,
-                RandomMapCodePool = (string[])RandomMapCodePool?.Clone(),
+                RandomMapCodePool = RandomMapCodePool?.Clone() as string[],
                 MapCode = MapCode,
                 TriesPerChunk = TriesPerChunk?.Clone(),
                 HabitatSize = HabitatSize
@@ -397,7 +414,7 @@ namespace Vintagestory.API.Common.Entities
         ///     and in locations where hostiles should not spawn.
         /// </summary>
         [DocumentAsJson("Recommended", "None")]
-        public string Group;
+        public string? Group;
 
         /// <summary>
         /// The minimum light level for an object to spawn.
@@ -421,26 +438,26 @@ namespace Vintagestory.API.Common.Entities
         /// the group size for the spawn.
         /// </summary>
         [DocumentAsJson("Recommended", "1")]
-        public NatFloat HerdSize = NatFloat.createUniform(1, 0);
+        public NatFloat? HerdSize = NatFloat.createUniform(1, 0);
 
         /// <summary>
         /// Obsolete. Use <see cref="HerdSize"/> instead.
         /// </summary>
         [DocumentAsJson("Obsolete")] 
         [Obsolete("Use HerdSize instead")]
-        public NatFloat GroupSize { get => HerdSize; set => HerdSize = value; }
+        public NatFloat? GroupSize { get => HerdSize; set => HerdSize = value; }
 
         /// <summary>
         /// Additional companions for the spawn.
         /// </summary>
         [DocumentAsJson("Optional", "None")]
-        public AssetLocation[] Companions = Array.Empty<AssetLocation>();
+        public AssetLocation[]? Companions = Array.Empty<AssetLocation>();
 
         /// <summary>
         /// The blocks that the object will spawn in.
         /// </summary>
         [DocumentAsJson("Optional", "air")]
-        public AssetLocation[] InsideBlockCodes = new AssetLocation[] { new AssetLocation("air") };
+        public AssetLocation[]? InsideBlockCodes = [ "air" ];
 
         /// <summary>
         /// Checks to see if the object requires solid ground.
@@ -461,9 +478,9 @@ namespace Vintagestory.API.Common.Entities
         public EnumGetClimateMode ClimateValueMode = EnumGetClimateMode.WorldGenValues;
 
 
-        protected HashSet<Block> InsideBlockCodesResolved = null;
-        protected string[] InsideBlockCodesBeginsWith;
-        protected string[] InsideBlockCodesExact;
+        protected HashSet<Block>? InsideBlockCodesResolved = null;
+        protected string[]? InsideBlockCodesBeginsWith;
+        protected string[]? InsideBlockCodesExact;
         protected string InsideBlockFirstLetters = "";
 
         public bool CanSpawnInside(Block testBlock)
@@ -475,21 +492,23 @@ namespace Vintagestory.API.Common.Entities
 
             if (PathMatchesInsideBlockCodes(testPath))
             {
-                return InsideBlockCodesResolved.Contains(testBlock);    // Here we do a hashset check just to make sure, because so far we only checked the path not the domain
+                return InsideBlockCodesResolved?.Contains(testBlock) == true;    // Here we do a hashset check just to make sure, because so far we only checked the path not the domain
             }
             return false;
         }
 
         private bool PathMatchesInsideBlockCodes(string testPath)
         {
-            for (int i = 0; i < InsideBlockCodesExact.Length; i++)
+            if (InsideBlockCodes == null) return false;
+
+            for (int i = 0; i < InsideBlockCodesExact!.Length; i++)
             {
-                if (testPath == InsideBlockCodesExact[i]) return true;
+                if (testPath == InsideBlockCodesExact![i]) return true;
             }
 
-            for (int i = 0; i < InsideBlockCodesBeginsWith.Length; i++)
+            for (int i = 0; i < InsideBlockCodesBeginsWith!.Length; i++)
             {
-                if (testPath.StartsWithOrdinal(InsideBlockCodesBeginsWith[i])) return true;
+                if (testPath.StartsWithOrdinal(InsideBlockCodesBeginsWith![i])) return true;
             }
 
             return false;
@@ -508,7 +527,7 @@ namespace Vintagestory.API.Common.Entities
                 bool anyBlockOk = false;
                 foreach (var val in InsideBlockCodes)
                 {
-                    if (!searchCache.TryGetValue(val, out Block[] foundBlocks))
+                    if (!searchCache.TryGetValue(val, out Block[]? foundBlocks))
                     {
                         foundBlocks = server.SearchBlocks(val);
                         searchCache[val] = foundBlocks;

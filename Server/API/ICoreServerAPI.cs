@@ -20,7 +20,7 @@ namespace Vintagestory.API.Server
         /// </summary>
         IWorldManagerAPI WorldManager { get; }
 
-       
+
         /// <summary>
         /// API Component for accessing server related functionality
         /// </summary>
@@ -52,6 +52,11 @@ namespace Vintagestory.API.Server
         /// API for accessing anything in the game world
         /// </summary>
         new IServerWorldAccessor World { get; }
+
+        /// <summary>
+        /// Platform utilities
+        /// </summary>
+        IXPlatformInterface PlatformUtils { get; }
 
 
 

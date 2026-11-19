@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using System.ComponentModel;
+using ProtoBuf;
 
 #nullable disable
 
@@ -26,7 +27,7 @@ namespace Vintagestory.API.Common
         [ProtoMember(6)]
         public float? roll;
 
-        [ProtoMember(7)]
+        [ProtoMember(7), DefaultValue(-1)]
         public int RemainingUses = -1;
 
 

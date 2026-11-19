@@ -369,7 +369,7 @@ namespace Vintagestory.API.Config
         /// <summary>
         /// Default Itemstack attributes that should always be ignored during a stack.Collectible.Equals() comparison
         /// </summary>
-        public static string[] IgnoredStackAttributes = new string[] { "temperature", "toolMode", "renderVariant", "transitionstate" };
+        public static string[] IgnoredStackAttributes = new string[] { "temperature", "toolMode", "renderVariant", "nockedArrow", "transitionstate" };
 
         /// <summary>
         /// Global modifier to change the spoil rate of foods. Can be changed during run-time. The value is multiplied to the normal spoilage rate (default: 1)

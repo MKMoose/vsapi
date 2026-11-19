@@ -205,6 +205,9 @@ You add components by chaining the functions of the composer together for buildi
       <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDialogTitleBar_Vintagestory_API_Client_GuiComposer_System_String_System_Action_Vintagestory_API_Client_CairoFont_Vintagestory_API_Client_ElementBounds_System_String_">GuiComposerHelpers.AddDialogTitleBar(GuiComposer, string, Action, CairoFont, ElementBounds, string)</a>
   </div>
   <div>
+      <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDialogTitleBarUnmovableInImmersive_Vintagestory_API_Client_GuiComposer_System_String_System_Action_Vintagestory_API_Client_CairoFont_Vintagestory_API_Client_ElementBounds_System_String_">GuiComposerHelpers.AddDialogTitleBarUnmovableInImmersive(GuiComposer, string, Action, CairoFont, ElementBounds, string)</a>
+  </div>
+  <div>
       <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDialogTitleBarWithBg_Vintagestory_API_Client_GuiComposer_System_String_System_Action_Vintagestory_API_Client_CairoFont_Vintagestory_API_Client_ElementBounds_System_String_">GuiComposerHelpers.AddDialogTitleBarWithBg(GuiComposer, string, Action, CairoFont, ElementBounds, string)</a>
   </div>
   <div>
@@ -212,6 +215,12 @@ You add components by chaining the functions of the composer together for buildi
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDropDown_Vintagestory_API_Client_GuiComposer_System_String___System_String___System_Int32_Vintagestory_API_Client_SelectionChangedDelegate_Vintagestory_API_Client_ElementBounds_Vintagestory_API_Client_CairoFont_System_String_">GuiComposerHelpers.AddDropDown(GuiComposer, string[], string[], int, SelectionChangedDelegate, ElementBounds, CairoFont, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDropDown_Vintagestory_API_Client_GuiComposer_Vintagestory_API_Client_DropDownEntry___System_Int32_Vintagestory_API_Client_SelectionChangedDelegate_Vintagestory_API_Client_ElementBounds_System_String_">GuiComposerHelpers.AddDropDown(GuiComposer, DropDownEntry[], int, SelectionChangedDelegate, ElementBounds, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDropDown_Vintagestory_API_Client_GuiComposer_Vintagestory_API_Client_DropDownEntry___System_Int32_Vintagestory_API_Client_SelectionChangedDelegate_Vintagestory_API_Client_ElementBounds_Vintagestory_API_Client_CairoFont_System_String_">GuiComposerHelpers.AddDropDown(GuiComposer, DropDownEntry[], int, SelectionChangedDelegate, ElementBounds, CairoFont, string)</a>
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Client.GuiComposerHelpers.html#Vintagestory_API_Client_GuiComposerHelpers_AddDynamicCustomDraw_Vintagestory_API_Client_GuiComposer_Vintagestory_API_Client_ElementBounds_Vintagestory_API_Client_DrawDelegateWithBounds_System_String_">GuiComposerHelpers.AddDynamicCustomDraw(GuiComposer, ElementBounds, DrawDelegateWithBounds, string)</a>
@@ -468,6 +477,45 @@ You add components by chaining the functions of the composer together for buildi
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Vintagestory_API_Client_GuiComposer__ctor_" data-uid="Vintagestory.API.Client.GuiComposer.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_Client_GuiComposer__ctor_Vintagestory_API_Client_ICoreClientAPI_Vintagestory_API_Client_ElementBounds_System_String_" data-uid="Vintagestory.API.Client.GuiComposer.#ctor(Vintagestory.API.Client.ICoreClientAPI,Vintagestory.API.Client.ElementBounds,System.String)">
+  GuiComposer(ICoreClientAPI, ElementBounds, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GuiComposer(ICoreClientAPI api, ElementBounds bounds, string dialogName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>api</code> <a class="xref" href="Vintagestory.API.Client.ICoreClientAPI.html">ICoreClientAPI</a></dt>
+    <dd></dd>
+    <dt><code>bounds</code> <a class="xref" href="Vintagestory.API.Client.ElementBounds.html">ElementBounds</a></dt>
+    <dd></dd>
+    <dt><code>dialogName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="fields">Fields
 </h2>
 
@@ -603,6 +651,66 @@ You add components by chaining the functions of the composer together for buildi
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public bool Enabled</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_InsideClipBounds" data-uid="Vintagestory.API.Client.GuiComposer.InsideClipBounds">
+  InsideClipBounds
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ElementBounds InsideClipBounds</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.ElementBounds.html">ElementBounds</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_IsCached" data-uid="Vintagestory.API.Client.GuiComposer.IsCached">
+  IsCached
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCached</code></pre>
   </div>
 
 
@@ -774,6 +882,36 @@ You add components by chaining the functions of the composer together for buildi
 
 
 
+  <h3 id="Vintagestory_API_Client_GuiComposer_composerManager" data-uid="Vintagestory.API.Client.GuiComposer.composerManager">
+  composerManager
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IGuiComposerManager composerManager</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.IGuiComposerManager.html">IGuiComposerManager</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Client_GuiComposer_conditionalAdds" data-uid="Vintagestory.API.Client.GuiComposer.conditionalAdds">
   conditionalAdds
   
@@ -852,6 +990,36 @@ You add components by chaining the functions of the composer together for buildi
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_interactiveElements" data-uid="Vintagestory.API.Client.GuiComposer.interactiveElements">
+  interactiveElements
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, GuiElement&gt; interactiveElements</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.GuiElement.html">GuiElement</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -954,6 +1122,36 @@ You add components by chaining the functions of the composer together for buildi
 
 
 
+  <h3 id="Vintagestory_API_Client_GuiComposer_onlyDynamicRender" data-uid="Vintagestory.API.Client.GuiComposer.onlyDynamicRender">
+  onlyDynamicRender
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool onlyDynamicRender</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Client_GuiComposer_parentBoundsForNextElement" data-uid="Vintagestory.API.Client.GuiComposer.parentBoundsForNextElement">
   parentBoundsForNextElement
   
@@ -972,6 +1170,66 @@ You add components by chaining the functions of the composer together for buildi
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.stack-1">Stack</a>&lt;<a class="xref" href="Vintagestory.API.Client.ElementBounds.html">ElementBounds</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_recomposeOnRender" data-uid="Vintagestory.API.Client.GuiComposer.recomposeOnRender">
+  recomposeOnRender
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool recomposeOnRender</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_staticElements" data-uid="Vintagestory.API.Client.GuiComposer.staticElements">
+  staticElements
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, GuiElement&gt; staticElements</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.GuiElement.html">GuiElement</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -2311,6 +2569,32 @@ Notice! Most gui elements even yet support non-premul alpha mode</p>
 
 
 
+  <a id="Vintagestory_API_Client_GuiComposer_UnFocusElements_" data-uid="Vintagestory.API.Client.GuiComposer.UnFocusElements*"></a>
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_UnFocusElements" data-uid="Vintagestory.API.Client.GuiComposer.UnFocusElements">
+  UnFocusElements()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnFocusElements()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_GuiComposer_UnfocusOwnElements_" data-uid="Vintagestory.API.Client.GuiComposer.UnfocusOwnElements*"></a>
 
   <h3 id="Vintagestory_API_Client_GuiComposer_UnfocusOwnElements" data-uid="Vintagestory.API.Client.GuiComposer.UnfocusOwnElements">
@@ -2360,6 +2644,42 @@ Notice! Most gui elements even yet support non-premul alpha mode</p>
 </dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_GuiComposer_scaled_" data-uid="Vintagestory.API.Client.GuiComposer.scaled*"></a>
+
+  <h3 id="Vintagestory_API_Client_GuiComposer_scaled_System_Double_" data-uid="Vintagestory.API.Client.GuiComposer.scaled(System.Double)">
+  scaled(double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static double scaled(double value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

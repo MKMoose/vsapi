@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cairo;
 using Vintagestory.API.MathTools;
 
@@ -39,6 +39,7 @@ namespace Vintagestory.API.Client
 
                 float scrollbarMovableArea = (float)(this.Bounds.InnerHeight - currentHandleHeight);
                 float innerMovableArea = totalHeight - visibleHeight;
+                if (innerMovableArea < 0) return 1;
 
                 return innerMovableArea / scrollbarMovableArea;
             }
@@ -102,7 +103,7 @@ namespace Vintagestory.API.Client
             ctx.Fill();
 
             EmbossRoundRectangleElement(ctx, 0, 0, w, h, false, 2, 1);
-            
+
             generateTexture(surface, ref handleTexture);
 
             ctx.Dispose();
@@ -116,7 +117,7 @@ namespace Vintagestory.API.Client
                 (int)(Bounds.renderX + Bounds.absPaddingX),
                 (int)(Bounds.renderY + Bounds.absPaddingY + currentHandlePosition),
                 (int)Bounds.InnerWidth,
-                (int)currentHandleHeight, 
+                (int)currentHandleHeight,
                 200+zOffset
             );
         }
@@ -131,21 +132,21 @@ namespace Vintagestory.API.Client
             this.visibleHeight = visibleHeight;
             SetNewTotalHeight(totalHeight);
         }
-        
+
         /// <summary>
         /// Sets the total height, recalculating things for the new height.
         /// </summary>
         /// <param name="totalHeight">The total height of the scrollbar.</param>
         public void SetNewTotalHeight(float totalHeight)
         {
+            float oldConversionFactor = ScrollConversionFactor;
             this.totalHeight = totalHeight;
 
             float heightDiffFactor = GameMath.Clamp(this.visibleHeight / totalHeight, 0, 1);
 
             currentHandleHeight = Math.Max(10, (float)(heightDiffFactor * Bounds.InnerHeight));
 
-
-            currentHandlePosition = (float)Math.Min(currentHandlePosition, Bounds.InnerHeight - currentHandleHeight);
+            CurrentYPosition = (float)Math.Min(currentHandlePosition * oldConversionFactor, (Bounds.InnerHeight - currentHandleHeight) * ScrollConversionFactor);
             TriggerChanged();
 
             RecomposeHandle();
@@ -162,11 +163,11 @@ namespace Vintagestory.API.Client
         {
             if (Bounds.InnerHeight <= currentHandleHeight + 0.001) return;
 
-            float y = currentHandlePosition - (float)scaled(102) * args.deltaPrecise / ScrollConversionFactor;
+            float y = currentHandlePosition - (float)scaled(102) * args.DeltaY / ScrollConversionFactor;
             double scrollbarMoveableHeight = Bounds.InnerHeight - currentHandleHeight;
             currentHandlePosition = (float)GameMath.Clamp(y, 0, scrollbarMoveableHeight);
             TriggerChanged();
-            
+
 
             args.SetHandled(true);
         }
@@ -236,7 +237,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         public void ScrollToBottom()
         {
-            // 0..1 
+            // 0..1
             float currentPositionRelative = 1;
 
             if (totalHeight < visibleHeight)
@@ -247,7 +248,7 @@ namespace Vintagestory.API.Client
             {
                 currentHandlePosition = (float)(Bounds.InnerHeight - currentHandleHeight);
             }
-            
+
 
             // 0..element movable height
             float currentPositionAbs = currentPositionRelative * (totalHeight - visibleHeight);
@@ -263,7 +264,7 @@ namespace Vintagestory.API.Client
 
             if (posY < startY)
             {
-                float diff = (float)(startY - posY) / ScrollConversionFactor;                
+                float diff = (float)(startY - posY) / ScrollConversionFactor;
                 currentHandlePosition = Math.Max(0, currentHandlePosition - diff);
                 TriggerChanged();
                 return;
@@ -290,7 +291,7 @@ namespace Vintagestory.API.Client
     public static partial class GuiComposerHelpers
     {
         /// <summary>
-        /// Adds a vertical scrollbar to the GUI.  
+        /// Adds a vertical scrollbar to the GUI.
         /// </summary>
         /// <param name="composer"></param>
         /// <param name="onNewScrollbarValue">The action when the scrollbar changes.</param>

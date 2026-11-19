@@ -101,7 +101,7 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed class ComplexConditionConverter&lt;TTagSet&gt; : JsonConverter&lt;ComplexTagCondition&lt;TTagSet&gt;&gt; where TTagSet : IEquatable&lt;TTagSet&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class ComplexConditionConverter&lt;TTagSet&gt; : JsonConverter where TTagSet : IEquatable&lt;TTagSet&gt;</code></pre>
   </div>
 
 
@@ -117,7 +117,6 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
       <div><span class="xref">JsonConverter</span></div>
-      <div><span class="xref">JsonConverter</span>&lt;<a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.html">ComplexTagCondition</a>&lt;TTagSet&gt;&gt;</div>
       <div><span class="xref">ComplexConditionConverter&lt;TTagSet&gt;</span></div>
     </dd>
   </dl>
@@ -127,15 +126,6 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">JsonConverter&lt;ComplexTagCondition&lt;TTagSet&gt;&gt;.WriteJson(JsonWriter, object, JsonSerializer)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">JsonConverter&lt;ComplexTagCondition&lt;TTagSet&gt;&gt;.ReadJson(JsonReader, Type, object, JsonSerializer)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">JsonConverter&lt;ComplexTagCondition&lt;TTagSet&gt;&gt;.CanConvert(Type)</a>
-    </div>
     <div>
       <span class="xref">JsonConverter.CanRead</span>
     </div>
@@ -216,10 +206,10 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
 </h2>
 
 
-  <a id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_ReadJson_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.ReadJson*"></a>
+  <a id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_CanConvert_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.CanConvert*"></a>
 
-  <h3 id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_ReadJson_Newtonsoft_Json_JsonReader_System_Type_Vintagestory_API_Datastructures_ComplexTagCondition__0__System_Boolean_Newtonsoft_Json_JsonSerializer_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.ReadJson(Newtonsoft.Json.JsonReader,System.Type,Vintagestory.API.Datastructures.ComplexTagCondition{`0},System.Boolean,Newtonsoft.Json.JsonSerializer)">
-  ReadJson(JsonReader, Type, ComplexTagCondition&lt;TTagSet&gt;, bool, JsonSerializer)
+  <h3 id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_CanConvert_System_Type_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.CanConvert(System.Type)">
+  CanConvert(Type)
   
   </h3>
 
@@ -227,7 +217,43 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override ComplexTagCondition&lt;TTagSet&gt; ReadJson(JsonReader reader, Type objectType, ComplexTagCondition&lt;TTagSet&gt; existingValue, bool hasExistingValue, JsonSerializer serializer)</code></pre>
+    <pre><code class="lang-csharp hljs">public override bool CanConvert(Type objectType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>objectType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_ReadJson_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.ReadJson*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_ReadJson_Newtonsoft_Json_JsonReader_System_Type_System_Object_Newtonsoft_Json_JsonSerializer_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+  ReadJson(JsonReader, Type, object?, JsonSerializer)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -236,9 +262,7 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
     <dd></dd>
     <dt><code>objectType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
     <dd></dd>
-    <dt><code>existingValue</code> <a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.html">ComplexTagCondition</a>&lt;TTagSet&gt;</dt>
-    <dd></dd>
-    <dt><code>hasExistingValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><code>existingValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
     <dt><code>serializer</code> <span class="xref">JsonSerializer</span></dt>
     <dd></dd>
@@ -246,7 +270,7 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.html">ComplexTagCondition</a>&lt;TTagSet&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
   </dl>
 
@@ -298,8 +322,8 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
 
   <a id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_WriteJson_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.WriteJson*"></a>
 
-  <h3 id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_WriteJson_Newtonsoft_Json_JsonWriter_Vintagestory_API_Datastructures_ComplexTagCondition__0__Newtonsoft_Json_JsonSerializer_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.WriteJson(Newtonsoft.Json.JsonWriter,Vintagestory.API.Datastructures.ComplexTagCondition{`0},Newtonsoft.Json.JsonSerializer)">
-  WriteJson(JsonWriter, ComplexTagCondition&lt;TTagSet&gt;, JsonSerializer)
+  <h3 id="Vintagestory_API_Datastructures_ComplexConditionConverter_1_WriteJson_Newtonsoft_Json_JsonWriter_System_Object_Newtonsoft_Json_JsonSerializer_" data-uid="Vintagestory.API.Datastructures.ComplexConditionConverter`1.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+  WriteJson(JsonWriter, object?, JsonSerializer)
   
   </h3>
 
@@ -307,14 +331,14 @@ Class ComplexConditionConverter&lt;TTagSet&gt;
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void WriteJson(JsonWriter writer, ComplexTagCondition&lt;TTagSet&gt; value, JsonSerializer serializer)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>writer</code> <span class="xref">JsonWriter</span></dt>
     <dd></dd>
-    <dt><code>value</code> <a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.html">ComplexTagCondition</a>&lt;TTagSet&gt;</dt>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
     <dd></dd>
     <dt><code>serializer</code> <span class="xref">JsonSerializer</span></dt>
     <dd></dd>

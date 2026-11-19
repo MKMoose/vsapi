@@ -85,7 +85,9 @@ namespace Vintagestory.API.Common
         int SeaLevel { get; }
 
         /// <summary>
-        /// The world seed. Accessible on the server and the client
+        /// The world seed. Accessible on the server and the client.
+        /// Used for systems that need to generate server and client side position based randomness or the same sequence of random numbers
+        /// This seed is not used to generate the world. The world generation seed is only accessible server side
         /// </summary>
         int Seed { get; }
 
@@ -100,7 +102,8 @@ namespace Vintagestory.API.Common
         int SunBrightness { get; }
 
         /// <summary>
-        /// Whether the current side (client/server) is in entity debug mode
+        /// Whether the current side (client/server) is in entity debug mode.
+        /// On the client side this also checks if we are in creative mode.
         /// </summary>
         bool EntityDebugMode { get; }
 
@@ -143,6 +146,11 @@ namespace Vintagestory.API.Common
         /// For collision testing in the main thread
         /// </summary>
         CollisionTester CollisionTester { get; }
+
+        /// <summary>
+        /// The scene of persistent colliders registered outside the normal terrain and entity broad phases.
+        /// </summary>
+        ICollisionScene CollisionScene { get; }
 
         /// <summary>
         /// Just a random number generator. Makes use of ThreadLocal for thread safety.
@@ -189,7 +197,18 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        RecipeRegistryBase GetRecipeRegistry(string code);
+        [Obsolete("Use GetCustomRegistry instead")]
+        CustomRegistryBase GetRecipeRegistry(string code)
+        {
+            return GetCustomRegistry(code);
+        }
+
+        /// <summary>
+        /// Retrieve a previously registered custom registry
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        CustomRegistryBase GetCustomRegistry(string code);
 
         /// <summary>
         /// The range in blocks within a client will receive regular updates for an entity
@@ -375,7 +394,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="playerUid"></param>
         /// <returns></returns>
-        IPlayer PlayerByUid(string? playerUid);
+        IPlayer? PlayerByUid(string? playerUid);
 
 
         /// <summary>

@@ -1450,12 +1450,46 @@ public ModelTransform UsingHeldItemTransformBefore</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void FromBytes(BinaryReader reader, bool ignoreData)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer the binarySpanReader overload.&quot;)]
+public virtual void FromBytes(BinaryReader reader, bool ignoreData)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>ignoreData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_EntityControls_FromBytes_" data-uid="Vintagestory.API.Common.EntityControls.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_EntityControls_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_" data-uid="Vintagestory.API.Common.EntityControls.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.Boolean)">
+  FromBytes(ref BinarySpanReader, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void FromBytes(ref BinarySpanReader reader, bool ignoreData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>ignoreData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>

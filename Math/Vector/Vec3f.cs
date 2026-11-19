@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -150,6 +151,15 @@ namespace Vintagestory.API.MathTools
             return GameMath.RootSumOfSquares(X, Y, Z);
         }
 
+        /// <summary>
+        /// Returns length² of this vector.
+        /// </summary>
+        /// <returns></returns>
+        public float LengthSquared()
+        {
+            return X * X + Y * Y + Z * Z;
+        }
+
         public void Negate()
         {
             this.X = -X;
@@ -164,6 +174,17 @@ namespace Vintagestory.API.MathTools
             return mat.TransformVector(new Vec4f(X, Y, Z, 0)).XYZ;
         }
 
+        public Vec3f RotatedAroundAxisCopy(Vec3f axis, float angle)
+        {
+            float cosTheta = (float)Math.Cos(angle);
+            float sinTheta = (float)Math.Sin(angle);
+            float dot = Dot(axis);
+            Vec3f cross = axis.Cross(this);
+
+            return this * cosTheta +
+                   cross * sinTheta +
+                   axis * dot * (1 - cosTheta);
+        }
 
         /// <summary>
         /// Returns the dot product with given vector
@@ -232,7 +253,7 @@ namespace Vintagestory.API.MathTools
         {
             X = a.Y * b.Z - a.Z * b.Y;
             Y = a.Z * b.X - a.X * b.Z;
-            Z = a.X * b.Y - a.Y * b.X;            
+            Z = a.X * b.Y - a.Y * b.X;
         }
 
         /// <summary>
@@ -378,6 +399,16 @@ namespace Vintagestory.API.MathTools
             return this;
         }
 
+        /// <summary>
+        /// Computes an orthogonal vector
+        /// </summary>
+        /// <returns></returns>
+        public Vec3f GetOrthogonal()
+        {
+            return Math.Abs(X) > Math.Abs(Y)
+                ? new Vec3f(-Z, 0, X).NormalizedCopy()
+                : new Vec3f(0, -Z, Y).NormalizedCopy();
+        }
 
         /// <summary>
         /// Calculates the square distance the two endpoints
@@ -388,7 +419,7 @@ namespace Vintagestory.API.MathTools
         /// <returns></returns>
         public double DistanceSq(double x, double y, double z)
         {
-            return 
+            return
                 (X - x) * (X - x) +
                 (Y - y) * (Y - y) +
                 (Z - z) * (Z - z)
@@ -455,7 +486,7 @@ namespace Vintagestory.API.MathTools
         }
 
         /// <summary>
-        /// Creates a new vectors that is the normalized version of this vector. 
+        /// Creates a new vectors that is the normalized version of this vector.
         /// </summary>
         /// <returns></returns>
         public Vec3f NormalizedCopy()
@@ -617,7 +648,13 @@ namespace Vintagestory.API.MathTools
             writer.Write(Z);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static Vec3f CreateFromBytes(BinaryReader reader)
+        {
+            return new Vec3f(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+        }
+
+        public static Vec3f CreateFromBytes(ref BinarySpanReader reader)
         {
             return new Vec3f(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
         }

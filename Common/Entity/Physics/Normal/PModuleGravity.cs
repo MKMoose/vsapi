@@ -39,7 +39,7 @@ public class PModuleGravity : PModule
     public override void DoApply(float dt, Entity entity, EntityPos pos, EntityControls controls)
     {
         // Don't apply if you're swimming and trying to move.
-        if (entity.Swimming && controls.TriesToMove && entity.Alive) return;
+        if (entity.Swimming && (controls.TriesToMove || controls.Up) && entity.Alive) return;
 
         // Drag motion down while above y -100.
         if (pos.Y > -100)

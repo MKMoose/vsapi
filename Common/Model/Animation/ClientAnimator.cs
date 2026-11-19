@@ -40,10 +40,11 @@ namespace Vintagestory.API.Common
 
         public static ClientAnimator CreateForEntity(Entity entity, List<ElementPose> rootPoses, Animation[] animations, ShapeElement[] rootElements, Dictionary<int, AnimationJoint> jointsById)
         {
+            ClientAnimator ca;
             if (entity is EntityAgent)
             {
                 EntityAgent entityag = entity as EntityAgent;
-                return new ClientAnimator(
+                ca = new ClientAnimator(
                     () => entityag.Controls.MovespeedMultiplier * entityag.GetWalkSpeedMultiplier(0.3),
                     rootPoses,
                     animations,
@@ -52,9 +53,10 @@ namespace Vintagestory.API.Common
                     entity.AnimManager.TriggerAnimationStopped,
                     entity.AnimManager.ShouldPlaySound
                 );
+                
             } else
             {
-                return new ClientAnimator(
+                ca = new ClientAnimator(
                     () => 1,
                     rootPoses,
                     animations,
@@ -64,15 +66,19 @@ namespace Vintagestory.API.Common
                     entity.AnimManager.ShouldPlaySound
                 );
             }
+
+            ca.entityForLogging = entity;
+            return ca;
         }
 
         public static ClientAnimator CreateForEntity(Entity entity, Animation[] animations, ShapeElement[] rootElements, Dictionary<int, AnimationJoint> jointsById)
         {
+            ClientAnimator ca;
             if (entity is EntityAgent)
             {
                 EntityAgent entityag = entity as EntityAgent;
 
-                return new ClientAnimator(
+                ca = new ClientAnimator(
                     () => entityag.Controls.MovespeedMultiplier * entityag.GetWalkSpeedMultiplier(0.3),
                     animations,
                     rootElements,
@@ -83,7 +89,7 @@ namespace Vintagestory.API.Common
             }
             else
             {
-                return new ClientAnimator(
+                ca = new ClientAnimator(
                     () => 1,
                     animations,
                     rootElements,
@@ -92,6 +98,9 @@ namespace Vintagestory.API.Common
                     entity.AnimManager.ShouldPlaySound
                 );
             }
+
+            ca.entityForLogging = entity;
+            return ca;
         }
 
         public ClientAnimator(                  // This constructor is called only on the server side, by ServerAnimator constructors.  Note, no call to initMatrices, to save RAM on a server
@@ -236,17 +245,18 @@ namespace Vintagestory.API.Common
 
         private int getMaxDepth(List<ElementPose> poses, int depth)
         {
+            int maxDepth = depth;
             for (int i = 0; i < poses.Count; i++)
             {
                 var pose = poses[i];
 
                 if (pose.ChildElementPoses != null)
                 {
-                    depth = getMaxDepth(pose.ChildElementPoses, depth);
+                    maxDepth = Math.Max(maxDepth, getMaxDepth(pose.ChildElementPoses, depth + 1));
                 }
             }
 
-            return depth + 1;
+            return maxDepth;
         }
 
         public override ElementPose GetPosebyName(string name, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
@@ -277,29 +287,44 @@ namespace Vintagestory.API.Common
 
             if (anim.Animation.PrevNextKeyFrameByFrame == null)
             {
-                anim.Animation.GenerateAllFrames(RootElements, jointsById);
+                anim.Animation.GenerateAllFrames(RootElements, jointsById, entityForLogging?.Code);
             }
 
             anim.LoadWeights(RootElements);
         }
 
+        protected override void AnimMetaChanged(RunningAnimation anim, AnimationMetaData animData)
+        {
+            base.AnimMetaChanged(anim, animData);
+
+            anim.LoadWeights(RootElements);
+        }
 
 
-
-        int[] prevFrame = new int[MaxConcurrentAnimations];
-        int[] nextFrame = new int[MaxConcurrentAnimations];
+        int[] prevFrames = new int[MaxConcurrentAnimations];
+        int[] nextFrames = new int[MaxConcurrentAnimations];
+        float[] lerpByAnimation = new float[MaxConcurrentAnimations];
 
         public override int MaxJointId => jointsById.Count + 1;
 
 
+        float skipFramesAccum = 0;
         public override void OnFrame(Dictionary<string, AnimationMetaData> activeAnimationsByAnimCode, float dt)
         {
+            if (RuntimeEnv.RetroMode)
+            {
+                skipFramesAccum += dt;
+                if (skipFramesAccum < 0.1f) return;
+                skipFramesAccum = 0f;
+                dt = 0.1f;
+            }
+
             for (int j = 0; j < activeAnimCount; j++)
             {
                 RunningAnimation anim = CurAnims[j];
                 if (anim.Animation.PrevNextKeyFrameByFrame == null && anim.Animation.KeyFrames.Length > 0)
                 {
-                    anim.Animation.GenerateAllFrames(RootElements, jointsById);
+                    anim.Animation.GenerateAllFrames(RootElements, jointsById, entityForLogging?.Code);
                 }
 
                 if (anim.meta.AnimationSounds != null && anim.meta.AnimationSounds.Length > 0 && onShouldPlaySoundListener != null)
@@ -311,7 +336,7 @@ namespace Vintagestory.API.Common
                         var animsound = anim.meta.AnimationSounds[i];
                         if (anim.CurrentFrame >= animsound.Frame && anim.SoundPlayedAtIteration[i] != anim.Iterations && anim.Active && anim.NowPlaying)
                         {
-                            onShouldPlaySoundListener(anim.meta.Code, animsound);
+                            onShouldPlaySoundListener(anim.meta.Animation, animsound);
                             anim.SoundPlayedAtIteration[i] = anim.Iterations;
                         }
                     }
@@ -329,37 +354,52 @@ namespace Vintagestory.API.Common
 
             int animVersion = 0;
 
-            for (int j = 0; j < activeAnimCount; j++)
+            int maxcount = activeAnimCount;
+            var CurAnims = this.CurAnims;
+            var weightsByAnimation = this.weightsByAnimationAndElement[0];
+            var frameByAnimation = frameByDepthByAnimation[0];
+            for (int j = 0; j < CurAnims.Length; j++)
             {
+                if (j >= maxcount) break;
                 RunningAnimation anim = CurAnims[j];
 
-                weightsByAnimationAndElement[0][j] = anim.ElementWeights;
+                weightsByAnimation[j] = anim.ElementWeights;
 
                 animVersion = Math.Max(animVersion, anim.Animation.Version);
 
                 AnimationFrame[] prevNextFrame = anim.Animation.PrevNextKeyFrameByFrame[(int)anim.CurrentFrame % anim.Animation.QuantityFrames];
-                frameByDepthByAnimation[0][j] = prevNextFrame[0].RootElementTransforms;
-                prevFrame[j] = prevNextFrame[0].FrameNumber;
+                AnimationFrame prevNextFrame0 = prevNextFrame[0];
+                frameByAnimation[j] = prevNextFrame0.RootElementTransforms;
+                prevFrames[j] = prevNextFrame0.FrameNumber;
 
                 if (anim.Animation.OnAnimationEnd == EnumEntityAnimationEndHandling.Hold && (int)anim.CurrentFrame + 1 == anim.Animation.QuantityFrames)
                 {
-                    nextFrameTransformsByAnimation[0][j] = prevNextFrame[0].RootElementTransforms;
-                    nextFrame[j] = prevNextFrame[0].FrameNumber;
+                    nextFrameTransformsByAnimation[0][j] = prevNextFrame0.RootElementTransforms;
+                    nextFrames[j] = prevNextFrame0.FrameNumber;
                 }
                 else
                 {
-                    nextFrameTransformsByAnimation[0][j] = prevNextFrame[1].RootElementTransforms;
-                    nextFrame[j] = prevNextFrame[1].FrameNumber;
+                    AnimationFrame prevNextFrame1 = prevNextFrame[1];
+                    nextFrameTransformsByAnimation[0][j] = prevNextFrame1.RootElementTransforms;
+                    nextFrames[j] = prevNextFrame1.FrameNumber;
                 }
+
+                int prevF = prevFrames[j];
+                int nextF = nextFrames[j];
+
+                // May loop around, so nextFrame can be smaller than prevFrame
+                float keyFrameDist = nextF > prevF ? (nextF - prevF) : (anim.Animation.QuantityFrames - prevF + nextF);
+                float curFrameDist = anim.CurrentFrame >= prevF ? (anim.CurrentFrame - prevF) : (anim.Animation.QuantityFrames - prevF + anim.CurrentFrame);
+                lerpByAnimation[j] = curFrameDist / keyFrameDist;
             }
 
             calculateMatrices(
                 animVersion,
                 dt,
                 RootPoses,
-                weightsByAnimationAndElement[0],
+                weightsByAnimation,
                 ReusableIdentityMatrix ??= Mat4f.Create(),
-                frameByDepthByAnimation[0],
+                frameByAnimation,
                 nextFrameTransformsByAnimation[0],
                 0
             );
@@ -367,12 +407,13 @@ namespace Vintagestory.API.Common
             var TransformationMatrices = this.TransformationMatrices;
             if (TransformationMatrices != null)
             {
-                for (int jointidMul16 = 0; jointidMul16 < TransformationMatrices.Length; jointidMul16 += 16)    // radfast 20.2.25:  jointIdMul16 is (jointId * 16); I think this is the highest performance way to loop through this, taking account of the many array bounds checks
+                // radfast 20.2.25:  jointIdMul16 is (jointId * 16); I think this is the highest performance way to loop through this, taking account of the many array bounds checks
+                for (int jointidMul16 = 0; jointidMul16 < TransformationMatrices.Length; jointidMul16 += 16)    
                 {
                     if (jointsById.ContainsKey(jointidMul16 / 16)) continue;
 
-                for (int j = 0; j < 16; j++)
-                {
+                    for (int j = 0; j < 16; j++)
+                    {
                         TransformationMatrices[jointidMul16 + j] = identMat[j];
                     }
                 }
@@ -451,26 +492,24 @@ namespace Vintagestory.API.Common
                 {
                     RunningAnimation anim = CurAnims[animIndex];
                     ShapeElementWeights sew = weightsByAnimationAndElement[animIndex][childPoseIndex];
-                    anim.CalcBlendedWeight(weightSum / sew.Weight, sew.BlendMode);
 
                     ElementPose nowFramePose = nowKeyFrameByAnimation[animIndex][childPoseIndex];
                     ElementPose nextFramePose = nextInKeyFrameByAnimation[animIndex][childPoseIndex];
 
-                    int prevFrame = this.prevFrame[animIndex];
-                    int nextFrame = this.nextFrame[animIndex];
-
-                    // May loop around, so nextFrame can be smaller than prevFrame
-                    float keyFrameDist = nextFrame > prevFrame ? (nextFrame - prevFrame) : (anim.Animation.QuantityFrames - prevFrame + nextFrame);
-                    float curFrameDist = anim.CurrentFrame >= prevFrame ? (anim.CurrentFrame - prevFrame) : (anim.Animation.QuantityFrames - prevFrame + anim.CurrentFrame);
-
-                    float lerp = curFrameDist / keyFrameDist;
-
-                    outFramePose.Add(nowFramePose, nextFramePose, lerp, anim.BlendedWeight);
-
+                    // Children can have non-zero weights even when this element has zero weight.
                     nowChildKeyFrameByAnimation[animIndex] = nowFramePose.ChildElementPoses;
                     childWeightsByAnimationAndElement[animIndex] = sew.ChildElements;
-
                     nextChildKeyFrameByAnimation[animIndex] = nextFramePose.ChildElementPoses;
+
+                    if (sew.BlendMode != EnumAnimationBlendMode.Add && sew.Weight == 0f)
+                    {
+                        continue;
+                    }
+
+                    // BlendMode "Add" uses the easing factor directly, independently of element weights.
+                    anim.CalcBlendedWeight(sew.BlendMode == EnumAnimationBlendMode.Add ? 0f : weightSum / sew.Weight, sew.BlendMode);
+
+                    outFramePose.Add(nowFramePose, nextFramePose, lerpByAnimation[animIndex], anim.BlendedWeight);
                 }
 
                 elem.GetLocalTransformMatrix(animVersion, localTransformMatrix, outFramePose);

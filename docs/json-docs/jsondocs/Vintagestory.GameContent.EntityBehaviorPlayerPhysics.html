@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class EntityBehaviorPlayerPhysics | VintageStory Json Docs ">
       
-      <meta name="description" content="Client-side player physics. This class has no further properties. Uses the &amp;quot;playerphysics&amp;quot; code Open in GitHub">
+      <meta name="description" content="Client-side player physics. Uses the &amp;quot;playerphysics&amp;quot; code Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,7 @@ Class EntityBehaviorPlayerPhysics
   <dl><dt>Assembly</dt><dd>VSEssentials.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Client-side player physics. This class has no further properties.
+  <div class="markdown summary"><p>Client-side player physics.
 <br>Uses the &quot;playerphysics&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorPlayerPhysics.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
@@ -141,6 +141,9 @@ public class EntityBehaviorPlayerPhysics : EntityBehaviorControlledPhysics</code
     <div>
       <a class="xref" href="Vintagestory.GameContent.EntityBehaviorControlledPhysics.html#Vintagestory_GameContent_EntityBehaviorControlledPhysics_climbAnywhereStepThreshold">EntityBehaviorControlledPhysics.climbAnywhereStepThreshold</a>
     </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.html#Vintagestory_API_Common_Entities_PhysicsBehaviorBase_MaxWalkableSlopeGrade">PhysicsBehaviorBase.MaxWalkableSlopeGrade</a>
+    </div>
   </dd></dl>
 
 
@@ -148,7 +151,8 @@ public class EntityBehaviorPlayerPhysics : EntityBehaviorControlledPhysics</code
   <h2 id="Vintagestory_GameContent_EntityBehaviorPlayerPhysics_examples">Examples</h2>
   <pre><code class="lang-csharp">"behaviors": [
  {
-    "code": "playerphysics"
+    "code": "playerphysics",
+    "maxWalkableSlopeGrade": 1
  }
 ]</code></pre>
 

@@ -311,6 +311,22 @@ namespace Vintagestory.API.MathTools
         }
 
         /// <summary>
+        /// Returns the squared Euclidean horizontal distance to between this and given position
+        /// Note this is dimension unaware
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float HorDistanceSqTo(double x, double z)
+        {
+            double dx = x - X;
+            double dz = z - Z;
+
+            return (float)(dx * dx + dz * dz);
+        }
+
+        /// <summary>
         /// Adds both vectors into a new vector. Both source vectors remain unchanged.
         /// </summary>
         /// <param name="vec"></param>

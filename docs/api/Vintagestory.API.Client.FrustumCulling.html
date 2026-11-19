@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class FrustumCulling | VintageStory API ">
       
-      <meta name="description" content="Open in GitHub">
+      <meta name="description" content="The frustum culler keeps the planes of the current view pyramid and tests whether an object is inside them All visibility rules live here and are used by both the single object checks (InFrustum and friends) and the batched version in PoolCullData Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,9 @@ Class FrustumCulling
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>The frustum culler keeps the planes of the current view pyramid and tests whether an object is
+inside them All visibility rules live here and are used by both the single object checks
+(InFrustum and friends) and the batched version in PoolCullData <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -229,7 +231,7 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"><p>If distance squared is above this fraction of ViewDistanceSq, switch to LOD2.  Default value corresponds to distances beyond around 67% of the player's view distance.   At default, approximately 55% of the total rendered chunks will use LOD2.</p>
+  <div class="markdown level1 summary"><p>If the squared distance is above this share of ViewDistanceSq we switch to LOD2  The default corresponds to roughly 67 percent of the player view distance  With the default about 55 percent of all drawn chunks use LOD2</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -325,7 +327,8 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Rebuilds the frustum planes from the projection and camera matrices</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -360,7 +363,8 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The sphere is inside the frustum, ignoring range and LOD</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -391,23 +395,22 @@ Class FrustumCulling
 
   <a id="Vintagestory_API_Client_FrustumCulling_InFrustumAndRange_" data-uid="Vintagestory.API.Client.FrustumCulling.InFrustumAndRange*"></a>
 
-  <h3 id="Vintagestory_API_Client_FrustumCulling_InFrustumAndRange_Vintagestory_API_MathTools_Sphere_System_Boolean_System_Int32_" data-uid="Vintagestory.API.Client.FrustumCulling.InFrustumAndRange(Vintagestory.API.MathTools.Sphere,System.Boolean,System.Int32)">
-  InFrustumAndRange(Sphere, bool, int)
+  <h3 id="Vintagestory_API_Client_FrustumCulling_InFrustumAndRange_Vintagestory_API_MathTools_Sphere_System_Int32_" data-uid="Vintagestory.API.Client.FrustumCulling.InFrustumAndRange(Vintagestory.API.MathTools.Sphere,System.Int32)">
+  InFrustumAndRange(Sphere, int)
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Full check for the normal pass: range and LOD first, then the planes</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool InFrustumAndRange(Sphere sphere, bool nowVisible, int lodLevel = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool InFrustumAndRange(Sphere sphere, int lodLevel = 0)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>sphere</code> <a class="xref" href="Vintagestory.API.MathTools.Sphere.html">Sphere</a></dt>
-    <dd></dd>
-    <dt><code>nowVisible</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
     <dt><code>lodLevel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
@@ -436,7 +439,8 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The object is inside the area the shadows are built from</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -472,7 +476,9 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Tests a sphere against all six planes with the center as the point and the radius as tolerance
+Returns true when the sphere is at least partly inside the frustum</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -514,7 +520,8 @@ Class FrustumCulling
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Updates the view distance A small margin of 20 blocks is added to it</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">

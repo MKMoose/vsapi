@@ -102,7 +102,7 @@ Class SyncedTreeAttribute
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class SyncedTreeAttribute : TreeAttribute, ITreeAttribute, IAttribute, IEnumerable&lt;KeyValuePair&lt;string, IAttribute&gt;&gt;, IEnumerable</code></pre>
+    <pre><code class="lang-csharp hljs">public class SyncedTreeAttribute : TreeAttribute, ITreeAttribute, IAttribute, IEnumerable&lt;KeyValuePair&lt;string, IAttribute&gt;&gt;, IEnumerable, IHashWithIgnoredAttributes</code></pre>
   </div>
 
 
@@ -124,6 +124,7 @@ Class SyncedTreeAttribute
       <div><a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html">IAttribute</a></div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html">IAttribute</a>&gt;&gt;</div>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+      <div><a class="xref" href="Vintagestory.API.Datastructures.IHashWithIgnoredAttributes.html">IHashWithIgnoredAttributes</a></div>
     </dd>
   </dl>
 
@@ -156,10 +157,19 @@ Class SyncedTreeAttribute
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_CreateFromBytes_System_Byte___">TreeAttribute.CreateFromBytes(byte[])</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_CreateFromBytes_System_ReadOnlySpan_System_Byte__">TreeAttribute.CreateFromBytes(ReadOnlySpan&lt;byte&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_FromBytes_System_IO_BinaryReader_">TreeAttribute.FromBytes(BinaryReader)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_ToBytes">TreeAttribute.ToBytes()</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_FromBytes_System_Byte___">TreeAttribute.FromBytes(byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_FromBytes_System_ReadOnlySpan_System_Byte__">TreeAttribute.FromBytes(ReadOnlySpan&lt;byte&gt;)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_ToBytes_System_IO_BinaryWriter_">TreeAttribute.ToBytes(BinaryWriter)</a>
@@ -196,6 +206,9 @@ Class SyncedTreeAttribute
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_SetStringArray_System_String_System_String___">TreeAttribute.SetStringArray(string, string[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_Set2DByteArray_System_String_System_Byte_0__0___">TreeAttribute.Set2DByteArray(string, byte[,])</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_SetItemstack_System_String_Vintagestory_API_Common_ItemStack_">TreeAttribute.SetItemstack(string, ItemStack)</a>
@@ -244,6 +257,9 @@ Class SyncedTreeAttribute
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_GetBytes_System_String_System_Byte___">TreeAttribute.GetBytes(string, byte[])</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_Get2DByteArray_System_String_System_Byte_0__0___">TreeAttribute.Get2DByteArray(string, byte[,])</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_GetTreeAttribute_System_String_">TreeAttribute.GetTreeAttribute(string)</a>
@@ -295,6 +311,9 @@ Class SyncedTreeAttribute
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_MergeAttribute_Vintagestory_API_Datastructures_TreeAttribute_System_String_Vintagestory_API_Datastructures_IAttribute_">TreeAttribute.MergeAttribute(TreeAttribute, string, IAttribute)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_TryCopyAttribute_System_String_Vintagestory_API_Datastructures_ITreeAttribute_">TreeAttribute.TryCopyAttribute(string, ITreeAttribute)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttribute.html#Vintagestory_API_Datastructures_TreeAttribute_SortedCopy_System_Boolean_">TreeAttribute.SortedCopy(bool)</a>
@@ -356,13 +375,13 @@ Class SyncedTreeAttribute
       <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.GetBlockPos(ITreeAttribute, string, BlockPos)</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.GetBlockPos(ITreeAttribute, string, BlockPos?)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3i_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i_">TreeAttributeUtil.GetVec3i(ITreeAttribute, string, Vec3i)</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3i_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i_">TreeAttributeUtil.GetVec3i(ITreeAttribute, string, Vec3i?)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3is_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i___">TreeAttributeUtil.GetVec3is(ITreeAttribute, string, Vec3i[])</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3is_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i___">TreeAttributeUtil.GetVec3is(ITreeAttribute, string, Vec3i[]?)</a>
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_SetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.SetBlockPos(ITreeAttribute, string, BlockPos)</a>
@@ -517,8 +536,8 @@ Class SyncedTreeAttribute
 
   <a id="Vintagestory_API_Datastructures_SyncedTreeAttribute_FromBytes_" data-uid="Vintagestory.API.Datastructures.SyncedTreeAttribute.FromBytes*"></a>
 
-  <h3 id="Vintagestory_API_Datastructures_SyncedTreeAttribute_FromBytes_System_IO_BinaryReader_" data-uid="Vintagestory.API.Datastructures.SyncedTreeAttribute.FromBytes(System.IO.BinaryReader)">
-  FromBytes(BinaryReader)
+  <h3 id="Vintagestory_API_Datastructures_SyncedTreeAttribute_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.Datastructures.SyncedTreeAttribute.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  FromBytes(ref BinarySpanReader)
   
   </h3>
 
@@ -526,12 +545,12 @@ Class SyncedTreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void FromBytes(BinaryReader stream)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void FromBytes(ref BinarySpanReader stream)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dt><code>stream</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -542,6 +561,9 @@ Class SyncedTreeAttribute
 
 
 
+  <h4 class="section" id="Vintagestory_API_Datastructures_SyncedTreeAttribute_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Do not call this default implementation when overriding this method, it only exists for backwards compat.</p>
+</div>
 
 
 
@@ -775,7 +797,7 @@ If the whole tree is already marked dirty, it will still trigger modified listen
   <a id="Vintagestory_API_Datastructures_SyncedTreeAttribute_RegisterModifiedListener_" data-uid="Vintagestory.API.Datastructures.SyncedTreeAttribute.RegisterModifiedListener*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_SyncedTreeAttribute_RegisterModifiedListener_System_String_System_Action_" data-uid="Vintagestory.API.Datastructures.SyncedTreeAttribute.RegisterModifiedListener(System.String,System.Action)">
-  RegisterModifiedListener(string, Action)
+  RegisterModifiedListener(string?, Action)
   
   </h3>
 
@@ -783,7 +805,7 @@ If the whole tree is already marked dirty, it will still trigger modified listen
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void RegisterModifiedListener(string path, Action listener)</code></pre>
+    <pre><code class="lang-csharp hljs">public void RegisterModifiedListener(string? path, Action listener)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

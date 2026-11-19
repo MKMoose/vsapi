@@ -746,6 +746,39 @@ public RunningAnimation[] RunningAnimations { get; }</code></pre>
 </h2>
 
 
+  <a id="Vintagestory_API_Common_AnimatorBase_AnimMetaChanged_" data-uid="Vintagestory.API.Common.AnimatorBase.AnimMetaChanged*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimatorBase_AnimMetaChanged_Vintagestory_API_Common_RunningAnimation_Vintagestory_API_Common_AnimationMetaData_" data-uid="Vintagestory.API.Common.AnimatorBase.AnimMetaChanged(Vintagestory.API.Common.RunningAnimation,Vintagestory.API.Common.AnimationMetaData)">
+  AnimMetaChanged(RunningAnimation, AnimationMetaData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void AnimMetaChanged(RunningAnimation anim, AnimationMetaData animData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>anim</code> <a class="xref" href="Vintagestory.API.Common.RunningAnimation.html">RunningAnimation</a></dt>
+    <dd></dd>
+    <dt><code>animData</code> <a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html">AnimationMetaData</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_AnimatorBase_AnimNowActive_" data-uid="Vintagestory.API.Common.AnimatorBase.AnimNowActive*"></a>
 
   <h3 id="Vintagestory_API_Common_AnimatorBase_AnimNowActive_Vintagestory_API_Common_RunningAnimation_Vintagestory_API_Common_AnimationMetaData_" data-uid="Vintagestory.API.Common.AnimatorBase.AnimNowActive(Vintagestory.API.Common.RunningAnimation,Vintagestory.API.Common.AnimationMetaData)">
@@ -943,6 +976,34 @@ public RunningAnimation[] RunningAnimations { get; }</code></pre>
     <dt><code>dt</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_AnimatorBase_RecalculateMatrices_" data-uid="Vintagestory.API.Common.AnimatorBase.RecalculateMatrices*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimatorBase_RecalculateMatrices" data-uid="Vintagestory.API.Common.AnimatorBase.RecalculateMatrices">
+  RecalculateMatrices()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Recomputes pose matrices at the current animation frame without advancing any animation clock,
+so the server can pose an entity on demand instead of every tick.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RecalculateMatrices()</code></pre>
+  </div>
+
 
 
 

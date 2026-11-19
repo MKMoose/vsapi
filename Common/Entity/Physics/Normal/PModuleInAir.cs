@@ -27,7 +27,8 @@ public class PModuleInAir : PModule
     /// </summary>
     public override bool Applicable(Entity entity, EntityPos pos, EntityControls controls)
     {
-        if ((!entity.Collided && !entity.FeetInLiquid) || controls.IsFlying) return entity.Alive;
+        bool wadingOnLadder = controls.IsClimbing && !entity.Swimming;
+        if ((!entity.Collided && (wadingOnLadder || !entity.FeetInLiquid)) || controls.IsFlying) return entity.Alive;
         return false;
     }
 

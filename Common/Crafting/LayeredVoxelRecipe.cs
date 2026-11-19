@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 
 namespace Vintagestory.API.Common;
@@ -210,9 +211,7 @@ public abstract class LayeredVoxelRecipe : RecipeBase
     /// <summary>
     /// Deserializes the alloy
     /// </summary>
-    /// <param name="reader"></param>
-    /// <param name="resolver"></param>
-    public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+    public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
     {
         RecipeId = reader.ReadInt32();
 
@@ -221,7 +220,7 @@ public abstract class LayeredVoxelRecipe : RecipeBase
         for (int i = 0; i < ingredientsCount; i++)
         {
             CraftingRecipeIngredient ingredient = new();
-            ingredient.FromBytes(reader, resolver);
+            ingredient.FromBytes(ref reader, resolver);
             ingredient.Resolve(resolver, "Voxel recipes FromBytes", this);
             Ingredients[i] = ingredient;
         }
@@ -235,8 +234,8 @@ public abstract class LayeredVoxelRecipe : RecipeBase
 
         Name = new AssetLocation(reader.ReadString());
 
-        Output = new JsonItemStack();
-        Output.FromBytes(reader, resolver.ClassRegistry);
+        Output = new JsonItemStack { Code = null! };
+        Output.FromBytes(ref reader, resolver.ClassRegistry);
         Output.Resolve(resolver, "[Voxel recipe FromBytes] " + Ingredient.Code);
         GenVoxels();
     }

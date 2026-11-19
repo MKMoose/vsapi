@@ -50,7 +50,7 @@ namespace Vintagestory.API.Client
 
             texture = new LoadedTexture(capi);
 
-            ElementBounds textBounds = bounds.CopyOnlySize();
+            ElementBounds textBounds = bounds.CopyOnlySize().WithFixedPadding(0);
             ElementBounds descBounds = textBounds.CopyOffsetedSibling(ItemStackSize + 50, MarginTop, -ItemStackSize - 50, 0);
             descBounds.WithParent(bounds);
             textBounds.WithParent(bounds);

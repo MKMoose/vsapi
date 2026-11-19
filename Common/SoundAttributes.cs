@@ -2,13 +2,54 @@ using System;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Util;
 
 namespace Vintagestory.API.Common
 {
+    public class NatFloatVar25Random : INatFloat
+    {
+        [ThreadStatic]
+        static Random threadsafeRand;
+        public NatFloatVar25Random() { }
+
+        public EnumINatFloatType Type => EnumINatFloatType.Var25Random;
+        public float Average => 1f;
+
+        public INatFloat Clone()
+        {
+            return this;
+        }
+
+        public float nextFloat()
+        {
+            return nextFloat(1f, threadsafeRand ?? (threadsafeRand = new Random()));
+        }
+
+        public float nextFloat(float multiplier)
+        {
+            return nextFloat(multiplier, threadsafeRand ?? (threadsafeRand = new Random()));
+        }
+
+        public float nextFloat(float multiplier, Random rand)
+        {
+            float rnd = (float)rand.NextDouble() - 0.5f;
+            return multiplier * (1f + rnd * 2 * 0.25f);
+        }
+
+        public float nextFloat(float multiplier, IRandom rand)
+        {
+            float rnd = rand.NextFloat() - 0.5f;
+            return multiplier * (1f + rnd * 2 * 0.25f);
+        }
+
+        public NatFloat ToNatFloat()
+        {
+            return new NatFloat(1f, 0.25f, EnumDistribution.UNIFORM);
+        }
+    }
+
     /// <summary>
     /// Sound types, often used to determine specific volume controls.
     /// </summary>
@@ -69,13 +110,13 @@ namespace Vintagestory.API.Common
         /// Controls a random pitch for when the sound is played.
         /// </summary>
         [DocumentAsJson("Optional", "1")]
-        public NatFloat Pitch = NatFloatOne;
+        public INatFloat Pitch = INatFloat.One;
 
         /// <summary>
         /// Controls a random volume for when the sound is played.
         /// </summary>
         [DocumentAsJson("Optional", "1")]
-        public NatFloat Volume = NatFloatOne;
+        public INatFloat Volume = INatFloat.One;
 
         /// <summary>
         /// The type of sound, used for volume control in the settings.
@@ -90,8 +131,6 @@ namespace Vintagestory.API.Common
         [DocumentAsJson("Optional", "32")]
         public float Range = 32f;
 
-        public static NatFloat NatFloatOne = NatFloat.One; // Cache for reuse
-        public static NatFloat RandomPitch = new NatFloat(1.0f, 0.25f, EnumDistribution.UNIFORM);
 
         public SoundAttributes() { }
 
@@ -99,7 +138,7 @@ namespace Vintagestory.API.Common
         public SoundAttributes(AssetLocation assetLocation, bool withRandomPitch)
         {
             Location = assetLocation;
-            if (withRandomPitch) this.Pitch = RandomPitch;
+            if (withRandomPitch) this.Pitch = INatFloat.Var25Random;
         }
 
         public bool Equals(SoundAttributes other)
@@ -155,21 +194,31 @@ namespace Vintagestory.API.Common
             if (Location != null) writer.Write(Location.ToShortString());
             writer.Write((int)Type);
             writer.Write(Range);
-            Pitch.ToBytes(writer);
-            Volume.ToBytes(writer);
+            INatFloat.INatFloatToBytes(Pitch, writer);
+            INatFloat.INatFloatToBytes(Volume, writer);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static SoundAttributes FromBytes(BinaryReader reader, string version)
+            => reader.UnsafeActAsBinarySpanReader(version, FromBytes);
+        public static SoundAttributes FromBytes(ref BinarySpanReader reader, string version)
         {
+            var location = reader.ReadBoolean() ? AssetLocation.Create(reader.ReadString()) : null;
+            var type = (EnumSoundType)reader.ReadInt32();
+            var range = reader.ReadSingle();
+            INatFloat pitch = INatFloat.INatFloatFromBytes(ref reader);
+            INatFloat volume = INatFloat.INatFloatFromBytes(ref reader);
+
             return new SoundAttributes()
             {
-                Location = reader.ReadBoolean() ? AssetLocation.Create(reader.ReadString()) : null,
-                Type = (EnumSoundType)reader.ReadInt32(),
-                Range = reader.ReadSingle(),
-                Pitch = NatFloat.createFromBytes(reader),
-                Volume = NatFloat.createFromBytes(reader)
+                Location = location,
+                Type = type,
+                Range = range,
+                Pitch = pitch,
+                Volume = volume
             };
         }
+
 
         public override string ToString() {
             return $"SoundAttributes {{ Location: {Location}, Pitch: {Pitch}, Volume: {Volume}, Range: {Range}, Type: {Type} }}";
@@ -232,8 +281,8 @@ namespace Vintagestory.API.Common
                 throw new Exception("Error while parsing " + sound, e);
             }
 
-            sound.Pitch ??= RandomPitch ? SoundAttributes.RandomPitch : SoundAttributes.NatFloatOne;
-            sound.Volume ??= SoundAttributes.NatFloatOne;
+            sound.Pitch ??= RandomPitch ? INatFloat.Var25Random : INatFloat.One;
+            sound.Volume ??= INatFloat.One;
 
             return sound.Location == null ? null : sound;
         }

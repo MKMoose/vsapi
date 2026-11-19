@@ -145,7 +145,21 @@ public readonly struct TagSet : IEquatable<TagSet>
         }
     }
 
+    [Obsolete("Prefer using the BinarySpanReader overload.")]
     public static TagSet FromBytes(BinaryReader reader)
+    {
+        var length = reader.ReadUInt16();
+        var storage = new HandleType[length];
+
+        for (int i = 0; i < storage.Length; i++)
+        {
+            storage[i] = reader.ReadUInt16();
+        }
+
+        return new(storage);
+    }
+
+    public static TagSet FromBytes(ref BinarySpanReader reader)
     {
         var length = reader.ReadUInt16();
         var storage = new HandleType[length];

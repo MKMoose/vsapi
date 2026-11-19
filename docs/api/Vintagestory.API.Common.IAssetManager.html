@@ -170,7 +170,7 @@ Interface IAssetManager
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Returns all origins in the priority order. Highest (First) to Lowest (Last)</p>
+  <div class="markdown level1 summary"><p>Returns all origins in the priority order. Lowest (first) to highest (last)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -699,6 +699,44 @@ The returned list is considered unsorted.</p>
 
 
 
+  <a id="Vintagestory_API_Common_IAssetManager_Reload_" data-uid="Vintagestory.API.Common.IAssetManager.Reload*"></a>
+
+  <h3 id="Vintagestory_API_Common_IAssetManager_Reload_Vintagestory_API_Common_IAsset_" data-uid="Vintagestory.API.Common.IAssetManager.Reload(Vintagestory.API.Common.IAsset)">
+  Reload(IAsset)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reloads a single asset's contents from its origin on disk.
+Returns false (and removes the asset from the manager) if the file no longer exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Reload(IAsset asset)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>asset</code> <a class="xref" href="Vintagestory.API.Common.IAsset.html">IAsset</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_IAssetManager_RemoveModOrigin_" data-uid="Vintagestory.API.Common.IAssetManager.RemoveModOrigin*"></a>
 
   <h3 id="Vintagestory_API_Common_IAssetManager_RemoveModOrigin_System_String_System_String_" data-uid="Vintagestory.API.Common.IAssetManager.RemoveModOrigin(System.String,System.String)">
@@ -768,6 +806,81 @@ The returned list is considered unsorted.</p>
 
 
 
+
+
+
+
+  <a id="Vintagestory_API_Common_IAssetManager_UnwatchCategory_" data-uid="Vintagestory.API.Common.IAssetManager.UnwatchCategory*"></a>
+
+  <h3 id="Vintagestory_API_Common_IAssetManager_UnwatchCategory_Vintagestory_API_Common_AssetCategory_" data-uid="Vintagestory.API.Common.IAssetManager.UnwatchCategory(Vintagestory.API.Common.AssetCategory)">
+  UnwatchCategory(AssetCategory)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Stops watching the given category.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void UnwatchCategory(AssetCategory category)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>category</code> <a class="xref" href="Vintagestory.API.Common.AssetCategory.html">AssetCategory</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IAssetManager_WatchCategory_" data-uid="Vintagestory.API.Common.IAssetManager.WatchCategory*"></a>
+
+  <h3 id="Vintagestory_API_Common_IAssetManager_WatchCategory_Vintagestory_API_Common_AssetCategory_Vintagestory_API_Common_AssetChangedDelegate_System_String_" data-uid="Vintagestory.API.Common.IAssetManager.WatchCategory(Vintagestory.API.Common.AssetCategory,Vintagestory.API.Common.AssetChangedDelegate,System.String)">
+  WatchCategory(AssetCategory, AssetChangedDelegate, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Watches all origins for changes to assets in the given category.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void WatchCategory(AssetCategory category, AssetChangedDelegate onAssetChanged, string filter = &quot;*.json&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>category</code> <a class="xref" href="Vintagestory.API.Common.AssetCategory.html">AssetCategory</a></dt>
+    <dd><p>The asset category to watch</p>
+</dd>
+    <dt><code>onAssetChanged</code> <a class="xref" href="Vintagestory.API.Common.AssetChangedDelegate.html">AssetChangedDelegate</a></dt>
+    <dd><p>Invoked when an asset is created or changed</p>
+</dd>
+    <dt><code>filter</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filename filter to use for the watcher. Use &quot;<em>.</em>&quot; to match all files.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Vintagestory_API_Common_IAssetManager_WatchCategory_Vintagestory_API_Common_AssetCategory_Vintagestory_API_Common_AssetChangedDelegate_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>onAssetChanged will be invoked on the worker thread where FileSystemWatcher events are raised.
+It's the caller's responsibility to ensure that the callback is threadsafe.</p>
+</div>
 
 
 

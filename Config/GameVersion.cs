@@ -33,22 +33,22 @@ namespace Vintagestory.API.Config
         /// <summary>
         /// Major and Minor version as string for easy updating all the other ones in this class
         /// </summary>
-        public const string OverallMajorMinor = "1.22";
+        public const string OverallMajorMinor = "1.23";
 
         /// <summary>
         /// Assembly Info Version number in the format: major.minor.revision-[rc/pre.subrevision]
         /// </summary>
-        public const string OverallVersion = OverallMajorMinor + ".7";
+        public const string OverallVersion = OverallMajorMinor + ".0";
 
         /// <summary>
         /// Whether this is a stable or unstable version
         /// </summary>
-        public const EnumGameBranch Branch = EnumGameBranch.Stable;
+        public const EnumGameBranch Branch = EnumGameBranch.Unstable;
 
         /// <summary>
         /// Version number in the format: major.minor.revision-[rc/pre.subrevision]
         /// </summary>
-        public const string ShortGameVersion = OverallVersion + "";
+        public const string ShortGameVersion = OverallVersion + "-pre.1";
 
         public static EnumReleaseType ReleaseType => GetReleaseType(ShortGameVersion);
 
@@ -60,7 +60,7 @@ namespace Vintagestory.API.Config
         /// <summary>
         /// Assembly Info Version number in the format: major.minor.revision.subrevision
         /// </summary>
-        public const string AssemblyVersion = OverallVersion +".0";
+        public const string AssemblyVersion = OverallVersion + ".0";
 
         /// <summary>
         /// Version of the Mod API
@@ -70,7 +70,7 @@ namespace Vintagestory.API.Config
         /// <summary>
         /// Version of the Network Protocol
         /// </summary>
-        public const string NetworkVersion = OverallMajorMinor + ".6";
+        public const string NetworkVersion = OverallMajorMinor + ".2";
 
         /// <summary>
         /// Version of the world generator - a change in version will insert a smoothed chunk between old and new version
@@ -166,21 +166,6 @@ namespace Vintagestory.API.Config
         {
             int[] partsTheirs = SplitVersionString(version);
             int[] partsMine = SplitVersionString(APIVersion);
-
-            if (partsTheirs.Length < 2) return false;
-
-            return partsMine[0] == partsTheirs[0] && partsMine[1] == partsTheirs[1];
-        }
-
-        /// <summary>
-        /// Returns true if given version has the same major and minor version. Ignores revision.
-        /// </summary>
-        /// <param name="version"></param>
-        /// <returns></returns>
-        public static bool IsCompatibleNetworkVersion(string version)
-        {
-            int[] partsTheirs = SplitVersionString(version);
-            int[] partsMine = SplitVersionString(NetworkVersion);
 
             if (partsTheirs.Length < 2) return false;
 

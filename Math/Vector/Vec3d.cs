@@ -3,7 +3,7 @@ using ProtoBuf;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
-using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -168,6 +168,14 @@ namespace Vintagestory.API.MathTools
             this.X += a.X;
             this.Y += a.Y;
             this.Z += a.Z;
+            return this;
+        }
+
+        public Vec3d Add(BlockFacing facing)
+        {
+            X += facing.Normalf.X;
+            Y += facing.Normalf.Y;
+            Z += facing.Normalf.Z;
             return this;
         }
 
@@ -634,7 +642,7 @@ namespace Vintagestory.API.MathTools
             return new Vec3f((float)X, (float)Y, (float)Z);
         }
 
-        
+
         public override string ToString()
         {
             return "x=" + X + ", y=" + Y + ", z=" + Z;
@@ -648,7 +656,13 @@ namespace Vintagestory.API.MathTools
             writer.Write(Z);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static Vec3d CreateFromBytes(BinaryReader reader)
+        {
+            return new Vec3d(reader.ReadDouble(), reader.ReadDouble(), reader.ReadDouble());
+        }
+
+        public static Vec3d CreateFromBytes(ref BinarySpanReader reader)
         {
             return new Vec3d(reader.ReadDouble(), reader.ReadDouble(), reader.ReadDouble());
         }

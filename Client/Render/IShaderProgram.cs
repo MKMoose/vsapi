@@ -108,6 +108,7 @@ namespace Vintagestory.API.Client
         void UniformMatrix(string uniformName, float[] matrix);
 
         void BindTexture2D(string samplerName, int textureId, int textureNumber);
+        void BindTexture2DArray(string samplerName, int textureId, int textureNumber);
 
         void BindTextureCube(string samplerName, int textureId, int textureNumber);
 

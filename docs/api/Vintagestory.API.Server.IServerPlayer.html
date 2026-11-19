@@ -163,6 +163,9 @@ Interface IServerPlayer
       <a class="xref" href="Vintagestory.API.Common.IPlayer.html#Vintagestory_API_Common_IPlayer_HasPrivilege_System_String_">IPlayer.HasPrivilege(string)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.IPlayer.html#Vintagestory_API_Common_IPlayer_IsInInteractionRangeOf_Vintagestory_API_MathTools_FastBlockPos_System_Single_">IPlayer.IsInInteractionRangeOf(FastBlockPos, float)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.IPlayer.html#Vintagestory_API_Common_IPlayer_IsInInteractionRangeOf_Vintagestory_API_Common_Entities_Entity_System_Single_">IPlayer.IsInInteractionRangeOf(Entity, float)</a>
     </div>
   </dd></dl>
@@ -511,12 +514,48 @@ Interface IServerPlayer
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Disconnect(string message)</code></pre>
+    <pre><code class="lang-csharp hljs">void Disconnect(string logMessage)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>message</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>logMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Message displayed in logs</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerPlayer_Disconnect_" data-uid="Vintagestory.API.Server.IServerPlayer.Disconnect*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerPlayer_Disconnect_System_String_System_String_" data-uid="Vintagestory.API.Server.IServerPlayer.Disconnect(System.String,System.String)">
+  Disconnect(string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Disconnects (kicks) a player from the server with given reason. Does nothing if this player is not connected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Disconnect(string logMessage, string playerMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Message displayed in logs</p>
+</dd>
+    <dt><code>playerMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Message displayed to the player</p>
 </dd>
   </dl>
@@ -785,6 +824,41 @@ Returns null when called on client side.</p>
     <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Optional parameter that can be used to pass on unformated data. Just like stdin/stdout/stderr, you could see this as a separate &quot;programming communication channel&quot;</p>
 </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerPlayer_SendPlayerRedirect_" data-uid="Vintagestory.API.Server.IServerPlayer.SendPlayerRedirect*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerPlayer_SendPlayerRedirect_System_String_System_String_" data-uid="Vintagestory.API.Server.IServerPlayer.SendPlayerRedirect(System.String,System.String)">
+  SendPlayerRedirect(string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sends a redirection request to the specified client. The target server has to be public!</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SendPlayerRedirect(string host, string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>host</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The host of the target server</p>
+</dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
   </dl>
 
 

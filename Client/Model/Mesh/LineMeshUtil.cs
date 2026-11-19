@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.MathTools;
+﻿using System;
+using Vintagestory.API.MathTools;
 
 #nullable disable
 
@@ -7,6 +8,41 @@ namespace Vintagestory.API.Client
     //(-1,-1,-1) to (1,1,1)
     public class LineMeshUtil
     {
+        /// <summary>
+        /// Builds a wireframe sphere from three perpendicular circles.
+        /// </summary>
+        /// <param name="center">The center of the sphere.</param>
+        /// <param name="radius">The radius of the sphere.</param>
+        /// <param name="color">The converted base color.</param>
+        /// <param name="segments">The number of segments per circle, or a value below 1 to choose a count based on the radius.</param>
+        /// <returns>The mesh data for the sphere in Lines mode.</returns>
+        public static MeshData GetWireframeSphere(Vec3f center, float radius, int color, int segments = -1)
+        {
+            if (segments < 1) segments = Math.Max(12, (int)(radius * 16));
+
+            int count = 6 * segments;
+            MeshData mesh = new(count, count, false, false, true, true);
+            mesh.SetMode(EnumDrawMode.Lines);
+            float step = GameMath.TWOPI / segments;
+            for (int i = 0; i < segments; i++)
+            {
+                var (sin1, cos1) = MathF.SinCos(i * step);
+                var (sin2, cos2) = MathF.SinCos((i + 1) * step);
+                sin1 *= radius;
+                cos1 *= radius;
+                sin2 *= radius;
+                cos2 *= radius;
+                mesh.AddVertexSkipTex(center.X + cos1, center.Y + sin1, center.Z, color);
+                mesh.AddVertexSkipTex(center.X + cos2, center.Y + sin2, center.Z, color);
+                mesh.AddVertexSkipTex(center.X + cos1, center.Y, center.Z + sin1, color);
+                mesh.AddVertexSkipTex(center.X + cos2, center.Y, center.Z + sin2, color);
+                mesh.AddVertexSkipTex(center.X, center.Y + cos1, center.Z + sin1, color);
+                mesh.AddVertexSkipTex(center.X, center.Y + cos2, center.Z + sin2, color);
+            }
+            for (int i = 0; i < count; i++) mesh.AddIndex(i);
+            return mesh;
+        }
+
         /// <summary>
         /// Gets the current rectangle for the line.
         /// </summary>

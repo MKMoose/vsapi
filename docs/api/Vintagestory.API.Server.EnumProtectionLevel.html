@@ -98,7 +98,7 @@ Enum EnumProtectionLevel
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>How strongly the Server should protect against hacking <a href=https://github.com/anegostudios/vsapi/blob/master///Server/EnumCheatProtectionLevel.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>How strongly the Server should protect against hacking <a href=https://github.com/anegostudios/vsapi/blob/master///Server/EnumProtectionLevel.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -122,14 +122,31 @@ Enum EnumProtectionLevel
   <div>
       <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
   </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Server.EnumProtectionLevelExtension.html#Vintagestory_API_Server_EnumProtectionLevelExtension_ShouldLog_Vintagestory_API_Server_EnumProtectionLevel_">EnumProtectionLevelExtension.ShouldLog(EnumProtectionLevel)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Server.EnumProtectionLevelExtension.html#Vintagestory_API_Server_EnumProtectionLevelExtension_ShouldModerate_Vintagestory_API_Server_EnumProtectionLevel_">EnumProtectionLevelExtension.ShouldModerate(EnumProtectionLevel)</a>
+  </div>
   </dd></dl>
 
   <h2 id="fields">Fields
 </h2>
   <dl class="parameters">
+    <dt id="Vintagestory_API_Server_EnumProtectionLevel_Auto"><code>Auto = 4</code></dt>
+  
+  <dd><p>Off in SinglePlayer
+LogOnly on OpenToLan or Dedicated servers that are whitelisted or password protected
+Basic on dedicated servers that are neither whitelisted nor password protected
+Default as of 1.22.8</p>
+</dd>
     <dt id="Vintagestory_API_Server_EnumProtectionLevel_Basic"><code>Basic = 1</code></dt>
   
   <dd><p>Server will: verify the players picking range when placing, removing or interacting with blocks</p>
+</dd>
+    <dt id="Vintagestory_API_Server_EnumProtectionLevel_LogOnly"><code>LogOnly = 3</code></dt>
+  
+  <dd><p>Verify, but only log the violations, no action will be taken</p>
 </dd>
     <dt id="Vintagestory_API_Server_EnumProtectionLevel_Off"><code>Off = 0</code></dt>
   

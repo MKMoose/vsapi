@@ -75,33 +75,34 @@ namespace Vintagestory.API.Util
         /// <returns></returns>
         public static bool Match(AssetLocation wildCard, AssetLocation inCode, string[] allowedVariants)
         {
-            if (wildCard.Domain.Length * wildCard.Path.Length == 1 && wildCard.Domain == "*" && wildCard.Path == "*") return true;
+            if (wildCard == null || inCode == null) return false;
 
+            // Global wildcard check
+            if (wildCard.IsGlobalWildcard) return true;
+
+            // Exact object equality
             if (wildCard.Equals(inCode)) return true;
 
-            int wildCardIndex;
-            if (inCode == null || (wildCard.Domain != "*" && !wildCard.Domain.Equals(inCode.Domain)) || ((wildCardIndex = wildCard.Path.IndexOf('*')) == -1 && wildCard.Path.IndexOf('(') == -1))
+            // Domain check
+            if (wildCard.Domain != "*" && !wildCard.Domain.Equals(inCode.Domain)) return false;
+
+            string needle = wildCard.Path;
+            string haystack = inCode.Path;
+
+            // Fast Path: Exact Match
+            // If there are no '*' and no '@', we can do a fast exact comparison.
+            if (!needle.Contains('*') && !needle.StartsWith('@'))
             {
-                return false;
+                return fastExactMatch(needle, haystack);
             }
 
+            // fastMatch handles '*' internally and delegates '@' (regex) to RegexCache
+            if (!fastMatch(needle, haystack)) return false;
 
-            // Some faster/pre checks before doing a regex, because regexes are so, sooooo sloooooow
-            if (wildCardIndex == wildCard.Path.Length - 1)
+            // Check Variants (only if there is a wildcard to extract from)
+            if (allowedVariants != null && allowedVariants.Length > 0 && needle.Contains('*'))
             {
-                if (!StringUtil.FastStartsWith(inCode.Path, wildCard.Path, wildCardIndex)) return false;
-            }
-            else
-            {
-                if (!StringUtil.FastStartsWith(inCode.Path, wildCard.Path, wildCardIndex)) return false;
-
-                string pattern = Regex.Escape(wildCard.Path).Replace(@"\*", @"(.*)");
-                if (!Regex.IsMatch(inCode.Path, @"^" + pattern + @"$", RegexOptions.None)) return false;
-            }
-
-            if (allowedVariants != null)
-            {
-                if (!MatchesVariants(wildCard, inCode, allowedVariants)) return false;
+                return MatchesVariants(wildCard, inCode, allowedVariants);
             }
 
             return true;
@@ -247,7 +248,7 @@ namespace Vintagestory.API.Util
         private static class RegexCache
         {
             private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Regex> cache = new();
-            private static readonly TimeSpan timeout = TimeSpan.FromSeconds(1);
+            private static readonly TimeSpan timeout = TimeSpan.FromSeconds(2);
 
             public static bool IsMatch(string pattern, string input)
             {

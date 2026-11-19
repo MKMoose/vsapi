@@ -1,3 +1,4 @@
+using System;
 using Vintagestory.API.Common;
 
 #nullable disable
@@ -59,25 +60,38 @@ namespace Vintagestory.API.Client
     /// </summary>
     public class MouseWheelEventArgs
     {
-        /// <summary>
-        /// The rough change in time since last called.
-        /// </summary>
+        [Obsolete("Please use DeltaYInt instead.")]
         public int delta;
-
-        /// <summary>
-        /// The precise change in time since last called.
-        /// </summary>
+        [Obsolete("Please use DeltaY instead.")]
         public float deltaPrecise;
-
-        /// <summary>
-        /// The rough change in value.
-        /// </summary>
+        [Obsolete("Use IsFresh to determine if this is the first event of a continuous scroll instead.")]
         public int value;
+        [Obsolete("Use IsFresh to determine if this is the first event of a continuous scroll instead.")]
+        public float valuePrecise;
+        /// <summary>
+        /// The X delta of the scroll.
+        /// </summary>
+        public float DeltaX { get; set; }
 
         /// <summary>
-        /// The precise change in value.
+        /// The Y delta of the scroll.
         /// </summary>
-        public float valuePrecise;
+        public float DeltaY { get; set; }
+
+        /// <summary>
+        /// The X delta of the scroll as an int, accumulated every 50ms to simulate sensitivity.
+        /// </summary>
+        public int DeltaXInt { get; set; }
+
+        /// <summary>
+        /// The X delta of the scroll as an int, accumulated every 50ms to simulate sensitivity.
+        /// </summary>
+        public int DeltaYInt { get; set; }
+
+        /// <summary>
+        /// Whether or not this is the first event to trigger in the last 50ms.
+        /// </summary>
+        public bool IsFresh { get; set; }
 
         /// <summary>
         /// Is the current event being handled?

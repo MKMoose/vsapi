@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -421,12 +421,6 @@ namespace Vintagestory.API.Client
             if (hotkey.KeyCombinationType == HotkeyType.CreativeTool && capi.World.Player.WorldData.CurrentGameMode != EnumGameMode.Creative) return false;
 
             Toggle();
-
-            /*if (!viaKeyComb.Alt && !viaKeyComb.Ctrl && !viaKeyComb.Shift && viaKeyComb.KeyCode > 66)
-            {
-                ignoreNextKeyPress = true;
-            }*/
-
             return true;
         }
 
@@ -750,6 +744,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         /// <param name="pos"></param>
         /// <returns>In range or no?</returns>
+        [Obsolete("Prefer using player."+nameof(IPlayer.IsInInteractionRangeOf)+". A dialog does not have an in-world position.", true)]
         public virtual bool IsInRangeOf(Vec3d pos)
         {
             var playerEye = capi.World.Player.Entity.Pos.XYZ.Add(capi.World.Player.Entity.LocalEyePos);
@@ -760,6 +755,7 @@ namespace Vintagestory.API.Client
 
         public static Regex RegexFromSearchText(string searchText, bool strict = false)
         {
+            if (string.IsNullOrWhiteSpace(searchText)) return null;
             string[] searchWords = Regex.Split(searchText, "\\s+", RegexOptions.Multiline);
             var pattern = $"({string.Join("|", searchWords.Where(w => w != "").Select(w => {
                 w = Regex.Escape(w.ToSearchFriendly().Trim());
@@ -770,7 +766,7 @@ namespace Vintagestory.API.Client
 
         public static int CountMatches(string text, Regex regex)
         {
-            return regex.Matches(text).Count;
+            return regex?.Count(text ?? string.Empty) ?? 1;
         }
 
         public EnumPosFlag GetFreePos(string code)

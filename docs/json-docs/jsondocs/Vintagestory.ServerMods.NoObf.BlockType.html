@@ -145,6 +145,12 @@ public class BlockType : CollectibleType</code></pre>
       <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_AttackPower">CollectibleType.AttackPower</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_KnockbackStrength">CollectibleType.KnockbackStrength</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_DamageType">CollectibleType.DamageType</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_Durability">CollectibleType.Durability</a>
     </div>
     <div>
@@ -233,6 +239,15 @@ public class BlockType : CollectibleType</code></pre>
     </div>
     <div>
       <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitAnimation">CollectibleType.HeldTpHitAnimation</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitCombo">CollectibleType.HeldTpHitCombo</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitComboAim">CollectibleType.HeldTpHitComboAim</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitSprintAnimation">CollectibleType.HeldTpHitSprintAnimation</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.ServerMods.NoObf.CollectibleType.html#Vintagestory_ServerMods_NoObf_CollectibleType_HeldRightTpIdleAnimation">CollectibleType.HeldRightTpIdleAnimation</a>
@@ -458,6 +473,41 @@ public string[] AllowSpawnCreatureGroups</code></pre>
 
 
 
+  <h3 id="Vintagestory_ServerMods_NoObf_BlockType_BleedCornerOverlayTexture" data-uid="Vintagestory.ServerMods.NoObf.BlockType.BleedCornerOverlayTexture">
+  BleedCornerOverlayTexture (Optional) (Default: null)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Single-tile overlay drawn at inverted (inside) corners, e.g. &quot;game:block/grass_corner_overlay&quot;.
+Same trailing-wildcard random-variant support as BleedOverlayTexture. Null disables inside-corner blending.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;null&quot;, false)]
+public string BleedCornerOverlayTexture</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_ServerMods_NoObf_BlockType_BleedGroup" data-uid="Vintagestory.ServerMods.NoObf.BlockType.BleedGroup">
   BleedGroup (Optional) (Default: null)
   
@@ -498,7 +548,8 @@ public string BleedGroup</code></pre>
   </h3>
 
   <div class="markdown level1 summary"><!---->
-<p>9-slice overlay texture path, e.g. &quot;game:block/sand_overlay&quot;. Null disables overlay blending.</p>
+<p>9-slice overlay texture path, e.g. &quot;game:block/sand_overlay&quot;. Null disables overlay blending.
+Ending the path in a wildcard (e.g. &quot;game:block/grass_overlay*&quot;) bakes all matching textures as random variants.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 

@@ -12,6 +12,9 @@ using System.Text;
 #nullable disable
 using static Vintagestory.API.Common.EntityAgent;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
+using System.Diagnostics;
+
 
 namespace Vintagestory.API.Common.Entities
 {
@@ -221,9 +224,20 @@ namespace Vintagestory.API.Common.Entities
 
 
         /// <summary>
-        /// A unique identifier for this entity. Set by the game client and server.
+        /// A unique identifier for this Entity instance. Set by the game client and server.
         /// </summary>
         public long EntityId;
+
+        /// <summary>
+        /// A unique identifier for this logical entity. Sometimes two entities with different EntityId may share the same LogicalId,
+        /// for instance if a lamb grows into a sheep (two distinct Entity instances, but logically the same being) or if an animal is picked up
+        /// in a basket trap and then released.
+        /// </summary>
+        public long LogicalId
+        {
+            get => WatchedAttributes.GetLong("logicalId", EntityId);
+            set => WatchedAttributes.SetLong("logicalId", value);
+        }
 
         /// <summary>
         /// The range in blocks the entity has to be to a client to do physics and AI. When outside range, then <seealso cref="State"/> will be set to inactive
@@ -522,7 +536,7 @@ namespace Vintagestory.API.Common.Entities
         public Entity()
         {
             SimulationRange = GlobalConstants.DefaultSimulationRange;
-            AnimManager = new AnimationManager();
+            AnimManager = new AnimationManager(this);
             Stats = new EntityStats(this);
             WatchedAttributes.SetAttribute("animations", new TreeAttribute());
             WatchedAttributes.SetAttribute("extraInfoText", new TreeAttribute());
@@ -679,6 +693,27 @@ namespace Vintagestory.API.Common.Entities
             }
         }
 
+#nullable enable
+        /// <summary>
+        /// True if the given player's client is network authoritative for this entity's position and movement.
+        /// This is used because otherwise mount position desyncs could look very bad, but the server is not required to fully trust the values sent.
+        /// The player entity passed must not be null.
+        /// </summary>
+        public virtual bool IsControlledByClient(EntityPlayer entityPlayer)
+        {
+            return this == entityPlayer.MountedOn?.Entity && entityPlayer.MountedOn.MountSupplier.Controller == entityPlayer && entityPlayer.Alive;
+        }
+
+        /// <summary>
+        /// True if the server is network authoritative for this entity's position and movement. This is the normal case.
+        /// Pass in the result of entity.GetInterface<IMountable>(), because it is a little slow to look that up every time.
+        /// </summary>
+        public virtual bool IsControlledByServer(IMountable? asMountable)
+        {
+            return asMountable?.Controller is not EntityPlayer playerEntity || !playerEntity.Alive;
+        }
+#nullable disable
+
         public virtual bool InRangeOf(Vec3d position, float horRangeSq, float vertRange)
         {
             return Pos.InRangeOf(position, horRangeSq, vertRange);
@@ -785,15 +820,22 @@ namespace Vintagestory.API.Common.Entities
                 dropMul = byPlayer.Entity.Stats.GetBlended("animalLootDropRate");
             }
 
+            EnumDamageType? damageType = WatchedAttributes.HasAttribute("deathDamageType") ? (EnumDamageType)WatchedAttributes.GetInt("deathDamageType") : null;
+
             for (int i = 0; i < Properties.Drops.Length; i++)
             {
-                BlockDropItemStack bdStack = Properties.Drops[i];
+                EntityDropItemStack bdStack = Properties.Drops[i];
 
                 float extraMul = 1f;
                 if (bdStack.DropModbyStat != null && byPlayer?.Entity != null)
                 {
                     // If the stat does not exist, then GetBlended returns 1 \o/
                     extraMul = byPlayer.Entity.Stats.GetBlended(bdStack.DropModbyStat);
+                }
+
+                if (bdStack.DamageType != null && bdStack.DamageType != damageType)
+                {
+                    extraMul = 0;
                 }
 
                 ItemStack stack = bdStack.GetNextItemStack(dropMul * extraMul);
@@ -830,11 +872,14 @@ namespace Vintagestory.API.Common.Entities
                 sapi.WorldManager.LoadChunkColumnPriority((int)x / GlobalConstants.ChunkSize, (int)z / GlobalConstants.ChunkSize, new ChunkLoadOptions() {  OnLoaded = () =>
                     {
                         IsTeleport = true;
-                        Pos.SetPos(x, y, z);
+                        Pos.SetPosWithDimension(x, y, z);
                         PositionBeforeFalling.Set(x, y, z);
                         Pos.Motion.Set(0, 0, 0);
+                        WatchedAttributes.GetIntAndIncrement("positionVersionNumber", 0);
+                        WatchedAttributes.MarkAllDirty();
                         onTeleported?.Invoke();
                         Teleporting = false;
+                        sapi.Network.BroadcastEntityPacket(EntityId, (int)EntityServerPacketId.Teleport, SerializerUtil.Serialize(Pos.XYZ));
 
                         var mountable = GetInterface<IMountable>();
                         if (mountable != null)
@@ -879,7 +924,7 @@ namespace Vintagestory.API.Common.Entities
         /// <param name="position"></param>
         public virtual void TeleportTo(BlockPos position)
         {
-            TeleportToDouble(position.X, position.Y, position.Z);
+            TeleportToDouble(position.X, position.InternalY, position.Z);
         }
 
         /// <summary>
@@ -893,7 +938,7 @@ namespace Vintagestory.API.Common.Entities
             Pos.Pitch = position.Pitch;
             Pos.Roll = position.Roll;
 
-            TeleportToDouble(position.X, position.Y, position.Z, onTeleported);
+            TeleportToDouble(position.X, position.InternalY, position.Z, onTeleported);
         }
 
 
@@ -938,24 +983,28 @@ namespace Vintagestory.API.Common.Entities
 
                     Vec3d dir = (Pos.XYZ - damageSource.GetSourcePosition()).Normalize();
 
-                    if (verticalAttack)
+                    float factor = damageSource.KnockbackStrength * GameMath.Clamp((1 - Properties.KnockbackResistance) / 10f, 0, 1);
+                    float unscaledFactor = factor;
+
+                    if (damageSource.SourceEntity is EntityAgent attacker
+                        && (damageSource.Source == EnumDamageSource.Player || damageSource.Source == EnumDamageSource.Entity)
+                        && attacker.Properties.Weight > 0 && Properties.Weight > 0)
                     {
-                        dir.Y = 0.05f;
-                        dir.Normalize();
-                    } else
-                    {
-                        dir.Y = 0.7f;
+                        double massRatioPower = Math.Pow((double)attacker.Properties.Weight / Properties.Weight, 1.2);
+                        factor *= (float)(3 * massRatioPower / (2 + massRatioPower));
                     }
 
-                    dir.Y /= damageSource.YDirKnockbackDiv;
-                    float factor = damageSource.KnockbackStrength * GameMath.Clamp((1 - Properties.KnockbackResistance) / 10f, 0, 1);
+                    if (World.Side == EnumAppSide.Client) WatchedAttributes.SetBool("clearPosLerp", true);
 
                     WatchedAttributes.SetFloat("onHurtDir", (float)Math.Atan2(dir.X, dir.Z));
+                    WatchedAttributes.SetDouble("kbstrength", Math.Min(unscaledFactor, factor));
                     WatchedAttributes.SetDouble("kbdirX", dir.X * factor);
                     WatchedAttributes.SetDouble("kbdirY", dir.Y * factor);
                     WatchedAttributes.SetDouble("kbdirZ", dir.Z * factor);
+
                 } else
                 {
+                    WatchedAttributes.SetDouble("kbstrength", 0);
                     WatchedAttributes.SetDouble("kbdirX", 0);
                     WatchedAttributes.SetDouble("kbdirY", 0);
                     WatchedAttributes.SetDouble("kbdirZ", 0);
@@ -1341,6 +1390,17 @@ namespace Vintagestory.API.Common.Entities
         }
 
         /// <summary>
+        /// The event fired when the entity jumps.
+        /// </summary>
+        public virtual void OnEntityJump()
+        {
+            foreach (EntityBehavior behavior in SidedProperties.Behaviors)
+            {
+                behavior.OnEntityJump();
+            }
+        }
+
+        /// <summary>
         /// Called when the entity collided with something solid and <see cref="Collided"/> was false before
         /// </summary>
         public virtual void OnCollided()
@@ -1550,25 +1610,35 @@ namespace Vintagestory.API.Common.Entities
 
         /// <summary>
         /// Called when on the client side something called capi.Network.SendEntityPacket()
-        /// <param name="player"></param>
-        /// <param name="packetid"></param>
-        /// <param name="data"></param>
         /// </summary>
-        public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, byte[] packetData)
+        [Obsolete("Use the SerializedData overload. Never override both.")]
+        public virtual void OnReceivedClientPacket(IPlayer player, int packetId, byte[] packetData)
         {
             EnumHandling handled = EnumHandling.PassThrough;
 
             foreach (EntityBehavior behavior in SidedProperties.Behaviors)
             {
-                behavior.OnReceivedClientPacket(player, packetId, packetData, ref handled);
+                behavior.OnReceivedClientPacket((IServerPlayer)player, packetId, packetData, ref handled);
                 if (handled == EnumHandling.PreventSubsequent) break;
             }
         }
 
+        /// <summary>
+        /// Called when on the client side something called capi.Network.SendEntityPacket()
+        /// </summary>
+        public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, SerializedData packetData, ref CachedAccessPerms perms)
+        {
+            EnumHandling handled = EnumHandling.PassThrough;
+
+            foreach (EntityBehavior behavior in SidedProperties.Behaviors)
+            {
+                behavior.OnReceivedClientPacket(player, packetId, packetData, ref handled, ref perms);
+                if (handled == EnumHandling.PreventSubsequent) break;
+            }
+        }
 
         #nullable enable
         /// <summary> Access permissions cache for a specific block for a specific player. Used in packet handling to not have to duplicate work if multiple handlers are interested in validation. </summary>
-        /// <remarks> Proper use of this (passdown into handlers) will be introduced in the next version. </remarks>
         public struct CachedAccessPerms(Entity entity, IPlayer player)
         {
             public EnumBlockAccessFlags TestedFlags;
@@ -1629,14 +1699,23 @@ namespace Vintagestory.API.Common.Entities
         /// Packetid = 1 is used for teleporting
         /// Packetid = 2 is used for BehaviorHarvestable
         /// </summary>
-        /// <param name="packetid"></param>
-        /// <param name="data"></param>
-        public virtual void OnReceivedServerPacket(int packetid, byte[] data)
+        [Obsolete("Prefer the SerializedData overload.")]
+        public virtual void OnReceivedServerPacket(int packetId, byte[] packetData)
+        {
+
+        }
+
+        /// <summary>
+        /// Called when on the server side something called sapi.Network.SendEntityPacket()
+        /// Packetid = 1 is used for teleporting
+        /// Packetid = 2 is used for BehaviorHarvestable
+        /// </summary>
+        public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData)
         {
             // Teleport packet
-            if (packetid == (int)EntityServerPacketId.Teleport)
+            if (packetId == (int)EntityServerPacketId.Teleport)
             {
-                Vec3d newPos = SerializerUtil.Deserialize<Vec3d>(data);
+                Vec3d newPos = packetData.Deserialize<Vec3d>();
                 if (Api is ICoreClientAPI ic && ic.World.Player.Entity.EntityId == EntityId)
                 {
                     Pos.SetPosWithDimension(newPos);
@@ -1650,7 +1729,7 @@ namespace Vintagestory.API.Common.Entities
             EnumHandling handled = EnumHandling.PassThrough;
             foreach (EntityBehavior behavior in SidedProperties.Behaviors)
             {
-                behavior.OnReceivedServerPacket(packetid, data, ref handled);
+                behavior.OnReceivedServerPacket(packetId, packetData, ref handled);
                 if (handled == EnumHandling.PreventSubsequent) break;
             }
         }
@@ -1817,7 +1896,7 @@ namespace Vintagestory.API.Common.Entities
         /// <returns></returns>
         public virtual EntityBehavior? GetBehavior(string name)
         {
-            List<EntityBehavior>? behaviors = SidedProperties.Behaviors;
+            List<EntityBehavior>? behaviors = SidedProperties?.Behaviors;
 
             if (behaviors == null)
             {
@@ -1841,7 +1920,7 @@ namespace Vintagestory.API.Common.Entities
         /// <returns></returns>
         public virtual TEntityBehavior? GetBehavior<TEntityBehavior>() where TEntityBehavior : EntityBehavior
         {
-            List<EntityBehavior>? behaviors = SidedProperties.Behaviors;
+            List<EntityBehavior>? behaviors = SidedProperties?.Behaviors;
 
             if (behaviors == null)
             {
@@ -1961,7 +2040,10 @@ namespace Vintagestory.API.Common.Entities
         {
             if (World.Side != EnumAppSide.Client) return;
 
+            DebugAttributes.SetString("Entity Type", "" + Properties.Code);
+            DebugAttributes.SetString("Renderer ", "" + Properties.Client?.RendererName);
             DebugAttributes.SetString("Entity Id", "" + EntityId);
+            DebugAttributes.SetString("Logical Id", "" + LogicalId);
             DebugAttributes.SetString("Yaw, Pitch", string.Format("{0:0.##}, {1:0.##}", Pos.Yaw * GameMath.RAD2DEG, Pos.Pitch * GameMath.RAD2DEG));
 
             if (AnimManager != null) UpdateAnimationDebugAttributes();  // for EntityItem, AnimManager will be null
@@ -1998,22 +2080,93 @@ namespace Vintagestory.API.Common.Entities
         /// <summary>
         /// In order to maintain legacy mod API compatibility of FromBytes(BinaryReader reader, bool isSync), we create an overload which server-side calling code will actually call, and store the remaps parameter in a field
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="isSync"></param>
-        /// <param name="serversideRemaps"></param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, bool isSync, Dictionary<string, string> serversideRemaps)
         {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, bool, Dict<>). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var newFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(bool), typeof(Dictionary<string, string>) ]);
+            if (newFromBytes != null && newFromBytes.DeclaringType != typeof(Entity))
+            {
+                reader.UnsafeActAsBinarySpanReader(isSync, serversideRemaps, FromBytes);
+            }
+            else
+            {
+                reader.UnsafeActAsBinarySpanReader(isSync, serversideRemaps, fromBytes);
+            }
+        }
+
+        /// <summary>
+        /// In order to maintain legacy mod API compatibility of FromBytes(BinaryReader reader, bool isSync), we create an overload which server-side calling code will actually call, and store the remaps parameter in a field
+        /// </summary>
+        public virtual void FromBytes(ref BinarySpanReader reader, bool isSync, Dictionary<string, string> serversideRemaps)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(bool), typeof(Dictionary<string, string>) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(Entity))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, bool, Dict<>). If you are the developer make sure to move to the new overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(isSync, serversideRemaps, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<bool, Dictionary<string, string>>>(this));
+                #pragma warning restore CS0618
+            }
+            else
+            {
+                fromBytes(ref reader, isSync, serversideRemaps);
+            }
+        }
+
+        void fromBytes(ref BinarySpanReader reader, bool isSync, Dictionary<string, string> serversideRemaps)
+        {
             this.codeRemaps = serversideRemaps;
-            this.FromBytes(reader, isSync);
+            this.FromBytes(ref reader, isSync);
             this.codeRemaps = null;
         }
 
         /// <summary>
         /// Loads the entity from a stored byte array from the SaveGame
         /// </summary>
-        /// <param name="reader"></param>
         /// <param name="isSync">True if this is a sync operation, not a chunk read operation</param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, bool isSync)
+        {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, bool). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var newFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(bool) ]);
+            if (newFromBytes != null && newFromBytes.DeclaringType != typeof(Entity))
+            {
+                reader.UnsafeActAsBinarySpanReader(isSync, FromBytes);
+            }
+            else
+            {
+                reader.UnsafeActAsBinarySpanReader(isSync, fromBytes);
+            }
+        }
+
+        /// <summary>
+        /// Loads the entity from a stored byte array from the SaveGame
+        /// </summary>
+        /// <param name="isSync">True if this is a sync operation, not a chunk read operation</param>
+        public virtual void FromBytes(ref BinarySpanReader reader, bool isSync)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(bool) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(Entity))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, bool). If you are the developer make sure to move to the new overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(isSync, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<bool>>(this));
+                #pragma warning restore CS0618
+            }
+            else
+            {
+                fromBytes(ref reader, isSync);
+            }
+        }
+
+        public void fromBytes(ref BinarySpanReader reader, bool isSync)
         {
             string version = "";
             if (!isSync)
@@ -2022,7 +2175,7 @@ namespace Vintagestory.API.Common.Entities
             }
 
             EntityId = reader.ReadInt64();
-            WatchedAttributes.FromBytes(reader);
+            WatchedAttributes.FromBytes(ref reader);
 
             if (!WatchedAttributes.HasAttribute("extraInfoText"))
             {
@@ -2039,7 +2192,7 @@ namespace Vintagestory.API.Common.Entities
             }
 
 
-            Pos.FromBytes(reader);
+            Pos.FromBytes(ref reader);
 
             GetHeadPositionFromWatchedAttributes();
 
@@ -2053,14 +2206,14 @@ namespace Vintagestory.API.Common.Entities
 
             if (!isSync)
             {
-                Attributes.FromBytes(reader);
+                Attributes.FromBytes(ref reader);
             }
 
             // In 1.8 animation data format was changed to use a TreeAttribute.
             if (isSync || (version != "" && GameVersion.IsAtLeastVersion(version, "1.8.0-pre.1")))
             {
                 TreeAttribute tree = new TreeAttribute();
-                tree.FromBytes(reader);
+                tree.FromBytes(ref reader);
                 AnimManager?.FromAttributes(tree, version);
 
                 if (Properties?.Server?.Behaviors != null)
@@ -2092,7 +2245,7 @@ namespace Vintagestory.API.Common.Entities
 
             if (isSync)
             {
-                Tags = TagSetFast.FromBytes(reader);
+                Tags = TagSetFast.FromBytes(ref reader);
 
                 var seatControls = SidedProperties != null ? GetInterface<IMountable>()?.ControllingControls : null;
                 int controlsSerialized = reader.ReadInt32();
@@ -2228,23 +2381,10 @@ namespace Vintagestory.API.Common.Entities
             if (reason == EnumDespawnReason.Death)
             {
                 Api.Event.TriggerEntityDeath(this, damageSourceForDeath);
-
-                ItemStack[] drops = GetDrops(World, Pos.AsBlockPos, null);
-
-                if (drops != null)
-                {
-                    for (int i = 0; i < drops.Length; i++)
-                    {
-                        World.SpawnItemEntity(drops[i], Pos.XYZ.Add(0, 0.25, 0));
-                    }
-                }
-
-                AnimManager.ActiveAnimationsByAnimCode.Clear();
-                AnimManager.StartAnimation("die");
-
                 WatchedAttributes.SetDouble("deathTotalHours", Api.World.Calendar.TotalHours);
 
-                if (reason == EnumDespawnReason.Death && damageSourceForDeath != null && World.Side == EnumAppSide.Server) {
+                if (damageSourceForDeath != null && World.Side == EnumAppSide.Server)
+                {
                     WatchedAttributes.SetInt("deathReason", (int)damageSourceForDeath.Source);
                     WatchedAttributes.SetInt("deathDamageType", (int)damageSourceForDeath.Type);
                     Entity byEntity = damageSourceForDeath.GetCauseEntity();
@@ -2258,6 +2398,18 @@ namespace Vintagestory.API.Common.Entities
                     }
                 }
 
+                ItemStack[] drops = GetDrops(World, Pos.AsBlockPos, null);
+
+                if (drops != null)
+                {
+                    for (int i = 0; i < drops.Length; i++)
+                    {
+                        World.SpawnItemEntity(drops[i], Pos.XYZ.Add(0, 0.25, 0));
+                    }
+                }
+
+                AnimManager.ActiveAnimationsByAnimCode.Clear();
+                AnimManager.StartAnimation("die");
 
                 foreach (EntityBehavior behavior in SidedProperties.Behaviors)
                 {
@@ -2275,16 +2427,27 @@ namespace Vintagestory.API.Common.Entities
         /// <summary> Call this serverside, and it will play the sound for all nearby clients. </summary>
         /// <param name="type">String code for the sound</param>
         /// <param name="dualCallByPlayer">If also calling clientside, pass in that client's player here</param>
-        public virtual void PlayEntitySound(string type, IPlayer dualCallByPlayer = null)
+        public virtual void PlayEntitySound(string code, IPlayer dualCallByPlayer = null)
         {
-            if (Properties.Sounds != null && Properties.Sounds.TryGetValue(type, out SoundAttributes sound) && sound.Location != null)
+            SoundAttributes? sound = TryGetEntitySound(code, World.Rand);
+            if (sound != null)
             {
-                Properties.ResolvedSounds.TryGetValue(type, out AssetLocation[] locations);
-                if (locations.Length == 0) return;
-
-                sound.Location = locations[World.Rand.Next(locations.Length)]; // Note we can modify this struct with no effects outside this method
-                World.PlaySoundAt(sound, this, dualCallByPlayer);
+                World.PlaySoundAt(sound.Value, this, dualCallByPlayer);
             }
+        }
+
+        /// <summary> Fetches one of the defined entity sounds, choosing randomly if there are multiple variants. </summary>
+        public virtual SoundAttributes? TryGetEntitySound(string code, Random rand)
+        {
+            if (Properties.Sounds != null && Properties.Sounds.TryGetValue(code, out SoundAttributes sound) && sound.Location != null)
+            {
+                Properties.ResolvedSounds.TryGetValue(code, out AssetLocation[] locations);
+                if (locations == null || locations.Length == 0) return null;
+
+                sound.Location = locations[rand.Next(locations.Length)]; // Note we can modify this struct with no effects outside this method
+                return sound;
+            }
+            return null;
         }
 
 

@@ -529,15 +529,14 @@ namespace Vintagestory.API.Config
             EnsureLoaded();
             var validKey = KeyWithDomain(key);
             if (entryCache.ContainsKey(validKey)) return true;
-            if (findWildcarded)
+            if (!findWildcarded) return false;
+            bool result = wildcardCache.Any(pair => WildcardUtil.Match(pair.Key, validKey));
+            if (!result) result = regexCache.Values.Any(pair => pair.Key.IsMatch(validKey));
+            if (!result && logErrors && !validKey.Contains("desc-") && notFound.Add(validKey))
             {
-                if (!key.Contains(":")) key = "game:" + key;
-                bool result = wildcardCache.Any(pair => key.StartsWithFast(pair.Key));
-                if (!result) result = regexCache.Values.Any(pair => pair.Key.IsMatch(validKey));
-                if (!result && logErrors && !key.Contains("desc-") && notFound.Add(key)) logger.VerboseDebug("Lang key not found: " + key.Replace("{", "{{").Replace("}", "}}"));
-                return result;
+                logger.VerboseDebug("Lang key not found: " + validKey.Replace("{", "{{").Replace("}", "}}"));
             }
-            return false;
+            return result;
         }
 
         /// <summary>
@@ -565,7 +564,7 @@ namespace Vintagestory.API.Config
             if (entryCache.TryGetValue(validKey, out var value)) return Format(value, args);
 
             foreach (var pair in wildcardCache
-                .Where(pair => validKey.StartsWithFast(pair.Key)))
+                .Where(pair => WildcardUtil.Match(pair.Key, validKey)))
                 return Format(pair.Value, args);
 
             return regexCache.Values
@@ -584,23 +583,16 @@ namespace Vintagestory.API.Config
 
         private void LoadEntry(Dictionary<string, string> entryCache, Dictionary<string, KeyValuePair<Regex, string>> regexCache, Dictionary<string, string> wildcardCache, KeyValuePair<string, string> entry, string domain = GlobalConstants.DefaultDomain)
         {
-            var key = KeyWithDomain(entry.Key, domain);
-            switch (key.CountChars('*'))
+            if (entry.Key is ['^', .. var regexKey, '$'])
             {
-                case 0:
-                    entryCache[key] = entry.Value;
-                    break;
-                case 1 when key.EndsWith('*'):
-                    wildcardCache[key.TrimEnd('*')] = entry.Value;
-                    break;
-                    // we can probably do better here, as we have our own wildcardsearch now
-                default:
-                {
-                    var regex = new Regex("^" + key.Replace("*", "(.*)") + "$", RegexOptions.Compiled);
-                    regexCache[key] = new KeyValuePair<Regex, string>(regex, entry.Value);
-                    break;
-                }
+                regexKey = $"^{KeyWithDomain(regexKey, domain)}$";
+                regexCache[regexKey] = new(new(regexKey, RegexOptions.Compiled), entry.Value);
+                return;
             }
+
+            var key = KeyWithDomain(entry.Key, domain);
+            if (key.CountChars('*') == 0) entryCache[key] = entry.Value;
+            else wildcardCache[key] = entry.Value;
         }
 
         private static string KeyWithDomain(string key, string domain = GlobalConstants.DefaultDomain)

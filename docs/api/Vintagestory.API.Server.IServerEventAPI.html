@@ -658,6 +658,42 @@ When world type is null, all handlers are returned</p>
 
 
 
+  <a id="Vintagestory_API_Server_IServerEventAPI_TriggerEntityGroupSpawning_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerEntityGroupSpawning*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_TriggerEntityGroupSpawning_Vintagestory_API_Common_Entities_Entity___System_Int64_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerEntityGroupSpawning(Vintagestory.API.Common.Entities.Entity[],System.Int64)">
+  TriggerEntityGroupSpawning(Entity[], long)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>We trigger this after we finish creating a group of entities to spawn, but there's no guarantee they are spawned or initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerEntityGroupSpawning(Entity[] spawningEntities, long herdId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spawningEntities</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a>[]</dt>
+    <dd><p>A list of all the entities to be spawned</p>
+</dd>
+    <dt><code>herdId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd><p>The unique herd ID the entities are spawning with</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Server_IServerEventAPI_TriggerInitWorldGen_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerInitWorldGen*"></a>
 
   <h3 id="Vintagestory_API_Server_IServerEventAPI_TriggerInitWorldGen" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerInitWorldGen">
@@ -722,6 +758,84 @@ When world type is null, all handlers are returned</p>
 
 
 
+  <a id="Vintagestory_API_Server_IServerEventAPI_TriggerSchematicExport_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerSchematicExport*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_TriggerSchematicExport_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_Dictionary_Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_Dictionary_System_String_System_Byte_____" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerSchematicExport(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.Dictionary{Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.Dictionary{System.String,System.Byte[]}})">
+  TriggerSchematicExport(IBlockAccessor, IWorldAccessor, BlockPos, BlockPos, Dictionary&lt;BlockPos, Dictionary&lt;string, byte[]&gt;&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerSchematicExport(IBlockAccessor blockAccessor, IWorldAccessor world, BlockPos start, BlockPos end, Dictionary&lt;BlockPos, Dictionary&lt;string, byte[]&gt;&gt; modData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dd></dd>
+    <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>end</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>modData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerEventAPI_TriggerSchematicImport_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerSchematicImport*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_TriggerSchematicImport_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_Dictionary_System_UInt32_System_Collections_Generic_Dictionary_System_String_System_Byte_____System_Nullable_Vintagestory_API_MathTools_Rectanglei__" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerSchematicImport(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.Dictionary{System.UInt32,System.Collections.Generic.Dictionary{System.String,System.Byte[]}},System.Nullable{Vintagestory.API.MathTools.Rectanglei})">
+  TriggerSchematicImport(IBlockAccessor, IWorldAccessor, BlockPos, Dictionary&lt;uint, Dictionary&lt;string, byte[]&gt;&gt;, Rectanglei?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerSchematicImport(IBlockAccessor blockAccessor, IWorldAccessor world, BlockPos startpos, Dictionary&lt;uint, Dictionary&lt;string, byte[]&gt;&gt; modData, Rectanglei? rect = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dd></dd>
+    <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>startpos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>modData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</dt>
+    <dd></dd>
+    <dt><code>rect</code> <a class="xref" href="Vintagestory.API.MathTools.Rectanglei.html">Rectanglei</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Server_IServerEventAPI_TriggerTrySpawnEntity_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerTrySpawnEntity*"></a>
 
   <h3 id="Vintagestory_API_Server_IServerEventAPI_TriggerTrySpawnEntity_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_Entities_EntityProperties__Vintagestory_API_MathTools_Vec3d_System_Int64_" data-uid="Vintagestory.API.Server.IServerEventAPI.TriggerTrySpawnEntity(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.Entities.EntityProperties@,Vintagestory.API.MathTools.Vec3d,System.Int64)">
@@ -729,7 +843,8 @@ When world type is null, all handlers are returned</p>
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Returns true if the entity successfully passes the checks for whether spawning is currently allowed at this location</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -741,11 +856,14 @@ When world type is null, all handlers are returned</p>
     <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
     <dd></dd>
     <dt><code>properties</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityProperties.html">EntityProperties</a></dt>
-    <dd></dd>
+    <dd><p>The entity type, as a ref so that it can be changed if desired</p>
+</dd>
     <dt><code>position</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
-    <dd></dd>
+    <dd><p>The location to test for spawning</p>
+</dd>
     <dt><code>herdId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd></dd>
+    <dd><p>The unique herd ID the entity is trying to spawn with</p>
+</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -1311,6 +1429,37 @@ Allows for the event to be cancelled depending on the return value.</p>
 
 
 
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_OnEntityGroupSpawning" data-uid="Vintagestory.API.Server.IServerEventAPI.OnEntityGroupSpawning">
+  OnEntityGroupSpawning
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when the server finishes creatinga group of entities to spawn, but possibly before they have finished spawning and initializing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EntityGroupDelegate OnEntityGroupSpawning</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.EntityGroupDelegate.html">EntityGroupDelegate</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Server_IServerEventAPI_OnPlayerInteractEntity" data-uid="Vintagestory.API.Server.IServerEventAPI.OnPlayerInteractEntity">
   OnPlayerInteractEntity
   
@@ -1342,6 +1491,68 @@ Allows for the event to be cancelled depending on the return value.</p>
 
 
 
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_OnSchematicExport" data-uid="Vintagestory.API.Server.IServerEventAPI.OnSchematicExport">
+  OnSchematicExport
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Triggert when a schematic is exported to export custom modsystem data into the schematic</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event OnSchematicExport OnSchematicExport</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.OnSchematicExport.html">OnSchematicExport</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Server_IServerEventAPI_OnSchematicImport" data-uid="Vintagestory.API.Server.IServerEventAPI.OnSchematicImport">
+  OnSchematicImport
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Triggert when a schematic is imported to import custom schematic data into the proper modsystems</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event OnSchematicImport OnSchematicImport</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.OnSchematicImport.html">OnSchematicImport</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Server_IServerEventAPI_OnTrySpawnEntity" data-uid="Vintagestory.API.Server.IServerEventAPI.OnTrySpawnEntity">
   OnTrySpawnEntity
   
@@ -1363,36 +1574,6 @@ Allows for the event to be cancelled depending on the return value.</p>
   <h4 class="section">Event Type</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.TrySpawnEntityDelegate.html">TrySpawnEntityDelegate</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-  <h3 id="Vintagestory_API_Server_IServerEventAPI_OnTrySpawnGroupNearOffthread" data-uid="Vintagestory.API.Server.IServerEventAPI.OnTrySpawnGroupNearOffthread">
-  OnTrySpawnGroupNearOffthread
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">event TrySpawnGroupDelegate OnTrySpawnGroupNearOffthread</code></pre>
-  </div>
-
-
-
-
-
-
-  <h4 class="section">Event Type</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Common.TrySpawnGroupDelegate.html">TrySpawnGroupDelegate</a></dt>
     <dd></dd>
   </dl>
 

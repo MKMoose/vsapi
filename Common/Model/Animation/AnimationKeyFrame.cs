@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Vintagestory.API.Datastructures;
 
@@ -53,7 +53,10 @@ namespace Vintagestory.API.Common
         {
             if (Elements == null) return;
 
-            ElementsByShapeElement = new FastSmallDictionary<ShapeElement, AnimationKeyFrameElement>(Elements.Count);
+            ElementsByShapeElement = Elements.Count <= 10
+                ? new FastSmallDictionary<ShapeElement, AnimationKeyFrameElement>(Elements.Count)
+                : new Dictionary<ShapeElement, AnimationKeyFrameElement>(Elements.Count);
+
             foreach (var val in Elements)
             {
                 AnimationKeyFrameElement kelem = val.Value;

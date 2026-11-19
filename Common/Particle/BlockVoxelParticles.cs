@@ -1,5 +1,6 @@
-﻿using System.IO;
+using System.IO;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -96,19 +97,19 @@ namespace Vintagestory.API.Common
             writer.Write(radius);
             writer.Write(scale);
             writer.Write(velocity != null);
-            if (velocity != null) velocity.ToBytes(writer);
+            velocity?.ToBytes(writer);
         }
 
-        public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+        public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            particlePos = Vec3d.CreateFromBytes(reader);
-            blockpos = BlockPos.CreateFromBytes(reader);
+            particlePos = Vec3d.CreateFromBytes(ref reader);
+            blockpos = BlockPos.CreateFromBytes(ref reader);
             quantity = reader.ReadInt32();
             radius = reader.ReadSingle();
             scale = reader.ReadSingle();
             if (reader.ReadBoolean())
             {
-                velocity = Vec3f.CreateFromBytes(reader);
+                velocity = Vec3f.CreateFromBytes(ref reader);
             }
         }
 
@@ -146,7 +147,7 @@ namespace Vintagestory.API.Common
         public Vec3f velocity = new Vec3f();
 
         public override bool DieInLiquid => false;
-        public override bool SwimOnLiquid => stack.Collectible.MaterialDensity < 1000;
+        public override bool SwimOnLiquid => stack.Collectible.GetMaterialDensity(null, api.World, new DummySlot(stack)) < 1000;
 
         public StackCubeParticles() { }
 
@@ -201,18 +202,19 @@ namespace Vintagestory.API.Common
             if (velocity != null) velocity.ToBytes(writer);
         }
 
-        public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+
+        public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            collisionPos = Vec3d.CreateFromBytes(reader);
+            collisionPos = Vec3d.CreateFromBytes(ref reader);
             stack = new ItemStack();
-            stack.FromBytes(reader);
+            stack.FromBytes(ref reader);
             stack.ResolveBlockOrItem(resolver);
             quantity = reader.ReadInt32();
             radius = reader.ReadSingle();
             scale = reader.ReadSingle();
             if (reader.ReadBoolean())
             {
-                velocity = Vec3f.CreateFromBytes(reader);
+                velocity = Vec3f.CreateFromBytes(ref reader);
             }
         }
 

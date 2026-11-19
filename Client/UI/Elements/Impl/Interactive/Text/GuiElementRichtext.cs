@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Cairo;
 using Vintagestory.API.Common;
@@ -488,7 +488,8 @@ namespace Vintagestory.API.Client
                 RichTextComponentBase comp = Components[i];
 
                 comp.RenderColor = RenderColor;
-                comp.RenderInteractiveElements(deltaTime, Bounds.renderX, Bounds.renderY, zPos);
+                // Tyron, Jun 26, 2026: Added absPaddingX/Y offset here, otherwise links in dialogue are rendered at the wrong position
+                comp.RenderInteractiveElements(deltaTime, Bounds.renderX + Bounds.absPaddingX, Bounds.renderY + Bounds.absPaddingY, zPos);
                 
                 if (comp.UseMouseOverCursor(Bounds))
                 {

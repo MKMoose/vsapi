@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
@@ -17,6 +18,8 @@ namespace Vintagestory.API.Common
 
     public delegate ItemSlot GetAutoPullFromSlotDelegate(BlockFacing atBlockFace);
 
+    public delegate void DidAutoMoveDelegate(ItemSlot sourceSlot, ItemSlot targetSlot, int qmoved);
+
     /// <summary>
     /// A general purpose inventory
     /// </summary>
@@ -30,6 +33,8 @@ namespace Vintagestory.API.Common
         public GetSuitabilityDelegate OnGetSuitability;
         public GetAutoPushIntoSlotDelegate OnGetAutoPushIntoSlot;
         public GetAutoPullFromSlotDelegate OnGetAutoPullFromSlot;
+
+        public DidAutoMoveDelegate OnDidAutoMove;
 
         public float BaseWeight
         {
@@ -207,6 +212,14 @@ namespace Vintagestory.API.Common
             }
 
             return base.GetAutoPushIntoSlot(atBlockFace, fromSlot);
+        }
+
+        public override void DidAutoMove(ItemSlot sourceSlot, ItemSlot targetSlot, int qmoved)
+        {
+            if (OnDidAutoMove != null)
+            {
+                OnDidAutoMove(sourceSlot, targetSlot, qmoved);
+            }
         }
     }
 }

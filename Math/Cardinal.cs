@@ -99,27 +99,26 @@ namespace Vintagestory.API.MathTools
 
         public static Cardinal FromVector(double x, double y, double z)
         {
-            float smallestAngle = GameMath.PI;
-            Cardinal cardinal = null;
+            if (!double.IsFinite(x) || !double.IsFinite(y) || !double.IsFinite(z)) return null;
+            if (x == 0 && z == 0) return y == 0 ? null : North;
 
-            double len = GameMath.Sqrt(x * x + y * y + z * z);
-            x /= len;
-            y /= len;
-            z /= len;
+            const double tanPiOver8 = 0.4142135623730950488; // tan(22.5 degrees) = sqrt(2) - 1.
+            double absX = Math.Abs(x);
+            double absZ = Math.Abs(z);
 
-            for (int i = 0; i < ALL.Length; i++)
+            // Scaling tiny components by 2^52 prevents underflow in the threshold comparisons.
+            const double minNormal = 2.2250738585072014E-308;
+            const double subnormalScale = 1L << 52;
+            if (absX < minNormal * 4 && absZ < minNormal * 4)
             {
-                Cardinal f = ALL[i];
-                float angle = (float)Math.Acos(f.Normalf.X * x + f.Normalf.Y * y + f.Normalf.Z * z);
-
-                if (angle < smallestAngle)
-                {
-                    smallestAngle = angle;
-                    cardinal = f;
-                }
+                absX *= subnormalScale;
+                absZ *= subnormalScale;
             }
 
-            return cardinal;
+            if (absX <= absZ * tanPiOver8) return z < 0 ? North : South;
+            if (absZ <= absX * tanPiOver8) return x < 0 ? West : East;
+            if (z < 0) return x < 0 ? NorthWest : NorthEast;
+            return x < 0 ? SouthWest : SouthEast;
         }
 
     }

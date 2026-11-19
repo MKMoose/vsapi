@@ -182,7 +182,7 @@ public class EntityBehaviorMultiply : EntityBehaviorMultiplyBase</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Required&quot;, &quot;&quot;, false)]
-protected AssetLocation[] SpawnEntityCodes</code></pre>
+protected AssetLocation[]? SpawnEntityCodes</code></pre>
   </div>
 
 
@@ -191,6 +191,143 @@ protected AssetLocation[] SpawnEntityCodes</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingDistanceChecks_" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks*"></a>
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingDistanceChecks" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingDistanceChecks">
+  CrowdingDistanceChecks (Optional) (Default: [4, 8])
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Check these distances to see if there are too many entities nearby. All these checks must pass or the conditions are considered crowded.
+For example, [4, 8] will check for entities 4 blocks away and 8 blocks away, taxicab distance. The first check fails if there are more than (4 * 2)^2 / SquareMetersPerEntity animals nearby.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;[4, 8]&quot;, false)]
+[JsonProperty]
+public float[] CrowdingDistanceChecks { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_CrowdingTags" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.CrowdingTags">
+  CrowdingTags (Optional) (Default: [&quot;animal&quot;])
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Entities with any of these tags count towards the density.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;[\&quot;animal\&quot;]&quot;, false)]
+public TagSetFast CrowdingTags</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Datastructures.TagSetFast.html">TagSetFast</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_MiscarriageChance" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageChance">
+  MiscarriageChance (Optional) (Default: 0)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Fraction of embryos considered non-viable, randomly determined (a second check after gene viability)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0&quot;, false)]
+[JsonProperty]
+protected double MiscarriageChance</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_MiscarriageCooldown" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.MiscarriageCooldown">
+  MiscarriageCooldown (Optional) (Default: 0.5)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>After a miscarriage (either random or genetic), wait this long as a fraction of the normal multiply cooldown before being ready to mate again</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0.5&quot;, false)]
+[JsonProperty]
+protected double MiscarriageCooldown</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
     <dd></dd>
   </dl>
 
@@ -217,6 +354,40 @@ protected AssetLocation[] SpawnEntityCodes</code></pre>
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;3&quot;, false)]
 [JsonProperty]
 public double PregnancyDays</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_PregnancyLengthVariation" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.PregnancyLengthVariation">
+  PregnancyLengthVariation (Optional) (Default: 0.04)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Pregnancy length will vary by plus or minus this fraction of the total length</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0.04&quot;, false)]
+[JsonProperty]
+protected double PregnancyLengthVariation</code></pre>
   </div>
 
 
@@ -285,7 +456,7 @@ private AssetLocation requiresNearbyEntityCode { set; }</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;&quot;, false)]
 [JsonProperty]
-public AssetLocation[] RequiresNearbyEntityCodes</code></pre>
+public AssetLocation[]? RequiresNearbyEntityCodes</code></pre>
   </div>
 
 
@@ -372,6 +543,40 @@ public float RequiresNearbyEntityRange</code></pre>
 
 
 
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_SpawnQuantityChance" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityChance">
+  SpawnQuantityChance (Optional) (Default: 0.5)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>For each offspring between the min and the max, this is the chance of spawning. This makes the litter size a bell curve instead of a uniform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0.5&quot;, false)]
+[JsonProperty]
+public float SpawnQuantityChance</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_SpawnQuantityMax" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.SpawnQuantityMax">
   SpawnQuantityMax (Optional) (Default: 2)
   
@@ -428,6 +633,75 @@ public float SpawnQuantityMin</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_EntityBehaviorMultiply_SquareMetersPerEntity_" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity*"></a>
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_SquareMetersPerEntity" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.SquareMetersPerEntity">
+  SquareMetersPerEntity (Optional) (Default: 8)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>At what density do they stop breeding</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;8&quot;, false)]
+[JsonProperty]
+public float SquareMetersPerEntity { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorMultiply_ViabilityCheckDelay" data-uid="Vintagestory.GameContent.EntityBehaviorMultiply.ViabilityCheckDelay">
+  ViabilityCheckDelay (Optional) (Default: 0.125)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Wait this long (as a fraction of the total pregnancy length) before discarding non-viable embryos</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0.125&quot;, false)]
+[JsonProperty]
+protected double ViabilityCheckDelay</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
     <dd></dd>
   </dl>
 

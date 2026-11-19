@@ -69,11 +69,18 @@ public struct TagSetFast(Vector256<UInt64> storage) : IEquatable<TagSetFast>
         writer.Write(buffer);
     }
 
+    [Obsolete("Prefer the BinarySpanReader overload.")]
     public static TagSetFast FromBytes(BinaryReader reader)
     {
         Span<byte> buffer = stackalloc byte[32];
         reader.ReadExactly(buffer);
-        return new(Vector256.LoadUnsafe(ref MemoryMarshal.AsRef<byte>(buffer)).AsUInt64());
+        return new(Vector256.LoadUnsafe(in MemoryMarshal.AsRef<byte>(buffer)).AsUInt64());
+    }
+
+    public static TagSetFast FromBytes(ref BinarySpanReader reader)
+    {
+        var buffer = reader.ReadBytes(32);
+        return new(Vector256.LoadUnsafe(in MemoryMarshal.AsRef<byte>(buffer)).AsUInt64());
     }
 }
 

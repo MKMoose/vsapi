@@ -12,6 +12,8 @@ namespace Vintagestory.API.MathTools
     [ProtoContract]
     public class Cuboidi : ICuboid<int,Cuboidi>, IEquatable<Cuboidi>
     {
+        public virtual bool IsRotated() => false;
+
         /// <summary>
         /// Start X Pos
         /// </summary>

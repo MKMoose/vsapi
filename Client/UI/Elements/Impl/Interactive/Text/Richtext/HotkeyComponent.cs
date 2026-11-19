@@ -47,9 +47,9 @@ namespace Vintagestory.API.Client
             List<string> parts = new List<string>();
             
             if (hotkey != null) {
-                if (hotkey.CurrentMapping.Ctrl) parts.Add("Ctrl");
-                if (hotkey.CurrentMapping.Alt) parts.Add("Alt");
-                if (hotkey.CurrentMapping.Shift) parts.Add("Shift");
+                if (hotkey.CurrentMapping.Ctrl) parts.Add(RuntimeEnv.OS == OS.Mac ? "Control" : "CTRL");
+                if (hotkey.CurrentMapping.Alt) parts.Add(RuntimeEnv.OS == OS.Mac ? "Option" : "ALT");
+                if (hotkey.CurrentMapping.Shift) parts.Add(RuntimeEnv.OS == OS.Mac ? "Shift" : "SHIFT");
                 parts.Add(hotkey.CurrentMapping.PrimaryAsString());
                 if (hotkey.CurrentMapping.SecondKeyCode != null) parts.Add(hotkey.CurrentMapping.SecondaryAsString());
             } else

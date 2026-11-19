@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class BlendedOverlayTexture | VintageStory Json Docs ">
       
-      <meta name="description" content="Defines a texture to be overlayed on another texture. Open in GitHub">
+      <meta name="description" content="Defines a texture to be overlayed on another texture. Overlay textures no longer have to be of same size. Overlays are applied in reverse order, from last to first. Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,9 @@ Class BlendedOverlayTexture
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Defines a texture to be overlayed on another texture. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Defines a texture to be overlayed on another texture.
+Overlay textures no longer have to be of same size.
+Overlays are applied in reverse order, from last to first. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -163,6 +165,74 @@ public AssetLocation Base</code></pre>
 
 
 
+  <h3 id="Vintagestory_API_Client_BlendedOverlayTexture_Alpha" data-uid="Vintagestory.API.Client.BlendedOverlayTexture.Alpha">
+  Alpha (Optional) (Default: 255)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;255&quot;, false)]
+public int Alpha</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_BlendedOverlayTexture_AppliedTo" data-uid="Vintagestory.API.Client.BlendedOverlayTexture.AppliedTo">
+  AppliedTo (Optional) (Default: 0)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Index of overlay this overlay will be applied to.<br>
+Value of '0' targets base texture.<br>
+Cannot be equal or higher than index of overlay it is specified in.<br>
+Cannot target overlays with indexes '16' or higher.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0&quot;, false)]
+public byte AppliedTo</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Client_BlendedOverlayTexture_BlendMode" data-uid="Vintagestory.API.Client.BlendedOverlayTexture.BlendMode">
   BlendMode (Optional) (Default: Normal)
   
@@ -184,6 +254,74 @@ public EnumColorBlendMode BlendMode</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.MathTools.EnumColorBlendMode.html">EnumColorBlendMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_BlendedOverlayTexture_OffsetX" data-uid="Vintagestory.API.Client.BlendedOverlayTexture.OffsetX">
+  OffsetX (Optional) (Default: 0)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Offsets texture by X axis by set amount of pixels.<br>
+Value must be between -2048 and 2047.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0&quot;, false)]
+public short OffsetX</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Client_BlendedOverlayTexture_OffsetY" data-uid="Vintagestory.API.Client.BlendedOverlayTexture.OffsetY">
+  OffsetY (Optional) (Default: 0)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Offsets texture by Y axis by set amount of pixels.<br>
+Value must be between -2048 and 2047.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0&quot;, false)]
+public short OffsetY</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int16">short</a></dt>
     <dd></dd>
   </dl>
 

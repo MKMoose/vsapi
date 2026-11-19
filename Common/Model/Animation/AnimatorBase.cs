@@ -17,6 +17,8 @@ namespace Vintagestory.API.Common
         public float Frame;
         public string Animation;
         public Action Callback;
+        public bool RepeatEachIteration;
+        public int LastTriggeredIteration = -1;
     }
 
     /// <summary>
@@ -84,8 +86,8 @@ namespace Vintagestory.API.Common
             this.onAnimationStoppedListener = onAnimationStoppedListener;
 
             var anims = this.anims = Animations == null ? Array.Empty<RunningAnimation>() : new RunningAnimation[Animations.Length];
-            animsByCode = new(anims.Length);
-            var animsByCodeLocal = animsByCode;
+            Dictionary<string, RunningAnimation> animsByCodeLocal = new(anims.Length);
+            animsByCode = animsByCodeLocal;
 
             for (int i = 0; i < anims.Length; i++)
             {
@@ -118,13 +120,18 @@ namespace Vintagestory.API.Common
             }
             
             string missingAnimCode = null;
-            foreach (var code in activeAnimationsByAnimCode.Keys)
+            foreach ((string code, AnimationMetaData meta) in activeAnimationsByAnimCode)
             {
-                if (!animsByCode.TryGetValue(code.ToLowerInvariant(), out RunningAnimation anim)) { missingAnimCode = code; continue; }
+                if (!animsByCode.TryGetValue(code, out RunningAnimation anim)) { missingAnimCode = code; continue; }
+
                 // Animation got started
                 if (!anim.Active)
                 {
-                    AnimNowActive(anim, activeAnimationsByAnimCode[code]);
+                    AnimNowActive(anim, meta);
+                }
+                else if (anim.meta.CodeCrc32 != meta.CodeCrc32)
+                {
+                    AnimMetaChanged(anim, meta);
                 }
             }
             if (missingAnimCode != null)
@@ -258,6 +265,25 @@ namespace Vintagestory.API.Common
             return sb.ToString();
         }
 
+        protected virtual void AnimMetaChanged(RunningAnimation anim, AnimationMetaData animData)
+        {
+            anim.meta = animData;
+
+            AnimationSound[] sounds = animData.AnimationSounds;
+            if (sounds == null || sounds.Length == 0)
+            {
+                anim.SoundPlayedAtIteration = null;
+                return;
+            }
+
+            anim.SoundPlayedAtIteration = new int[sounds.Length];
+            for (int i = 0; i < sounds.Length; i++)
+            {
+                bool alreadyPassed = !sounds[i].Looping && anim.CurrentFrame >= sounds[i].Frame;
+                anim.SoundPlayedAtIteration[i] = alreadyPassed ? anim.Iterations : -1;
+            }
+        }
+
         protected virtual void AnimNowActive(RunningAnimation anim, AnimationMetaData animData)
         {
             anim.Running = true;
@@ -271,7 +297,19 @@ namespace Vintagestory.API.Common
         }
 
         protected abstract void calculateMatrices(float dt);
-        
+
+        /// <summary>
+        /// Recomputes pose matrices at the current animation frame without advancing any animation clock,
+        /// so the server can pose an entity on demand instead of every tick.
+        /// </summary>
+        public void RecalculateMatrices()
+        {
+            bool wasCalculating = CalculateMatrices;
+            CalculateMatrices = true;
+            calculateMatrices(0);
+            CalculateMatrices = wasCalculating;
+        }
+
 
         public AttachmentPointAndPose GetAttachmentPointPose(string code)
         {

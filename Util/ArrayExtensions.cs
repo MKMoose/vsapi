@@ -65,66 +65,25 @@ namespace Vintagestory.API.Util
 
             return dest;
         }
-    }
 
-    public static class EnumerableExtensions
-    {
-        public static int IndexOf<T>(this IEnumerable<T> source, Common.ActionBoolReturn<T> onelem)
+        public static string ArrayToString<T>(this T[] array)
         {
-            int i = 0;
-            foreach (var elem in source)
+            if (array == null)
             {
-                if (onelem(elem)) return i;
-                i++;
+                return "null";
             }
-
-            return -1;
+            return "[" + string.Join(",", array) + "]";
         }
 
-        public static void Foreach<T>(this IEnumerable<T> array, Action<T> onelement)
+        public static string ArrayToString<T>(this T[,] array)
         {
-            foreach (var val in array)
+            if (array == null)
             {
-                onelement(val);
+                return "null";
             }
-        }
-
-        public static T Nearest<T>(this IEnumerable<T> array, Func<T, double> getDistance)
-        {
-            double nearestDist = double.MaxValue;
-            T nearest = default(T);
-            foreach (var val in array)
-            {
-                double d = getDistance(val);
-
-                if (d < nearestDist)
-                {
-                    nearestDist = d;
-                    nearest = val;
-                }
-            }
-
-            return nearest;
-        }
-
-
-        public static double NearestDistance<T>(this IEnumerable<T> array, Func<T, double> getDistance)
-        {
-            double nearestDist = double.MaxValue;
-            foreach (var val in array)
-            {
-                double d = getDistance(val);
-
-                if (d < nearestDist)
-                {
-                    nearestDist = d;
-                }
-            }
-
-            return nearestDist;
+            return "[" + string.Join(",", array) + "]";
         }
     }
-
 
     public static class ArrayExtensions
     {
@@ -163,6 +122,8 @@ namespace Vintagestory.API.Util
         }
 
         public static bool Contains<T>(this T[] array, Func<T, bool> predicate) => IndexOf(array, predicate) >= 0;
+
+        public static T AtFraction<T>(this T[] array, double fraction) => array[Math.Clamp((int)(fraction * array.Length), 0, array.Length - 1)];
 
         public static int IndexOf<T>(this T[] array, Func<T, bool> predicate)
         {

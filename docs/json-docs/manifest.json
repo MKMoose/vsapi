@@ -82,7 +82,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.API.Client.BlendedOverlayTexture",
-      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.yml\" sourcestartlinenumber=\"1\">Defines a texture to be overlayed on another texture. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.API.Client.BlendedOverlayTexture.yml\" sourcestartlinenumber=\"1\">Defines a texture to be overlayed on another texture.\nOverlay textures no longer have to be of same size.\nOverlays are applied in reverse order, from last to first. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1510,7 +1510,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.AttributeAttachableToEntity",
-      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.yml\" sourcestartlinenumber=\"1\">A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorContainer.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.AttributeAttachableToEntity.yml\" sourcestartlinenumber=\"1\">A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/AttributeAttachableToEntity.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2672,7 +2672,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.EntityBehaviorGait",
-      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorGait.yml\" sourcestartlinenumber=\"1\">Allows to define gaits of an entity.\n<br>Uses the &quot;gait&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorGait.yml\" sourcestartlinenumber=\"1\">Defines gaits and movement for an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2757,6 +2757,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.EntityBehaviorIdleAnimations",
       "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorIdleAnimations.yml\" sourcestartlinenumber=\"1\">Plays random animation from predefined list of idle animations when entity isn't moving or mounted on another entity.\n<br>Uses the &quot;idleanimations&quot; code <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Entity/Behavior/BehaviorIdleAnims.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.GameContent.EntityBehaviorKinematicCollider",
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorKinematicCollider.yml\" sourcestartlinenumber=\"1\">Registers entity-local collision boxes as a transformed collider.\n<br>Uses the &quot;kinematiccollider&quot; code. <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorKinematicCollider.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2910,7 +2924,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.EntityBehaviorPlayerPhysics",
-      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorPlayerPhysics.yml\" sourcestartlinenumber=\"1\">Client-side player physics. This class has no further properties.\n<br>Uses the &quot;playerphysics&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorPlayerPhysics.cs>Open in GitHub</a></p>\n"
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.EntityBehaviorPlayerPhysics.yml\" sourcestartlinenumber=\"1\">Client-side player physics.\n<br>Uses the &quot;playerphysics&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorPlayerPhysics.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3110,6 +3124,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "jsondocs/Vintagestory.GameContent.InPieProperties.yml",
+      "output": {
+        ".html": {
+          "relative_path": "jsondocs/Vintagestory.GameContent.InPieProperties.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.GameContent.InPieProperties",
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.InPieProperties.yml\" sourcestartlinenumber=\"1\">Defines the type of ingredient (crust, filling, topping), food category\nfor mixing, and what mixing codes it can be used with, if any. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///BlockEntity/BEPie.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "jsondocs/Vintagestory.GameContent.KnappingRecipe.yml",
       "output": {
         ".html": {
@@ -3121,6 +3149,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.KnappingRecipe",
       "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.KnappingRecipe.yml\" sourcestartlinenumber=\"1\">Defines a stone/flint knapping recipe. Uses all properties from LayeredVoxelRecipe&lt;T&gt;, however always uses a single layer. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Recipe/KnappingRecipe.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "jsondocs/Vintagestory.GameContent.LiquidTopOpenContainerProps.yml",
+      "output": {
+        ".html": {
+          "relative_path": "jsondocs/Vintagestory.GameContent.LiquidTopOpenContainerProps.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.GameContent.LiquidTopOpenContainerProps",
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.LiquidTopOpenContainerProps.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Liquid/WaterTightContainableProps.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3163,6 +3205,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.MetalAlloyIngredient",
       "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.MetalAlloyIngredient.yml\" sourcestartlinenumber=\"1\">Defines an ingredient for a <xref href=\"Vintagestory.GameContent.AlloyRecipe\" data-throw-if-not-resolved=\"false\"></xref> recipe. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Recipe/MetalAlloyIngredient.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "jsondocs/Vintagestory.GameContent.PieTopCrustType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "jsondocs/Vintagestory.GameContent.PieTopCrustType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.GameContent.PieTopCrustType",
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.PieTopCrustType.yml\" sourcestartlinenumber=\"1\">A definition for a top crust type, including its code and shape element. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Block/BlockPie.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",
@@ -3233,6 +3289,20 @@
       "IsMRef": true,
       "Title": "Vintagestory.GameContent.TextAreaConfig",
       "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.TextAreaConfig.yml\" sourcestartlinenumber=\"1\">Font settings for signs and other writeable surfaces <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Block/BlockSign.cs>Open in GitHub</a></p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "jsondocs/Vintagestory.GameContent.WaterTightContainableProps.yml",
+      "output": {
+        ".html": {
+          "relative_path": "jsondocs/Vintagestory.GameContent.WaterTightContainableProps.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Vintagestory.GameContent.WaterTightContainableProps",
+      "Summary": "<p sourcefile=\"jsondocs/Vintagestory.GameContent.WaterTightContainableProps.yml\" sourcestartlinenumber=\"1\"><a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Liquid/WaterTightContainableProps.cs>Open in GitHub</a></p>\n"
     },
     {
       "type": "ManagedReference",

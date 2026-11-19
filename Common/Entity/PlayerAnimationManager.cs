@@ -20,15 +20,27 @@ namespace Vintagestory.API.Common
 
         EntityPlayer plrEntity;
 
-        public override void Init(ICoreAPI api, Entity entity)
+        public PlayerAnimationManager(EntityPlayer entity) : base(entity)
         {
-            base.Init(api, entity);
-
-            plrEntity = entity as EntityPlayer;
+            plrEntity = entity;
         }
 
         public override void OnClientFrame(float dt)
         {
+            // Makes it so that smithing for remote players is continous
+            if (entity.World is IClientWorldAccessor world && world.Player.Entity.EntityId != entity.EntityId && plrEntity.ServerControls.LeftMouseDown)
+            {
+                foreach (var animation in ActiveAnimationsByAnimCode.Values)
+                {
+                    var state = Animator?.GetAnimationState(animation.Animation);
+                    if (state != null && state.Active && state.Running && state.AnimProgress >= 1f)
+                    {
+                        if (animation.Attributes?.IsTrue("remoteRepeatHeldAttack") != true) continue;
+                        ResetAnimation(animation.Animation);
+                    }
+                }
+            }
+
             base.OnClientFrame(dt);
 
             if (useFpAnimSet)
@@ -168,14 +180,10 @@ namespace Vintagestory.API.Common
             return ranim != null && ranim.Running && ranim.AnimProgress < untilProgress && ranim.Active /* ranim.Active check makes a short left mouse click with axe in hands look much better */;
         }
 
-        protected override void onReceivedServerAnimation(AnimationMetaData animmetadata)
+        protected override void onReceivedServerAnimation(ref AnimationMetaData animmetadata)
         {
+            
             StartAnimation(animmetadata);
-            if (plrEntity.MountedOn != null)
-            {
-                if (plrEntity.curMountedAnim != null && plrEntity.curMountedAnim.Code != animmetadata.Code) StopAnimation(plrEntity.curMountedAnim.Code);
-                plrEntity.curMountedAnim = animmetadata;
-            }
         }
 
         public override void OnReceivedServerAnimations(int[] activeAnimations, int activeAnimationsCount, float[] activeAnimationSpeeds)
@@ -196,8 +204,8 @@ namespace Vintagestory.API.Common
 
         public void OnActiveSlotChanged(ItemSlot slot)
         {
-            string beginholdAnim = slot.Itemstack?.Collectible?.GetHeldReadyAnimation(slot, entity, EnumHand.Right);
-            
+            string beginholdAnim = slot?.Itemstack?.Collectible?.GetHeldReadyAnimation(slot, entity, EnumHand.Right);
+
             if (beginholdAnim != lastActiveHeldReadyAnimation) StopHeldReadyAnim();
 
             if (beginholdAnim != null) StartHeldReadyAnim(beginholdAnim);
@@ -234,9 +242,46 @@ namespace Vintagestory.API.Common
             StopHeldReadyAnim();
             StopAnimation(lastActiveRightHeldIdleAnimation);
             StopAnimation(lastActiveHeldUseAnimation);
+            if (api.Side == EnumAppSide.Client) (plrEntity.OtherAnimManager as PlayerAnimationManager)?.ResetAnimation(animCode);
+            ResetAnimation(animCode);
             StartAnimation(animCode);
             lastActiveHeldHitAnimation = animCode;
             lastRunningHeldHitAnimation= animCode;
+        }
+
+        public void StartHeldHitAnim(string animCode, float speedMultiplier)
+        {
+            StartHeldHitAnim(animCode);
+            if (animCode == null) return;
+
+            ApplyHeldHitAnimationSpeedMultiplier(animCode, speedMultiplier);
+            if (api.Side == EnumAppSide.Client)
+            {
+                (plrEntity.OtherAnimManager as PlayerAnimationManager)?.ApplyHeldHitAnimationSpeedMultiplier(animCode, speedMultiplier);
+            }
+        }
+
+        private void ApplyHeldHitAnimationSpeedMultiplier(string animCode, float speedMultiplier)
+        {
+            if (!entity.Properties.Client.AnimationsByMetaCode.TryGetValue(animCode + fpEnding, out var animData) &&
+                !entity.Properties.Client.AnimationsByMetaCode.TryGetValue(animCode, out animData))
+            {
+                return;
+            }
+
+            if (!ActiveAnimationsByAnimCode.TryGetValue(animData.Animation, out var activeAnimData)) return;
+
+            var adjustedAnimData = activeAnimData.Clone();
+            adjustedAnimData.AnimationSpeed *= speedMultiplier;
+            AddActiveAnimation(adjustedAnimData);
+
+            var runningAnim = Animator?.GetAnimationState(animData.Animation);
+            if (runningAnim?.Active == true)
+            {
+                runningAnim.meta = adjustedAnimData;
+            }
+
+            AnimationsDirty = true;
         }
 
         public void StartRightHeldIdleAnim(string animCode)
@@ -342,7 +387,7 @@ namespace Vintagestory.API.Common
 
         public bool HeldRightReadyAnimChanged(string nowHeldRightReadyAnim)
         {
-            return lastActiveHeldReadyAnimation != null && nowHeldRightReadyAnim != lastActiveHeldReadyAnimation;
+            return nowHeldRightReadyAnim != lastActiveHeldReadyAnimation;
         }
 
         public bool HeldUseAnimChanged(string nowHeldRightUseAnim)
@@ -371,10 +416,10 @@ namespace Vintagestory.API.Common
             if (entity == null || capi?.World.Player.Entity.EntityId != entity.EntityId) // Don't update animations for ourselves, it breaks stuff and is not necessary - client has authority over own player animations. 
             {
                 base.FromAttributes(tree, version);
+                lastActiveHeldUseAnimation = tree.GetString("lrHeldUseAnim");
+                lastActiveHeldHitAnimation = tree.GetString("lrHeldHitAnim");
             }
 
-            lastActiveHeldUseAnimation = tree.GetString("lrHeldUseAnim");
-            lastActiveHeldHitAnimation = tree.GetString("lrHeldHitAnim");
             // Can we not have this line? It breaks fp hands when loading up with a world with a block in hands - the shoulds of the hands become visible when walking and looking down
             //lastRunningRightHeldIdleAnimation = tree.GetString("lrRightHeldIdleAnim");
         }

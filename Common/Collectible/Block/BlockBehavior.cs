@@ -264,7 +264,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         public virtual int GetPlacedBlockInteractionHelpCount(IWorldAccessor world, BlockSelection selection, IPlayer forPlayer, ref EnumHandling handling)
         {
-            return GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling).Length;
+            return GetPlacedBlockInteractionHelp(world, selection, forPlayer, ref handling)?.Length ?? 0;
         }
 
         public virtual void OnBlockInteractStop(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
@@ -284,6 +284,30 @@ namespace Vintagestory.API.Common
             return false;
         }
 
+        /// <summary>
+        /// When an entity is inside a block 1x1x1 space, independent of of its selection box or collision box
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="entity"></param>
+        /// <param name="pos"></param>
+        public virtual void OnEntityInside(IWorldAccessor world, Entity entity, BlockPos pos, ref EnumHandling handling)
+        {
+            handling = EnumHandling.PassThrough;
+        }
+
+        /// <summary>
+        /// Whenever an entity collides with the collision box of the block
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="entity"></param>
+        /// <param name="pos"></param>
+        /// <param name="facing"></param>
+        /// <param name="collideSpeed"></param>
+        /// <param name="isImpact"></param>
+        public virtual void OnEntityCollide(IWorldAccessor world, Entity entity, BlockPos pos, BlockFacing facing, Vec3d collideSpeed, bool isImpact, ref EnumHandling handling)
+        {
+            handling = EnumHandling.PassThrough;
+        }
 
         /// <summary>
         /// Step 1: Called when the player attempts to place this block. The default behavior calls Block.DoPlaceBlock().
@@ -387,6 +411,11 @@ namespace Vintagestory.API.Common
         public virtual float GetLiquidBarrierHeightOnSide(BlockFacing face, BlockPos pos, ref EnumHandling handled)
         {
             return 0;
+        }
+
+        public virtual void GetDecal(IWorldAccessor world, BlockPos pos, ITexPositionSource decalTexSource, ref MeshData decalModelData, ref MeshData blockModelData)
+        {
+            
         }
     }
 }

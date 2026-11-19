@@ -932,6 +932,42 @@ Class GuiElementEditableTextBase
 
 
 
+  <a id="Vintagestory_API_Client_GuiElementEditableTextBase_GetDisplayedText_" data-uid="Vintagestory.API.Client.GuiElementEditableTextBase.GetDisplayedText*"></a>
+
+  <h3 id="Vintagestory_API_Client_GuiElementEditableTextBase_GetDisplayedText_System_Int32_" data-uid="Vintagestory.API.Client.GuiElementEditableTextBase.GetDisplayedText(System.Int32)">
+  GetDisplayedText(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetDisplayedText(int lineIndex = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>lineIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_GuiElementEditableTextBase_GetLines_" data-uid="Vintagestory.API.Client.GuiElementEditableTextBase.GetLines*"></a>
 
   <h3 id="Vintagestory_API_Client_GuiElementEditableTextBase_GetLines" data-uid="Vintagestory.API.Client.GuiElementEditableTextBase.GetLines">
@@ -1044,7 +1080,7 @@ Class GuiElementEditableTextBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void LoadValue(List&lt;string&gt; newLines)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool LoadValue(List&lt;string&gt; newLines)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1053,6 +1089,11 @@ Class GuiElementEditableTextBase
     <dd></dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -1642,7 +1683,7 @@ Class GuiElementEditableTextBase
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void SetValue(string text, bool setCaretPosToEnd = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool SetValue(string text, bool setCaretPosToEnd = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1653,6 +1694,11 @@ Class GuiElementEditableTextBase
     <dd></dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

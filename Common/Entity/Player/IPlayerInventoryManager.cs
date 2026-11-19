@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
-#nullable disable
-
 namespace Vintagestory.API.Common
 {
     public interface ISkillItemRenderer
@@ -36,13 +34,13 @@ namespace Vintagestory.API.Common
         /// Returns the currently selected hotbar slot. Might return null if there is no hotbar!
         /// </summary>
         /// <returns></returns>
-        ItemSlot ActiveHotbarSlot { get; }
+        ItemSlot? ActiveHotbarSlot { get; }
 
         /// <summary>
         /// Returns the off hand hotbar slot. Might return null if there is no hotbar!
         /// </summary>
         /// <returns></returns>
-        ItemSlot OffhandHotbarSlot { get; }
+        ItemSlot? OffhandHotbarSlot { get; }
 
         /// <summary>
         /// Dictionary of all inventories currently available to the player (some may however not be opened)
@@ -60,18 +58,18 @@ namespace Vintagestory.API.Common
         /// </summary>
         List<IInventory> OpenedInventories { get; }
 
-        
+
 
         /// <summary>
         /// Returns the slot that holds the currently dragged itemstack
         /// </summary>
         /// <returns></returns>
-        ItemSlot MouseItemSlot { get; }
+        ItemSlot? MouseItemSlot { get; }
 
         /// <summary>
         /// The slot the player currently hovers over with his mouse cursor
         /// </summary>
-        ItemSlot CurrentHoveredSlot { get; set; }
+        ItemSlot? CurrentHoveredSlot { get; set; }
 
 
         /// <summary>
@@ -87,7 +85,7 @@ namespace Vintagestory.API.Common
         /// <param name="slot"></param>
         /// <param name="fullStack"></param>
         /// <returns></returns>
-        bool DropItem(ItemSlot slot, bool fullStack);
+        bool DropItem(ItemSlot? slot, bool fullStack);
 
         /// <summary>
         /// Produces a visual cue on given slot, if it's currently part of an inventory and visible to the player
@@ -110,28 +108,28 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="inventoryClassName"></param>
         /// <returns></returns>
-        IInventory GetOwnInventory(string inventoryClassName);
+        IInventory? GetOwnInventory(string inventoryClassName);
 
         /// <summary>
         /// Retrieve a players inventory. Returns null if not found.
         /// </summary>
         /// <param name="inventoryId"></param>
         /// <returns></returns>
-        IInventory GetInventory(string inventoryId);
-        
+        IInventory? GetInventory(string inventoryId);
+
 
         /// <summary>
         /// Gets the itemstack that in the given slot number of the players hotbar
         /// </summary>
         /// <param name="slotId"></param>
         /// <returns></returns>
-        ItemStack GetHotbarItemstack(int slotId);
-        
+        ItemStack? GetHotbarItemstack(int slotId);
+
         /// <summary>
         /// Returns the hotbar inventory object. Obvious comment is being obvious.
         /// </summary>
         /// <returns></returns>
-        IInventory GetHotbarInventory();
+        IInventory? GetHotbarInventory();
 
         /// <summary>
         /// Returns true if the invID is found, and the found IInventory value is in invFound; similar to Dictionary.TryGetValue, invFound is undefined if the result is false
@@ -139,7 +137,7 @@ namespace Vintagestory.API.Common
         /// <param name="invID"></param>
         /// <param name="invFound"></param>
         /// <returns></returns>
-        bool GetInventory(string invID, [MaybeNullWhen(false)] out InventoryBase invFound);
+        bool GetInventory(string invID, [NotNullWhen(true)] out InventoryBase? invFound);
 
 
         /// <summary>
@@ -150,9 +148,9 @@ namespace Vintagestory.API.Common
         /// <param name="op"></param>
         /// <param name="skipSlots"></param>
         /// <returns></returns>
-        ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation op = null, List<ItemSlot> skipSlots = null);
+        ItemSlot? GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation? op = null, List<ItemSlot>? skipSlots = null);
         [Obsolete("Use GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation op, List<ItemSlot> skipSlots = null) instead")]
-        ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List<ItemSlot> skipSlots);
+        ItemSlot? GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation? op, List<ItemSlot>? skipSlots);
 
         /// <summary>
         /// Tries to move away items from the source slot into any other slot of another inventory
@@ -162,9 +160,9 @@ namespace Vintagestory.API.Common
         /// <param name="onlyPlayerInventory">Forces to place the item only into the players personal inventory</param>
         /// <param name="slotNotifyEffect"></param>
         /// <returns>One or more client packets that may be sent to the server for synchronisation</returns>
-        object[] TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, bool slotNotifyEffect = false);
+        object[]? TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, bool slotNotifyEffect = false);
 
-        object[] TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, StringBuilder shiftClickDebugText, bool slotNotifyEffect = false);
+        object[]? TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, StringBuilder? shiftClickDebugText, bool slotNotifyEffect = false);
 
         /// <summary>
         /// Tries to move items from source slot to target slot (useful for client side inventory utilities)
@@ -173,7 +171,7 @@ namespace Vintagestory.API.Common
         /// <param name="targetSlot"></param>
         /// <param name="op">If successfull, a client packet that may be sent to the server for synchronisation</param>
         /// <returns></returns>
-        object TryTransferTo(ItemSlot sourceSlot, ItemSlot targetSlot, ref ItemStackMoveOperation op);
+        object? TryTransferTo(ItemSlot sourceSlot, ItemSlot? targetSlot, ref ItemStackMoveOperation op);
 
         /// <summary>
         /// Tries to add given itemstack to the players inventory
@@ -181,21 +179,22 @@ namespace Vintagestory.API.Common
         /// <param name="itemstack"></param>
         /// <param name="slotNotifyEffect"></param>
         /// <returns></returns>
-        bool TryGiveItemstack(ItemStack itemstack, bool slotNotifyEffect = false);
+        bool TryGiveItemstack(ItemStack? itemstack, bool slotNotifyEffect = false);
 
 
         /// <summary>
         /// Notifies the inventory manager that the player has opened an inventory. Should always be called on both sides (client and server).
-        /// Only then interaction with other inventories becomes possible
+        /// Only then interaction with other inventories becomes possible. Returns null on the server.
         /// </summary>
         /// <param name="inventory"></param>
-        object OpenInventory(IInventory inventory);
+        object? OpenInventory(IInventory inventory);
 
         /// <summary>
-        /// Notifies the inventory manager that the player has closed an inventory. Should always be called on both sides (client and server). After closing interaction with given inventory becomes no longer possible until reopened
+        /// Notifies the inventory manager that the player has closed an inventory. Should always be called on both sides (client and server).
+        /// After closing interaction with given inventory becomes no longer possible until reopened.  Returns null on the server.
         /// </summary>
         /// <param name="inventory"></param>
-        object CloseInventory(IInventory inventory);
+        object? CloseInventory(IInventory inventory);
 
         /// <summary>
         /// Like CloseInventory() but also sends the necessary packet to the server, if called from the client side: exactly like CloseInventory() if called from the server side
@@ -238,5 +237,10 @@ namespace Vintagestory.API.Common
         /// Client side: No effect
         /// </summary>
         void BroadcastHotbarSlot();
+
+        /// <summary>
+        /// Turn a inventory manager slot ID into the slot index for the hotbar inventory
+        /// </summary>
+        int GetHotbarSlotIndex(int slotId);
     }
 }

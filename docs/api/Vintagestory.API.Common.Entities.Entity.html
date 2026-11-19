@@ -143,6 +143,9 @@ Class Entity
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_Class">RegistryObject.Class</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_SourceFilePath">RegistryObject.SourceFilePath</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_CodeWithPath_System_String_">RegistryObject.CodeWithPath(string)</a>
     </div>
     <div>
@@ -195,6 +198,9 @@ Class Entity
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_FillPlaceHolder_System_String_System_String_System_String_">RegistryObject.FillPlaceHolder(string, string, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.RegistryObject.html#Vintagestory_API_Common_RegistryObject_FillPlaceHolderOptimized_System_String_Vintagestory_API_Datastructures_OrderedDictionary_System_String_System_String__">RegistryObject.FillPlaceHolderOptimized(string, OrderedDictionary&lt;string, string&gt;)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -738,7 +744,7 @@ Class Entity
   
   </h3>
 
-  <div class="markdown level1 summary"><p>A unique identifier for this entity. Set by the game client and server.</p>
+  <div class="markdown level1 summary"><p>A unique identifier for this Entity instance. Set by the game client and server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -2788,6 +2794,40 @@ Set and Called by the Entities ServerSystem</p>
 
 
 
+  <a id="Vintagestory_API_Common_Entities_Entity_LogicalId_" data-uid="Vintagestory.API.Common.Entities.Entity.LogicalId*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_LogicalId" data-uid="Vintagestory.API.Common.Entities.Entity.LogicalId">
+  LogicalId
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>A unique identifier for this logical entity. Sometimes two entities with different EntityId may share the same LogicalId,
+for instance if a lamb grows into a sheep (two distinct Entity instances, but logically the same being) or if an animal is picked up
+in a basket trap and then released.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long LogicalId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_Entities_Entity_MaterialDensity_" data-uid="Vintagestory.API.Common.Entities.Entity.MaterialDensity*"></a>
 
   <h3 id="Vintagestory_API_Common_Entities_Entity_MaterialDensity" data-uid="Vintagestory.API.Common.Entities.Entity.MaterialDensity">
@@ -3437,7 +3477,8 @@ position in relation to the target position of the schematic to be imported.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void FromBytes(BinaryReader reader, bool isSync)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the BinarySpanReader overload.&quot;, true)]
+public virtual void FromBytes(BinaryReader reader, bool isSync)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -3472,12 +3513,84 @@ position in relation to the target position of the schematic to be imported.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void FromBytes(BinaryReader reader, bool isSync, Dictionary&lt;string, string&gt; serversideRemaps)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the BinarySpanReader overload.&quot;, true)]
+public virtual void FromBytes(BinaryReader reader, bool isSync, Dictionary&lt;string, string&gt; serversideRemaps)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>isSync</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>serversideRemaps</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_FromBytes_" data-uid="Vintagestory.API.Common.Entities.Entity.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_" data-uid="Vintagestory.API.Common.Entities.Entity.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.Boolean)">
+  FromBytes(ref BinarySpanReader, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads the entity from a stored byte array from the SaveGame</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void FromBytes(ref BinarySpanReader reader, bool isSync)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>isSync</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True if this is a sync operation, not a chunk read operation</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_FromBytes_" data-uid="Vintagestory.API.Common.Entities.Entity.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="Vintagestory.API.Common.Entities.Entity.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String})">
+  FromBytes(ref BinarySpanReader, bool, Dictionary&lt;string, string&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>In order to maintain legacy mod API compatibility of FromBytes(BinaryReader reader, bool isSync), we create an overload which server-side calling code will actually call, and store the remaps parameter in a field</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void FromBytes(ref BinarySpanReader reader, bool isSync, Dictionary&lt;string, string&gt; serversideRemaps)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>isSync</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -4253,6 +4366,81 @@ public virtual bool HasTags(params string[] tags)</code></pre>
 
 
 
+  <a id="Vintagestory_API_Common_Entities_Entity_IsControlledByClient_" data-uid="Vintagestory.API.Common.Entities.Entity.IsControlledByClient*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_IsControlledByClient_Vintagestory_API_Common_EntityPlayer_" data-uid="Vintagestory.API.Common.Entities.Entity.IsControlledByClient(Vintagestory.API.Common.EntityPlayer)">
+  IsControlledByClient(EntityPlayer)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>True if the given player's client is network authoritative for this entity's position and movement.
+This is used because otherwise mount position desyncs could look very bad, but the server is not required to fully trust the values sent.
+The player entity passed must not be null.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsControlledByClient(EntityPlayer entityPlayer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entityPlayer</code> <a class="xref" href="Vintagestory.API.Common.EntityPlayer.html">EntityPlayer</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_IsControlledByServer_" data-uid="Vintagestory.API.Common.Entities.Entity.IsControlledByServer*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_IsControlledByServer_Vintagestory_API_Common_IMountable_" data-uid="Vintagestory.API.Common.Entities.Entity.IsControlledByServer(Vintagestory.API.Common.IMountable)">
+  IsControlledByServer(IMountable?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsControlledByServer(IMountable? asMountable)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>asMountable</code> <a class="xref" href="Vintagestory.API.Common.IMountable.html">IMountable</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_Entities_Entity_MarkShapeModified_" data-uid="Vintagestory.API.Common.Entities.Entity.MarkShapeModified*"></a>
 
   <h3 id="Vintagestory_API_Common_Entities_Entity_MarkShapeModified" data-uid="Vintagestory.API.Common.Entities.Entity.MarkShapeModified">
@@ -4484,6 +4672,33 @@ public virtual bool HasTags(params string[] tags)</code></pre>
     <dt><code>despawn</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityDespawnData.html">EntityDespawnData</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_OnEntityJump_" data-uid="Vintagestory.API.Common.Entities.Entity.OnEntityJump*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_OnEntityJump" data-uid="Vintagestory.API.Common.Entities.Entity.OnEntityJump">
+  OnEntityJump()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The event fired when the entity jumps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnEntityJump()</code></pre>
+  </div>
+
 
 
 
@@ -4762,20 +4977,54 @@ Hint: Use itemstack.FixMapping() to do the job for you.</p>
 
   <a id="Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedClientPacket*"></a>
 
-  <h3 id="Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_System_Byte___" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedClientPacket(Vintagestory.API.Server.IServerPlayer,System.Int32,System.Byte[])">
-  OnReceivedClientPacket(IServerPlayer, int, byte[])
+  <h3 id="Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Common_IPlayer_System_Int32_System_Byte___" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedClientPacket(Vintagestory.API.Common.IPlayer,System.Int32,System.Byte[])">
+  OnReceivedClientPacket(IPlayer, int, byte[])
   
   </h3>
 
   <div class="markdown level1 summary"><p>Called when on the client side something called capi.Network.SendEntityPacket()</p>
-<param name="player">
-<param name="packetid">
-<param name="data">
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, byte[] packetData)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the SerializedData overload. Never override both.&quot;)]
+public virtual void OnReceivedClientPacket(IPlayer player, int packetId, byte[] packetData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>player</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
+    <dd></dd>
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>packetData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedClientPacket*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_Vintagestory_API_Datastructures_SerializedData_Vintagestory_API_Common_Entities_Entity_CachedAccessPerms__" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedClientPacket(Vintagestory.API.Server.IServerPlayer,System.Int32,Vintagestory.API.Datastructures.SerializedData,Vintagestory.API.Common.Entities.Entity.CachedAccessPerms@)">
+  OnReceivedClientPacket(IServerPlayer, int, SerializedData, ref CachedAccessPerms)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when on the client side something called capi.Network.SendEntityPacket()</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, SerializedData packetData, ref Entity.CachedAccessPerms perms)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -4784,7 +5033,9 @@ Hint: Use itemstack.FixMapping() to do the job for you.</p>
     <dd></dd>
     <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
-    <dt><code>packetData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dt><code>packetData</code> <a class="xref" href="Vintagestory.API.Datastructures.SerializedData.html">SerializedData</a></dt>
+    <dd></dd>
+    <dt><code>perms</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a>.<a class="xref" href="Vintagestory.API.Common.Entities.Entity.CachedAccessPerms.html">CachedAccessPerms</a></dt>
     <dd></dd>
   </dl>
 
@@ -4848,14 +5099,51 @@ Packetid = 2 is used for BehaviorHarvestable</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void OnReceivedServerPacket(int packetid, byte[] data)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer the SerializedData overload.&quot;)]
+public virtual void OnReceivedServerPacket(int packetId, byte[] packetData)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>packetid</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dt><code>packetData</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_OnReceivedServerPacket_" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedServerPacket*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_OnReceivedServerPacket_System_Int32_Vintagestory_API_Datastructures_SerializedData_" data-uid="Vintagestory.API.Common.Entities.Entity.OnReceivedServerPacket(System.Int32,Vintagestory.API.Datastructures.SerializedData)">
+  OnReceivedServerPacket(int, SerializedData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called when on the server side something called sapi.Network.SendEntityPacket()
+Packetid = 1 is used for teleporting
+Packetid = 2 is used for BehaviorHarvestable</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>packetId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>packetData</code> <a class="xref" href="Vintagestory.API.Datastructures.SerializedData.html">SerializedData</a></dt>
     <dd></dd>
   </dl>
 
@@ -5075,14 +5363,13 @@ Packetid = 2 is used for BehaviorHarvestable</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void PlayEntitySound(string type, IPlayer dualCallByPlayer = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void PlayEntitySound(string code, IPlayer dualCallByPlayer = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>type</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd><p>String code for the sound</p>
-</dd>
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
     <dt><code>dualCallByPlayer</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
     <dd><p>If also calling clientside, pass in that client's player here</p>
 </dd>
@@ -5817,6 +6104,45 @@ Packetid = 2 is used for BehaviorHarvestable</p>
 
 
 
+  <a id="Vintagestory_API_Common_Entities_Entity_TryGetEntitySound_" data-uid="Vintagestory.API.Common.Entities.Entity.TryGetEntitySound*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_TryGetEntitySound_System_String_System_Random_" data-uid="Vintagestory.API.Common.Entities.Entity.TryGetEntitySound(System.String,System.Random)">
+  TryGetEntitySound(string, Random)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fetches one of the defined entity sounds, choosing randomly if there are multiple variants.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual SoundAttributes? TryGetEntitySound(string code, Random rand)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>rand</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.random">Random</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.SoundAttributes.html">SoundAttributes</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_Entities_Entity_TryGiveItemStack_" data-uid="Vintagestory.API.Common.Entities.Entity.TryGiveItemStack*"></a>
 
   <h3 id="Vintagestory_API_Common_Entities_Entity_TryGiveItemStack_Vintagestory_API_Common_ItemStack_" data-uid="Vintagestory.API.Common.Entities.Entity.TryGiveItemStack(Vintagestory.API.Common.ItemStack)">
@@ -5961,6 +6287,39 @@ Right after calling this method, the world edit system will call .ToBytes() to s
     <dt><code>splashStrength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
     <dd></dd>
     <dt><code>particleStrength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_Entity_fromBytes_" data-uid="Vintagestory.API.Common.Entities.Entity.fromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_Entity_fromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_Boolean_" data-uid="Vintagestory.API.Common.Entities.Entity.fromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.Boolean)">
+  fromBytes(ref BinarySpanReader, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void fromBytes(ref BinarySpanReader reader, bool isSync)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>isSync</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

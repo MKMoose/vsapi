@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class MeshDataPoolManager | VintageStory API ">
       
-      <meta name="description" content="Holds a collection of pools, usually for 1 render pass Open in GitHub">
+      <meta name="description" content="Holds a set of pools, usually for one render pass. A new mesh is first offered to the existing pools and if none of them takes it, a new pool is created. Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,8 @@ Class MeshDataPoolManager
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Holds a collection of pools, usually for 1 render pass <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Holds a set of pools, usually for one render pass.
+A new mesh is first offered to the existing pools and if none of them takes it, a new pool is created. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -166,48 +167,49 @@ Class MeshDataPoolManager
   <a id="Vintagestory_API_Client_MeshDataPoolManager__ctor_" data-uid="Vintagestory.API.Client.MeshDataPoolManager.#ctor*"></a>
 
   <h3 id="Vintagestory_API_Client_MeshDataPoolManager__ctor_Vintagestory_API_Client_MeshDataPoolMasterManager_Vintagestory_API_Client_FrustumCulling_Vintagestory_API_Client_ICoreClientAPI_System_Int32_System_Int32_System_Int32_Vintagestory_API_Client_CustomMeshDataPartFloat_Vintagestory_API_Client_CustomMeshDataPartShort_Vintagestory_API_Client_CustomMeshDataPartByte_Vintagestory_API_Client_CustomMeshDataPartInt_" data-uid="Vintagestory.API.Client.MeshDataPoolManager.#ctor(Vintagestory.API.Client.MeshDataPoolMasterManager,Vintagestory.API.Client.FrustumCulling,Vintagestory.API.Client.ICoreClientAPI,System.Int32,System.Int32,System.Int32,Vintagestory.API.Client.CustomMeshDataPartFloat,Vintagestory.API.Client.CustomMeshDataPartShort,Vintagestory.API.Client.CustomMeshDataPartByte,Vintagestory.API.Client.CustomMeshDataPartInt)">
-  MeshDataPoolManager(MeshDataPoolMasterManager, FrustumCulling, ICoreClientAPI, int, int, int, CustomMeshDataPartFloat, CustomMeshDataPartShort, CustomMeshDataPartByte, CustomMeshDataPartInt)
+  MeshDataPoolManager(MeshDataPoolMasterManager, FrustumCulling, ICoreClientAPI, int, int, int, CustomMeshDataPartFloat?, CustomMeshDataPartShort?, CustomMeshDataPartByte?, CustomMeshDataPartInt?)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Creates a new Mesh Data Pool</p>
+  <div class="markdown level1 summary"><p>Creates a new pool manager</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MeshDataPoolManager(MeshDataPoolMasterManager masterPool, FrustumCulling frustumCuller, ICoreClientAPI capi, int defaultVertexPoolSize, int defaultIndexPoolSize, int maxPartsPerPool, CustomMeshDataPartFloat customFloats = null, CustomMeshDataPartShort customShorts = null, CustomMeshDataPartByte customBytes = null, CustomMeshDataPartInt customInts = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public MeshDataPoolManager(MeshDataPoolMasterManager masterPool, FrustumCulling frustumCuller, ICoreClientAPI capi, int defaultVertexPoolSize, int defaultIndexPoolSize, int maxPartsPerPool, CustomMeshDataPartFloat? customFloats = null, CustomMeshDataPartShort? customShorts = null, CustomMeshDataPartByte? customBytes = null, CustomMeshDataPartInt? customInts = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>masterPool</code> <a class="xref" href="Vintagestory.API.Client.MeshDataPoolMasterManager.html">MeshDataPoolMasterManager</a></dt>
-    <dd><p>The master mesh data pool manager</p>
+    <dd><p>The master pool manager these pools belong to</p>
 </dd>
     <dt><code>frustumCuller</code> <a class="xref" href="Vintagestory.API.Client.FrustumCulling.html">FrustumCulling</a></dt>
-    <dd><p>the Frustum Culler for the Pool</p>
+    <dd><p>The frustum culler for the pool</p>
 </dd>
     <dt><code>capi</code> <a class="xref" href="Vintagestory.API.Client.ICoreClientAPI.html">ICoreClientAPI</a></dt>
-    <dd><p>The Client API</p>
+    <dd><p>The client API</p>
 </dd>
     <dt><code>defaultVertexPoolSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>Size allocated for the Vertices.</p>
+    <dd><p>Default vertex buffer size</p>
 </dd>
     <dt><code>defaultIndexPoolSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>Size allocated for the Indices</p>
+    <dd><p>Default index buffer size</p>
 </dd>
     <dt><code>maxPartsPerPool</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The maximum number of parts for this pool.</p>
+    <dd><p>Maximum number of parts in one pool</p>
 </dd>
     <dt><code>customFloats</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartFloat.html">CustomMeshDataPartFloat</a></dt>
-    <dd><p>Additional float data</p>
+    <dd><p>Extra float data</p>
 </dd>
     <dt><code>customShorts</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartShort.html">CustomMeshDataPartShort</a></dt>
-    <dd></dd>
+    <dd><p>Extra short data</p>
+</dd>
     <dt><code>customBytes</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartByte.html">CustomMeshDataPartByte</a></dt>
-    <dd><p>Additional byte data</p>
+    <dd><p>Extra byte data</p>
 </dd>
     <dt><code>customInts</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartInt.html">CustomMeshDataPartInt</a></dt>
-    <dd><p>additional int data</p>
+    <dd><p>Extra int data</p>
 </dd>
   </dl>
 
@@ -233,12 +235,13 @@ Class MeshDataPoolManager
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Adds a model to the mesh pool.</p>
+  <div class="markdown level1 summary"><p>Adds a model to the pool.
+It first tries every existing pool and if none has room, a new pool is created.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ModelDataPoolLocation AddModel(MeshData modeldata, Vec3i modelOrigin, int dimension, Sphere frustumCullSphere)</code></pre>
+    <pre><code class="lang-csharp hljs">public ModelDataPoolLocation? AddModel(MeshData modeldata, Vec3i modelOrigin, int dimension, Sphere frustumCullSphere)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -247,19 +250,20 @@ Class MeshDataPoolManager
     <dd><p>The model data</p>
 </dd>
     <dt><code>modelOrigin</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3i.html">Vec3i</a></dt>
-    <dd><p>The origin point of the Model</p>
+    <dd><p>Model origin in the world</p>
 </dd>
     <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
+    <dd><p>Dimension (normal world or mini dimension)</p>
+</dd>
     <dt><code>frustumCullSphere</code> <a class="xref" href="Vintagestory.API.MathTools.Sphere.html">Sphere</a></dt>
-    <dd><p>The culling sphere.</p>
+    <dd><p>The sphere used for culling</p>
 </dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Client.ModelDataPoolLocation.html">ModelDataPoolLocation</a></dt>
-    <dd><p>The location identifier for the pooled model.</p>
+    <dd><p>A handle to the place of the model in the pool</p>
 </dd>
   </dl>
 
@@ -280,7 +284,8 @@ Class MeshDataPoolManager
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the stats of the model.</p>
+  <div class="markdown level1 summary"><p>Collects stats over the pools: how much video memory is used, how many triangles
+were drawn and how many are allocated</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -291,13 +296,13 @@ Class MeshDataPoolManager
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>usedVideoMemory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd><p>The amount of memory used by this pool.</p>
+    <dd><p>Used video memory in bytes (added to the passed value)</p>
 </dd>
     <dt><code>renderedTris</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd><p>The number of Tris rendered by this pool.</p>
+    <dd><p>Drawn triangles (added)</p>
 </dd>
     <dt><code>allocatedTris</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
-    <dd><p>The number of tris allocated by this pool.</p>
+    <dd><p>Allocated triangles (added)</p>
 </dd>
   </dl>
 
@@ -319,7 +324,8 @@ Class MeshDataPoolManager
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Renders the chunk models to the GPU.  One of the most important methods in the entire game!</p>
+  <div class="markdown level1 summary"><p>Draws the chunk models on the GPU.
+One of the most important methods in the whole game.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -330,12 +336,13 @@ Class MeshDataPoolManager
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>playerpos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
-    <dd><p>The position of the Player</p>
+    <dd><p>Player position</p>
 </dd>
     <dt><code>originUniformName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd></dd>
+    <dd><p>Name of the uniform that receives the pool origin</p>
+</dd>
     <dt><code>frustumCullMode</code> <a class="xref" href="Vintagestory.API.Client.EnumFrustumCullMode.html">EnumFrustumCullMode</a></dt>
-    <dd><p>The culling mode.  Default is CulHideDelay.</p>
+    <dd><p>Culling mode, CullNormal by default</p>
 </dd>
   </dl>
 

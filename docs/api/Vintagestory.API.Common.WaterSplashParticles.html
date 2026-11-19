@@ -171,6 +171,9 @@ Class WaterSplashParticles
       <a class="xref" href="Vintagestory.API.Common.ParticlesProviderBase.html#Vintagestory_API_Common_ParticlesProviderBase_TerrainCollision">ParticlesProviderBase.TerrainCollision</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.ParticlesProviderBase.html#Vintagestory_API_Common_ParticlesProviderBase_FromBytes_System_IO_BinaryReader_Vintagestory_API_Common_IWorldAccessor_">ParticlesProviderBase.FromBytes(BinaryReader, IWorldAccessor)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.ParticlesProviderBase.html#Vintagestory_API_Common_ParticlesProviderBase_SecondarySpawnInterval">ParticlesProviderBase.SecondarySpawnInterval</a>
     </div>
     <div>
@@ -660,22 +663,22 @@ Class WaterSplashParticles
 
   <a id="Vintagestory_API_Common_WaterSplashParticles_FromBytes_" data-uid="Vintagestory.API.Common.WaterSplashParticles.FromBytes*"></a>
 
-  <h3 id="Vintagestory_API_Common_WaterSplashParticles_FromBytes_System_IO_BinaryReader_Vintagestory_API_Common_IWorldAccessor_" data-uid="Vintagestory.API.Common.WaterSplashParticles.FromBytes(System.IO.BinaryReader,Vintagestory.API.Common.IWorldAccessor)">
-  FromBytes(BinaryReader, IWorldAccessor)
+  <h3 id="Vintagestory_API_Common_WaterSplashParticles_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Common_IWorldAccessor_" data-uid="Vintagestory.API.Common.WaterSplashParticles.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Common.IWorldAccessor)">
+  FromBytes(ref BinarySpanReader, IWorldAccessor)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>How the particle is read from the save.</p>
+  <div class="markdown level1 summary"><p>For reading from the network</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>resolver</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
     <dd></dd>

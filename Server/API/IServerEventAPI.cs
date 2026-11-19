@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -21,8 +22,23 @@ namespace Vintagestory.API.Server
         /// <returns></returns>
         IWorldGenHandler GetRegisteredWorldGenHandlers(string worldType);
 
-
+        /// <summary>
+        /// Returns true if the entity successfully passes the checks for whether spawning is currently allowed at this location
+        /// </summary>
+        /// <param name="blockAccessor"></param>
+        /// <param name="properties">The entity type, as a ref so that it can be changed if desired</param>
+        /// <param name="position">The location to test for spawning</param>
+        /// <param name="herdId">The unique herd ID the entity is trying to spawn with</param>
+        /// <returns></returns>
         bool TriggerTrySpawnEntity(IBlockAccessor blockAccessor, ref EntityProperties properties, Vec3d position, long herdId);
+
+        /// <summary>
+        /// We trigger this after we finish creating a group of entities to spawn, but there's no guarantee they are spawned or initialized.
+        /// </summary>
+        /// <param name="spawningEntities">A list of all the entities to be spawned</param>
+        /// <param name="herdId">The unique herd ID the entities are spawning with</param>
+        /// <returns></returns>
+        void TriggerEntityGroupSpawning(Entity[] spawningEntities, long herdId);
 
         /// <summary>
         /// If you require neighbour chunk data during world generation, you have to register to this event to receive access to the chunk generator thread. This method is only called once during server startup.
@@ -116,7 +132,10 @@ namespace Vintagestory.API.Server
         /// </summary>
         event TrySpawnEntityDelegate OnTrySpawnEntity;
 
-        event TrySpawnGroupDelegate OnTrySpawnGroupNearOffthread;
+        /// <summary>
+        /// Called when the server finishes creatinga group of entities to spawn, but possibly before they have finished spawning and initializing.
+        /// </summary>
+        event EntityGroupDelegate OnEntityGroupSpawning;
 
         /// <summary>
         /// Called when a player interacts with an entity
@@ -285,6 +304,19 @@ namespace Vintagestory.API.Server
         /// </summary>
         event MountGaitReceivedDelegate MountGaitReceived;
         void TriggerMountGaitReceived(Entity mountEntity, string gaitCode);
-        
+
+        /// <summary>
+        /// Triggert when a schematic is imported to import custom schematic data into the proper modsystems
+        /// </summary>
+        event OnSchematicImport OnSchematicImport;
+
+        /// <summary>
+        /// Triggert when a schematic is exported to export custom modsystem data into the schematic
+        /// </summary>
+        event OnSchematicExport OnSchematicExport;
+
+        void TriggerSchematicExport(IBlockAccessor blockAccessor, IWorldAccessor world, BlockPos start, BlockPos end, Dictionary<BlockPos, Dictionary<string, byte[]>> modData);
+
+        void TriggerSchematicImport(IBlockAccessor blockAccessor, IWorldAccessor world, BlockPos startpos, Dictionary<uint, Dictionary<string, byte[]>> modData, Rectanglei? rect = null);
     }
 }

@@ -1,5 +1,6 @@
-﻿using Vintagestory.API.Common;
+using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 #nullable disable
 
@@ -45,6 +46,11 @@ namespace Vintagestory.API.Client
         /// The current keyboard key states that were not handled by a dialog or other client systems (exception: hotkeys), use the <see cref="GlKeys"/> enum to get the array index of a key.
         /// </summary>
         bool[] KeyboardKeyState { get; }
+
+        /// <summary>
+        /// The state of each input before its most recent update, indexed by key code.
+        /// </summary>
+        bool[] PreviousKeyboardKeyState {get; }
 
         /// <summary>
         /// The current mouse button state
@@ -157,6 +163,9 @@ namespace Vintagestory.API.Client
 
         public bool IsHotKeyPressed(string hotKeyCode);
 
-        public bool IsHotKeyPressed(HotKey hotKey);
+        bool IsHotKeyPressed(HotKey hotKey);
+
+        Ray GetPickingRayFromMousePosition();
+        Ray GetPickingRayFromMousePosition(int mouseX, int mouseY);
     }
 }

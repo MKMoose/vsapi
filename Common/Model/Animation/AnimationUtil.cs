@@ -86,7 +86,7 @@ namespace Vintagestory.API.Common
             }
         }
 
-        public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
+        public virtual void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
             if (animator == null || renderer == null || (api as ICoreClientAPI)?.IsGamePaused == true) return; // not initialized yet
 
@@ -121,7 +121,7 @@ namespace Vintagestory.API.Common
         }
 
 
-        public void StopAnimation(string code)
+        public virtual void StopAnimation(string code)
         {
             activeAnimationsByAnimCode.Remove(code);
         }
@@ -159,7 +159,7 @@ namespace Vintagestory.API.Common
                 {
                     for (int i = 0; i < Animations.Length; i++)
                     {
-                        Animations[i].GenerateAllFrames(shape.Elements, shape.JointsById);
+                        Animations[i].GenerateAllFrames(shape.Elements, shape.JointsById, cacheDictKey);
                     }
                 }
 
@@ -180,7 +180,7 @@ namespace Vintagestory.API.Common
         }
 
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             renderer?.Dispose();
             (api as ICoreClientAPI)?.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
@@ -189,9 +189,9 @@ namespace Vintagestory.API.Common
 
         Dictionary<string, ILoadedSound> loopingSounds = null;
 
-        public void ShouldPlaySound(string animationMetaCode, AnimationSound sound)
+        public void ShouldPlaySound(string animationCode, AnimationSound sound)
         {
-            AnimationManager.ShouldPlaySound(api.World, soundPosition, dimension, loopingSounds, animationMetaCode, sound);
+            AnimationManager.ShouldPlaySound(api.World, soundPosition, dimension, ref loopingSounds, animationCode, sound);
         }
 
     }

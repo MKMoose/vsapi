@@ -1,6 +1,9 @@
 using Newtonsoft.Json;
 using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
@@ -15,6 +18,56 @@ namespace Vintagestory.API.Common
         [DocumentAsJson("Optional", "1")]
         public float Weight = 1;
     }
+
+    /// <summary>
+    /// Represents an itemstack that is dropped when killing or harvesting an entity
+    /// </summary>
+    public class EntityDropItemStack : BlockDropItemStack
+    {
+        /// <summary>
+        /// If not null, then the entity must be killed by this damage type in order for this drop to spawn
+        /// </summary>
+        public EnumDamageType? DamageType;
+
+        /// <summary>
+        /// Creates a deep copy of this object
+        /// </summary>
+        /// <returns></returns>
+        public new EntityDropItemStack Clone()
+        {
+            EntityDropItemStack stack = new EntityDropItemStack()
+            {
+                Code = Code?.Clone(),
+                Quantity = Quantity,
+                Type = Type,
+                LastDrop = LastDrop,
+                Tool = Tool,
+                ResolvedItemstack = ResolvedItemstack,
+                DropModbyStat = DropModbyStat,
+                DamageType = DamageType
+            };
+
+            if (Attributes != null) stack.Attributes = Attributes.Clone();
+
+            return stack;
+        }
+
+        public override void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
+        {
+            base.FromBytes(ref reader, instancer);
+
+            var val = reader.ReadInt16();
+            DamageType = val == -1 ? null : (EnumDamageType)val;
+        }
+
+        public override void ToBytes(BinaryWriter writer)
+        {
+            base.ToBytes(writer);
+
+            writer.Write(DamageType == null ? (short)-1 : (short)DamageType);
+        }
+    }
+
 
     /// <summary>
     /// Represents an itemstack that is dropped when breaking a block, with a potentially random quantity.
@@ -108,6 +161,7 @@ namespace Vintagestory.API.Common
         /// <param name="sourceForErrorLogging"></param>
         /// <param name="assetLoc"></param>
         /// <returns></returns>
+        [MemberNotNullWhen(true, nameof(ResolvedItemstack))]
         public bool Resolve(IWorldAccessor resolver, string sourceForErrorLogging, AssetLocation assetLoc)
         {
             if (Type == EnumItemClass.Block)
@@ -192,13 +246,52 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="reader">The reader of the block</param>
         /// <param name="instancer">The block registry</param>
+        [Obsolete("Prefer the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, IClassRegistryAPI instancer)
+        {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, IClassRegistryAPI). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var newFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(IClassRegistryAPI) ]);
+            if (newFromBytes != null && newFromBytes.DeclaringType != typeof(BlockDropItemStack))
+            {
+                reader.UnsafeActAsBinarySpanReader(instancer, FromBytes);
+            }
+            else
+            {
+                reader.UnsafeActAsBinarySpanReader(instancer, fromBytes);
+            }
+        }
+
+        /// <summary>
+        /// Reads the contents of the block bytes and converts it into a block.
+        /// </summary>
+        /// <param name="reader">The reader of the block</param>
+        /// <param name="instancer">The block registry</param>
+        public virtual void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(IClassRegistryAPI) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(BlockDropItemStack))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, IClassRegistryAPI). If you are the developer make sure to move to the new overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(instancer, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<IClassRegistryAPI>>(this));
+                #pragma warning restore CS0618
+            }
+            else
+            {
+                fromBytes(ref reader, instancer);
+            }
+        }
+
+        void fromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
         {
             Type = (EnumItemClass)reader.ReadInt16();
             Code = new AssetLocation(reader.ReadString());
             Quantity = NatFloat.One;
-            Quantity.FromBytes(reader);
-            ResolvedItemstack = new ItemStack(reader);
+            Quantity.FromBytes(ref reader);
+            ResolvedItemstack = new ItemStack(ref reader);
             LastDrop = reader.ReadBoolean();
             if (reader.ReadBoolean())
             {

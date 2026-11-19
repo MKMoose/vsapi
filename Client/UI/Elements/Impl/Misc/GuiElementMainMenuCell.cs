@@ -1,5 +1,6 @@
 ﻿using System;
 using Cairo;
+using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Config;
 
@@ -10,23 +11,23 @@ namespace Vintagestory.API.Client
     public class GuiElementMainMenuCell : GuiElementTextBase, IGuiElementCell
     {
         public static double unscaledRightBoxWidth = 40;
-        static int unscaledDepth = 4;
+        protected static int unscaledDepth = 4;
 
         /// <summary>
         /// The table cell information.
         /// </summary>
         public SavegameCellEntry cellEntry;
-        double titleTextheight;
+        protected double titleTextheight;
 
         public bool ShowModifyIcons = true;
 
-        LoadedTexture releasedButtonTexture;
-        LoadedTexture pressedButtonTexture;
+        protected LoadedTexture releasedButtonTexture;
+        protected LoadedTexture pressedButtonTexture;
 
-        LoadedTexture leftHighlightTexture;
-        LoadedTexture rightHighlightTexture;
+        protected LoadedTexture leftHighlightTexture;
+        protected LoadedTexture rightHighlightTexture;
 
-        double pressedYOffset;
+        protected double pressedYOffset;
 
         public double MainTextWidthSub = 0;
 
@@ -49,7 +50,7 @@ namespace Vintagestory.API.Client
         /// <param name="bounds">The bounds of the TableCell</param>
         public GuiElementMainMenuCell(ICoreClientAPI capi, SavegameCellEntry cell, ElementBounds bounds) : base(capi, "", null, bounds)
         {
-            this.cellEntry = cell;
+            cellEntry = cell;
             leftHighlightTexture = new LoadedTexture(capi);
             rightHighlightTexture = new LoadedTexture(capi);
 
@@ -67,14 +68,12 @@ namespace Vintagestory.API.Client
                 cell.DetailTextFont.Color[3] *= 0.8;
                 cell.DetailTextFont.LineHeightMultiplier = 1.1;
             }
-
         }
 
-
-        public void Compose()
-        { 
+        public virtual void Compose()
+        {
             Bounds.CalcWorldBounds();
-            
+
             ImageSurface surface = new ImageSurface(Format.Argb32, Bounds.OuterWidthInt, Bounds.OuterHeightInt);
             Context ctx = new Context(surface);
             ComposeButton(ctx, surface, false);
@@ -99,11 +98,11 @@ namespace Vintagestory.API.Client
         }
 
 
-        void ComposeButton(Context ctx, ImageSurface surface, bool pressed) {
+        public virtual void ComposeButton(Context ctx, ImageSurface surface, bool pressed) {
 
             double rightBoxWidth = ShowModifyIcons ? scaled(unscaledRightBoxWidth) : 0;
             pressedYOffset = 0;
-            
+
             if (cellEntry.DrawAsButton)
             {
                 RoundRectangle(ctx, 0, 0, Bounds.OuterWidthInt, Bounds.OuterHeightInt, 1);
@@ -116,14 +115,14 @@ namespace Vintagestory.API.Client
                     pressedYOffset = scaled(unscaledDepth) / 2;
                 }
 
-                EmbossRoundRectangleElement(ctx, 0, 0, Bounds.OuterWidthInt, Bounds.OuterHeightInt, pressed, (int)scaled(unscaledDepth)); 
+                EmbossRoundRectangleElement(ctx, 0, 0, Bounds.OuterWidthInt, Bounds.OuterHeightInt, pressed, (int)scaled(unscaledDepth));
             }
 
             Font = cellEntry.TitleFont;
-            titleTextheight = textUtil.AutobreakAndDrawMultilineTextAt(ctx, Font, cellEntry.Title, Bounds.absPaddingX, Bounds.absPaddingY + Bounds.absPaddingY + scaled(cellEntry.LeftOffY) + pressedYOffset, Bounds.InnerWidth - rightBoxWidth - MainTextWidthSub);
+            titleTextheight = textUtil.AutobreakAndDrawMultilineTextAt(ctx, Font, cellEntry.Title, Bounds.absPaddingX*2, Bounds.absPaddingY + Bounds.absPaddingY + scaled(cellEntry.LeftOffY) + pressedYOffset, Bounds.InnerWidth - rightBoxWidth - MainTextWidthSub);
 
             Font = cellEntry.DetailTextFont;
-            textUtil.AutobreakAndDrawMultilineTextAt(ctx, Font, cellEntry.DetailText, Bounds.absPaddingX, Bounds.absPaddingY + cellEntry.DetailTextOffY + titleTextheight + 2 + Bounds.absPaddingY + scaled(cellEntry.LeftOffY) + pressedYOffset, Bounds.InnerWidth - rightBoxWidth - MainTextWidthSub);
+            textUtil.AutobreakAndDrawMultilineTextAt(ctx, Font, cellEntry.DetailText, Bounds.absPaddingX*2, Bounds.absPaddingY + cellEntry.DetailTextOffY + titleTextheight + 2 + Bounds.absPaddingY + scaled(cellEntry.LeftOffY) + pressedYOffset, Bounds.InnerWidth - rightBoxWidth - MainTextWidthSub);
 
             if (cellEntry.RightTopText != null)
             {
@@ -135,7 +134,7 @@ namespace Vintagestory.API.Client
             if (ShowModifyIcons)
             {
                 ctx.LineWidth = scaled(1);
-                
+
                 double crossSize = scaled(20);
                 double crossWidth = scaled(5);
 
@@ -168,19 +167,15 @@ namespace Vintagestory.API.Client
                 ctx.Operator = Operator.Over;
             }
 
-
             if (cellEntry.DrawAsButton && pressed)
             {
                 RoundRectangle(ctx, 0, 0, Bounds.OuterWidthInt, Bounds.OuterHeightInt, 1);
                 ctx.SetSourceRGBA(0, 0, 0, 0.15);
                 ctx.Fill();
             }
-
         }
 
-
-
-        void ComposeHover(bool left, ref LoadedTexture texture)
+        public virtual void ComposeHover(bool left, ref LoadedTexture texture)
         {
             ImageSurface surface = new ImageSurface(Format.Argb32, (int)Bounds.OuterWidth, (int)Bounds.OuterHeight);
             Context ctx = genContext(surface);
@@ -254,33 +249,21 @@ namespace Vintagestory.API.Client
         /// </summary>
         /// <param name="api"></param>
         /// <param name="deltaTime"></param>
-        public void OnRenderInteractiveElements(ICoreClientAPI api, float deltaTime)
+        public virtual void OnRenderInteractiveElements(ICoreClientAPI api, float deltaTime)
         {
-            if (pressedButtonTexture.TextureId == 0)
+            if (releasedButtonTexture.TextureId == 0)
             {
                 Compose();
             }
 
-            if (cellEntry.Selected)
-            {
-                api.Render.Render2DTexturePremultipliedAlpha(
-                    pressedButtonTexture.TextureId, 
-                    (int)(Bounds.absX),
-                    (int)(Bounds.absY), 
-                    Bounds.OuterWidthInt, 
-                    Bounds.OuterHeightInt
-                );
-            } else
-            {
-                api.Render.Render2DTexturePremultipliedAlpha(
-                    releasedButtonTexture.TextureId, 
-                    (int)(Bounds.absX),
-                    (int)(Bounds.absY), 
-                    Bounds.OuterWidthInt, 
-                    Bounds.OuterHeightInt
-                );
-            }
-
+            LoadedTexture texture = cellEntry.Selected ? pressedButtonTexture : releasedButtonTexture;
+            api.Render.Render2DTexturePremultipliedAlpha(
+                texture.TextureId,
+                (int)(Bounds.absX),
+                (int)(Bounds.absY),
+                Bounds.OuterWidthInt,
+                Bounds.OuterHeightInt
+            );
 
             int dx = api.Input.MouseX;
             int dy = api.Input.MouseY;
@@ -308,8 +291,9 @@ namespace Vintagestory.API.Client
             pressedButtonTexture.Dispose();
         }
 
-        public void OnMouseUpOnElement(MouseEvent args, int elementIndex)
+        public virtual void OnMouseUpOnElement(MouseEvent args, int elementIndex)
         {
+            if (args.Button != EnumMouseButton.Left) return;
             int mousex = api.Input.MouseX;
             int mousey = api.Input.MouseY;
 
@@ -320,25 +304,22 @@ namespace Vintagestory.API.Client
             {
                 OnMouseDownOnCellRight?.Invoke(elementIndex);
                 args.Handled = true;
-                return;
             }
             else
             {
                 OnMouseDownOnCellLeft?.Invoke(elementIndex);
                 args.Handled = true;
-                return;
             }
-
         }
 
         public void OnMouseMoveOnElement(MouseEvent args, int elementIndex)
         {
-            
+
         }
 
         public void OnMouseDownOnElement(MouseEvent args, int elementIndex)
         {
-            
+
         }
     }
 }

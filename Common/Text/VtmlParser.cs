@@ -1,4 +1,4 @@
-﻿using Cairo;
+using Cairo;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -61,7 +61,7 @@ namespace Vintagestory.API.Common
                 Richtextify(capi, tokens[i], ref elems, fontStack, didClickLink);
             }
         }
-        
+
 
         static void Richtextify(ICoreClientAPI capi, VtmlToken token, ref List<RichTextComponentBase> elems, Stack<CairoFont> fontStack, Action<LinkTextComponent> didClickLink)
         {
@@ -151,12 +151,12 @@ namespace Vintagestory.API.Common
                         }
 
                         List<ItemStack> stacks = new List<ItemStack>();
-                        
+
 
                         foreach (var code in codes.Split('|'))
                         {
                             CollectibleObject cobj;
-                            
+
                             if (type == "item")
                             {
                                 cobj = capi.World.GetItem(new AssetLocation(code));
@@ -197,7 +197,7 @@ namespace Vintagestory.API.Common
                         }
                         fontStack.Pop();
                         break;
-                    
+
                     case "clear":
                         elems.Add(new ClearFloatTextComponent(capi));
                         break;
@@ -247,7 +247,7 @@ namespace Vintagestory.API.Common
 
         static CairoFont getFont(VtmlTagToken tag, Stack<CairoFont> fontStack)
         {
-            string fontName = "";
+            string fontName = string.Empty;
             EnumTextOrientation orient = EnumTextOrientation.Left;
             double[] color = ColorUtil.WhiteArgbDouble;
             FontWeight weight = FontWeight.Normal;
@@ -273,6 +273,10 @@ namespace Vintagestory.API.Common
             } else
             {
                 fontName = tag.Attributes["family"];
+                if (string.IsNullOrWhiteSpace(fontName))
+                {
+                    fontName = GuiStyle.StandardFontName;
+                }
             }
 
             if (!tag.Attributes.ContainsKey("color") || !parseHexColor(tag.Attributes["color"], out color))
@@ -317,7 +321,7 @@ namespace Vintagestory.API.Common
                         orient = EnumTextOrientation.Justify;
                         break;
                 }
-                
+
             } else
             {
                 orient = prevFont.Orientation;
@@ -367,8 +371,8 @@ namespace Vintagestory.API.Common
 
             List<VtmlToken> tokenized = new List<VtmlToken>();
             Stack<VtmlTagToken> tokenStack = new Stack<VtmlTagToken>();
-            string text = "";
-            string tag = "";
+            string text = string.Empty;
+            string tag = string.Empty;
             bool insideTag = false;
 
             for (int pos = 0; pos < vtml.Length; pos++)
@@ -395,7 +399,7 @@ namespace Vintagestory.API.Common
                         }
                     }
 
-                    text = "";
+                    text = string.Empty;
 
                     continue;
                 }
@@ -427,7 +431,7 @@ namespace Vintagestory.API.Common
                         {
                             tokenStack.Pop();
                         }
-                        tag = "";
+                        tag = string.Empty;
                         continue;
                     }
 
@@ -446,12 +450,12 @@ namespace Vintagestory.API.Common
                         {
                             tokenized.Add(tagToken);
                         }
-                        tag = "";
+                        tag = string.Empty;
                         continue;
                     }
 
                     // <div a=b />
-                    if (pos > 0 && vtml[pos - 1] == '/')
+                    if (tag.Length > 0 && pos > 0 && vtml[pos - 1] == '/')
                     {
                         tagToken = parseTagAttributes(tag.Substring(0, tag.Length - 1));
 
@@ -463,7 +467,7 @@ namespace Vintagestory.API.Common
                         {
                             tokenized.Add(tagToken);
                         }
-                        tag = "";
+                        tag = string.Empty;
                         continue;
                     }
 
@@ -481,7 +485,7 @@ namespace Vintagestory.API.Common
                         }
 
                         tokenStack.Push(tagToken);
-                        tag = "";
+                        tag = string.Empty;
                     }
 
                     continue;
@@ -522,8 +526,8 @@ namespace Vintagestory.API.Common
 
             int i;
             char insideQuotedValueChar=(char)0;
-            string key = "";
-            string value = "";
+            string key = string.Empty;
+            string value = string.Empty;
 
             for (i = 0; i < tag.Length; i++)
             {
@@ -545,7 +549,7 @@ namespace Vintagestory.API.Common
                     case ParseState.SeekKey:
                         if (isWhiteSpace) break;
 
-                        key = ""+tag[i];
+                        key = string.Empty+tag[i];
                         state = ParseState.ParseKey;
                         break;
 
@@ -553,7 +557,7 @@ namespace Vintagestory.API.Common
                         if (tag[i] == '=')
                         {
                             state = ParseState.SeekValue;
-                            value = "";
+                            value = string.Empty;
                             break;
                         }
 
@@ -563,10 +567,10 @@ namespace Vintagestory.API.Common
                             state = ParseState.SeekKey;
                             break;
                         }
-                        
+
                         key += tag[i];
-                       
-                        
+
+
                         break;
 
                     case ParseState.SeekValue:
@@ -579,7 +583,7 @@ namespace Vintagestory.API.Common
                         } else
                         {
                             state = ParseState.ParseValue;
-                            value = "" + tag[i];
+                            value = string.Empty + tag[i];
                         }
 
                         break;
@@ -642,7 +646,7 @@ namespace Vintagestory.API.Common
         {
             get
             {
-                string text = "";
+                string text = string.Empty;
 
                 foreach (var val in ChildElements)
                 {

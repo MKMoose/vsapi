@@ -1060,12 +1060,49 @@ public float Z</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static Vec3f CreateFromBytes(BinaryReader reader)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static Vec3f CreateFromBytes(BinaryReader reader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3f.html">Vec3f</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_Vec3f_CreateFromBytes_" data-uid="Vintagestory.API.MathTools.Vec3f.CreateFromBytes*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_Vec3f_CreateFromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.MathTools.Vec3f.CreateFromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  CreateFromBytes(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vec3f CreateFromBytes(ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -1636,6 +1673,38 @@ public float Z</code></pre>
 
 
 
+  <a id="Vintagestory_API_MathTools_Vec3f_GetOrthogonal_" data-uid="Vintagestory.API.MathTools.Vec3f.GetOrthogonal*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_Vec3f_GetOrthogonal" data-uid="Vintagestory.API.MathTools.Vec3f.GetOrthogonal">
+  GetOrthogonal()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computes an orthogonal vector</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3f GetOrthogonal()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3f.html">Vec3f</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_MathTools_Vec3f_Length_" data-uid="Vintagestory.API.MathTools.Vec3f.Length*"></a>
 
   <h3 id="Vintagestory_API_MathTools_Vec3f_Length" data-uid="Vintagestory.API.MathTools.Vec3f.Length">
@@ -1649,6 +1718,38 @@ public float Z</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public float Length()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_Vec3f_LengthSquared_" data-uid="Vintagestory.API.MathTools.Vec3f.LengthSquared*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_Vec3f_LengthSquared" data-uid="Vintagestory.API.MathTools.Vec3f.LengthSquared">
+  LengthSquared()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns length² of this vector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float LengthSquared()</code></pre>
   </div>
 
 
@@ -1816,6 +1917,44 @@ public float Z</code></pre>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_Vec3f_RotatedAroundAxisCopy_" data-uid="Vintagestory.API.MathTools.Vec3f.RotatedAroundAxisCopy*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_Vec3f_RotatedAroundAxisCopy_Vintagestory_API_MathTools_Vec3f_System_Single_" data-uid="Vintagestory.API.MathTools.Vec3f.RotatedAroundAxisCopy(Vintagestory.API.MathTools.Vec3f,System.Single)">
+  RotatedAroundAxisCopy(Vec3f, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3f RotatedAroundAxisCopy(Vec3f axis, float angle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>axis</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3f.html">Vec3f</a></dt>
+    <dd></dd>
+    <dt><code>angle</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3f.html">Vec3f</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

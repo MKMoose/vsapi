@@ -97,7 +97,7 @@ Class AttributeAttachableToEntity
   <dl><dt>Assembly</dt><dd>VSEssentials.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorContainer.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/AttributeAttachableToEntity.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -177,7 +177,7 @@ public string CategoryCode { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
-public CompositeShape AttachedShape { get; set; }</code></pre>
+public CompositeShape? AttachedShape { get; set; }</code></pre>
   </div>
 
 
@@ -211,7 +211,7 @@ public CompositeShape AttachedShape { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
-public OrderedDictionary&lt;string, CompositeShape&gt; AttachedShapeBySlotCode { get; set; }</code></pre>
+public OrderedDictionary&lt;string, CompositeShape&gt;? AttachedShapeBySlotCode { get; set; }</code></pre>
   </div>
 
 
@@ -220,6 +220,207 @@ public OrderedDictionary&lt;string, CompositeShape&gt; AttachedShapeBySlotCode {
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><span class="xref">OrderedDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Common.CompositeShape.html">CompositeShape</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariant_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariant" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariant">
+  AttachedShapeByVariant (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public OrderedDictionary&lt;string, CompositeShape&gt;? AttachedShapeByVariant { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">OrderedDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Common.CompositeShape.html">CompositeShape</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariantBySlotCode_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedShapeByVariantBySlotCode" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedShapeByVariantBySlotCode">
+  AttachedShapeByVariantBySlotCode (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public OrderedDictionary&lt;string, OrderedDictionary&lt;string, CompositeShape&gt;&gt;? AttachedShapeByVariantBySlotCode { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">OrderedDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">OrderedDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Common.CompositeShape.html">CompositeShape</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTextures_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTextures" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTextures">
+  AttachedTextures (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The textures used when this collectible is attached. Takes priority over collectible textures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public Dictionary&lt;string, CompositeTexture&gt;? AttachedTextures { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.CompositeTexture.html">CompositeTexture</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesBySlotCode_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesBySlotCode" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesBySlotCode">
+  AttachedTexturesBySlotCode (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The textures used when this collectible is attached to specific slot. Takes priority over collectible textures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public OrderedDictionary&lt;string, Dictionary&lt;string, CompositeTexture&gt;&gt;? AttachedTexturesBySlotCode { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">OrderedDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.CompositeTexture.html">CompositeTexture</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariant_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariant" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariant">
+  AttachedTexturesByVariant (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The textures used when this collectible is attached by shape variant. Takes priority over collectible textures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public Dictionary&lt;string, Dictionary&lt;string, CompositeTexture&gt;&gt;? AttachedTexturesByVariant { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.CompositeTexture.html">CompositeTexture</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariantBySlotCode_" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode*"></a>
+
+  <h3 id="Vintagestory_GameContent_AttributeAttachableToEntity_AttachedTexturesByVariantBySlotCode" data-uid="Vintagestory.GameContent.AttributeAttachableToEntity.AttachedTexturesByVariantBySlotCode">
+  AttachedTexturesByVariantBySlotCode (Recommended) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
+public Dictionary&lt;string, Dictionary&lt;string, Dictionary&lt;string, CompositeTexture&gt;&gt;&gt;? AttachedTexturesByVariantBySlotCode { get; set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.CompositeTexture.html">CompositeTexture</a>&gt;&gt;&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -245,7 +446,7 @@ public OrderedDictionary&lt;string, CompositeShape&gt; AttachedShapeBySlotCode {
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Recommended&quot;, &quot;None&quot;, false)]
-public string TexturePrefixCode { get; set; }</code></pre>
+public string? TexturePrefixCode { get; set; }</code></pre>
   </div>
 
 
@@ -279,7 +480,7 @@ public string TexturePrefixCode { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
-public string[] DisableElements { get; set; }</code></pre>
+public string[]? DisableElements { get; set; }</code></pre>
   </div>
 
 
@@ -313,7 +514,7 @@ public string[] DisableElements { get; set; }</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
-public string[] KeepElements { get; set; }</code></pre>
+public string[]? KeepElements { get; set; }</code></pre>
   </div>
 
 

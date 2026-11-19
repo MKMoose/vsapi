@@ -717,8 +717,8 @@ public bool MulWithWalkSpeed</code></pre>
 
 
 
-  <h3 id="Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation" data-uid="Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation">
-  SupressDefaultAnimation
+  <h3 id="Vintagestory_API_Common_AnimationMetaData_SuppressDefaultAnimation" data-uid="Vintagestory.API.Common.AnimationMetaData.SuppressDefaultAnimation">
+  SuppressDefaultAnimation
   
   </h3>
 
@@ -729,7 +729,7 @@ public bool MulWithWalkSpeed</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonProperty]
 [DocumentAsJson(&quot;Optional&quot;, &quot;False&quot;, false)]
-public bool SupressDefaultAnimation</code></pre>
+public bool SuppressDefaultAnimation</code></pre>
   </div>
 
 
@@ -952,6 +952,39 @@ public bool AdjustCollisionBox { get; set; }</code></pre>
 
 
 
+  <a id="Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation_" data-uid="Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation" data-uid="Vintagestory.API.Common.AnimationMetaData.SupressDefaultAnimation">
+  SupressDefaultAnimation
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[Obsolete(&quot;Misspelled, use SuppressDefaultAnimation instead&quot;)]
+public bool SupressDefaultAnimation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -1040,12 +1073,51 @@ public bool AdjustCollisionBox { get; set; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static AnimationMetaData FromBytes(BinaryReader reader, string version)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static AnimationMetaData FromBytes(BinaryReader reader, string version)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html">AnimationMetaData</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_AnimationMetaData_FromBytes_" data-uid="Vintagestory.API.Common.AnimationMetaData.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimationMetaData_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_String_" data-uid="Vintagestory.API.Common.AnimationMetaData.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.String)">
+  FromBytes(ref BinarySpanReader, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static AnimationMetaData FromBytes(ref BinarySpanReader reader, string version)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>

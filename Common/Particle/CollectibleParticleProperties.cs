@@ -1,6 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -39,7 +44,16 @@ namespace Vintagestory.API.Common
 
         public override int GetRgbaColor(ICoreClientAPI capi)
         {
-            return blockdamage.Block.GetRandomColor(capi, blockdamage.Position, blockdamage.Facing);
+            // Some texture pixels have an alpha value of 0. Try again then.
+            int color = 0;
+            int i = 10;
+            while (i-- > 0)
+            {
+                color = blockdamage.Block.GetRandomColor(capi, blockdamage.Position, blockdamage.Facing);
+                if (((color >> 24) & 0xff) > 0) return color;
+            }
+
+            return color | (255 << 24);
         }
 
         public override Vec3d Pos => RandomBlockPos(api.World.BlockAccessor, blockdamage.Position, blockdamage.Block, blockdamage.Facing);
@@ -80,9 +94,9 @@ namespace Vintagestory.API.Common
             writer.Write(blockdamage.Block.Id);
         }
 
-        public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+        public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            base.FromBytes(reader, resolver);
+            base.FromBytes(ref reader, resolver);
 
             blockdamage = new BlockDamage();
             blockdamage.Position = new BlockPos(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
@@ -209,9 +223,30 @@ namespace Vintagestory.API.Common
 
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)
         {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, IWorldAccessor). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
 
+            var newFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(IWorldAccessor) ]);
+            if (newFromBytes != null && newFromBytes.DeclaringType != typeof(CollectibleParticleProperties))
+            {
+                reader.UnsafeActAsBinarySpanReader(resolver, FromBytes);
+            }
+        }
+
+        public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(IWorldAccessor) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(CollectibleParticleProperties))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, bool, Dict<>). If you are the developer make sure to move to the new overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(resolver, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<IWorldAccessor>>(this));
+                #pragma warning restore CS0618
+            }
         }
 
         public void BeginParticle() { }

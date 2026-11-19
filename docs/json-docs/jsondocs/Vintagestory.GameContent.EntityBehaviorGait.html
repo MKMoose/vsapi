@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class EntityBehaviorGait | VintageStory Json Docs ">
       
-      <meta name="description" content="Allows to define gaits of an entity. Uses the &amp;quot;gait&amp;quot; code Open in GitHub">
+      <meta name="description" content="Defines gaits and movement for an entity Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,15 +97,12 @@ Class EntityBehaviorGait
   <dl><dt>Assembly</dt><dd>VSEssentials.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Allows to define gaits of an entity.
-<br>Uses the &quot;gait&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Defines gaits and movement for an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson]
-[AddDocumentationProperty(&quot;gaits&quot;, &quot;List of gaits in order of increasing speed for the rideable entity&quot;, &quot;Vintagestory.GameContent.GaitMeta[]&quot;, &quot;Required&quot;, &quot;&quot;, false)]
-[AddDocumentationProperty(&quot;idleGait&quot;, &quot;The code of idle gait used when no other gait is triggered&quot;, &quot;System.String&quot;, &quot;Required&quot;, &quot;idle&quot;, false)]
 public class EntityBehaviorGait : EntityBehavior</code></pre>
   </div>
 
@@ -130,68 +127,56 @@ public class EntityBehaviorGait : EntityBehavior</code></pre>
   <pre><code class="lang-csharp">"behaviors": [
   {
     "code": "gait",
-    "idleGait": "idle",
+    "navigateUsingGaits": true,
+    "idleGaits": { "Land": "idle", "Sea": "swimidle" },
     "gaits": [
-      {
-          "code": "walkback",
+      "walkback": {
           "movespeed": 0.011,
           "backwards": true,
-          "yawMultiplier": 1,
-          "sound": "game:creature/hooved/trot"
+          // "trot" sound needs to be defined in the "sounds" section of the entity file
+          "soundCode": "trot",
+          "animation": "walkback",
+          "animationSpeed": 2.55
       },
-      {
-          "code": "idle",
-          "yawMultiplier": 1
+      "idle": {
+          "animation": "idle",
       },
-      {
-          "code": "walk",
+      "walk": {
           "movespeed": 0.019,
-          "yawMultiplier": 1,
-          "sound": "game:creature/hooved/trot"
+          "soundCode": "trot",
+          "animation": "walk",
+          "animationSpeed": 1.8
       },
-      {
-          "code": "trot",
-          "movespeed": 0.036,
-          "yawMultiplier": 0.85,
-          "fallbackGaitCode": "walk",
-          "sound": "game:creature/hooved/trot"
-      },
-      {
-          "code": "canter",
-          "movespeed": 0.075,
-          "yawMultiplier": 0.75,
-          "fallbackGaitCode": "trot",
-          "sound": "game:creature/hooved/trot"
-      },
-      {
-          "code": "sprint",
+      "gallop": {
           "movespeed": 0.1067,
-          "yawMultiplier": 1,
-          "isSprint": true,
           "fallbackGaitCode": "walk",
-          "sound": "game:creature/hooved/gallop"
+          "soundCode": "gallop",
+          "animation": "Run",
+          "weight": 10,
+          "animationSpeed": 1.2,
+          "blendMode": "Average",
+          "easeOutSpeed": 30
       },
-      {
-          "code": "swim",
-          "movespeed": 0.02,
-          "yawMultiplier": 1,
-          "fallbackGaitCode": "idle",
-          "sound": "game:creature/hooved/gallop"
+      "swimforth": {
+          "movespeed": 0.015,
+          "fallbackGaitCode": "swimidle",
+          "environment": "Sea",
+          "animation": "Swim",
+          "animationSpeed": 1
       },
-      {
-          "code": "swimback",
-          "movespeed": 0.02,
+      "swimidle": {
+          "movespeed": 0.0,
+          "environment": "Sea",
+          "animation": "Swim",
+          "animationSpeed": 1
+      },
+      "swimback": {
+          "movespeed": 0.008,
           "backwards": true,
-          "yawMultiplier": 1,
-          "fallbackGaitCode": "idle",
-          "sound": "game:creature/hooved/gallop"
-      },
-      {
-          "code": "jump",
-          "movespeed": 0.1067,
-          "yawMultiplier": 1,
-          "fallbackGaitCode": "walk",
-          "sound": "game:creature/hooved/gallop"
+          "fallbackGaitCode": "swimidle",
+          "environment": "Sea",
+          "animation": "Swim",
+          "animationSpeed": 1
       }
     ]
   }
@@ -204,19 +189,21 @@ public class EntityBehaviorGait : EntityBehavior</code></pre>
 </h2>
 
 
+  <a id="Vintagestory_GameContent_EntityBehaviorGait_Gaits_" data-uid="Vintagestory.GameContent.EntityBehaviorGait.Gaits*"></a>
 
-  <h3 id="Vintagestory_GameContent_EntityBehaviorGait_gaits" data-uid="Vintagestory.GameContent.EntityBehaviorGait.gaits">
-  gaits (Required)
+  <h3 id="Vintagestory_GameContent_EntityBehaviorGait_Gaits" data-uid="Vintagestory.GameContent.EntityBehaviorGait.Gaits">
+  Gaits (Required) (Default: Empty)
   
   </h3>
 
   <div class="markdown level1 summary"><!---->
-<p>List of gaits in order of increasing speed for the rideable entity</p>
+<p>All available gaits.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs"></code></pre>
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Required&quot;, &quot;Empty&quot;, false)]
+public FastSmallDictionary&lt;string, GaitMeta&gt; Gaits { get; private set; }</code></pre>
   </div>
 
 
@@ -224,7 +211,41 @@ public class EntityBehaviorGait : EntityBehavior</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.GameContent.GaitMeta.html">GaitMeta[]</a></dt>
+    <dt><span class="xref">FastSmallDictionary</span>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.GameContent.GaitMeta.html">GaitMeta</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_GameContent_EntityBehaviorGait_IdleGaits_" data-uid="Vintagestory.GameContent.EntityBehaviorGait.IdleGaits*"></a>
+
+  <h3 id="Vintagestory_GameContent_EntityBehaviorGait_IdleGaits" data-uid="Vintagestory.GameContent.EntityBehaviorGait.IdleGaits">
+  IdleGaits (Required) (Default: Empty)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>Per environment, the gait to use when standing still, treading water, hovering, or otherwise not doing anything in particular. Provided from json as gait codes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Required&quot;, &quot;Empty&quot;, false)]
+public FastSmallDictionary&lt;EnumHabitat, GaitMeta&gt; IdleGaits { get; private set; }</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">FastSmallDictionary</span>&lt;<a class="xref" href="Vintagestory.API.Common.EnumHabitat.html">EnumHabitat</a>, <a class="xref" href="Vintagestory.GameContent.GaitMeta.html">GaitMeta</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -237,18 +258,18 @@ public class EntityBehaviorGait : EntityBehavior</code></pre>
 
 
 
-  <h3 id="Vintagestory_GameContent_EntityBehaviorGait_idleGait" data-uid="Vintagestory.GameContent.EntityBehaviorGait.idleGait">
-  idleGait (Required) (Default: idle)
+  <h3 id="Vintagestory_GameContent_EntityBehaviorGait_NavigateUsingGaits" data-uid="Vintagestory.GameContent.EntityBehaviorGait.NavigateUsingGaits">
+  NavigateUsingGaits (Optional) (Default: false)
   
   </h3>
 
   <div class="markdown level1 summary"><!---->
-<p>The code of idle gait used when no other gait is triggered</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs"></code></pre>
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;false&quot;, false)]
+public bool NavigateUsingGaits</code></pre>
   </div>
 
 
@@ -256,7 +277,7 @@ public class EntityBehaviorGait : EntityBehavior</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

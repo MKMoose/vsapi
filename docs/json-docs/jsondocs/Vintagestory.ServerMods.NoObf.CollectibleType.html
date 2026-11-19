@@ -642,6 +642,40 @@ public EnumItemDamageSource[] DamagedBy</code></pre>
 
 
 
+
+  <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_DamageType" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.DamageType">
+  DamageType (Optional) (Default: SlashingAttack)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The type of damage dealth when used as a weapon</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;SlashingAttack&quot;, false)]
+public EnumDamageType DamageType</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EnumDamageType</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_ServerMods_NoObf_CollectibleType_Dimensions_" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.Dimensions*"></a>
 
   <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_Dimensions" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.Dimensions">
@@ -951,6 +985,108 @@ public string HeldTpHitAnimation</code></pre>
 
 
 
+  <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitCombo" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitCombo">
+  HeldTpHitCombo (Optional) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The combo animation chain to play in 3rd person mode when hitting with this collectible</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
+public string[] HeldTpHitCombo</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitComboAim" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitComboAim">
+  HeldTpHitComboAim (Optional) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The aim based combo animation chains to play in 3rd person mode when hitting with this collectible</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
+public Dictionary&lt;string, string[]&gt; HeldTpHitComboAim</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpHitSprintAnimation" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpHitSprintAnimation">
+  HeldTpHitSprintAnimation (Optional) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>The animation to play in 3rd person mode when attacking while sprinting with this collectible</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
+public string HeldTpHitSprintAnimation</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_HeldTpUseAnimation" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.HeldTpUseAnimation">
   HeldTpUseAnimation (Optional) (Default: interactstatic)
   
@@ -973,6 +1109,40 @@ public string HeldTpUseAnimation</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_ServerMods_NoObf_CollectibleType_KnockbackStrength" data-uid="Vintagestory.ServerMods.NoObf.CollectibleType.KnockbackStrength">
+  KnockbackStrength (Optional) (Default: 1)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>How much knockback this collectible deals when used as a weapon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;1&quot;, false)]
+public float KnockbackStrength</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
 

@@ -60,9 +60,9 @@ namespace Vintagestory.API.Client
             if (IsMouseButton(KeyCode)) return MouseButtonAsString(KeyCode);
 
             List<string> keys = new List<string>();
-            if (Ctrl) keys.Add("CTRL");
-            if (Alt) keys.Add("ALT");
-            if (Shift) keys.Add("SHIFT");
+            if (Ctrl) keys.Add(RuntimeEnv.OS == OS.Mac ? "Control" : "CTRL");
+            if (Alt) keys.Add(RuntimeEnv.OS == OS.Mac ? "Option" : "ALT");
+            if (Shift) keys.Add(RuntimeEnv.OS == OS.Mac ? "Shift" : "SHIFT");
             if (KeyCode == (int)GlKeys.Escape) keys.Add("Esc");
             else keys.Add("" + GlKeyNames.ToString((GlKeys)KeyCode));
             if (SecondKeyCode != null && SecondKeyCode > 0) keys.Add(SecondaryAsString());

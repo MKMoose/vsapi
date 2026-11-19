@@ -1,50 +1,53 @@
-﻿using System.IO;
+using System;
+using System.IO;
 using Vintagestory.API.Config;
 
-#nullable disable
 
-namespace Vintagestory.API.Datastructures
+namespace Vintagestory.API.Datastructures;
+
+public class DoubleAttribute : ScalarAttribute<double>, IAttribute
 {
-    public class DoubleAttribute : ScalarAttribute<double>, IAttribute
+    public DoubleAttribute()
     {
-        public DoubleAttribute()
-        {
 
-        }
+    }
 
-        public DoubleAttribute(double value)
-        {
-            this.value = value;
-        }
+    public DoubleAttribute(double value)
+    {
+        this.value = value;
+    }
 
-        public void FromBytes(BinaryReader stream)
-        {
-            value = stream.ReadDouble();
-        }
+    [Obsolete("Use the BinarySpanReader overload.", true)]
+    public void FromBytes(BinaryReader reader)
+        => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-        public void ToBytes(BinaryWriter stream)
-        {
-            stream.Write(value);
-        }
+    public void FromBytes(ref BinarySpanReader reader)
+    {
+        value = reader.ReadDouble();
+    }
 
-        public int GetAttributeId()
-        {
-            return 3;
-        }
+    public void ToBytes(BinaryWriter stream)
+    {
+        stream.Write(value);
+    }
 
-        public override string ToJsonToken()
-        {
-            return value.ToString(GlobalConstants.DefaultCultureInfo);
-        }
+    public int GetAttributeId()
+    {
+        return 3;
+    }
 
-        public override string ToString()
-        {
-            return value.ToString(GlobalConstants.DefaultCultureInfo);
-        }
+    public override string ToJsonToken()
+    {
+        return value.ToString(GlobalConstants.DefaultCultureInfo);
+    }
 
-        public IAttribute Clone()
-        {
-            return new DoubleAttribute(value);
-        }
+    public override string ToString()
+    {
+        return value.ToString(GlobalConstants.DefaultCultureInfo);
+    }
+
+    public IAttribute Clone()
+    {
+        return new DoubleAttribute(value);
     }
 }

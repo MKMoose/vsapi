@@ -140,7 +140,7 @@ namespace Vintagestory.API.Util
             if (collection != null)
             {
                 // For a Collection we must even write 0 values, to fill out the array/List/Set: so in this collection code we bypass Write(stream, field, int)
-                
+
                 int fieldtag = field * 8;
                 if (fieldtag < 0x80)
                 {
@@ -223,7 +223,7 @@ namespace Vintagestory.API.Util
                 }
             }
         }
-        
+
         public static void Write(FastMemoryStream stream, int field, IDictionary<Vec2i, float> dict)
         {
             if (dict != null)
@@ -362,7 +362,7 @@ namespace Vintagestory.API.Util
 
         private static void Write(FastMemoryStream stream, ushort val)
         {
-            if (val < 0x80) 
+            if (val < 0x80)
                 stream.WriteByte((byte)val);
             else if (val < 0x4000)
                 stream.WriteTwoBytes(val);
@@ -501,7 +501,11 @@ namespace Vintagestory.API.Util
 
 
     /// <summary>
-    /// Indicates that the FastSerialize() method should call a custom method to serialize this field: the custom method being of the pattern FastSerializerDelegate
+    /// Indicates that the FastSerialize() method should call a custom method to serialize this field.
+    /// The custom method being of the pattern "FastSerialize[memberName](ms, fieldId, ref count, ref position);" ,
+    /// where memberName will automatically strip a "Serialized" suffix from the field name for the called methode name, so "EntitiesCount" and "EntitiesSerialized" field will generate the following code: FastSerializeEntitiesCount(ms, 5, ref count, ref position); FastSerializeEntities(ms, 6, ref count, ref position);.
+    /// The FastSerializeEntitiesCount() and FastSerializeEntities() need to be implemented in the class by hand.
+    /// See FastSerializeGenerator.cs
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
     public class CustomFastSerializerAttribute : Attribute
@@ -510,7 +514,4 @@ namespace Vintagestory.API.Util
         {
         }
     }
-
-
-    public delegate void FastSerializerDelegate(FastMemoryStream ms, int id, ref int count, ref int position);
 }

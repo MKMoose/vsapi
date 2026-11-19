@@ -1,3 +1,4 @@
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,18 +9,16 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 
-#nullable disable
-
 namespace Vintagestory.API.Common
 {
     public delegate bool StartAnimationDelegate(ref AnimationMetaData animationMeta, ref EnumHandling handling);
 
     public class AnimationManager : IAnimationManager
     {
-        protected ICoreAPI api;
-        protected ICoreClientAPI capi;
+        protected ICoreAPI api = null!;
+        protected ICoreClientAPI? capi;
 
-        [ThreadStatic] static FastMemoryStream reusableStream;
+        [ThreadStatic] static FastMemoryStream? reusableStream;
 
         /// <summary>
         /// Are the animations dirty in this AnimationManager?
@@ -29,12 +28,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// The animator for the animation manager.
         /// </summary>
-        public IAnimator Animator { get; set; }
+        public IAnimator? Animator { get; set; }
 
         /// <summary>
         /// The entity head controller for this animator.
         /// </summary>
-        public IHeadController HeadController { get; set; }
+        public IHeadController? HeadController { get; set; }
 
         /// <summary>
         /// The list of currently active animations that should be playing
@@ -44,21 +43,25 @@ namespace Vintagestory.API.Common
 
         public bool AdjustCollisionBoxToAnimation { get; set; }
 
-        public List<AnimFrameCallback> Triggers;
+        public List<AnimFrameCallback>? Triggers;
 
-        public event StartAnimationDelegate OnStartAnimation;
-        public event StartAnimationDelegate OnAnimationReceived;
-        public event Action<string> OnAnimationStopped;
+        public event StartAnimationDelegate? OnStartAnimation;
+        public event StartAnimationDelegate? OnAnimationReceived;
+        public event Action<string>? OnAnimationStopped;
 
+
+        Dictionary<string, ILoadedSound>? loopingSounds = null;
+
+        public bool RunWhilePaused = false;
 
         /// <summary>
         /// The entity attached to this Animation Manager.
         /// </summary>
         protected Entity entity;
 
-        public AnimationManager()
+        public AnimationManager(Entity entity)
         {
-
+            this.entity = entity;
         }
 
         /// <summary>
@@ -69,33 +72,31 @@ namespace Vintagestory.API.Common
         public virtual void Init(ICoreAPI api, Entity entity)
         {
             this.api = api;
-            this.entity = entity;
             capi = api as ICoreClientAPI;
         }
 
-        public IAnimator LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)
+        public IAnimator? LoadAnimator(ICoreAPI api, Entity entity, Shape? entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)
         {
             Init(entity.Api, entity);
 
             if (entityShape == null) return null;
 
-            IAnimator animator;
             if (entity.Properties.Attributes?["requireJointsForElements"].Exists == true)
             {
-                requireJointsForElements = requireJointsForElements.Append(entity.Properties.Attributes["requireJointsForElements"].AsArray<string>());
+                requireJointsForElements = requireJointsForElements.Append(entity.Properties.Attributes["requireJointsForElements"].AsNonNullArray<string>("AnimationManager for entity code " + entity.Code));
             }
 
             entityShape.InitForAnimations(api.Logger, entity.Properties.Client.ShapeForEntity.Base.ToString(), disableElements, requireJointsForElements);
 
 
-            Animator = animator = api.Side == EnumAppSide.Client ?
+            Animator = api.Side == EnumAppSide.Client ?
                 ClientAnimator.CreateForEntity(entity, entityShape.Animations, entityShape.Elements, entityShape.JointsById) :
                 ServerAnimator.CreateForEntity(entity, entityShape.Animations, entityShape.Elements, entityShape.JointsById, requirePosesOnServer)
             ;
 
-            CopyOverAnimStates(copyOverAnims, animator);
+            CopyOverAnimStates(copyOverAnims, Animator);
 
-            return animator;
+            return Animator;
         }
 
         public void CopyOverAnimStates(RunningAnimation[] copyOverAnims, IAnimator animator)
@@ -117,6 +118,7 @@ namespace Vintagestory.API.Common
             }
         }
 
+        /// <summary> Pass in the animation code, not the metadata code. E.g. IsAnimationActive(animMeta.Animation). </summary>
         public virtual bool IsAnimationActive(params string[] anims)
         {
             foreach (var val in anims)
@@ -127,23 +129,49 @@ namespace Vintagestory.API.Common
             return false;
         }
 
-        public virtual RunningAnimation GetAnimationState(string anim)
+        public virtual RunningAnimation? GetAnimationState(string anim)
         {
-            return Animator.GetAnimationState(anim);
+            return Animator?.GetAnimationState(anim);
         }
 
         /// <summary>
         /// If given animation is running, will set its progress to the first animation frame
         /// </summary>
         /// <param name="animCode"></param>
-        public virtual void ResetAnimation(string animCode)
+        public virtual void ResetAnimation(string? animCode)
         {
             if (animCode == null) return;
+
+            ClearFrameCallbacks(animCode);
+            if (entity.Properties.Client.AnimationsByMetaCode.TryGetValue(animCode, out AnimationMetaData? animdata) == true)
+            {
+                ClearFrameCallbacks(animdata.Animation);
+            }
+
             var state = Animator?.GetAnimationState(animCode);
             if (state != null)
             {
                 state.CurrentFrame = 0;
                 state.Iterations = 0;
+            }
+        }
+
+        protected virtual void ClearFrameCallbacks(string animation)
+        {
+            if (animation == null || Triggers == null) return;
+
+            Triggers.RemoveAll(trigger => string.Equals(trigger.Animation, animation, StringComparison.OrdinalIgnoreCase));
+        }
+
+        protected virtual void AddActiveAnimation(AnimationMetaData animdata)
+        {
+            ActiveAnimationsByAnimCode[animdata.Animation.ToLowerInvariant()] = animdata;
+
+            if (loopingSounds != null && loopingSounds.TryGetValue(animdata.Animation, out ILoadedSound? sound))
+            {
+                sound.Stop();
+                sound.Dispose();
+                loopingSounds.Remove(animdata.Animation);
             }
         }
 
@@ -153,7 +181,7 @@ namespace Vintagestory.API.Common
         /// <param name="animdata"></param>
         public virtual bool TryStartAnimation(AnimationMetaData animdata)
         {
-            if (((AnimatorBase)Animator).GetAnimationState(animdata.Animation) == null) return false;
+            if (Animator?.GetAnimationState(animdata.Animation) == null) return false;
             return StartAnimation(animdata);
         }
 
@@ -189,7 +217,7 @@ namespace Vintagestory.API.Common
 
 
             // Already active, won't do anything
-            if (ActiveAnimationsByAnimCode.TryGetValue(animdata.Animation, out AnimationMetaData activeAnimdata) && activeAnimdata == animdata) return false;
+            if (ActiveAnimationsByAnimCode.TryGetValue(animdata.Animation, out AnimationMetaData? activeAnimdata) && activeAnimdata == animdata) return false;
 
             if (animdata.Code == null)
             {
@@ -197,8 +225,8 @@ namespace Vintagestory.API.Common
             }
 
             AnimationsDirty = true;
-            ActiveAnimationsByAnimCode[animdata.Animation] = animdata;
-            entity?.UpdateDebugAttributes();
+            AddActiveAnimation(animdata);
+            entity.UpdateDebugAttributes();
 
             return true;
         }
@@ -209,12 +237,12 @@ namespace Vintagestory.API.Common
         /// Use StartAnimation(AnimationMetaData animdata) to circumvent the entity config anim data.
         /// </summary>
         /// <param name="configCode">Anim config code, not the animation code!</param>
-        public virtual bool StartAnimation(string configCode)
+        public virtual bool StartAnimation(string? configCode)
         {
             if (configCode == null) return false;
 
 
-            if (entity.Properties.Client.AnimationsByMetaCode.TryGetValue(configCode, out AnimationMetaData animdata))
+            if (entity.Properties.Client.AnimationsByMetaCode.TryGetValue(configCode, out AnimationMetaData? animdata))
             {
                 StartAnimation(animdata);
 
@@ -229,25 +257,42 @@ namespace Vintagestory.API.Common
         /// Stops given animation
         /// </summary>
         /// <param name="code"></param>
-        public virtual void StopAnimation(string code)
+        public virtual void StopAnimation(string? code)
         {
-            if (code == null || entity == null) return;
+            if (code == null) return;
 
-            if (entity.World.Side == EnumAppSide.Server)
+            ClearFrameCallbacks(code);
+            if (entity.Properties.Client.AnimationsByMetaCode.TryGetValue(code, out AnimationMetaData? animdata))
             {
-                AnimationsDirty = true;
+                ClearFrameCallbacks(animdata.Animation);
             }
 
-            if (!ActiveAnimationsByAnimCode.Remove(code) && ActiveAnimationsByAnimCode.Count > 0)
+            string? foundCode = null;
+            if (ActiveAnimationsByAnimCode.Remove(code))
             {
-                foreach (var val in ActiveAnimationsByAnimCode)
+                AnimationsDirty = true;
+                foundCode = code;
+            }
+            else if (ActiveAnimationsByAnimCode.Count > 0)
+            {
+                foreach ((string key, AnimationMetaData animMeta) in ActiveAnimationsByAnimCode)
                 {
-                    if (val.Value.Code == code)
+                    if (animMeta.Code == code)
                     {
-                        ActiveAnimationsByAnimCode.Remove(val.Key);
+                        ClearFrameCallbacks(key);
+                        ActiveAnimationsByAnimCode.Remove(key);
+                        foundCode = key;
+                        AnimationsDirty = true;
                         break;
                     }
                 }
+            }
+
+            if (loopingSounds != null && foundCode != null && loopingSounds.TryGetValue(foundCode, out ILoadedSound? sound))
+            {
+                sound.Stop();
+                sound.Dispose();
+                loopingSounds.Remove(foundCode);
             }
 
             if (entity.World.EntityDebugMode)
@@ -259,14 +304,23 @@ namespace Vintagestory.API.Common
 
         public virtual void StopAllAnimations()
         {
-            if (entity == null) return;
-
             if (entity.World.Side == EnumAppSide.Server)
             {
                 AnimationsDirty = true;
             }
 
+            Triggers?.Clear();
             ActiveAnimationsByAnimCode.Clear();
+
+            if (loopingSounds != null)
+            {
+                foreach (ILoadedSound sound in loopingSounds.Values)
+                {
+                    sound.Stop();
+                    sound.Dispose();
+                }
+                loopingSounds.Clear();
+            }
         }
 
 
@@ -279,25 +333,28 @@ namespace Vintagestory.API.Common
         public virtual void OnReceivedServerAnimations(int[] activeAnimations, int activeAnimationsCount, float[] activeAnimationSpeeds)
         {
             HashSet<string> toKeep = new HashSet<string>();
-
             string active = "";
 
             for (int i = 0; i < activeAnimationsCount; i++)
             {
                 uint crc32 = (uint)(activeAnimations[i]);
 
-                if (entity.Properties.Client.AnimationsByCrc32.TryGetValue(crc32, out AnimationMetaData animmetadata))
+                if (entity.Properties.Client.AnimationsByCrc32.TryGetValue(crc32, out AnimationMetaData? animmetadata))
                 {
-                    toKeep.Add(animmetadata.Animation);
-
-                    if (ActiveAnimationsByAnimCode.ContainsKey(animmetadata.Code)) continue;
+                    if (ActiveAnimationsByAnimCode.TryGetValue(animmetadata.Animation, out AnimationMetaData? existing) && crc32 == existing.CodeCrc32)
+                    {
+                        toKeep.Add(animmetadata.Animation);
+                        continue;
+                    }
                     animmetadata.AnimationSpeed = activeAnimationSpeeds[i];
 
-                    onReceivedServerAnimation(animmetadata);
+                    onReceivedServerAnimation(ref animmetadata);
+                    toKeep.Add(animmetadata.Animation);
+
                     continue;
                 }
 
-                if (entity.Properties.Client.LoadedShapeForEntity.AnimationsByCrc32.TryGetValue(crc32, out Animation anim))
+                if (entity.Properties.Client.LoadedShapeForEntity.AnimationsByCrc32.TryGetValue(crc32, out Animation? anim))
                 {
                     toKeep.Add(anim.Code);
 
@@ -305,7 +362,7 @@ namespace Vintagestory.API.Common
 
                     string code = anim.Code == null ? anim.Name.ToLowerInvariant() : anim.Code;
                     active += ", " + code;
-                    entity.Properties.Client.AnimationsByMetaCode.TryGetValue(code, out AnimationMetaData animmeta);
+                    entity.Properties.Client.AnimationsByMetaCode.TryGetValue(code, out AnimationMetaData? animmeta);
 
                     if (animmeta == null)
                     {
@@ -319,12 +376,13 @@ namespace Vintagestory.API.Common
 
                     animmeta.AnimationSpeed = activeAnimationSpeeds[i];
 
-                    onReceivedServerAnimation(animmeta);
+                    onReceivedServerAnimation(ref animmeta);
                 }
             }
 
+            if (entity.World is not IClientWorldAccessor clientWorld) throw new Exception("This should only be called from the client");
 
-            if (entity.EntityId != (entity.World as IClientWorldAccessor).Player.Entity.EntityId)
+            if (entity.EntityId != clientWorld.Player.Entity.EntityId)
             {
                 string[] keys = ActiveAnimationsByAnimCode.Keys.ToArray();
                 for (int i = 0; i < keys.Length; i++)
@@ -334,16 +392,9 @@ namespace Vintagestory.API.Common
 
                     if (!toKeep.Contains(key) && !animMeta.ClientSide)
                     {
-                        if (entity.Properties.Client.AnimationsByMetaCode.TryGetValue(key, out AnimationMetaData animmetadata))
-                        {
-                            if (animmetadata.TriggeredBy != null && animmetadata.WasStartedFromTrigger) continue;
+                        if (animMeta.TriggeredBy != null && animMeta.WasStartedFromTrigger) continue;
 
-                            // Tyron Sep 2024: WTF is this good for? It prevents easing out of shiver despair animation
-                            // var anim = entity.AnimManager.Animator;
-                            //var runningAnim = anim?.GetAnimationState(animmetadata.Code);
-                            //if (runningAnim != null && runningAnim.Active && runningAnim.Animation.OnAnimationEnd == EnumEntityAnimationEndHandling.EaseOut) continue; // Let the client ease out this animation
-                        }
-
+                        ClearFrameCallbacks(key);
                         ActiveAnimationsByAnimCode.Remove(key);
                     }
                 }
@@ -351,14 +402,14 @@ namespace Vintagestory.API.Common
 
         }
 
-        protected virtual void onReceivedServerAnimation(AnimationMetaData animmetadata)
+        protected virtual void onReceivedServerAnimation(ref AnimationMetaData animmetadata)
         {
             EnumHandling handling = EnumHandling.PassThrough;
             OnAnimationReceived?.Invoke(ref animmetadata, ref handling);
 
             if (handling == EnumHandling.PassThrough)
             {
-                ActiveAnimationsByAnimCode[animmetadata.Animation] = animmetadata;
+                AddActiveAnimation(animmetadata);
             }
         }
 
@@ -387,7 +438,7 @@ namespace Vintagestory.API.Common
 
             StreamedTreeAttribute streamedAnimTree = new StreamedTreeAttribute(stream);
             streamedAnimTree.WithKey("activeAnims");
-            SerializeActiveAnimations(forClient, (code, ms) => { streamedAnimTree[code] = new StreamedByteArrayAttribute(ms); } );
+            SerializeActiveAnimations(forClient, (code, ms) => { streamedAnimTree[code] = new StreamedByteArrayAttribute(ms); });
             streamedAnimTree.EndKey();
         }
 
@@ -403,14 +454,16 @@ namespace Vintagestory.API.Common
 
                 if (!forClient && val.Value.Code != "die") continue;
 
-                RunningAnimation anim = Animator.GetAnimationState(val.Value.Animation);
+                if (forClient && val.Value.ClientSide) continue;
+
+                RunningAnimation? anim = Animator?.GetAnimationState(val.Value.Animation);
                 if (anim != null)
                 {
                     val.Value.StartFrameOnce = anim.CurrentFrame;
                 }
 
                 ms.Reset();
-                    val.Value.ToBytes(writer);
+                val.Value.ToBytes(writer);
                 val.Value.StartFrameOnce = 0;
 
                 output(val.Key, ms);
@@ -430,14 +483,9 @@ namespace Vintagestory.API.Common
             {
                 foreach (var val in animtree)
                 {
-                    byte[] data = (val.Value as ByteArrayAttribute).value;
-                    using (MemoryStream ms = new MemoryStream(data))
-                    {
-                        using (BinaryReader reader = new BinaryReader(ms))
-                        {
-                            ActiveAnimationsByAnimCode[val.Key] = AnimationMetaData.FromBytes(reader, version);
-                        }
-                    }
+                    byte[] data = ((ByteArrayAttribute)val.Value).value;
+                    var reader = new BinarySpanReader(data);
+                    ActiveAnimationsByAnimCode[val.Key.ToLowerInvariant()] = AnimationMetaData.FromBytes(ref reader, version);
                 }
             }
         }
@@ -452,13 +500,19 @@ namespace Vintagestory.API.Common
             {
                 Animator.CalculateMatrices = !entity.Alive || entity.requirePosesOnServer;
                 Animator.OnFrame(ActiveAnimationsByAnimCode, dt);
-                AdjustCollisionBoxToAnimation = ActiveAnimationsByAnimCode.Any(anim => anim.Value.AdjustCollisionBox);
+                AdjustCollisionBoxToAnimation = false;
+                foreach (var anim in ActiveAnimationsByAnimCode.Values)
+                {
+                    if (anim.AdjustCollisionBox)
+                    {
+                        AdjustCollisionBoxToAnimation = true;
+                        break;
+                    }
+                }
             }
 
             runTriggers();
         }
-
-        public bool RunWhilePaused = false;
 
         /// <summary>
         /// The event fired each time the client ticks.
@@ -466,7 +520,7 @@ namespace Vintagestory.API.Common
         /// <param name="dt"></param>
         public virtual void OnClientFrame(float dt)
         {
-            if ((!RunWhilePaused && capi.IsGamePaused) || Animator == null) return;
+            if ((!RunWhilePaused && capi!.IsGamePaused) || Animator == null) return;
 
             if (HeadController != null)
             {
@@ -482,14 +536,18 @@ namespace Vintagestory.API.Common
 
             if (loopingSounds != null)
             {
-                foreach (var val in loopingSounds)
+                foreach ((string key, ILoadedSound sound) in loopingSounds)
                 {
-                    if (!ActiveAnimationsByAnimCode.ContainsKey(val.Key))
+                    if (!ActiveAnimationsByAnimCode.ContainsKey(key))
                     {
-                        val.Value.Stop();
-                        val.Value.Dispose();
-                        loopingSounds.Remove(val.Key);
+                        sound.Stop();
+                        sound.Dispose();
+                        loopingSounds.Remove(key);
                         break;
+                    }
+                    else
+                    {
+                        sound.SetPosition(entity.Pos.XYZFloat);
                     }
                 }
             }
@@ -510,12 +568,23 @@ namespace Vintagestory.API.Common
                 var trigger = Triggers[i];
                 if (ActiveAnimationsByAnimCode.ContainsKey(trigger.Animation))
                 {
-                    var state = Animator.GetAnimationState(trigger.Animation);
-                    if (state != null && state.CurrentFrame >= trigger.Frame)
+                    var state = Animator?.GetAnimationState(trigger.Animation);
+                    if (state != null && state.CurrentFrame >= trigger.Frame && state.Active && state.NowPlaying)
                     {
-                        Triggers.RemoveAt(i);
-                        trigger.Callback();
-                        i--;
+                        if (trigger.RepeatEachIteration)
+                        {
+                            if (trigger.LastTriggeredIteration != state.Iterations)
+                            {
+                                trigger.LastTriggeredIteration = state.Iterations;
+                                trigger.Callback();
+                            }
+                        }
+                        else
+                        {
+                            Triggers.RemoveAt(i);
+                            trigger.Callback();
+                            i--;
+                        }
                     }
                 }
             }
@@ -529,10 +598,10 @@ namespace Vintagestory.API.Common
         {
             if (loopingSounds != null)
             {
-                foreach (var val in loopingSounds)
+                foreach (ILoadedSound sound in loopingSounds.Values)
                 {
-                    val.Value.Stop();
-                    val.Value.Dispose();
+                    sound.Stop();
+                    sound.Dispose();
                 }
             }
         }
@@ -542,14 +611,12 @@ namespace Vintagestory.API.Common
             OnAnimationStopped?.Invoke(code);
         }
 
-        Dictionary<string, ILoadedSound> loopingSounds = null;
-
-        public void ShouldPlaySound(string animationMetaCode, AnimationSound sound)
+        public void ShouldPlaySound(string animationCode, AnimationSound sound)
         {
-            ShouldPlaySound(entity.World, entity.Pos.XYZFloat, entity.Pos.Dimension, loopingSounds, animationMetaCode, sound);
+            ShouldPlaySound(entity.World, entity.Pos.XYZFloat, entity.Pos.Dimension, ref loopingSounds, animationCode, sound);
         }
 
-        public static void ShouldPlaySound(IWorldAccessor world, Vec3f pos, int dimension, Dictionary<string, ILoadedSound> loopingSounds, string animationMetaCode, AnimationSound sound, Entity entity = null)
+        public static void ShouldPlaySound(IWorldAccessor world, Vec3f pos, int dimension, ref Dictionary<string, ILoadedSound>? loopingSounds, string animationCode, AnimationSound sound, Entity? entity = null)
         {
             if (sound.Chance < 1 && world.Rand.NextSingle() >= sound.Chance) return;
 
@@ -558,10 +625,9 @@ namespace Vintagestory.API.Common
                 var cworld = world as IClientWorldAccessor;
                 if (cworld != null)
                 {
-                    if (loopingSounds == null) loopingSounds = new Dictionary<string, ILoadedSound>();
+                    loopingSounds ??= new Dictionary<string, ILoadedSound>(StringComparer.OrdinalIgnoreCase);
 
-                    ILoadedSound lsound;
-                    if (!loopingSounds.TryGetValue(animationMetaCode, out lsound))
+                    if (!loopingSounds.TryGetValue(animationCode, out ILoadedSound? lsound))
                     {
                         lsound = cworld.LoadSound(new SoundParams()
                         {
@@ -575,7 +641,7 @@ namespace Vintagestory.API.Common
                             Volume = sound.Attributes.Volume.nextFloat(1f, world.Rand)
                         });
 
-                        loopingSounds.Add(animationMetaCode, lsound);
+                        loopingSounds.Add(animationCode, lsound);
                     }
 
                     lsound.Start();
@@ -586,7 +652,8 @@ namespace Vintagestory.API.Common
                 if (entity != null)
                 {
                     world.PlaySoundAt(sound.Attributes, entity, null);
-                } else
+                }
+                else
                 {
                     world.PlaySoundAt(sound.Attributes, pos.X, pos.Y, pos.Z, dimension, null);
                 }

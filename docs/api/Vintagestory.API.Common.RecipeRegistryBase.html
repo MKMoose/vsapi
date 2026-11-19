@@ -102,7 +102,8 @@ Class RecipeRegistryBase
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract class RecipeRegistryBase</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use CustomRegistryBase instead&quot;)]
+public abstract class RecipeRegistryBase : CustomRegistryBase</code></pre>
   </div>
 
 
@@ -112,21 +113,22 @@ Class RecipeRegistryBase
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html">CustomRegistryBase</a></div>
       <div><span class="xref">RecipeRegistryBase</span></div>
     </dd>
   </dl>
 
 
-  <dl class="typelist derived">
-    <dt>Derived</dt>
-    <dd>
-      <div><a class="xref" href="Vintagestory.API.Common.RecipeRegistryGeneric-1.html">RecipeRegistryGeneric&lt;T&gt;</a></div>
-    </dd>
-  </dl>
 
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html#Vintagestory_API_Common_CustomRegistryBase_ToBytes_Vintagestory_API_Common_IWorldAccessor_System_Byte____System_Int32__">CustomRegistryBase.ToBytes(IWorldAccessor, out byte[], out int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html#Vintagestory_API_Common_CustomRegistryBase_FromBytes_Vintagestory_API_Common_IWorldAccessor_System_Int32_System_Byte___">CustomRegistryBase.FromBytes(IWorldAccessor, int, byte[])</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
     </div>
@@ -160,80 +162,6 @@ Class RecipeRegistryBase
       <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
   </div>
   </dd></dl>
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Vintagestory_API_Common_RecipeRegistryBase_FromBytes_" data-uid="Vintagestory.API.Common.RecipeRegistryBase.FromBytes*"></a>
-
-  <h3 id="Vintagestory_API_Common_RecipeRegistryBase_FromBytes_Vintagestory_API_Common_IWorldAccessor_System_Int32_System_Byte___" data-uid="Vintagestory.API.Common.RecipeRegistryBase.FromBytes(Vintagestory.API.Common.IWorldAccessor,System.Int32,System.Byte[])">
-  FromBytes(IWorldAccessor, int, byte[])
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void FromBytes(IWorldAccessor resolver, int quantity, byte[] data)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>resolver</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
-    <dd></dd>
-    <dt><code>quantity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Vintagestory_API_Common_RecipeRegistryBase_ToBytes_" data-uid="Vintagestory.API.Common.RecipeRegistryBase.ToBytes*"></a>
-
-  <h3 id="Vintagestory_API_Common_RecipeRegistryBase_ToBytes_Vintagestory_API_Common_IWorldAccessor_System_Byte____System_Int32__" data-uid="Vintagestory.API.Common.RecipeRegistryBase.ToBytes(Vintagestory.API.Common.IWorldAccessor,System.Byte[]@,System.Int32@)">
-  ToBytes(IWorldAccessor, out byte[], out int)
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public abstract void ToBytes(IWorldAccessor resolver, out byte[] data, out int quantity)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>resolver</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
-    <dd></dd>
-    <dt><code>data</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]</dt>
-    <dd></dd>
-    <dt><code>quantity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
 
 
 

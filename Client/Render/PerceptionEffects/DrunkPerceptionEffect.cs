@@ -35,9 +35,12 @@ namespace Vintagestory.API.Client
             float f = Intensity / 250f;
             float dp = (float)(Math.Cos(accum / 1.15) + Math.Cos(accum / 1.35f)) * f / 2;
 
-            capi.World.Player.Entity.Pos.Pitch += dp;
-            capi.Input.MousePitch += dp;
-            capi.Input.MouseYaw += (float)(Math.Sin(accum / 1.1) + Math.Sin(accum / 1.5f) + Math.Sin(accum / 5f) * 0.2f) * f;
+            if (DoCameraRotation)
+            {
+                capi.World.Player.Entity.Pos.Pitch += dp;
+                capi.Input.MousePitch += dp;
+                capi.Input.MouseYaw += (float)(Math.Sin(accum / 1.1) + Math.Sin(accum / 1.5f) + Math.Sin(accum / 5f) * 0.2f) * f;
+            }
 
             // When mouse is in gui mode we need to manually update the players yaw, otherwise the fp hands dont rotate with the camera
             if (!capi.Input.MouseGrabbed)

@@ -883,6 +883,67 @@ public Dictionary&lt;int, AssetLocation&gt; ItemCodes</code></pre>
 
 
 
+  <h3 id="Vintagestory_API_Common_BlockSchematic_ModData" data-uid="Vintagestory.API.Common.BlockSchematic.ModData">
+  ModData
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+public Dictionary&lt;uint, Dictionary&lt;string, byte[]&gt;&gt; ModData</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_BlockSchematic_ModDataUnpacked" data-uid="Vintagestory.API.Common.BlockSchematic.ModDataUnpacked">
+  ModDataUnpacked
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;BlockPos, Dictionary&lt;string, byte[]&gt;&gt; ModDataUnpacked</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[]&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_BlockSchematic_OmitLiquids" data-uid="Vintagestory.API.Common.BlockSchematic.OmitLiquids">
   OmitLiquids
   
@@ -1496,7 +1557,7 @@ public int SizeZ</code></pre>
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Adjusts the starting position of the schemtic.</p>
+  <div class="markdown level1 summary"><p>Adjusts the starting position of the schematic.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -2057,73 +2118,22 @@ public int SizeZ</code></pre>
 
   <a id="Vintagestory_API_Common_BlockSchematic_Place_" data-uid="Vintagestory.API.Common.BlockSchematic.Place*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockSchematic_Place_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_System_Boolean_" data-uid="Vintagestory.API.Common.BlockSchematic.Place(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,System.Boolean)">
-  Place(IBlockAccessor, IWorldAccessor, BlockPos, bool)
+  <h3 id="Vintagestory_API_Common_BlockSchematic_Place_Vintagestory_Datastructures_SchematicPlacementData_" data-uid="Vintagestory.API.Common.BlockSchematic.Place(Vintagestory.Datastructures.SchematicPlacementData)">
+  Place(SchematicPlacementData)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Will place all blocks using the configured replace mode. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()</p>
+  <div class="markdown level1 summary"><p>Will place Blocks and Decor. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Place(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, bool replaceMetaBlocks = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int Place(SchematicPlacementData data)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
-    <dd></dd>
-    <dt><code>worldForCollectibleResolve</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
-    <dd></dd>
-    <dt><code>startPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
-    <dd></dd>
-    <dt><code>replaceMetaBlocks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Vintagestory_API_Common_BlockSchematic_Place_" data-uid="Vintagestory.API.Common.BlockSchematic.Place*"></a>
-
-  <h3 id="Vintagestory_API_Common_BlockSchematic_Place_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_Common_EnumReplaceMode_System_Boolean_" data-uid="Vintagestory.API.Common.BlockSchematic.Place(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.Common.EnumReplaceMode,System.Boolean)">
-  Place(IBlockAccessor, IWorldAccessor, BlockPos, EnumReplaceMode, bool)
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>Will place all blocks using the supplied replace mode. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual int Place(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, EnumReplaceMode mode, bool replaceMetaBlocks = true)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
-    <dd></dd>
-    <dt><code>worldForCollectibleResolve</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
-    <dd></dd>
-    <dt><code>startPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
-    <dd></dd>
-    <dt><code>mode</code> <a class="xref" href="Vintagestory.API.Common.EnumReplaceMode.html">EnumReplaceMode</a></dt>
-    <dd></dd>
-    <dt><code>replaceMetaBlocks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><code>data</code> <a class="xref" href="Vintagestory.Datastructures.SchematicPlacementData.html">SchematicPlacementData</a></dt>
     <dd></dd>
   </dl>
 
@@ -2145,8 +2155,8 @@ public int SizeZ</code></pre>
 
   <a id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_MathTools_BlockPos_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.MathTools.BlockPos)">
-  PlaceDecors(IBlockAccessor, BlockPos)
+  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_Vintagestory_Datastructures_SchematicPlacementData_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors(Vintagestory.Datastructures.SchematicPlacementData)">
+  PlaceDecors(SchematicPlacementData)
   
   </h3>
 
@@ -2154,14 +2164,12 @@ public int SizeZ</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void PlaceDecors(IBlockAccessor blockAccessor, BlockPos startPos)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void PlaceDecors(SchematicPlacementData data)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
-    <dd></dd>
-    <dt><code>startPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dt><code>data</code> <a class="xref" href="Vintagestory.Datastructures.SchematicPlacementData.html">SchematicPlacementData</a></dt>
     <dd></dd>
   </dl>
 
@@ -2178,8 +2186,8 @@ public int SizeZ</code></pre>
 
   <a id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_MathTools_Rectanglei_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.MathTools.Rectanglei)">
-  PlaceDecors(IBlockAccessor, BlockPos, Rectanglei)
+  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceDecors_Vintagestory_Datastructures_SchematicPlacementData_Vintagestory_API_MathTools_Rectanglei_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceDecors(Vintagestory.Datastructures.SchematicPlacementData,Vintagestory.API.MathTools.Rectanglei)">
+  PlaceDecors(SchematicPlacementData, Rectanglei)
   
   </h3>
 
@@ -2187,14 +2195,12 @@ public int SizeZ</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void PlaceDecors(IBlockAccessor blockAccessor, BlockPos startPos, Rectanglei rect)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void PlaceDecors(SchematicPlacementData data, Rectanglei rect)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
-    <dd></dd>
-    <dt><code>startPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dt><code>data</code> <a class="xref" href="Vintagestory.Datastructures.SchematicPlacementData.html">SchematicPlacementData</a></dt>
     <dd></dd>
     <dt><code>rect</code> <a class="xref" href="Vintagestory.API.MathTools.Rectanglei.html">Rectanglei</a></dt>
     <dd></dd>
@@ -2213,8 +2219,8 @@ public int SizeZ</code></pre>
 
   <a id="Vintagestory_API_Common_BlockSchematic_PlaceEntitiesAndBlockEntities_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceEntitiesAndBlockEntities*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceEntitiesAndBlockEntities_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_Dictionary_System_Int32_Vintagestory_API_Common_AssetLocation__System_Collections_Generic_Dictionary_System_Int32_Vintagestory_API_Common_AssetLocation__System_Boolean_System_Collections_Generic_Dictionary_System_Int32_System_Collections_Generic_Dictionary_System_Int32_System_Int32___System_Int32_System_Collections_Generic_Dictionary_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_Common_Block__System_Boolean_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceEntitiesAndBlockEntities(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.Dictionary{System.Int32,Vintagestory.API.Common.AssetLocation},System.Collections.Generic.Dictionary{System.Int32,Vintagestory.API.Common.AssetLocation},System.Boolean,System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.Dictionary{System.Int32,System.Int32}},System.Int32,System.Collections.Generic.Dictionary{Vintagestory.API.MathTools.BlockPos,Vintagestory.API.Common.Block},System.Boolean)">
-  PlaceEntitiesAndBlockEntities(IBlockAccessor, IWorldAccessor, BlockPos, Dictionary&lt;int, AssetLocation&gt;, Dictionary&lt;int, AssetLocation&gt;, bool, Dictionary&lt;int, Dictionary&lt;int, int&gt;&gt;, int, Dictionary&lt;BlockPos, Block&gt;, bool)
+  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceEntitiesAndBlockEntities_Vintagestory_Datastructures_SchematicPlacementData_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceEntitiesAndBlockEntities(Vintagestory.Datastructures.SchematicPlacementData)">
+  PlaceEntitiesAndBlockEntities(SchematicPlacementData)
   
   </h3>
 
@@ -2223,34 +2229,52 @@ public int SizeZ</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void PlaceEntitiesAndBlockEntities(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, Dictionary&lt;int, AssetLocation&gt; blockCodes, Dictionary&lt;int, AssetLocation&gt; itemCodes, bool replaceBlockEntities = false, Dictionary&lt;int, Dictionary&lt;int, int&gt;&gt; replaceBlocks = null, int centerrockblockid = 0, Dictionary&lt;BlockPos, Block&gt; layerBlockForBlockEntities = null, bool resolveImports = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public void PlaceEntitiesAndBlockEntities(SchematicPlacementData data)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dt><code>data</code> <a class="xref" href="Vintagestory.Datastructures.SchematicPlacementData.html">SchematicPlacementData</a></dt>
     <dd></dd>
-    <dt><code>worldForCollectibleResolve</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
-    <dd></dd>
-    <dt><code>startPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
-    <dd></dd>
-    <dt><code>blockCodes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>itemCodes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>replaceBlockEntities</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-    <dt><code>replaceBlocks</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;&gt;</dt>
-    <dd></dd>
-    <dt><code>centerrockblockid</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-    <dt><code>layerBlockForBlockEntities</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a>, <a class="xref" href="Vintagestory.API.Common.Block.html">Block</a>&gt;</dt>
-    <dd></dd>
-    <dt><code>resolveImports</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>Turn it off to spawn structures as they are. For example, in this mode, instead of traders, their meta spawners will spawn</p>
-</dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockSchematic_PlaceOnlyBlocks_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceOnlyBlocks*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockSchematic_PlaceOnlyBlocks_Vintagestory_Datastructures_SchematicPlacementData_" data-uid="Vintagestory.API.Common.BlockSchematic.PlaceOnlyBlocks(Vintagestory.Datastructures.SchematicPlacementData)">
+  PlaceOnlyBlocks(SchematicPlacementData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Will place only blocks. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual int PlaceOnlyBlocks(SchematicPlacementData data)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>data</code> <a class="xref" href="Vintagestory.Datastructures.SchematicPlacementData.html">SchematicPlacementData</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

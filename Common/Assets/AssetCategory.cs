@@ -28,8 +28,6 @@ namespace Vintagestory.API.Common
         public static AssetCategory worldgen = new AssetCategory("worldgen", true, EnumAppSide.Server);
         public static AssetCategory entities = new AssetCategory("entities", true, EnumAppSide.Server);
 
-
-
         /// <summary>
         /// Path and name
         /// </summary>

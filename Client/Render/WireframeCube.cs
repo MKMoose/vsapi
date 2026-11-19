@@ -83,6 +83,10 @@ namespace Vintagestory.Client.NoObf
             prog.UniformMatrix("modelViewMatrix", mat.Values);
             prog.Uniform("colorIn", color ?? ColorUtil.WhiteArgbVec);
 
+            FrameBufferRef oitfb = capi.Render.FrameBuffers[(int)EnumFrameBuffer.Transparent];
+            prog.BindTexture2D("OITreveal", oitfb.ColorTextureIds[0], 6);
+            prog.BindTexture2DArray("OITaccumulation", oitfb.ColorTextureIds[3], 7);
+
             capi.Render.RenderMesh(modelRef);
 
             prog.Stop();

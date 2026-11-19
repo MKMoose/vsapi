@@ -16,6 +16,30 @@ namespace Vintagestory.API.Client
         /// </summary>
         public MultiTextureMeshRef ModelRef;
         /// <summary>
+        /// A version of ModelRef tesselated for the animated entity shader.
+        /// </summary>
+        public MultiTextureMeshRef AnimationModelRef;
+        /// <summary>
+        /// The shape used to animate AnimationModelRef.
+        /// </summary>
+        public Shape AnimationShape;
+        /// <summary>
+        /// The selected shape variant used to create AnimationModelRef.
+        /// </summary>
+        public int AnimationModelVariant;
+        /// <summary>
+        /// An item stack to render on an element of AnimationShape while it is animated.
+        /// </summary>
+        public ItemStack AnimatedAttachmentStack;
+        /// <summary>
+        /// The animated shape element to render AnimationAttachmentStack on.
+        /// </summary>
+        public string AnimatedAttachmentElement;
+        /// <summary>
+        /// Local transform applied to AnimationAttachmentStack after the animated element transform.
+        /// </summary>
+        public ModelTransform AnimatedAttachmentTransform;
+        /// <summary>
         /// The transform to be applied when rendered
         /// </summary>
         public ModelTransform Transform;

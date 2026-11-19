@@ -1,5 +1,4 @@
 ﻿
-#nullable disable
 namespace Vintagestory.API.Datastructures
 {
     public enum EnumAttributeType

@@ -448,7 +448,7 @@ Can be used to render onto it through the Render API</p>
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Deallocates a previously allocated texture space</p>
+  <div class="markdown level1 summary"><p>Deallocates a previously allocated texture space. This frees the texture even if references to it still remain.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -985,6 +985,145 @@ bool InsertTextureCached(AssetLocation path, IBitmap bmp, out int textureSubId, 
 
 
 
+  <a id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference*"></a>
+
+  <h3 id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_Vintagestory_API_Client_CompositeTexture_System_Int32__Vintagestory_API_Client_TextureAtlasPosition__System_Single_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference(Vintagestory.API.Client.CompositeTexture,System.Int32@,Vintagestory.API.Client.TextureAtlasPosition@,System.Single)">
+  InsertTextureOrAddReference(CompositeTexture, out int, out TextureAtlasPosition, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+When done with it, call ReleaseTextureReference().
+Call from the main thread only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool InsertTextureOrAddReference(CompositeTexture ct, out int textureSubId, out TextureAtlasPosition texPos, float alphaTest = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ct</code> <a class="xref" href="Vintagestory.API.Client.CompositeTexture.html">CompositeTexture</a></dt>
+    <dd></dd>
+    <dt><code>textureSubId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>texPos</code> <a class="xref" href="Vintagestory.API.Client.TextureAtlasPosition.html">TextureAtlasPosition</a></dt>
+    <dd></dd>
+    <dt><code>alphaTest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference*"></a>
+
+  <h3 id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_Vintagestory_API_Common_AssetLocation_System_Int32__Vintagestory_API_Client_TextureAtlasPosition__Vintagestory_API_Client_CreateTextureDelegate_System_Single_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference(Vintagestory.API.Common.AssetLocation,System.Int32@,Vintagestory.API.Client.TextureAtlasPosition@,Vintagestory.API.Client.CreateTextureDelegate,System.Single)">
+  InsertTextureOrAddReference(AssetLocation, out int, out TextureAtlasPosition, CreateTextureDelegate, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+When done with it, call ReleaseTextureReference().
+Call from the main thread only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool InsertTextureOrAddReference(AssetLocation path, out int textureSubId, out TextureAtlasPosition texPos, CreateTextureDelegate onCreate = null, float alphaTest = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a></dt>
+    <dd></dd>
+    <dt><code>textureSubId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>texPos</code> <a class="xref" href="Vintagestory.API.Client.TextureAtlasPosition.html">TextureAtlasPosition</a></dt>
+    <dd></dd>
+    <dt><code>onCreate</code> <a class="xref" href="Vintagestory.API.Client.CreateTextureDelegate.html">CreateTextureDelegate</a></dt>
+    <dd></dd>
+    <dt><code>alphaTest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference*"></a>
+
+  <h3 id="Vintagestory_API_Client_ITextureAtlasAPI_InsertTextureOrAddReference_Vintagestory_API_Common_AssetLocationAndSource_System_Int32__Vintagestory_API_Client_TextureAtlasPosition__Vintagestory_API_Client_CreateTextureDelegate_System_Single_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.InsertTextureOrAddReference(Vintagestory.API.Common.AssetLocationAndSource,System.Int32@,Vintagestory.API.Client.TextureAtlasPosition@,Vintagestory.API.Client.CreateTextureDelegate,System.Single)">
+  InsertTextureOrAddReference(AssetLocationAndSource, out int, out TextureAtlasPosition, CreateTextureDelegate, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+When done with it, call ReleaseTextureReference().
+Call from the main thread only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool InsertTextureOrAddReference(AssetLocationAndSource path, out int textureSubId, out TextureAtlasPosition texPos, CreateTextureDelegate onCreate = null, float alphaTest = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="Vintagestory.API.Common.AssetLocationAndSource.html">AssetLocationAndSource</a></dt>
+    <dd></dd>
+    <dt><code>textureSubId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>texPos</code> <a class="xref" href="Vintagestory.API.Client.TextureAtlasPosition.html">TextureAtlasPosition</a></dt>
+    <dd></dd>
+    <dt><code>onCreate</code> <a class="xref" href="Vintagestory.API.Client.CreateTextureDelegate.html">CreateTextureDelegate</a></dt>
+    <dd></dd>
+    <dt><code>alphaTest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_ITextureAtlasAPI_LoadCompositeBitmap_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.LoadCompositeBitmap*"></a>
 
   <h3 id="Vintagestory_API_Client_ITextureAtlasAPI_LoadCompositeBitmap_Vintagestory_API_Common_AssetLocationAndSource_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.LoadCompositeBitmap(Vintagestory.API.Common.AssetLocationAndSource)">
@@ -1040,6 +1179,39 @@ bool InsertTextureCached(AssetLocation path, IBitmap bmp, out int textureSubId, 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>atlasIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ITextureAtlasAPI_ReleaseTextureReference_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.ReleaseTextureReference*"></a>
+
+  <h3 id="Vintagestory_API_Client_ITextureAtlasAPI_ReleaseTextureReference_Vintagestory_API_Common_AssetLocation_" data-uid="Vintagestory.API.Client.ITextureAtlasAPI.ReleaseTextureReference(Vintagestory.API.Common.AssetLocation)">
+  ReleaseTextureReference(AssetLocation)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Call this when done with a reference counted texture. It will be freed if you were the last user.
+Call from the main thread only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void ReleaseTextureReference(AssetLocation loc)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>loc</code> <a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a></dt>
     <dd></dd>
   </dl>
 

@@ -71,7 +71,7 @@ namespace Vintagestory.API.Client
                 SingleComposer = capi.Gui
                     .CreateCompo("blockentityinventory" + blockEntityPos + packetIdOffset, dialogBounds)
                     .AddShadedDialogBG(ElementBounds.Fill)
-                    .AddDialogTitleBar(dialogTitle, CloseIconPressed)
+                    .AddDialogTitleBarUnmovableInImmersive(dialogTitle, CloseIconPressed)
                     .AddInset(insetBounds)
                     .AddVerticalScrollbar(OnNewScrollbarvalue, scrollbarBounds, "scrollbar")
                     .BeginClip(clippingBounds)
@@ -103,7 +103,7 @@ namespace Vintagestory.API.Client
                 SingleComposer = capi.Gui
                     .CreateCompo("blockentityinventory" + blockEntityPos + packetIdOffset, dialogBounds)
                     .AddShadedDialogBG(ElementBounds.Fill)
-                    .AddDialogTitleBar(dialogTitle, CloseIconPressed)
+                    .AddDialogTitleBarUnmovableInImmersive(dialogTitle, CloseIconPressed)
                     .AddInset(insetBounds)
                     .AddItemSlotGrid(inventory, DoSendPacketWithOffset, cols, slotGridBounds, "slotgrid")
                     .Compose();

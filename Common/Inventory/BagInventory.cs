@@ -155,11 +155,11 @@ namespace Vintagestory.API.Common
 
             if (BagSlots == null || BagSlots.Length == 0)
             {
-                bagContents.Clear();
+                bagContents = [];
                 return;
             } 
 
-            bagContents.Clear();
+            List<ItemSlot> newContents = [];
             for (int bagIndex = 0; bagIndex < BagSlots.Length; bagIndex++)
             {
                 ItemStack bagstack = BagSlots[bagIndex].Itemstack;
@@ -171,10 +171,12 @@ namespace Vintagestory.API.Common
                 if (bag != null)
                 {
                     var slots = bag.GetOrCreateSlots(bagstack, parentinv, bagIndex, Api.World);
-                    bagContents.AddRange(slots);
+                    newContents.AddRange(slots);
                 }
             }
 
+
+            bagContents = newContents;
 
             if (Api is ICoreClientAPI capi)
             {
@@ -193,14 +195,12 @@ namespace Vintagestory.API.Common
 
 
         /// <summary>
-        /// Gets the enumerator for the inventory.
+        /// Gets the enumerator for the slot references captured when this is called.
+        /// Changes to the slots themselves remain visible.
         /// </summary>
         public IEnumerator<ItemSlot> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++)
-            {
-                yield return this[i];
-            }
+            return ((IEnumerable<ItemSlot>)bagContents.ToArray()).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

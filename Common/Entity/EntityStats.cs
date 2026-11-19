@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -153,6 +153,29 @@ namespace Vintagestory.API.Common
             if (floatStats.TryGetValue(category, out EntityFloatStats stats))
             {
                 stats.Remove(code);
+            }
+
+            ToTreeAttributes(entity.WatchedAttributes, true);
+            entity.WatchedAttributes.MarkPathDirty("stats");
+
+
+            ignoreChange = false;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Remove all stats value for given code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public EntityStats Remove(string code)
+        {
+            ignoreChange = true;
+
+            foreach ((_, EntityFloatStats category) in floatStats)
+            {
+                category.Remove(code);
             }
 
             ToTreeAttributes(entity.WatchedAttributes, true);

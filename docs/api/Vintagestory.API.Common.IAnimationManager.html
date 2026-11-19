@@ -249,7 +249,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IAnimator Animator { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">IAnimator? Animator { get; set; }</code></pre>
   </div>
 
 
@@ -281,7 +281,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IHeadController HeadController { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">IHeadController? HeadController { get; set; }</code></pre>
   </div>
 
 
@@ -383,7 +383,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">RunningAnimation GetAnimationState(string anim)</code></pre>
+    <pre><code class="lang-csharp hljs">RunningAnimation? GetAnimationState(string anim)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -491,7 +491,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IAnimator LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)</code></pre>
+    <pre><code class="lang-csharp hljs">IAnimator? LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -663,7 +663,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <a id="Vintagestory_API_Common_IAnimationManager_ResetAnimation_" data-uid="Vintagestory.API.Common.IAnimationManager.ResetAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_IAnimationManager_ResetAnimation_System_String_" data-uid="Vintagestory.API.Common.IAnimationManager.ResetAnimation(System.String)">
-  ResetAnimation(string)
+  ResetAnimation(string?)
   
   </h3>
 
@@ -672,7 +672,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void ResetAnimation(string beginholdAnim)</code></pre>
+    <pre><code class="lang-csharp hljs">void ResetAnimation(string? beginholdAnim)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -728,7 +728,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <a id="Vintagestory_API_Common_IAnimationManager_StartAnimation_" data-uid="Vintagestory.API.Common.IAnimationManager.StartAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_IAnimationManager_StartAnimation_System_String_" data-uid="Vintagestory.API.Common.IAnimationManager.StartAnimation(System.String)">
-  StartAnimation(string)
+  StartAnimation(string?)
   
   </h3>
 
@@ -737,7 +737,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool StartAnimation(string configCode)</code></pre>
+    <pre><code class="lang-csharp hljs">bool StartAnimation(string? configCode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -830,7 +830,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <a id="Vintagestory_API_Common_IAnimationManager_StopAnimation_" data-uid="Vintagestory.API.Common.IAnimationManager.StopAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_IAnimationManager_StopAnimation_System_String_" data-uid="Vintagestory.API.Common.IAnimationManager.StopAnimation(System.String)">
-  StopAnimation(string)
+  StopAnimation(string?)
   
   </h3>
 
@@ -839,7 +839,7 @@ Currently implemented by <a class="xref" href="Vintagestory.API.Common.ServerAni
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void StopAnimation(string code)</code></pre>
+    <pre><code class="lang-csharp hljs">void StopAnimation(string? code)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

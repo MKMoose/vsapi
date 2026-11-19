@@ -71,7 +71,7 @@ namespace Vintagestory.API.Common
                 return;
             }
 
-            if (clientApi.Input.MouseGrabbed)
+            if (clientApi.Input.MouseGrabbed || player.CameraMode == EnumCameraMode.FirstPerson)
             {
                 AdjustAngles(dt);
             }
@@ -88,6 +88,13 @@ namespace Vintagestory.API.Common
             EnumCameraMode cameraMode = player.CameraMode;
             EnumMountAngleMode mountAngleMode = player.Entity.MountedOn?.AngleMode ?? EnumMountAngleMode.Unaffected;
             bool bodyFollowExact = mountAngleMode == EnumMountAngleMode.Fixate || mountAngleMode == EnumMountAngleMode.FixateYaw || cameraMode == EnumCameraMode.Overhead || cameraMode == EnumCameraMode.FirstPerson;
+
+            if (cameraMode == EnumCameraMode.FirstPerson && player.Entity.MountedOn is IMountableSeat mount && (mountAngleMode == EnumMountAngleMode.Fixate || mountAngleMode == EnumMountAngleMode.FixateYaw))
+            {
+                entity.BodyYaw = mount.SeatPosition.Yaw;
+                AdjustHeadAngles(cameraMode, dt);
+                return;
+            }
 
             AdjustHeadAngles(cameraMode, dt);
 
@@ -185,6 +192,8 @@ namespace Vintagestory.API.Common
 
             (float yOffsetDeg, float zOffsetDeg) = GetOffsets(dt);
 
+            if (entityPlayer.MountedOn != null) return;
+
             upperTorsoPose.degOffZ = zOffsetDeg * upperTorsoYOffsetFactor;
             upperTorsoPose.degOffY = yOffsetDeg * upperTorsoZOffsetFactor;
             lowerTorsoPose.degOffZ = zOffsetDeg * lowerTorsoZOffsetFactor;
@@ -247,9 +256,15 @@ namespace Vintagestory.API.Common
             neckPose.degOffZ = zOffsetDeg * neckZOffsetFactor;
         }
 
-        protected virtual (float yOffsetDeg, float zOffsetDeg) GetOffsets(float dt) => ((entity.Pos.HeadYaw + YawOffset) * GameMath.RAD2DEG, (entity.Pos.HeadPitch + PitchOffset) * GameMath.RAD2DEG);
+        protected virtual (float yOffsetDeg, float zOffsetDeg) GetOffsets(float dt)
+        {
+            return (
+                (GameMath.AngleRadDistance(0, entity.Pos.HeadYaw) + YawOffset) * GameMath.RAD2DEG,
+                (GameMath.AngleRadDistance(0, entity.Pos.HeadPitch) + PitchOffset) * GameMath.RAD2DEG
+            );
+        }
 
-        protected ElementPose GetPose(string name) => animationManager.Animator.GetPosebyName(name) ?? throw new InvalidOperationException($"[Head Controller] Entity '{entity.Code}' shape does not have '{name}' element.");
+        protected ElementPose GetPose(string name) => animationManager.Animator?.GetPosebyName(name) ?? throw new InvalidOperationException($"[Head Controller] Entity '{entity.Code}' shape does not have '{name}' element.");
     }
 }
 

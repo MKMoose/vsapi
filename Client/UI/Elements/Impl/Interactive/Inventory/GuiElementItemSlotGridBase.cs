@@ -671,19 +671,23 @@ namespace Vintagestory.API.Client
 
         public override void OnMouseWheel(ICoreClientAPI api, MouseWheelEventArgs args)
         {
+            if (args.IsHandled) return;
             base.OnMouseWheel(api, args);
+
+            if (args.DeltaYInt == 0) return;
 
             bool ctrl = api.Input.KeyboardKeyState[(int)GlKeys.ControlLeft] || api.Input.KeyboardKeyState[(int)GlKeys.ControlRight];
             if (ctrl && KeyboardControlEnabled && IsPositionInside(api.Input.MouseX, api.Input.MouseY))
             {
+                args.SetHandled(true);
+
                 for (int i = 0; i < SlotBounds.Length; i++)
                 {
                     if (i >= renderedSlots.Count) break;
 
                     if (SlotBounds[i].PointInside(api.Input.MouseX, api.Input.MouseY))
                     {
-                        SlotMouseWheel(renderedSlots.GetKeyAtIndex(i), args.delta);
-                        args.SetHandled(true);
+                        SlotMouseWheel(renderedSlots.GetKeyAtIndex(i), args.DeltaYInt);
                     }
                 }
             }
@@ -691,9 +695,11 @@ namespace Vintagestory.API.Client
 
         private void SlotMouseWheel(int slotId, int wheelDelta)
         {
-            ItemStackMoveOperation op = new ItemStackMoveOperation(api.World, EnumMouseButton.Wheel, 0, EnumMergePriority.AutoMerge, 1);
-            op.WheelDir = wheelDelta > 0 ? 1 : -1;
-            op.ActingPlayer = api.World.Player;
+            ItemStackMoveOperation op = new ItemStackMoveOperation(api.World, EnumMouseButton.Wheel, 0, EnumMergePriority.AutoMerge, 1)
+            {
+                WheelDir = Math.Sign(wheelDelta),
+                ActingPlayer = api.World.Player
+            };
             IInventory mouseCursorInv = api.World.Player.InventoryManager.GetOwnInventory(GlobalConstants.mousecursorInvClassName);
 
             IInventory targetInv = inventory;
@@ -932,42 +938,52 @@ namespace Vintagestory.API.Client
 
         private void RedistributeStacks(int intoSlotId)
         {
-            int stacksPerSlot = referenceDistributStack.StackSize / distributeStacksPrevStackSizeBySlotId.Count;
-
-            for (int i = 0; i < distributeStacksPrevStackSizeBySlotId.Count - 1; i++)
+            var batchInventory = inventory as InventoryBase;
+            batchInventory?.BeginMultiUpdate();
+            try
             {
-                int sourceSlotid = distributeStacksPrevStackSizeBySlotId.GetKeyAtIndex(i);
-                if (sourceSlotid == intoSlotId) continue;
+                int stacksPerSlot = referenceDistributStack.StackSize / distributeStacksPrevStackSizeBySlotId.Count;
 
-                ItemSlot sourceSlot = inventory[sourceSlotid];
-
-                distributeStacksAddedStackSizeBySlotId.TryGetValue(sourceSlotid, out int addedSrcSize);
-
-                if (addedSrcSize > stacksPerSlot)
+                for (int i = 0; i < distributeStacksPrevStackSizeBySlotId.Count - 1; i++)
                 {
-                    int beforeSrcSize = distributeStacksPrevStackSizeBySlotId[sourceSlotid];
-                    int nowSrcSize = beforeSrcSize + addedSrcSize;
+                    int sourceSlotid = distributeStacksPrevStackSizeBySlotId.GetKeyAtIndex(i);
+                    if (sourceSlotid == intoSlotId) continue;
 
-                    ItemSlot targetSlot = inventory[intoSlotId];
-                    ItemStackMoveOperation op = new ItemStackMoveOperation(api.World, EnumMouseButton.Left, 0, EnumMergePriority.AutoMerge);
-                    op.ActingPlayer = api.World.Player;
-                    op.RequestedQuantity = nowSrcSize - beforeSrcSize - stacksPerSlot;
+                    ItemSlot sourceSlot = inventory[sourceSlotid];
 
-                    int moved = nowSrcSize - beforeSrcSize - stacksPerSlot;
-                    object packet = api.World.Player.InventoryManager.TryTransferTo(sourceSlot, targetSlot, ref op);
+                    distributeStacksAddedStackSizeBySlotId.TryGetValue(sourceSlotid, out int addedSrcSize);
 
-                    distributeStacksAddedStackSizeBySlotId.TryGetValue(intoSlotId, out int addedBefore);
-                    distributeStacksAddedStackSizeBySlotId[intoSlotId] = addedBefore + op.MovedQuantity;
-
-                    distributeStacksAddedStackSizeBySlotId[sourceSlotid] -= op.MovedQuantity;
-
-                    if (packet != null)
+                    if (addedSrcSize > stacksPerSlot)
                     {
-                        SendPacketHandler(packet);
+                        int beforeSrcSize = distributeStacksPrevStackSizeBySlotId[sourceSlotid];
+                        int nowSrcSize = beforeSrcSize + addedSrcSize;
+
+                        ItemSlot targetSlot = inventory[intoSlotId];
+                        ItemStackMoveOperation op = new ItemStackMoveOperation(api.World, EnumMouseButton.Left, 0, EnumMergePriority.AutoMerge);
+                        op.ActingPlayer = api.World.Player;
+                        op.RequestedQuantity = nowSrcSize - beforeSrcSize - stacksPerSlot;
+
+                        int moved = nowSrcSize - beforeSrcSize - stacksPerSlot;
+                        object packet = api.World.Player.InventoryManager.TryTransferTo(sourceSlot, targetSlot, ref op);
+
+                        distributeStacksAddedStackSizeBySlotId.TryGetValue(intoSlotId, out int addedBefore);
+                        distributeStacksAddedStackSizeBySlotId[intoSlotId] = addedBefore + op.MovedQuantity;
+
+                        distributeStacksAddedStackSizeBySlotId[sourceSlotid] -= op.MovedQuantity;
+
+                        if (packet != null)
+                        {
+                            SendPacketHandler(packet);
+                        }
                     }
                 }
             }
+            finally
+            {
+                batchInventory?.EndMultiUpdate();
+            }
         }
+
 
         public virtual void SlotClick(ICoreClientAPI api, int slotId, EnumMouseButton mouseButton, bool shiftPressed, bool ctrlPressed, bool altPressed)
         {
@@ -980,6 +996,16 @@ namespace Vintagestory.API.Client
                 (ctrlPressed ? EnumModifierKey.CTRL : 0) |
                 (altPressed ? EnumModifierKey.ALT : 0)
             ;
+
+            if (ctrlPressed && shiftPressed && mouseButton == EnumMouseButton.Right && api.InDeveloperMode && !inventory[slotId].Empty && api.IsSinglePlayer)
+            {
+                var path = inventory[slotId].Itemstack.Collectible.SourceFilePath;
+                if (path != null)
+                {
+                    api.Gui.OpenLink(path);
+                }
+                return;
+            }
 
             ItemStackMoveOperation op = new ItemStackMoveOperation(api.World, mouseButton, modifiers, EnumMergePriority.AutoMerge);
             op.ActingPlayer = api.World.Player;
@@ -994,22 +1020,23 @@ namespace Vintagestory.API.Client
             {
                 op.CurrentPriority = EnumMergePriority.DirectMerge;
                 bool wasEmpty = mouseCursorInv.Empty;
-                var wasCollObj = mouseCursorInv[0].Itemstack?.Collectible;
+                var prevStack = mouseCursorInv[0].Itemstack;
+                var prevCollectible = prevStack?.Collectible;
 
                 packet = inventory.ActivateSlot(slotId, mouseCursorInv[0], ref op);
 
                 // Now picked up
                 if (wasEmpty && !mouseCursorInv.Empty)
                 {
-                    api.World.PlaySound(mouseCursorInv[0].Itemstack.Collectible?.HeldSounds?.InvPickup ?? HeldSounds.InvPickUpDefault);
+                    api.World.PlaySound(mouseCursorInv[0].Itemstack.Collectible?.GetHeldSounds(mouseCursorInv[0].Itemstack, null)?.InvPickup ?? HeldSounds.InvPickUpDefault);
                 }
                 else
                 {
 
                     // Now dropped off
-                    if ((!wasEmpty && mouseCursorInv.Empty) || wasCollObj?.Id != mouseCursorInv[0].Itemstack?.Collectible?.Id)
+                    if ((!wasEmpty && mouseCursorInv.Empty) || prevStack?.Equals(api.World, mouseCursorInv[0].Itemstack, GlobalConstants.IgnoredStackAttributes) == false)
                     {
-                        api.World.PlaySound(wasCollObj?.HeldSounds?.InvPlace ?? HeldSounds.InvPlaceDefault);
+                        api.World.PlaySound(prevCollectible?.GetHeldSounds(prevStack, null)?.InvPlace ?? HeldSounds.InvPlaceDefault);
                     }
                 }
             }

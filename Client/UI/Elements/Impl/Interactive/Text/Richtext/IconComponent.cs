@@ -13,14 +13,13 @@ namespace Vintagestory.API.Client
     {
         protected ICoreClientAPI capi;
 
-        protected ElementBounds parentBounds;
-
-        public double offY = 0;
         public double sizeMulSvg = 0.7; // no idea why
 
         protected string iconName;
-        protected string iconPath;
+        public string iconPath;
         protected CairoFont font;
+        protected bool UseSvgColor;
+        protected double[] SvgBgColor;
 
         public IconComponent(ICoreClientAPI capi, string iconName, string iconPath, CairoFont font) : base(capi)
         {
@@ -29,28 +28,62 @@ namespace Vintagestory.API.Client
             this.iconPath = iconPath;
             this.font = font;
 
+            var size = GuiElement.scaled(font.UnscaledFontsize);
             BoundsPerLine = new LineRectangled[]
             {
-                new LineRectangled(0, 0, GuiElement.scaled(font.UnscaledFontsize), GuiElement.scaled(font.UnscaledFontsize))
+                new LineRectangled(0, 0, size, size)
+            };
+        }
+
+        public IconComponent(ICoreClientAPI capi, string iconName, string iconPath,CairoFont font, bool useSvgColor, double[] svgBgColor) : base(capi)
+        {
+            this.capi = capi;
+            this.iconName = iconName;
+            this.iconPath = iconPath;
+            this.font = font;
+
+            UseSvgColor = useSvgColor;
+            SvgBgColor = svgBgColor;
+            var size = GuiElement.scaled(font.UnscaledFontsize);
+            BoundsPerLine = new LineRectangled[]
+            {
+                new LineRectangled(0, 0, size, size)
             };
         }
 
 
         public override void ComposeElements(Context ctx, ImageSurface surface)
         {
-            double size = GuiElement.scaled(font.UnscaledFontsize);
             IAsset svgAsset = null;
             if (iconPath != null)
             {
-                svgAsset = capi.Assets.TryGet(new AssetLocation(iconPath).WithPathPrefixOnce("textures/"), true);
+                svgAsset = capi.Assets.Get(new AssetLocation(iconPath).WithPathPrefixOnce("textures/"));
             }
 
             if (svgAsset != null) {
-                size *= sizeMulSvg;
+                var size = GuiElement.scaled(font.UnscaledFontsize);
+                size = (int)(size * sizeMulSvg);
                 var asc = font.GetFontExtents().Ascent;
-                capi.Gui.DrawSvg(svgAsset, surface, (int)BoundsPerLine[0].X, (int)(BoundsPerLine[0].Y + asc - (int)size)+2 /* why the 2 offset? Only god knows -_- */, (int)size, (int)size, ColorUtil.ColorFromRgba(font.Color));
+                int? color = UseSvgColor ? null : ColorUtil.ColorFromRgba(font.Color);
+                var posY = (int)(BoundsPerLine[0].Y + asc - size + 2); /* why the 2 offset? Only god knows -_- */
+
+                if (VerticalAlign == EnumVerticalAlign.Middle)
+                {
+                    posY = (int)(BoundsPerLine[0].Y + GuiElement.scaled(1));
+                }
+
+                if (SvgBgColor != null)
+                {
+                    ctx.Operator = Operator.Over;
+                    ctx.Rectangle((int)BoundsPerLine[0].X, posY, size, size);
+                    ctx.SetSourceRGBA(SvgBgColor[0], SvgBgColor[1], SvgBgColor[2], SvgBgColor[3]);
+                    ctx.Fill();
+                }
+
+                capi.Gui.DrawSvg(svgAsset, surface, (int)BoundsPerLine[0].X, posY, (int)size, (int)size, color);
             }
             else {
+                double size = GuiElement.scaled(font.UnscaledFontsize);
                 capi.Gui.Icons.DrawIcon(ctx, iconName, BoundsPerLine[0].X, BoundsPerLine[0].Y, size, size, font.Color);
             }
         }

@@ -288,12 +288,13 @@ Class LongAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void FromBytes(BinaryReader stream)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the BinarySpanReader overload.&quot;, true)]
+public void FromBytes(BinaryReader reader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -304,6 +305,40 @@ Class LongAttribute
 
 
 
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_LongAttribute_FromBytes_" data-uid="Vintagestory.API.Datastructures.LongAttribute.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_LongAttribute_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.Datastructures.LongAttribute.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  FromBytes(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FromBytes(ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Vintagestory_API_Datastructures_LongAttribute_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader___remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Do not call this default implementation when overriding this method, it only exists for backwards compat.</p>
+</div>
 
 
 

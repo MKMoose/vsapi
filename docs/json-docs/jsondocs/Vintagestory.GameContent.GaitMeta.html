@@ -163,6 +163,9 @@ public class GaitMeta : AnimationMetaData</code></pre>
       <a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_ElementBlendMode">AnimationMetaData.ElementBlendMode</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_SuppressDefaultAnimation">AnimationMetaData.SuppressDefaultAnimation</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html#Vintagestory_API_Common_AnimationMetaData_SupressDefaultAnimation">AnimationMetaData.SupressDefaultAnimation</a>
     </div>
     <div>
@@ -231,7 +234,7 @@ public bool Backwards</code></pre>
   </h3>
 
   <div class="markdown level1 summary"><!---->
-<p>The environment that this gait should be played in</p>
+<p>The environment that this gait should be used in</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -297,6 +300,7 @@ public float MoveSpeed</code></pre>
   </h3>
 
   <div class="markdown level1 summary"><!---->
+<p>If true, the animal may use this gait of its own volition</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -323,19 +327,19 @@ public bool Natural</code></pre>
 
 
 
-  <h3 id="Vintagestory_GameContent_GaitMeta_Sound" data-uid="Vintagestory.GameContent.GaitMeta.Sound">
-  Sound (Optional) (Default: None)
+  <h3 id="Vintagestory_GameContent_GaitMeta_SoundCode" data-uid="Vintagestory.GameContent.GaitMeta.SoundCode">
+  SoundCode (Optional) (Default: None)
   
   </h3>
 
   <div class="markdown level1 summary"><!---->
-<p>Sound used during the gait</p>
+<p>Sound played during the gait</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
-public AssetLocation? Sound</code></pre>
+public string? SoundCode</code></pre>
   </div>
 
 
@@ -343,7 +347,7 @@ public AssetLocation? Sound</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 

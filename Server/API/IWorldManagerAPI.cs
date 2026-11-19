@@ -382,16 +382,17 @@ namespace Vintagestory.API.Server
         /// <value></value>
         int ChunkSize { get; }
 
-
         /// <summary>
-        /// Get the seed used to generate the current world
+        /// Get the seed used Client and Server side for determining randomness in Weather, Temperature, and Calendar
         /// </summary>
         /// <value>The map seed</value>
         int Seed { get; }
 
-
-
-
+        /// <summary>
+        /// Get the seed used to generate the current world.
+        /// This can only be used server side and should never be sent to the client
+        /// </summary>
+        int SeedWorldgen { get; }
 
         /// <summary>
         /// The current world filename including the full path

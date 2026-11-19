@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Collider | VintageStory API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Collider | VintageStory API ">
+      
+      <meta name="description" content="A registration snapshot containing one or more world-space collision boxes. Open in GitHub">
+      <link rel="icon" href="../images/gameicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="VintageStory API">
+            VintageStory API
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Vintagestory.API.Common.Collider">
+
+
+
+  <h1 id="Vintagestory_API_Common_Collider" data-uid="Vintagestory.API.Common.Collider" class="text-break">
+Class Collider  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.Common.html">Common</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A registration snapshot containing one or more world-space collision boxes. <a href=https://github.com/anegostudios/vsapi/blob/master///Common/API/ICollisionScene.cs>Open in GitHub</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class Collider</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Collider</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToGcHandle_System_Object_">ObjectHandleExtensions.ToGcHandle(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_Common_Collider_Bounds_" data-uid="Vintagestory.API.Common.Collider.Bounds*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Bounds" data-uid="Vintagestory.API.Common.Collider.Bounds">
+  Bounds
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The conservative axis-aligned bounds of this collider. The returned cuboid is owned by this snapshot and must not be modified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Cuboidd Bounds { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_CanCarryEntities_" data-uid="Vintagestory.API.Common.Collider.CanCarryEntities*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_CanCarryEntities" data-uid="Vintagestory.API.Common.Collider.CanCarryEntities">
+  CanCarryEntities
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether controlled entities standing on this collider should follow its transform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanCarryEntities { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_CollisionBoxCount_" data-uid="Vintagestory.API.Common.Collider.CollisionBoxCount*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_CollisionBoxCount" data-uid="Vintagestory.API.Common.Collider.CollisionBoxCount">
+  CollisionBoxCount
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CollisionBoxCount { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_CollisionLayer_" data-uid="Vintagestory.API.Common.Collider.CollisionLayer*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_CollisionLayer" data-uid="Vintagestory.API.Common.Collider.CollisionLayer">
+  CollisionLayer
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionLayer CollisionLayer { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_CollisionMask_" data-uid="Vintagestory.API.Common.Collider.CollisionMask*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_CollisionMask" data-uid="Vintagestory.API.Common.Collider.CollisionMask">
+  CollisionMask
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionLayer CollisionMask { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_Dimension_" data-uid="Vintagestory.API.Common.Collider.Dimension*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Dimension" data-uid="Vintagestory.API.Common.Collider.Dimension">
+  Dimension
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Dimension { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_Id_" data-uid="Vintagestory.API.Common.Collider.Id*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Id" data-uid="Vintagestory.API.Common.Collider.Id">
+  Id
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The scene-local registration ID, retained across updates and never reused.
+Do not persist this ID or send it across the network.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long Id { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_IsTransformed_" data-uid="Vintagestory.API.Common.Collider.IsTransformed*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_IsTransformed" data-uid="Vintagestory.API.Common.Collider.IsTransformed">
+  IsTransformed
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when this collider was registered with local geometry and a transform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsTransformed { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_KeepsSupportedEntitiesDry_" data-uid="Vintagestory.API.Common.Collider.KeepsSupportedEntitiesDry*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_KeepsSupportedEntitiesDry" data-uid="Vintagestory.API.Common.Collider.KeepsSupportedEntitiesDry">
+  KeepsSupportedEntitiesDry
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether controlled entities supported by this collider should ignore liquid occupying the same world position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool KeepsSupportedEntitiesDry { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_OwnerColliderCode_" data-uid="Vintagestory.API.Common.Collider.OwnerColliderCode*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_OwnerColliderCode" data-uid="Vintagestory.API.Common.Collider.OwnerColliderCode">
+  OwnerColliderCode
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The stable owner-local code used to resolve this collider independently on each side.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? OwnerColliderCode { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_OwnerEntityId_" data-uid="Vintagestory.API.Common.Collider.OwnerEntityId*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_OwnerEntityId" data-uid="Vintagestory.API.Common.Collider.OwnerEntityId">
+  OwnerEntityId
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The entity whose own physics should ignore this collider, or zero when the collider has no entity owner.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long OwnerEntityId { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_PreviousTransform_" data-uid="Vintagestory.API.Common.Collider.PreviousTransform*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_PreviousTransform" data-uid="Vintagestory.API.Common.Collider.PreviousTransform">
+  PreviousTransform
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The preceding rigid transform used to derive point velocity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColliderTransform PreviousTransform { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_SelectionPosition_" data-uid="Vintagestory.API.Common.Collider.SelectionPosition*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_SelectionPosition" data-uid="Vintagestory.API.Common.Collider.SelectionPosition">
+  SelectionPosition
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The block represented when this collider is selected, or null when the collider is not selectable.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BlockPos? SelectionPosition { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_Transform_" data-uid="Vintagestory.API.Common.Collider.Transform*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Transform" data-uid="Vintagestory.API.Common.Collider.Transform">
+  Transform
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current rigid transform. This is the identity transform for a world-space collider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColliderTransform Transform { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_TransformElapsedSeconds_" data-uid="Vintagestory.API.Common.Collider.TransformElapsedSeconds*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_TransformElapsedSeconds" data-uid="Vintagestory.API.Common.Collider.TransformElapsedSeconds">
+  TransformElapsedSeconds
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The elapsed seconds between <a class="xref" href="Vintagestory.API.Common.Collider.html#Vintagestory_API_Common_Collider_PreviousTransform">PreviousTransform</a> and <a class="xref" href="Vintagestory.API.Common.Collider.html#Vintagestory_API_Common_Collider_Transform">Transform</a>, or zero when velocity is not known.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double TransformElapsedSeconds { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Common_Collider_CollectSweepHits_" data-uid="Vintagestory.API.Common.Collider.CollectSweepHits*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_CollectSweepHits_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_System_Double_System_Double_System_Collections_Generic_List_Vintagestory_API_Common_CollisionHit__System_Boolean_" data-uid="Vintagestory.API.Common.Collider.CollectSweepHits(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,System.Double,System.Double,System.Collections.Generic.List{Vintagestory.API.Common.CollisionHit},System.Boolean)">
+  CollectSweepHits(TransformedCuboidd, double, double, double, List&lt;CollisionHit&gt;, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Appends one shared hit per intersected collision box to a caller-owned list without clearing or sorting it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CollectSweepHits(TransformedCuboidd movingBox, double motionX, double motionY, double motionZ, List&lt;CollisionHit&gt; results, bool includeInitialOverlap = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.CollisionHit.html">CollisionHit</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>includeInitialOverlap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_GetCollisionBox_" data-uid="Vintagestory.API.Common.Collider.GetCollisionBox*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_GetCollisionBox_System_Int32_" data-uid="Vintagestory.API.Common.Collider.GetCollisionBox(System.Int32)">
+  GetCollisionBox(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets an exact collision box owned by this snapshot. The returned cuboid must not be modified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Cuboidd GetCollisionBox(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_GetCollisionBoxBounds_" data-uid="Vintagestory.API.Common.Collider.GetCollisionBoxBounds*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_GetCollisionBoxBounds_System_Int32_" data-uid="Vintagestory.API.Common.Collider.GetCollisionBoxBounds(System.Int32)">
+  GetCollisionBoxBounds(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the conservative axis-aligned bounds of a collision box. The returned cuboid must not be modified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Cuboidd GetCollisionBoxBounds(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_GetPointVelocity_" data-uid="Vintagestory.API.Common.Collider.GetPointVelocity*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_GetPointVelocity_System_Double_System_Double_System_Double_System_Double__System_Double__System_Double__" data-uid="Vintagestory.API.Common.Collider.GetPointVelocity(System.Double,System.Double,System.Double,System.Double@,System.Double@,System.Double@)">
+  GetPointVelocity(double, double, double, out double, out double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the world velocity of a collider-local point in blocks per second.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetPointVelocity(double localX, double localY, double localZ, out double velocityX, out double velocityY, out double velocityZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>localX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>localY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>localZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>velocityX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>velocityY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>velocityZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_GetPointVelocity_" data-uid="Vintagestory.API.Common.Collider.GetPointVelocity*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_GetPointVelocity_Vintagestory_API_MathTools_FastVec3d_Vintagestory_API_MathTools_FastVec3d__" data-uid="Vintagestory.API.Common.Collider.GetPointVelocity(Vintagestory.API.MathTools.FastVec3d,Vintagestory.API.MathTools.FastVec3d@)">
+  GetPointVelocity(FastVec3d, out FastVec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetPointVelocity(FastVec3d localPoint, out FastVec3d velocity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>localPoint</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>velocity</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_GetSelectionBoxIndex_" data-uid="Vintagestory.API.Common.Collider.GetSelectionBoxIndex*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_GetSelectionBoxIndex_System_Int32_" data-uid="Vintagestory.API.Common.Collider.GetSelectionBoxIndex(System.Int32)">
+  GetSelectionBoxIndex(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the owning block's selection-box index for a collision box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int GetSelectionBoxIndex(int collisionBoxIndex)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collisionBoxIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_Intersects_" data-uid="Vintagestory.API.Common.Collider.Intersects*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Intersects_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.Common.Collider.Intersects(Vintagestory.API.MathTools.Cuboidd)">
+  Intersects(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests whether any box in this collider intersects the supplied axis-aligned box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(Cuboidd box)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_Intersects_" data-uid="Vintagestory.API.Common.Collider.Intersects*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_Intersects_Vintagestory_API_MathTools_TransformedCuboidd_" data-uid="Vintagestory.API.Common.Collider.Intersects(Vintagestory.API.MathTools.TransformedCuboidd)">
+  Intersects(TransformedCuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests whether any box in this collider intersects the supplied transformed cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(TransformedCuboidd box)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_IntersectsOrTouches_" data-uid="Vintagestory.API.Common.Collider.IntersectsOrTouches*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_IntersectsOrTouches_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.Common.Collider.IntersectsOrTouches(Vintagestory.API.MathTools.Cuboidd)">
+  IntersectsOrTouches(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests whether any box in this collider intersects or touches the supplied axis-aligned box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IntersectsOrTouches(Cuboidd box)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_IntersectsOrTouches_" data-uid="Vintagestory.API.Common.Collider.IntersectsOrTouches*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_IntersectsOrTouches_Vintagestory_API_MathTools_TransformedCuboidd_" data-uid="Vintagestory.API.Common.Collider.IntersectsOrTouches(Vintagestory.API.MathTools.TransformedCuboidd)">
+  IntersectsOrTouches(TransformedCuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests whether any box in this collider intersects or touches the supplied transformed cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IntersectsOrTouches(TransformedCuboidd box)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_PushOutX_" data-uid="Vintagestory.API.Common.Collider.PushOutX*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_PushOutX_Vintagestory_API_MathTools_Cuboidd_System_Double_Vintagestory_API_MathTools_EnumPushDirection__" data-uid="Vintagestory.API.Common.Collider.PushOutX(Vintagestory.API.MathTools.Cuboidd,System.Double,Vintagestory.API.MathTools.EnumPushDirection@)">
+  PushOutX(Cuboidd, double, ref EnumPushDirection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double PushOutX(Cuboidd box, double motion, ref EnumPushDirection direction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motion</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>direction</code> <a class="xref" href="Vintagestory.API.MathTools.EnumPushDirection.html">EnumPushDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_PushOutY_" data-uid="Vintagestory.API.Common.Collider.PushOutY*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_PushOutY_Vintagestory_API_MathTools_Cuboidd_System_Double_Vintagestory_API_MathTools_EnumPushDirection__" data-uid="Vintagestory.API.Common.Collider.PushOutY(Vintagestory.API.MathTools.Cuboidd,System.Double,Vintagestory.API.MathTools.EnumPushDirection@)">
+  PushOutY(Cuboidd, double, ref EnumPushDirection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double PushOutY(Cuboidd box, double motion, ref EnumPushDirection direction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motion</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>direction</code> <a class="xref" href="Vintagestory.API.MathTools.EnumPushDirection.html">EnumPushDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_PushOutZ_" data-uid="Vintagestory.API.Common.Collider.PushOutZ*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_PushOutZ_Vintagestory_API_MathTools_Cuboidd_System_Double_Vintagestory_API_MathTools_EnumPushDirection__" data-uid="Vintagestory.API.Common.Collider.PushOutZ(Vintagestory.API.MathTools.Cuboidd,System.Double,Vintagestory.API.MathTools.EnumPushDirection@)">
+  PushOutZ(Cuboidd, double, ref EnumPushDirection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double PushOutZ(Cuboidd box, double motion, ref EnumPushDirection direction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motion</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>direction</code> <a class="xref" href="Vintagestory.API.MathTools.EnumPushDirection.html">EnumPushDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_TryGetAABBContact_" data-uid="Vintagestory.API.Common.Collider.TryGetAABBContact*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_TryGetAABBContact_System_Int32_Vintagestory_API_MathTools_Cuboidd_System_Double_Vintagestory_API_MathTools_CuboidContact__" data-uid="Vintagestory.API.Common.Collider.TryGetAABBContact(System.Int32,Vintagestory.API.MathTools.Cuboidd,System.Double,Vintagestory.API.MathTools.CuboidContact@)">
+  TryGetAABBContact(int, Cuboidd, double, out CuboidContact)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the outward contact normal and signed separation from one collision box to a nearby axis-aligned box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAABBContact(int collisionBoxIndex, Cuboidd box, double maxSeparation, out CuboidContact contact)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collisionBoxIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>maxSeparation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>contact</code> <a class="xref" href="Vintagestory.API.MathTools.CuboidContact.html">CuboidContact</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_TryGetAABBPenetration_" data-uid="Vintagestory.API.Common.Collider.TryGetAABBPenetration*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_TryGetAABBPenetration_System_Int32_Vintagestory_API_MathTools_Cuboidd_System_Double__System_Double__System_Double__" data-uid="Vintagestory.API.Common.Collider.TryGetAABBPenetration(System.Int32,Vintagestory.API.MathTools.Cuboidd,System.Double@,System.Double@,System.Double@)">
+  TryGetAABBPenetration(int, Cuboidd, out double, out double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the shortest translation which moves an overlapping axis-aligned cuboid out of one collision box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAABBPenetration(int collisionBoxIndex, Cuboidd box, out double translationX, out double translationY, out double translationZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>collisionBoxIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>translationX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_TrySweep_" data-uid="Vintagestory.API.Common.Collider.TrySweep*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_TrySweep_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_System_Double_System_Double_System_Double__" data-uid="Vintagestory.API.Common.Collider.TrySweep(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,System.Double,System.Double,System.Double@)">
+  TrySweep(TransformedCuboidd, double, double, double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the first contact while a transformed cuboid translates through this collider without rotating.
+On success, <code class="paramref">collisionFraction</code> is in the range from zero inclusive to one exclusive; otherwise it is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweep(TransformedCuboidd movingBox, double motionX, double motionY, double motionZ, out double collisionFraction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_TrySweepAABB_" data-uid="Vintagestory.API.Common.Collider.TrySweepAABB*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_TrySweepAABB_Vintagestory_API_MathTools_Cuboidd_System_Double_System_Double_System_Double_System_Double__" data-uid="Vintagestory.API.Common.Collider.TrySweepAABB(Vintagestory.API.MathTools.Cuboidd,System.Double,System.Double,System.Double,System.Double@)">
+  TrySweepAABB(Cuboidd, double, double, double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the first contact while an axis-aligned box translates through this collider.
+On success, <code class="paramref">collisionFraction</code> is in the range from zero inclusive to one exclusive; otherwise it is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweepAABB(Cuboidd movingBox, double motionX, double motionY, double motionZ, out double collisionFraction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Collider_WithTransform_" data-uid="Vintagestory.API.Common.Collider.WithTransform*"></a>
+
+  <h3 id="Vintagestory_API_Common_Collider_WithTransform_System_Int32_Vintagestory_API_Common_ColliderTransform_System_Double_" data-uid="Vintagestory.API.Common.Collider.WithTransform(System.Int32,Vintagestory.API.Common.ColliderTransform,System.Double)">
+  WithTransform(int, ColliderTransform, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an unpublished snapshot at another pose, sharing this collider's local geometry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Collider WithTransform(int dimension, ColliderTransform transform, double elapsedSeconds = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>transform</code> <a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a></dt>
+    <dd></dd>
+    <dt><code>elapsedSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

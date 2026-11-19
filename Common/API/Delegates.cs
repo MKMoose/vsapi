@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -126,9 +127,9 @@ namespace Vintagestory.API.Common
 
     public delegate void EntityDelegate(Entity entity);
 
-    public delegate bool TrySpawnEntityDelegate(IBlockAccessor blockAccessor, ref EntityProperties properties, Vec3d spawnPosition, long herdId);
+    public delegate void EntityGroupDelegate(Entity[] spawningEntities, long herdId);
 
-    public delegate bool TrySpawnGroupDelegate(IBlockAccessor blockaccessor, EntityProperties props, BlockPos pos);    
+    public delegate bool TrySpawnEntityDelegate(IBlockAccessor blockAccessor, ref EntityProperties properties, Vec3d spawnPosition, long herdId);
 
     public delegate void EntityDespawnDelegate(Entity entity, EntityDespawnData reasonData);
 

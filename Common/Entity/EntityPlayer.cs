@@ -17,6 +17,15 @@ namespace Vintagestory.API.Common
 {
     public delegate bool CanSpawnNearbyDelegate(EntityProperties type, Vec3d spawnPosition, RuntimeSpawnConditions sc);
 
+    internal enum EnumHeldTpHitAim
+    {
+        None,
+        High,
+        Mid,
+        Low,
+        Sprint
+    }
+
     public class EntityPlayer : EntityHumanoid, IPettable
     {
         /// <summary>
@@ -89,6 +98,8 @@ namespace Vintagestory.API.Common
         long lastInsideSoundTimeFinishTorso;
         long lastInsideSoundTimeFinishLegs;
 
+        public bool IsPerformingMeleeAttack;
+
         public override float BodyYaw {
             get
             {
@@ -147,26 +158,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// The players right hand contents. Available on the client and the server.
         /// </summary>
-        public override ItemSlot RightHandItemSlot
-        {
-            get
-            {
-                IPlayer player = World.PlayerByUid(PlayerUID);
-                return player?.InventoryManager.ActiveHotbarSlot;
-            }
-        }
+        public override ItemSlot RightHandItemSlot => World.PlayerByUid(PlayerUID)?.InventoryManager.ActiveHotbarSlot;
 
         /// <summary>
         /// The playres left hand contents. Available on the client and the server.
         /// </summary>
-        public override ItemSlot LeftHandItemSlot
-        {
-            get
-            {
-                IPlayer player = World.PlayerByUid(PlayerUID);
-                return player?.InventoryManager?.GetHotbarInventory()?[11];
-            }
-        }
+        public override ItemSlot LeftHandItemSlot => World.PlayerByUid(PlayerUID)?.InventoryManager.OffhandHotbarSlot;
 
         bool newSpawnGlow;
 
@@ -305,9 +302,11 @@ namespace Vintagestory.API.Common
             // For the first person mode (and just for the current client player, not other players), we have animation sets with hands that are detached from the seraph body,
             // which must only run while in first person mode and not while doing the shadow pass.
             // To achieve this, we run two paralell animation managers and flip back and forth between the two as needed
-            animManager = new PlayerAnimationManager();
+            animManager = new PlayerAnimationManager(this);
             animManager.UseFpAnmations = false;
-            selfFpAnimManager = new PlayerAnimationManager();
+            animManager.OnAnimationStopped += OnHeldTpHitAnimationStopped;
+            selfFpAnimManager = new PlayerAnimationManager(this);
+            selfFpAnimManager.OnAnimationStopped += OnHeldTpHitAnimationStopped;
 
             requirePosesOnServer = true;
 
@@ -391,7 +390,8 @@ namespace Vintagestory.API.Common
                 int y1 = (int)(Pos.InternalY - 0.05f);
                 int y2 = (int)(Pos.InternalY + 0.01f);
                 Block belowBlock = World.BlockAccessor.GetBlockRaw((int)Pos.X, y1, (int)Pos.Z);
-                mul /= belowBlock.WalkSpeedMultiplier * (y1 == y2 ? 1 : insideBlock.WalkSpeedMultiplier);
+                if (FeetInLiquid || !belowBlock.IsLiquid()) mul /= belowBlock.WalkSpeedMultiplier;
+                if (y1 != y2 && (FeetInLiquid || !insideBlock.IsLiquid())) mul /= insideBlock.WalkSpeedMultiplier;
             }
 
             // Apply walk speed modifiers from armor, etc
@@ -440,6 +440,7 @@ namespace Vintagestory.API.Common
         public override void OnTesselated()
         {
             tesselating = false;
+            base.OnTesselated();
         }
 
         public float HeadBobbingAmplitude { get; set; } = 1;
@@ -631,13 +632,16 @@ namespace Vintagestory.API.Common
                 GetNearestBlockSoundSource(tmpPos, -0.7, BlockLayersAccess.MostSolid, true)?.GetSounds(Api.World.BlockAccessor, blockSel)?.Walk     // When stepping stairs, seraphs is a bit floaty. And for fences we need to peek further down to find the block
             ;
 
-            tmpPos.Set((int)pos.X, (int)(pos.Y + 0.1f), (int)pos.Z);
-            var liquidblockInside = World.BlockAccessor.GetBlock(tmpPos, BlockLayersAccess.Fluid);
-            SoundAttributes? soundinsideliquid = liquidblockInside.GetSounds(Api.World.BlockAccessor, blockSel)?.Inside;
-
-            if (soundinsideliquid != null)
+            if (FeetInLiquid)
             {
-                PlaySound(player, soundinsideliquid ?? new SoundAttributes(), volume, 1);
+                tmpPos.Set((int)pos.X, (int)(pos.Y + 0.1f), (int)pos.Z);
+                var liquidblockInside = World.BlockAccessor.GetBlock(tmpPos, BlockLayersAccess.Fluid);
+                SoundAttributes? soundinsideliquid = liquidblockInside.GetSounds(Api.World.BlockAccessor, blockSel)?.Inside;
+
+                if (soundinsideliquid != null)
+                {
+                    PlaySound(player, soundinsideliquid ?? new SoundAttributes(), volume, 1);
+                }
             }
 
             if (!Swimming && soundWalk != null)
@@ -669,6 +673,11 @@ namespace Vintagestory.API.Common
         {
             // Update every tick in case this is not current with the stats value for some reason - this will then be accessed multiple times by the locomotors later in the tick
             walkSpeed = Stats.GetBlended("walkspeed");
+            if (hitFreezeRemainingMs != null)
+            {
+                hitFreezeRemainingMs -= dt * 1000;
+                if (hitFreezeRemainingMs <= 0) FinishHitFreeze();
+            }
 
             if (World.Side == EnumAppSide.Client)
             {
@@ -727,6 +736,7 @@ namespace Vintagestory.API.Common
 
 
         Cuboidf tmpCollBox = new Cuboidf();
+        Vec3d tmpCollPos = new Vec3d();
         bool holdPosition = false;
         float[] prevAnimModelMatrix;
         float secondsDead;
@@ -795,6 +805,254 @@ namespace Vintagestory.API.Common
 
         float strongWindAccum = 0;
         bool haveHandUseOrHit;
+        float hitShakeMultiplier = 1f;
+        public int HitFreezeRequestMs;
+        float? hitFreezeRemainingMs;
+        RunningAnimation hitFreezeTpAnimation;
+        RunningAnimation hitFreezeFpAnimation;
+        const float heldTpHitComboPitchThreshold = 12 * GameMath.DEG2RAD;
+        const int heldTpHitComboResetDelay = 500;
+        int heldTpHitComboIndex;
+        int heldTpHitPendingComboIndex = -1;
+        string heldTpHitPendingAnimation;
+        CollectibleObject heldTpHitPendingCollectible;
+        (HeldAttackDamageMode Mode, ITreeAttribute StackAttributes)? heldTpHitPendingDamageMode;
+        string heldTpHitCurrentAnimation;
+        CollectibleObject heldTpHitCurrentCollectible;
+        (HeldAttackDamageMode Mode, ITreeAttribute StackAttributes)? heldTpHitCurrentDamageMode;
+        (ItemStack Stack, EnumDamageType DamageType)? serverPreparedHeldAttack;
+        (ItemStack Stack, EnumDamageType DamageType)? serverCommittedHeldAttack;
+        long heldTpHitComboResetAtMs;
+        public CollectibleObject HeldTpHitAwaitingStart;
+
+        private void OnHeldTpHitAnimationStopped(string animation)
+        {
+            if (heldTpHitCurrentAnimation != null &&
+                IsHeldTpHitAnimation(heldTpHitCurrentAnimation, animation) &&
+                !animManager.IsAnimationActive(heldTpHitCurrentAnimation))
+            {
+                string stoppedAnimation = heldTpHitCurrentAnimation;
+                heldTpHitCurrentAnimation = null;
+                heldTpHitCurrentCollectible = null;
+                heldTpHitCurrentDamageMode = null;
+                AnimManager.StopAnimation(stoppedAnimation);
+                if (!servercontrols.LeftMouseDown && heldTpHitComboIndex > 0) heldTpHitComboResetAtMs = World.ElapsedMilliseconds + heldTpHitComboResetDelay;
+            }
+        }
+
+        private bool IsHeldTpHitAnimation(string animationMetaCode, string animation)
+        {
+            if (Properties.Client.AnimationsByMetaCode.TryGetValue(animationMetaCode, out AnimationMetaData animMeta))
+            {
+                animationMetaCode = animMeta.Animation;
+            }
+
+            return string.Equals(animationMetaCode, animation, StringComparison.OrdinalIgnoreCase);
+        }
+
+        internal void ResetHeldTpHitCombo()
+        {
+            heldTpHitComboIndex = 0;
+            CancelPreparedHeldTpHitAnimation();
+            heldTpHitCurrentAnimation = null;
+            heldTpHitCurrentCollectible = null;
+            heldTpHitCurrentDamageMode = null;
+            heldTpHitComboResetAtMs = 0;
+        }
+
+        internal void CancelPreparedHeldTpHitAnimation()
+        {
+            heldTpHitPendingComboIndex = -1;
+            heldTpHitPendingAnimation = null;
+            heldTpHitPendingCollectible = null;
+            heldTpHitPendingDamageMode = null;
+        }
+
+        private static HeldAttackDamageMode getHeldAttackDamageMode(ItemStack stack)
+        {
+            return stack?.Collectible.GetCollectibleInterface<IHeldAttackDamageModes>()?.GetDamageMode(stack);
+        }
+
+        private static (string[] High, string[] Mid, string[] Low, string[] Fallback) getHeldTpHitComboLists(CollectibleObject collectible, HeldAttackDamageMode mode)
+        {
+            return mode == null
+                ? (collectible.HeldTpHitComboHigh, collectible.HeldTpHitComboMid, collectible.HeldTpHitComboLow, collectible.HeldTpHitCombo)
+                : (mode.HeldTpHitComboHigh, mode.HeldTpHitComboMid, mode.HeldTpHitComboLow, mode.HeldTpHitCombo);
+        }
+
+        private string[] GetHeldTpHitComboForCurrentAim(string[] high, string[] mid, string[] low, string[] fallback)
+        {
+            if (high == null && mid == null && low == null)
+            {
+                return fallback;
+            }
+
+            float pitchOffset = GameMath.AngleRadDistance(GameMath.PI, Pos.Pitch);
+
+            if (pitchOffset < -heldTpHitComboPitchThreshold && high?.Length > 0) return high;
+            if (pitchOffset > heldTpHitComboPitchThreshold && low?.Length > 0) return low;
+            if (mid?.Length > 0) return mid;
+
+            return fallback;
+        }
+
+        private string GetNextHeldTpHitComboAnimation(CollectibleObject collectible, HeldAttackDamageMode mode, out int comboIndex)
+        {
+            comboIndex = -1;
+            var (high, mid, low, fallback) = getHeldTpHitComboLists(collectible, mode);
+            string[] combo = GetHeldTpHitComboForCurrentAim(high, mid, low, fallback);
+            if (combo == null || combo.Length == 0) return null;
+
+            comboIndex = heldTpHitComboIndex < combo.Length ? heldTpHitComboIndex : 0;
+            return combo[comboIndex];
+        }
+
+        private bool ShouldUseHeldTpHitSprintAnimation(CollectibleObject collectible)
+        {
+            return collectible?.HeldTpHitSprintAnimation != null && servercontrols.TriesToMove && servercontrols.Sprint && !Swimming && !servercontrols.Sneak && !servercontrols.IsClimbing;
+        }
+
+        internal EnumHeldTpHitAim GetHeldTpHitAimIndicator(ItemStack stack)
+        {
+            var collectible = stack?.Collectible;
+            if (collectible == null) return EnumHeldTpHitAim.None;
+            if (ShouldUseHeldTpHitSprintAnimation(collectible)) return EnumHeldTpHitAim.Sprint;
+
+            var (high, mid, low, fallback) = getHeldTpHitComboLists(collectible, getHeldAttackDamageMode(stack));
+            if (high?.Length > 0 || mid?.Length > 0 || low?.Length > 0)
+            {
+                string[] combo = GetHeldTpHitComboForCurrentAim(high, mid, low, fallback);
+                if (ReferenceEquals(combo, high)) return EnumHeldTpHitAim.High;
+                if (ReferenceEquals(combo, low)) return EnumHeldTpHitAim.Low;
+                if (ReferenceEquals(combo, mid)) return EnumHeldTpHitAim.Mid;
+            }
+
+            return EnumHeldTpHitAim.None;
+        }
+
+        private string GetNextHeldTpHitAnimation(CollectibleObject collectible, HeldAttackDamageMode mode, out int comboIndex)
+        {
+            comboIndex = -1;
+            if (collectible == null) return null;
+
+            if (ShouldUseHeldTpHitSprintAnimation(collectible))
+            {
+                return collectible.HeldTpHitSprintAnimation;
+            }
+
+            return GetNextHeldTpHitComboAnimation(collectible, mode, out comboIndex) ?? mode?.HeldTpHitAnimation;
+        }
+
+        private bool hasPreparedHeldTpHitAnimation(CollectibleObject collectible, ItemStack stack)
+        {
+            if (heldTpHitPendingAnimation == null || !ReferenceEquals(heldTpHitPendingCollectible, collectible)) return false;
+            if (heldTpHitPendingDamageMode == null) return true;
+            return ReferenceEquals(heldTpHitPendingDamageMode.Value.StackAttributes, stack?.TempAttributes);
+        }
+
+        private bool hasCurrentHeldTpHitAnimation(CollectibleObject collectible, ItemStack stack)
+        {
+            if (heldTpHitCurrentAnimation == null || !ReferenceEquals(heldTpHitCurrentCollectible, collectible)) return false;
+            if (heldTpHitCurrentDamageMode == null) return true;
+            return ReferenceEquals(heldTpHitCurrentDamageMode.Value.StackAttributes, stack?.TempAttributes);
+        }
+
+        internal void PrepareHeldTpHitAnimation(CollectibleObject collectible, ItemSlot slot)
+        {
+            if (heldTpHitComboResetAtMs > 0 && World.ElapsedMilliseconds >= heldTpHitComboResetAtMs)
+            {
+                ResetHeldTpHitCombo();
+            }
+            heldTpHitComboResetAtMs = 0;
+            var stack = slot?.Itemstack;
+            if (hasCurrentHeldTpHitAnimation(collectible, stack) || hasPreparedHeldTpHitAnimation(collectible, stack)) return;
+
+            var mode = getHeldAttackDamageMode(stack);
+            heldTpHitPendingDamageMode = mode == null ? null : (mode, stack.TempAttributes);
+            heldTpHitPendingAnimation = GetNextHeldTpHitAnimation(collectible, mode, out heldTpHitPendingComboIndex);
+            heldTpHitPendingCollectible = collectible;
+        }
+
+        internal string GetHeldTpHitAnimation(CollectibleObject collectible, ItemSlot slot, string fallbackAnimation)
+        {
+            var stack = slot?.Itemstack;
+            if (hasPreparedHeldTpHitAnimation(collectible, stack)) return heldTpHitPendingAnimation;
+            if (hasCurrentHeldTpHitAnimation(collectible, stack)) return heldTpHitCurrentAnimation;
+            return GetNextHeldTpHitAnimation(collectible, getHeldAttackDamageMode(stack), out _) ?? fallbackAnimation;
+        }
+
+        private string CommitHeldTpHitAnimation(ItemStack stack, string resolvedAnimation, out bool? preparedMode)
+        {
+            var collectible = stack?.Collectible;
+            bool hasPreparedAnimation = hasPreparedHeldTpHitAnimation(collectible, stack);
+            preparedMode = null;
+            var mode = hasPreparedAnimation ? heldTpHitPendingDamageMode?.Mode : getHeldAttackDamageMode(stack);
+            int comboIndex = heldTpHitPendingComboIndex;
+            string animation = hasPreparedAnimation ? heldTpHitPendingAnimation : GetNextHeldTpHitAnimation(collectible, mode, out comboIndex);
+
+            CancelPreparedHeldTpHitAnimation();
+            if (animation == null) return resolvedAnimation;
+            if (!string.Equals(resolvedAnimation, animation, StringComparison.OrdinalIgnoreCase) &&
+                !(hasCurrentHeldTpHitAnimation(collectible, stack) && string.Equals(resolvedAnimation, heldTpHitCurrentAnimation, StringComparison.OrdinalIgnoreCase)))
+            {
+                return resolvedAnimation;
+            }
+
+            heldTpHitCurrentAnimation = animation;
+            heldTpHitCurrentCollectible = collectible;
+            heldTpHitCurrentDamageMode = mode == null ? null : (mode, stack.TempAttributes);
+            if (mode != null) preparedMode = hasPreparedAnimation;
+            if (comboIndex >= 0) heldTpHitComboIndex = comboIndex + 1;
+            return animation;
+        }
+
+        public void StageHeldAttackDamageMode(ItemSlot slot, EnumDamageType damageType)
+        {
+            var stack = slot?.Itemstack;
+            if (stack != null && ReferenceEquals(slot, RightHandItemSlot))
+            {
+                serverPreparedHeldAttack = (stack, damageType);
+            }
+        }
+
+        public EnumDamageType? GetHeldAttackDamageType(ItemSlot slot)
+        {
+            var stack = slot?.Itemstack;
+            if (World.Side == EnumAppSide.Server)
+            {
+                var attack = serverCommittedHeldAttack;
+                return attack != null && ReferenceEquals(attack.Value.Stack, stack) && ReferenceEquals(slot, RightHandItemSlot)
+                    ? attack.Value.DamageType
+                    : null;
+            }
+
+            var current = heldTpHitCurrentDamageMode;
+            return current != null
+                && ReferenceEquals(current.Value.StackAttributes, stack?.TempAttributes)
+                && ReferenceEquals(heldTpHitCurrentCollectible, stack?.Collectible)
+                && ReferenceEquals(slot, RightHandItemSlot)
+                ? current.Value.Mode.DamageType
+                : null;
+        }
+
+        private string startHeldTpHitAnimation(ItemSlot slot, ItemStack stack, PlayerAnimationManager animManager, string animation, float speedMultiplier, bool resetHandUse = false)
+        {
+            animation = CommitHeldTpHitAnimation(stack, animation, out bool? preparedMode);
+            if (animManager.lastRunningHeldHitAnimation != animation) animManager.StopAnimation(animManager.lastRunningHeldHitAnimation);
+            if (resetHandUse) controls.HandUse = EnumHandInteract.None;
+            hitShakeMultiplier = 1f;
+            FinishHitFreeze();
+            animManager.StartHeldHitAnim(animation, speedMultiplier);
+
+            if (preparedMode.HasValue && Api is ICoreClientAPI capi)
+            {
+                capi.Network.SendEntityPacket(EntityId, (int)EntityClientPacketId.HeldAttackCommitted, preparedMode.Value ? SerializerUtil.SerializedOne : SerializerUtil.SerializedZero);
+            }
+
+            haveHandUseOrHit = true;
+            slot?.Itemstack?.Collectible.OnHeldActionAnimStart(slot, this, EnumHandInteract.HeldItemAttack);
+            return animation;
+        }
 
         public void HandleSeraphHandAnimations(float dt)
         {
@@ -804,10 +1062,24 @@ namespace Vintagestory.API.Common
             // It's also not necessary to call this method because the server will sync the animations to the client
             if (Api is ICoreClientAPI capi && capi.World.Player.PlayerUID != PlayerUID) return;
 
-            ItemStack rightstack = RightHandItemSlot?.Itemstack;
-            if (RightHandItemSlot is ItemSlotSkill) rightstack = null;
+            ItemSlot rightSlot = RightHandItemSlot;
+            ItemStack rightstack = rightSlot is ItemSlotSkill ? null : rightSlot?.Itemstack;
 
             EnumHandInteract interact = servercontrols.HandUse;
+
+            long elapsedMilliseconds = World.ElapsedMilliseconds;
+            if (heldTpHitComboResetAtMs > 0 && elapsedMilliseconds >= heldTpHitComboResetAtMs)
+            {
+                ResetHeldTpHitCombo();
+            }
+            if (servercontrols.LeftMouseDown)
+            {
+                heldTpHitComboResetAtMs = 0;
+            }
+            else if (heldTpHitCurrentAnimation == null && heldTpHitComboIndex > 0 && heldTpHitComboResetAtMs == 0)
+            {
+                heldTpHitComboResetAtMs = elapsedMilliseconds + heldTpHitComboResetDelay;
+            }
 
             PlayerAnimationManager plrAnimMngr = this.AnimManager as PlayerAnimationManager;
 
@@ -815,13 +1087,19 @@ namespace Vintagestory.API.Common
             bool wasUseStack = plrAnimMngr.IsHeldUseActive();
 
             bool nowHitStack = interact == EnumHandInteract.HeldItemAttack || servercontrols.LeftMouseDown;
+            if (HeldTpHitAwaitingStart != null && (interact != EnumHandInteract.HeldItemAttack || !ReferenceEquals(HeldTpHitAwaitingStart, rightstack?.Collectible)))
+            {
+                HeldTpHitAwaitingStart = null;
+            }
+            bool hitAwaitingStart = HeldTpHitAwaitingStart != null;
             bool wasHitStack = plrAnimMngr.IsHeldHitActive(1f);
+            bool startedHeldHitAnim = false;
 
-            string nowHeldRightUseAnim = rightstack?.Collectible.GetHeldTpUseAnimation(RightHandItemSlot, this);
-            string nowHeldRightHitAnim = rightstack?.Collectible.GetHeldTpHitAnimation(RightHandItemSlot, this);
-            string nowHeldRightIdleAnim = rightstack?.Collectible.GetHeldTpIdleAnimation(RightHandItemSlot, this, EnumHand.Right);
+            string nowHeldRightUseAnim = rightstack?.Collectible.GetHeldTpUseAnimation(rightSlot, this);
+            string nowHeldRightHitAnim = rightstack?.Collectible.GetHeldTpHitAnimation(rightSlot, this);
+            string nowHeldRightIdleAnim = rightstack?.Collectible.GetHeldTpIdleAnimation(rightSlot, this, EnumHand.Right);
             string nowHeldLeftIdleAnim = LeftHandItemSlot?.Itemstack?.Collectible.GetHeldTpIdleAnimation(LeftHandItemSlot, this, EnumHand.Left);
-            string nowHeldRightReadyAnim = rightstack?.Collectible.GetHeldReadyAnimation(RightHandItemSlot, this, EnumHand.Right);
+            string nowHeldRightReadyAnim = rightstack?.Collectible.GetHeldReadyAnimation(rightSlot, this, EnumHand.Right);
 
             if (LeftHandItemSlot != null)
             {
@@ -836,9 +1114,11 @@ namespace Vintagestory.API.Common
             }
 
 
+            bool mouseButtonsReleased = !servercontrols.LeftMouseDown && !servercontrols.RightMouseDown;
+            bool readyAnimationChanged = mouseButtonsReleased
+                && plrAnimMngr.HeldRightReadyAnimChanged(nowHeldRightReadyAnim) && getHeldAttackDamageMode(rightstack) != null;
             bool shouldRightReadyStack =
-                haveHandUseOrHit
-                && !servercontrols.LeftMouseDown && !servercontrols.RightMouseDown
+                mouseButtonsReleased && (haveHandUseOrHit || readyAnimationChanged)
             //    && Controls.HandUse == EnumHandInteract.None - Cannot wait until fully complete, need to start at 95% completion of the action
                 && !plrAnimMngr.IsAnimationActiveOrRunning(plrAnimMngr.lastRunningHeldHitAnimation) && !plrAnimMngr.IsAnimationActiveOrRunning(plrAnimMngr.lastRunningHeldUseAnimation)
             ;
@@ -872,7 +1152,7 @@ namespace Vintagestory.API.Common
             }
 
 
-            if (shouldRightReadyStack && !isRightReadyStack)
+            if (shouldRightReadyStack && (!isRightReadyStack || readyAnimationChanged))
             {
                 plrAnimMngr.StopRightHeldIdleAnim();
                 plrAnimMngr.StartHeldReadyAnim(nowHeldRightReadyAnim);
@@ -892,6 +1172,7 @@ namespace Vintagestory.API.Common
 
             if (nowHitStack != wasHitStack || plrAnimMngr.HeldHitAnimChanged(nowHeldRightHitAnim))
             {
+                float heldHitAnimationSpeedMultiplier = Swimming ? 0.7f : 1f;
                 bool nowauthoritative = plrAnimMngr.IsAuthoritative(nowHeldRightHitAnim);
                 bool curauthoritative = plrAnimMngr.IsHeldHitAuthoritative();
 
@@ -901,25 +1182,91 @@ namespace Vintagestory.API.Common
                     plrAnimMngr.StopAnimation(plrAnimMngr.lastRunningHeldHitAnimation); // Needed for some reason. Doesn't stop otherwise when left mouse + empty hand and then scroll wheel active slot to pickaxe
                 }
 
-                if (plrAnimMngr.lastRunningHeldHitAnimation != null && curauthoritative)
+                string previousHeldHitAnimation = plrAnimMngr.lastRunningHeldHitAnimation;
+                if (previousHeldHitAnimation != null && curauthoritative)
                 {
-                    if (servercontrols.LeftMouseDown)
+                    if (servercontrols.LeftMouseDown || hitAwaitingStart)
                     {
-                        plrAnimMngr.ResetAnimation(nowHeldRightHitAnim);
-                        controls.HandUse = EnumHandInteract.None;
-                        plrAnimMngr.StartHeldHitAnim(nowHeldRightHitAnim);
-                        haveHandUseOrHit = true;
-                        RightHandItemSlot.Itemstack?.Collectible.OnHeldActionAnimStart(RightHandItemSlot, this, EnumHandInteract.HeldItemAttack);
+                        nowHeldRightHitAnim = startHeldTpHitAnimation(rightSlot, rightstack, plrAnimMngr, nowHeldRightHitAnim, heldHitAnimationSpeedMultiplier, !hitAwaitingStart);
+                        startedHeldHitAnim = true;
                     }
 
                 } else
                 {
-                    if (nowauthoritative) nowHitStack = servercontrols.LeftMouseDown;
+                    if (nowauthoritative) nowHitStack = servercontrols.LeftMouseDown || hitAwaitingStart;
                     if (!curauthoritative && nowHitStack)
                     {
-                        plrAnimMngr.StartHeldHitAnim(nowHeldRightHitAnim);
-                        haveHandUseOrHit = true;
-                        RightHandItemSlot.Itemstack?.Collectible.OnHeldActionAnimStart(RightHandItemSlot, this, EnumHandInteract.HeldItemAttack);
+                        nowHeldRightHitAnim = startHeldTpHitAnimation(rightSlot, rightstack, plrAnimMngr, nowHeldRightHitAnim, heldHitAnimationSpeedMultiplier);
+                        startedHeldHitAnim = true;
+                    }
+                }
+            }
+
+            if (startedHeldHitAnim && nowHeldRightHitAnim != null && World is IClientWorldAccessor world
+                && world.Player.Entity == this
+                && Properties.Client.AnimationsByMetaCode.TryGetValue(nowHeldRightHitAnim, out var shakeAnimation)
+                && shakeAnimation.Attributes?["missShakeAtFrame"] is { Exists: true } missShakeAttribute)
+            {
+                AnimManager.RegisterFrameCallback(new AnimFrameCallback()
+                {
+                    Animation = shakeAnimation.Animation,
+                    Frame = missShakeAttribute.AsFloat(),
+                    Callback = () =>
+                    {
+                        if (hitShakeMultiplier == 1f) world.AddCameraShake(0.25f);
+                    }
+                });
+            }
+
+            if (startedHeldHitAnim && BlockSelection != null && nowHeldRightHitAnim != null && Properties.Client.AnimationsByMetaCode.TryGetValue(nowHeldRightHitAnim, out AnimationMetaData animMeta))
+            {
+                Block block = World.BlockAccessor.GetBlock(BlockSelection.Position);
+
+                // Don't play sound twice in the same frame
+                if (block.GetResistance(Api.World.BlockAccessor, BlockSelection.Position) <= 0) return;
+                if (Player.WorldData.CurrentGameMode == EnumGameMode.Creative) return;
+
+
+                float[] damageAtFrames = animMeta.Attributes?["damageAtFrames"].AsArray<float>(null);
+                if (damageAtFrames == null || damageAtFrames.Length == 0)
+                {
+                    float damageAtFrame = animMeta.Attributes?["damageAtFrame"].AsFloat(-1) ?? -1;
+                    if (damageAtFrame >= 0) damageAtFrames = new float[] { damageAtFrame };
+                }
+
+                if (damageAtFrames != null)
+                {
+                    IPlayer player = Player;
+
+                    foreach (float damageAtFrame in damageAtFrames)
+                    {
+                        if (damageAtFrame < 0) continue;
+
+                        AnimManager.RegisterFrameCallback(new AnimFrameCallback()
+                        {
+                            Animation = animMeta.Animation,
+                            Frame = damageAtFrame,
+                            RepeatEachIteration = true,
+                            Callback = () =>
+                            {
+                                BlockSelection blockSel = BlockSelection;
+                                if (blockSel == null) return;
+
+                                Block block = World.BlockAccessor.GetBlock(blockSel.Position);
+                                if (block.GetEstimatedBreakingTime(player, blockSel, player.InventoryManager.ActiveHotbarSlot) < 2f) return;
+                                BlockSounds sounds = block.GetSounds(World.BlockAccessor, blockSel);
+                                if (sounds == null) return;
+
+                                World.PlaySoundAt(
+                                    sounds.GetHitSound(player),
+                                    blockSel.Position.X + blockSel.HitPosition.X,
+                                    blockSel.Position.InternalY + blockSel.HitPosition.Y,
+                                    blockSel.Position.Z + blockSel.HitPosition.Z,
+                                    blockSel.Position.dimension,
+                                    player
+                                );
+                            }
+                        });
                     }
                 }
             }
@@ -980,29 +1327,41 @@ namespace Vintagestory.API.Common
         private bool canStandUp()
         {
             tmpCollBox.Set(SelectionBox);
+            tmpCollPos.Set(Pos.X, Pos.Y, Pos.Z);
 
-            bool collideSneaking = World.CollisionTester.IsColliding(World.BlockAccessor, tmpCollBox, Pos.XYZ, false);
+            bool collideSneaking = World.CollisionTester.IsColliding(World, tmpCollBox, tmpCollPos, Pos.Dimension, false);
 
             tmpCollBox.Y2 = Properties.CollisionBoxSize.Y;
             tmpCollBox.Y1 += 1f; // Don't care about the bottom block
-            bool collideStanding = World.CollisionTester.IsColliding(World.BlockAccessor, tmpCollBox, Pos.XYZ, false);
+            bool collideStanding = World.CollisionTester.IsColliding(World, tmpCollBox, tmpCollPos, Pos.Dimension, false);
 
-            return !collideStanding || collideSneaking;
+            if (!collideStanding) return true;
+            if (!collideSneaking) return false;
+
+            // So we don't allow standing up enter another obstacle above the crouched body
+            tmpCollBox.Y1 = Math.Max(tmpCollBox.Y1, SelectionBox.Y2);
+            return tmpCollBox.Y1 >= tmpCollBox.Y2 || !World.CollisionTester.IsColliding(World, tmpCollBox, tmpCollPos, Pos.Dimension, false);
         }
 
         protected override bool onAnimControls(AnimationMetaData anim, bool wasActive, bool nowActive)
         {
-            if (anim.TriggeredBy?.MatchExact == true && anim.Animation == "sitflooridle")
+            if (Api is ICoreClientAPI capi && anim.TriggeredBy?.MatchExact == true && anim.Animation == "sitflooridle")
             {
-                bool canDoEdgeSit = canPlayEdgeSitAnim();
                 bool edgeSitActive = this.AnimManager.IsAnimationActive("sitidle");
+                if (this != capi.World.Player.Entity)
+                {
+                    if (edgeSitActive && AnimManager.IsAnimationActive("sitflooridle"))
+                    {
+                        AnimManager.StopAnimation("sitflooridle");
+                    }
+                    return edgeSitActive;
+                }
+                bool canDoEdgeSit = canPlayEdgeSitAnim();
                 wasActive |= edgeSitActive;
-
-                var capi = Api as ICoreClientAPI;
 
                 if (nowActive)
                 {
-                    bool floorSitActive = this.AnimManager.IsAnimationActive(anim.Code);
+                    bool floorSitActive = this.AnimManager.IsAnimationActive(anim.Animation);
 
                     if (canDoEdgeSit)
                     {
@@ -1038,6 +1397,8 @@ namespace Vintagestory.API.Common
                         BodyYawLimits = null;
                         HeadYawLimits = null;
                     }
+
+                    return false;
                 }
 
                 return canDoEdgeSit;
@@ -1264,74 +1625,118 @@ namespace Vintagestory.API.Common
             { "laugh", EnumTalkType.Laugh },
         };
 
-        public override void OnReceivedServerPacket(int packetid, byte[] data)
+        public override void OnReceivedServerPacket(int packetId, SerializedData packetData)
         {
-            if (packetid == (int)EntityServerPacketId.Revive)
+            switch((EntityServerPacketId)packetId)
             {
-                AnimManager?.StopAnimation("die");
-                return;
-            }
+                case EntityServerPacketId.Revive:
+                    AnimManager?.StopAnimation("die");
+                    return; // return, not break !
 
-            if (packetid == (int)EntityServerPacketId.Emote)
-            {
-                string animation = SerializerUtil.Deserialize<string>(data);
-                StartAnimation(animation);
 
-                if (talkTypeByAnimation.TryGetValue(animation, out var talktype))
+                case EntityServerPacketId.Emote:
+                    {
+                        string animation = packetData.Deserialize<string>();
+                        StartAnimation(animation);
+
+                        if (talkTypeByAnimation.TryGetValue(animation, out var talktype))
+                        {
+                            talkUtil?.Talk(talktype);
+                        }
+
+                        break;
+                    }
+
+                case EntityServerPacketId.EmoteStop:
+                    {
+                        StopAnimation(packetData.Deserialize<string>());
+                        break;
+                    }
+
+                case EntityServerPacketId.Death:
+                    TryStopHandAction(true, EnumItemUseCancelReason.Death);
+
+                    break;
+
+
+                case (EntityServerPacketId)EntityTalkUtil.TalkPacketId:
                 {
-                    talkUtil?.Talk(talktype);
+                    var tt = packetData.Deserialize<EnumTalkType>();
+
+                    if (tt != EnumTalkType.Death && !Alive) return;
+
+                    talkUtil.Talk(tt);
+
+                    break;
+                }
+
+
+                case EntityServerPacketId.PlayPlayerAnim:
+                    AnimManager.StartAnimation(packetData.Deserialize<string>());
+
+                    break;
+
+
+                case EntityServerPacketId.Teleport when MountedOn?.Entity != null:
+                {
+                    var mountEntity = MountedOn.Entity;
+
+                    var newPos = packetData.Deserialize<Vec3d>();
+                    if ((Api as ICoreClientAPI).World.Player.Entity.EntityId == EntityId)
+                    {
+                        mountEntity.Pos.SetPosWithDimension(newPos);
+                    }
+                    mountEntity.Pos.SetPosWithDimension(newPos);
+
+                    break;
                 }
             }
 
-            if (packetid == (int)EntityServerPacketId.Death)
-            {
-                TryStopHandAction(true, EnumItemUseCancelReason.Death);
-            }
-
-            if (packetid == EntityTalkUtil.TalkPacketId)
-            {
-                var tt = SerializerUtil.Deserialize<EnumTalkType>(data);
-
-                if (tt != EnumTalkType.Death && !Alive) return;
-
-                talkUtil.Talk(tt);
-            }
-
-            if (packetid == (int)EntityServerPacketId.PlayPlayerAnim)
-            {
-                AnimManager.StartAnimation(SerializerUtil.Deserialize<string>(data));
-            }
-
-            if (packetid == (int)EntityServerPacketId.Teleport && MountedOn?.Entity != null)
-            {
-                var mountentity = MountedOn.Entity;
-
-                Vec3d newPos = SerializerUtil.Deserialize<Vec3d>(data);
-                if ((Api as ICoreClientAPI).World.Player.Entity.EntityId == EntityId)
-                {
-                    mountentity.Pos.SetPosWithDimension(newPos);
-                }
-                mountentity.Pos.SetPosWithDimension(newPos);
-            }
-
-            base.OnReceivedServerPacket(packetid, data);
+            base.OnReceivedServerPacket(packetId, packetData);
         }
-        public override void OnReceivedClientPacket(IServerPlayer player, int packetid, byte[] data)
+        public override void OnReceivedClientPacket(IServerPlayer player, int packetId, SerializedData packetData, ref CachedAccessPerms perms)
         {
-            base.OnReceivedClientPacket(player, packetid, data);
+            base.OnReceivedClientPacket(player, packetId, packetData, ref perms);
 
-            if (packetid == (int)EntityClientPacketId.SitfloorEdge)
+            if (packetId == (int)EntityClientPacketId.HeldAttackCommitted)
             {
-                bool on = SerializerUtil.Deserialize<int>(data) > 0;
-                if (on)
+                receiveHeldAttackCommitted(player, packetData);
+            }
+            else if (packetId == (int)EntityClientPacketId.SitfloorEdge)
+            {
+                if (player.Entity != this) return;
+
+                if (packetData.Deserialize<int>() > 0)
                 {
                     AnimManager.StopAnimation("sitidle");
                     AnimManager.StartAnimation("sitflooredge");
-                } else
+                }
+                else
                 {
                     AnimManager.StopAnimation("sitflooredge");
                 }
             }
+        }
+
+        private void receiveHeldAttackCommitted(IServerPlayer player, SerializedData packetData)
+        {
+            if (player.Entity != this || !Alive || player.WorldData.CurrentGameMode == EnumGameMode.Spectator) return;
+
+            bool prepared = packetData.RawData.SequenceEqual(SerializerUtil.SerializedOne);
+            if (!prepared && !packetData.RawData.SequenceEqual(SerializerUtil.SerializedZero)) return;
+
+            var stack = RightHandItemSlot?.Itemstack;
+            var mode = getHeldAttackDamageMode(stack);
+            if (mode == null) return;
+
+            var attack = serverPreparedHeldAttack;
+            EnumDamageType? preparedDamageType = prepared && attack != null && ReferenceEquals(attack.Value.Stack, stack)
+                ? attack.Value.DamageType
+                : null;
+            if (preparedDamageType == null && !(MountedOn?.Controls ?? servercontrols).LeftMouseDown) return;
+
+            serverPreparedHeldAttack = null;
+            serverCommittedHeldAttack = (stack, preparedDamageType ?? mode.DamageType);
         }
 
         public override bool ShouldReceiveDamage(DamageSource damageSource, float damage)
@@ -1362,6 +1767,41 @@ namespace Vintagestory.API.Common
             base.Ignite();
         }
 
+        public void StartHitFreeze(string animation, int durationMs)
+        {
+            if (animation == null || durationMs <= 0 || hitFreezeRemainingMs != null) return;
+
+            hitFreezeTpAnimation = TpAnimManager.GetAnimationState(animation);
+            hitFreezeFpAnimation = World.Side == EnumAppSide.Client ? SelfFpAnimManager.GetAnimationState(animation) : null;
+            hitFreezeRemainingMs = durationMs;
+
+            if (hitFreezeTpAnimation != null) hitFreezeTpAnimation.TimeScale = 0;
+            if (hitFreezeFpAnimation != null) hitFreezeFpAnimation.TimeScale = 0;
+        }
+
+        public void FinishHitFreeze()
+        {
+            if (hitFreezeRemainingMs == null) return;
+
+            hitFreezeRemainingMs = null;
+            if (hitFreezeTpAnimation != null) hitFreezeTpAnimation.TimeScale = 1f;
+            if (hitFreezeFpAnimation != null) hitFreezeFpAnimation.TimeScale = 1f;
+            hitFreezeTpAnimation = hitFreezeFpAnimation = null;
+        }
+
+        public override void DidAttack(DamageSource source, EntityAgent targetEntity)
+        {
+            base.DidAttack(source, targetEntity);
+            if (World is not IClientWorldAccessor world || world.Player.Entity != this) return;
+            if (AnimManager is not PlayerAnimationManager animManager) return;
+            if (HitFreezeRequestMs > 0) StartHitFreeze(animManager.lastRunningHeldHitAnimation, HitFreezeRequestMs);
+            if (!animManager.IsHeldHitActive(1f)) return;
+            if (!Properties.Client.AnimationsByMetaCode.TryGetValue(animManager.lastRunningHeldHitAnimation, out var animation)) return;
+            var attr = animation.Attributes;
+            if (attr == null || (!attr["damageAtFrame"].Exists && !(attr["obbStartFrame"].Exists && attr["obbEndFrame"].Exists))) return;
+            world.AddCameraShake((source.Type == EnumDamageType.BluntAttack ? 0.35f : 0.25f) * hitShakeMultiplier);
+            hitShakeMultiplier *= 0.5f;
+        }
 
         public override void OnHurt(DamageSource damageSource, float damage)
         {
@@ -1441,7 +1881,7 @@ namespace Vintagestory.API.Common
 
             foreach (InventoryBase inv in player.InventoryManager.InventoriesOrdered)
             {
-                if (inv.ClassName == "creative") continue;
+                if (inv.ClassName == GlobalConstants.creativeInvClassName) continue;
                 if (!inv.HasOpened(player)) continue;
 
                 int q = inv.Count;
@@ -1511,7 +1951,7 @@ namespace Vintagestory.API.Common
         {
             int oldX = Pos.XInt;
             int oldZ = Pos.ZInt;
-            Pos.SetPos(x, y, z);
+            Pos.SetPosWithDimension(x, y, z);
             PreviousServerPos.SetPos(-99, -99, -99);
             PositionBeforeFalling.Set(x, y, z);
             Pos.Motion.Set(0, 0, 0);
@@ -1576,9 +2016,9 @@ namespace Vintagestory.API.Common
             return sb.ToString();
         }
 
-        public override void FromBytes(BinaryReader reader, bool forClient)
+        public override void FromBytes(ref BinarySpanReader reader, bool forClient)
         {
-            base.FromBytes(reader, forClient);
+            base.FromBytes(ref reader, forClient);
 
             walkSpeed = Stats.GetBlended("walkspeed");
         }

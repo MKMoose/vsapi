@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
@@ -202,9 +202,9 @@ namespace Vintagestory.API.Common
             return base.ReceiveDamage(damageSource, damage);
         }
 
-        public override void FromBytes(BinaryReader reader, bool forClient)
+        public override void FromBytes(ref BinarySpanReader reader, bool forClient)
         {
-            base.FromBytes(reader, forClient);
+            base.FromBytes(ref reader, forClient);
 
             this.subDimensionIndex = WatchedAttributes.GetInt("dim", 1);
             if (Api is ICoreClientAPI capi)

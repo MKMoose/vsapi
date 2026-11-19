@@ -1,20 +1,21 @@
+using System.Diagnostics.CodeAnalysis;
 ﻿using Vintagestory.API.Common;
 using Vintagestory.API.Util;
 
-#nullable disable
-
 namespace Vintagestory.API.Datastructures
 {
-    public abstract class ScalarAttribute<T>
+    public abstract class ScalarAttribute<T> where T : notnull
     {
-        public T value;
+        public T value = default(T)!;
 
-        public virtual bool Equals(IWorldAccessor worldForResolve, IAttribute attr)
+        public virtual bool Equals(IWorldAccessor worldForResolve, [NotNullWhen(true)] IAttribute? attr)
         {
-            return attr.GetValue().Equals(value) || EqualityUtil.NumberEquals(value as object, attr.GetValue());
+            if (attr is null) return false;
+            return value.Equals(attr.GetValue()) || EqualityUtil.NumberEquals(value as object, attr.GetValue());
         }
 
-        public override bool Equals(object b)
+        
+        public override bool Equals(object? b)
         {
             return value.Equals(b);
         }
@@ -29,14 +30,14 @@ namespace Vintagestory.API.Datastructures
             value = newval;
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return value.ToString();
         }
 
         public virtual string ToJsonToken()
         {
-            return value.ToString();
+            return value.ToString() ?? "null";
         }
 
         public override int GetHashCode()

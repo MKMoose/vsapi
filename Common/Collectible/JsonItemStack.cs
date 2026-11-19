@@ -2,7 +2,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ProtoBuf;
 using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 
@@ -33,7 +36,6 @@ namespace Vintagestory.API.Common
     public class JsonItemStack : IRecipeOutput, IConcreteCloneable<JsonItemStack>
     {
         #region From JSON
-#pragma warning disable CS8618 // Should be handed by Json parser
         /// <summary>
         /// Block or Item?
         /// </summary>
@@ -46,7 +48,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         [ProtoMember(2)]
         [DocumentAsJson("Required")]
-        public AssetLocation Code;
+        public required AssetLocation Code;
 
         /// <summary>
         /// Amount of items in this stacks
@@ -72,7 +74,6 @@ namespace Vintagestory.API.Common
         [ProtoMember(4)]
         [DocumentAsJson("Optional", "None")]
         public JsonObject? Attributes;
-#pragma warning restore CS8618
         #endregion
 
         /// <summary>
@@ -94,6 +95,28 @@ namespace Vintagestory.API.Common
         public static JsonItemStack? FromString(string jsonItemstack)
         {
             return JsonObject.FromJson(jsonItemstack).AsObject<JsonItemStack>();
+        }
+
+        public static JsonItemStack FromItemStack(IWorldAccessor resolver, ItemStack stack, params string[] ignoreAttributes)
+        {
+            var jStack = new JsonItemStack
+            {
+                Code = stack.Collectible.Code,
+                StackSize = stack.StackSize,
+                Type = stack.Class
+            };
+
+            if (ignoreAttributes?.Length > 0)
+            {
+                var attributes = stack.Attributes.Clone();
+                foreach (var key in ignoreAttributes) attributes.RemoveAttribute(key);
+                jStack.Attributes = JsonObject.FromJson(attributes.ToJsonToken());
+            }
+            else jStack.Attributes = JsonObject.FromJson(stack.Attributes.ToJsonToken());
+
+            jStack.Resolve(resolver, "Eatenstack of " + jStack.Type.ToString() + " ", jStack.Code);
+
+            return jStack;
         }
 
         /// <summary>
@@ -189,6 +212,7 @@ namespace Vintagestory.API.Common
             return true;
         }
 
+        [MemberNotNullWhen(true, nameof(ResolvedItemStack), nameof(ResolvedItemstack))]
         public virtual bool Resolve(IWorldAccessor world, string sourceForErrorLogging)
         {
             return Resolve(world, sourceForErrorLogging, true);
@@ -205,7 +229,7 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         public virtual JsonItemStack Clone()
         {
-            JsonItemStack result = new();
+            JsonItemStack result = new JsonItemStack { Code = null! };
 
             CloneTo(result);
 
@@ -217,7 +241,46 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="reader">The reader to get the ItemStack from</param>
         /// <param name="instancer">The instancer for the ItemStack.</param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, IClassRegistryAPI instancer)
+        {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var newFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(IClassRegistryAPI) ]);
+            if (newFromBytes != null && newFromBytes.DeclaringType != typeof(JsonItemStack))
+            {
+                reader.UnsafeActAsBinarySpanReader(instancer, FromBytes);
+            }
+            else
+            {
+                reader.UnsafeActAsBinarySpanReader(instancer, fromBytes);
+            }
+        }
+
+        /// <summary>
+        /// Loads the ItemStack from the reader.
+        /// </summary>
+        /// <param name="reader">The reader to get the ItemStack from</param>
+        /// <param name="instancer">The instancer for the ItemStack.</param>
+        public virtual void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(IClassRegistryAPI) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(JsonItemStack))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader). If you are the developer make sure to move to the new overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(instancer, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<IClassRegistryAPI>>(this));
+                #pragma warning restore CS0618
+            }
+            else
+            {
+                fromBytes(ref reader, instancer);
+            }
+        }
+
+        void fromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
         {
             Type = (EnumItemClass)reader.ReadInt16();
             Code = new AssetLocation(reader.ReadString());
@@ -225,21 +288,21 @@ namespace Vintagestory.API.Common
 
             if (reader.ReadBoolean())
             {
-                ResolvedItemStack = new ItemStack(reader);
+                ResolvedItemStack = new ItemStack(ref reader);
             }
 
             if (reader.ReadBoolean())
             {
-                Attributes = new JsonObject(JToken.Parse(reader.ReadString()));
+                Attributes = new JsonObject(JToken.Parse(reader.ReadString(), JsonUtil.DefaultLoadSettings));
             }
         }
 
         /// <summary>
         /// Loads the ItemStack from the reader.
         /// </summary>
-        public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+        public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            FromBytes(reader, resolver.ClassRegistry);
+            FromBytes(ref reader, resolver.ClassRegistry);
         }
 
         /// <summary>

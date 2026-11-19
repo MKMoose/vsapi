@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -145,12 +146,18 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// This particle does not load from file.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="resolver"></param>
+
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+            => reader.UnsafeActAsBinarySpanReader(resolver, FromBytes);
+
+        /// <summary>
+        /// This particle does not load from file.
+        /// </summary>
+        public void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            BasePos = Vec3d.CreateFromBytes(reader);
-            AddVelocity = Vec3f.CreateFromBytes(reader);
+            BasePos = Vec3d.CreateFromBytes(ref reader);
+            AddVelocity = Vec3f.CreateFromBytes(ref reader);
             Bounciness = reader.ReadSingle();
             SwimOnLiquid = reader.ReadBoolean();
             LifeLength = reader.ReadSingle();

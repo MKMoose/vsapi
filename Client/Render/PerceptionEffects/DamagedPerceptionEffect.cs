@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -113,10 +113,14 @@ namespace Vintagestory.API.Client
             {
                 capi.World.AddCameraShake(0.15f * healthThreshold);
             }
-            capi.Input.MouseYaw += healthThreshold * (float)(noiseGenerator.Noise(76, elapsedSeconds / 50) - 0.5f) * 0.003f;
             var dp = healthThreshold * (float)(noiseGenerator.Noise(elapsedSeconds / 50, 987) - 0.5f) * 0.003f;
-            capi.World.Player.Entity.Pos.Pitch += dp;
-            capi.Input.MousePitch += dp;
+
+            if (DoCameraRotation)
+            {
+                capi.World.Player.Entity.Pos.Pitch += dp;
+                capi.Input.MouseYaw += healthThreshold * (float)(noiseGenerator.Noise(76, elapsedSeconds / 50) - 0.5f) * 0.003f;
+                capi.Input.MousePitch += dp;
+            }
         }
     }
 }

@@ -131,6 +131,37 @@ Interface IRenderAPI
 </h2>
 
 
+  <a id="Vintagestory_API_Client_IRenderAPI_AllowCameraControl_" data-uid="Vintagestory.API.Client.IRenderAPI.AllowCameraControl*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_AllowCameraControl" data-uid="Vintagestory.API.Client.IRenderAPI.AllowCameraControl">
+  AllowCameraControl
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AllowCameraControl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_IRenderAPI_AmbientColor_" data-uid="Vintagestory.API.Client.IRenderAPI.AmbientColor*"></a>
 
   <h3 id="Vintagestory_API_Client_IRenderAPI_AmbientColor" data-uid="Vintagestory.API.Client.IRenderAPI.AmbientColor">
@@ -835,6 +866,37 @@ string DecorativeFontName { get; }</code></pre>
 
 
 
+  <a id="Vintagestory_API_Client_IRenderAPI_MainCamera_" data-uid="Vintagestory.API.Client.IRenderAPI.MainCamera*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_MainCamera" data-uid="Vintagestory.API.Client.IRenderAPI.MainCamera">
+  MainCamera
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ICameraAPI MainCamera { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.ICameraAPI.html">ICameraAPI</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_IRenderAPI_MvMatrix_" data-uid="Vintagestory.API.Client.IRenderAPI.MvMatrix*"></a>
 
   <h3 id="Vintagestory_API_Client_IRenderAPI_MvMatrix" data-uid="Vintagestory.API.Client.IRenderAPI.MvMatrix">
@@ -1465,6 +1527,44 @@ It is recommended to use this methods in a few spots during render code to track
 
 
 
+  <a id="Vintagestory_API_Client_IRenderAPI_CreateAviWriter_" data-uid="Vintagestory.API.Client.IRenderAPI.CreateAviWriter*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_CreateAviWriter_System_Single_System_String_" data-uid="Vintagestory.API.Client.IRenderAPI.CreateAviWriter(System.Single,System.String)">
+  CreateAviWriter(float, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IAviWriter CreateAviWriter(float framerate, string codec)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>framerate</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>codec</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.IAviWriter.html">IAviWriter</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_IRenderAPI_CreateFrameBuffer_" data-uid="Vintagestory.API.Client.IRenderAPI.CreateFrameBuffer*"></a>
 
   <h3 id="Vintagestory_API_Client_IRenderAPI_CreateFrameBuffer_Vintagestory_API_Client_FramebufferAttrs_" data-uid="Vintagestory.API.Client.IRenderAPI.CreateFrameBuffer(Vintagestory.API.Client.FramebufferAttrs)">
@@ -1792,6 +1892,37 @@ It is recommended to use this methods in a few spots during render code to track
 
 
 
+  <a id="Vintagestory_API_Client_IRenderAPI_GetAvailableCodecs_" data-uid="Vintagestory.API.Client.IRenderAPI.GetAvailableCodecs*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_GetAvailableCodecs" data-uid="Vintagestory.API.Client.IRenderAPI.GetAvailableCodecs">
+  GetAvailableCodecs()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">AvailableCodec[] GetAvailableCodecs()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.AvailableCodec.html">AvailableCodec</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_IRenderAPI_GetEngineShader_" data-uid="Vintagestory.API.Client.IRenderAPI.GetEngineShader*"></a>
 
   <h3 id="Vintagestory_API_Client_IRenderAPI_GetEngineShader_Vintagestory_API_Client_EnumShaderProgram_" data-uid="Vintagestory.API.Client.IRenderAPI.GetEngineShader(Vintagestory.API.Client.EnumShaderProgram)">
@@ -2086,6 +2217,33 @@ It is recommended to use this methods in a few spots during render code to track
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_IRenderAPI_GlClearDepthBuffer_" data-uid="Vintagestory.API.Client.IRenderAPI.GlClearDepthBuffer*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_GlClearDepthBuffer" data-uid="Vintagestory.API.Client.IRenderAPI.GlClearDepthBuffer">
+  GlClearDepthBuffer()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the depth buffer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void GlClearDepthBuffer()</code></pre>
+  </div>
+
+
 
 
 
@@ -4322,6 +4480,46 @@ void RenderItemstackToGui(ItemStack itemstack, double posX, double posY, double 
     <dt><code>alphaTest</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd><p>If below given threshold, the pixel is not drawn into the target texture. (Default: 0.05)</p>
 </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_IRenderAPI_RenderWireframeSphere_" data-uid="Vintagestory.API.Client.IRenderAPI.RenderWireframeSphere*"></a>
+
+  <h3 id="Vintagestory_API_Client_IRenderAPI_RenderWireframeSphere_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_MathTools_Vec3f_System_Single_System_Int32_System_Int32_" data-uid="Vintagestory.API.Client.IRenderAPI.RenderWireframeSphere(Vintagestory.API.MathTools.BlockPos,Vintagestory.API.MathTools.Vec3f,System.Single,System.Int32,System.Int32)">
+  RenderWireframeSphere(BlockPos, Vec3f, float, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Inefficiently renders a wireframe sphere</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RenderWireframeSphere(BlockPos origin, Vec3f center, float radius, int color, int segments = -1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>origin</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>center</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3f.html">Vec3f</a></dt>
+    <dd></dd>
+    <dt><code>radius</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>color</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>segments</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
   </dl>
 
 

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -15,7 +16,7 @@ namespace Vintagestory.API.MathTools
     /// A useful data structure when operating with block postions.<br/>
     /// Valuable Hint: Make use of Copy() or the XXXCopy() variants where needed. A common pitfall is writing code like: BlockPos abovePos = pos.Up(); - with this code abovePos and pos will reference to the same object!
     /// </summary>
-    [ProtoContract()]
+    [ProtoContract]
     [JsonObject(MemberSerialization.OptIn)]
     public class BlockPos : IEquatable<BlockPos>, IVec3
     {
@@ -99,6 +100,14 @@ namespace Vintagestory.API.MathTools
             this.Z = vec.Z;
         }
 
+        public BlockPos(FastBlockPos pos)
+        {
+            X = pos.X;
+            Y = pos.Y;
+            Z = pos.Z;
+            dimension = pos.dimension;
+        }
+
         /// <summary>
         /// 0 = x, 1 = y, 2 = z
         /// </summary>
@@ -108,28 +117,6 @@ namespace Vintagestory.API.MathTools
         {
             get { return i == 0 ? X : i == 1 ? Y : i == 2 ? Z : dimension; }
             set { if (i == 0) X = value; else if (i == 1) Y = value; else if (i == 2) Z = value; else dimension = value; }
-        }
-
-        /// <summary>
-        /// Move the position vertically up
-        /// </summary>
-        /// <param name="dy"></param>
-        /// <returns></returns>
-        public BlockPos Up(int dy = 1)
-        {
-            Y += dy;
-            return this;
-        }
-
-        /// <summary>
-        /// Move the position vertically down
-        /// </summary>
-        /// <param name="dy"></param>
-        /// <returns></returns>
-        public BlockPos Down(int dy = 1)
-        {
-            Y -= dy;
-            return this;
         }
 
         /// <summary>
@@ -170,6 +157,15 @@ namespace Vintagestory.API.MathTools
             return this;
         }
 
+        public BlockPos Set(FastBlockPos pos)
+        {
+            X = pos.X;
+            Y = pos.Y;
+            Z = pos.Z;
+            dimension = pos.dimension;
+            return this;
+        }
+
         /// <summary>
         /// Dimension aware version of Set() - use this if the Vec3d has the dimension embedded in the Y coordinate (e.g. Y == 65536+ for dimension 2)
         /// </summary>
@@ -199,9 +195,6 @@ namespace Vintagestory.API.MathTools
             dimension = y / DimensionBoundary;
             return this;
         }
-
-
-
 
         /// <summary>
         /// Sets XYZ to new values - not dimension aware (but existing dimension will be preserved) - use SetAndCorrectDimension() for dimension awareness
@@ -264,6 +257,25 @@ namespace Vintagestory.API.MathTools
             return false;
         }
 
+        public BlockPos Set(double x, double y, double z)
+        {
+            X = (int)x;
+            Y = (int)y;
+            Z = (int)z;
+            return this;
+        }
+
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
+        public static BlockPos CreateFromBytes(BinaryReader reader)
+        {
+            return new BlockPos(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+        }
+
+        public static BlockPos CreateFromBytes(ref BinarySpanReader reader)
+        {
+            return new BlockPos(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
+        }
+
         public void ToBytes(BinaryWriter writer)
         {
             writer.Write(X);
@@ -280,35 +292,6 @@ namespace Vintagestory.API.MathTools
         public Vec3i ToLocalPosition(ICoreAPI api)
         {
             return new Vec3i(X - api.World.DefaultSpawnPosition.XInt, Y, Z - api.World.DefaultSpawnPosition.ZInt);
-        }
-
-        public BlockPos West()
-        {
-            X -= 1;
-            return this;
-        }
-
-        public static BlockPos CreateFromBytes(BinaryReader reader)
-        {
-            return new BlockPos(reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32(), reader.ReadInt32());
-        }
-
-        public BlockPos North()
-        {
-            Z -= 1;
-            return this;
-        }
-
-        public BlockPos East()
-        {
-            X += 1;
-            return this;
-        }
-
-        public BlockPos South()
-        {
-            Z += 1;
-            return this;
         }
 
         /// <summary>
@@ -333,99 +316,53 @@ namespace Vintagestory.API.MathTools
             return dy > 0 ? BlockFacing.DOWN : BlockFacing.UP;
         }
 
-        /// <summary>
-        /// Creates a copy of this blocks position with the x-position adjusted by -<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos WestCopy(int length = 1)
-        {
-            return new BlockPos(X - length, Y, Z, dimension);
-        }
-
-
-
-        /// <summary>
-        /// Creates a copy of this blocks position with the z-position adjusted by +<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos SouthCopy(int length = 1)
-        {
-            return new BlockPos(X, Y, Z + length, dimension);
-        }
-
-
-        /// <summary>
-        /// Creates a copy of this blocks position with the x-position adjusted by +<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos EastCopy(int length = 1)
-        {
-            return new BlockPos(X + length, Y, Z, dimension);
-        }
-
-        /// <summary>
-        /// Creates a copy of this blocks position with the z-position adjusted by -<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos NorthCopy(int length = 1)
-        {
-            return new BlockPos(X, Y, Z - length, dimension);
-        }
-
-        /// <summary>
-        /// Creates a copy of this blocks position with the y-position adjusted by -<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos DownCopy(int length = 1)
-        {
-            return new BlockPos(X, Y - length, Z, dimension);
-        }
-
-        /// <summary>
-        /// Creates a copy of this blocks position with the y-position adjusted by +<paramref name="length"/>
-        /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos UpCopy(int length = 1)
-        {
-            return new BlockPos(X, Y + length, Z, dimension);
-        }
-
-
-        /// <summary>
-        /// Creates a copy of this blocks position
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual BlockPos Copy()
-        {
-            return new BlockPos(X, Y, Z, dimension);
-        }
-
-
-        /// <summary>
-        /// Creates a copy of this blocks position, obtaining the correct dimension value from the Y value
-        /// </summary>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public virtual BlockPos CopyAndCorrectDimension()
-        {
-            return new BlockPos(X, Y % DimensionBoundary, Z, dimension + Y / DimensionBoundary);
-        }
-
-
         #region Offseting
+
+        /// <summary>
+        /// Move the position vertically up
+        /// </summary>
+        /// <param name="dy"></param>
+        /// <returns></returns>
+        public BlockPos Up(int dy = 1)
+        {
+            Y += dy;
+            return this;
+        }
+
+        /// <summary>
+        /// Move the position vertically down
+        /// </summary>
+        /// <param name="dy"></param>
+        /// <returns></returns>
+        public BlockPos Down(int dy = 1)
+        {
+            Y -= dy;
+            return this;
+        }
+
+        public BlockPos West()
+        {
+            X -= 1;
+            return this;
+        }
+
+        public BlockPos North()
+        {
+            Z -= 1;
+            return this;
+        }
+
+        public BlockPos East()
+        {
+            X += 1;
+            return this;
+        }
+
+        public BlockPos South()
+        {
+            Z += 1;
+            return this;
+        }
 
         /// <summary>
         /// Offsets the position by given xyz
@@ -536,6 +473,143 @@ namespace Vintagestory.API.MathTools
         }
 
         /// <summary>
+        /// Substract a position => you'll have the manhattan distance
+        /// </summary>
+        /// <param name="pos"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos Sub(BlockPos pos)
+        {
+            X -= pos.X;
+            Y -= pos.Y;
+            Z -= pos.Z;
+            return this;
+        }
+
+        /// <summary>
+        /// Substract a position => you'll have the manhattan distance
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos Sub(int x, int y, int z)
+        {
+            X -= x;
+            Y -= y;
+            Z -= z;
+            return this;
+        }
+
+        /// <summary>
+        /// Iterate through NESW offsets from the starting position.  See also BlockFacing.IterateThruFacingOffset
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void IterateHorizontalOffsets(int i)
+        {
+            // i = 0,1,2,3 corresponds with NESW
+            //   i = 0: Z -1, X +0
+            //   i = 1: Z +1, X +1
+            //   i = 2: Z +1, X -1
+            //   i = 3: Z -1, X -1
+            Z += ((i + 1) & 2) - 1;       // First bracket is 1,2,3,4  Second bracket is 0,2,2,0  Final is -1,+1,+1,-1
+            X += (i % 3 & 1) - (i / 2);   // First bracket is 0,1,0,0  Second bracket is 0,0,1,1  Final is 0,+1,-1,-1
+        }
+
+        #endregion
+
+        #region Copy offset
+
+
+         /// <summary>
+         /// Creates a copy of this blocks position
+         /// </summary>
+         /// <returns></returns>
+         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+         public virtual BlockPos Copy()
+         {
+             return new BlockPos(X, Y, Z, dimension);
+         }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the x-position adjusted by -<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos WestCopy(int length = 1)
+        {
+            return new BlockPos(X - length, Y, Z, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the z-position adjusted by +<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos SouthCopy(int length = 1)
+        {
+            return new BlockPos(X, Y, Z + length, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the x-position adjusted by +<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos EastCopy(int length = 1)
+        {
+            return new BlockPos(X + length, Y, Z, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the z-position adjusted by -<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos NorthCopy(int length = 1)
+        {
+            return new BlockPos(X, Y, Z - length, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the y-position adjusted by -<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos DownCopy(int length = 1)
+        {
+            return new BlockPos(X, Y - length, Z, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position with the y-position adjusted by +<paramref name="length"/>
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BlockPos UpCopy(int length = 1)
+        {
+            return new BlockPos(X, Y + length, Z, dimension);
+        }
+
+        /// <summary>
+        /// Creates a copy of this blocks position, obtaining the correct dimension value from the Y value
+        /// </summary>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public virtual BlockPos CopyAndCorrectDimension()
+        {
+            return new BlockPos(X, Y % DimensionBoundary, Z, dimension + Y / DimensionBoundary);
+        }
+
+        /// <summary>
         /// Creates a copy of this blocks position and offsets it by given xyz
         /// </summary>
         /// <param name="dx"></param>
@@ -572,7 +646,6 @@ namespace Vintagestory.API.MathTools
             return new BlockPos(X + xyz, Y + xyz, Z + xyz, dimension);
         }
 
-
         /// <summary>
         /// Creates a copy of this blocks position and offsets it by given xyz
         /// </summary>
@@ -607,36 +680,15 @@ namespace Vintagestory.API.MathTools
             return new BlockPos(X + facing.Normali.X * length, Y + facing.Normali.Y * length, Z + facing.Normali.Z * length, dimension);
         }
 
-
         /// <summary>
-        /// Substract a position => you'll have the manhattan distance
+        /// Creates a copy of this block's position and offsets it in the direction of the given vector
         /// </summary>
-        /// <param name="pos"></param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos Sub(BlockPos pos)
-        {
-            X -= pos.X;
-            Y -= pos.Y;
-            Z -= pos.Z;
-            return this;
-        }
-
-        /// <summary>
-        /// Substract a position => you'll have the manhattan distance
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="vector"></param>
         /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public BlockPos Sub(int x, int y, int z)
+        public BlockPos AddCopy(FastVec3i vector)
         {
-            X -= x;
-            Y -= y;
-            Z -= z;
-            return this;
+            return new BlockPos(X + vector.X, Y + vector.Y, Z + vector.Z, dimension);
         }
-
 
         /// <summary>
         /// Substract a position => you'll have the manhattan distance.
@@ -655,7 +707,6 @@ namespace Vintagestory.API.MathTools
             return new BlockPos(X - x, Y - y, Z - z, dimension);
         }
 
-
         /// <summary>
         /// Creates a copy of this blocks position and divides it by given factor
         /// </summary>
@@ -667,22 +718,6 @@ namespace Vintagestory.API.MathTools
             return new BlockPos(X / factor, Y / factor, Z / factor, dimension);
         }
 
-        /// <summary>
-        /// Iterate through NESW offsets from the starting position.  See also BlockFacing.IterateThruFacingOffset
-        /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void IterateHorizontalOffsets(int i)
-        {
-            // i = 0,1,2,3 corresponds with NESW
-            //   i = 0: Z -1, X +0
-            //   i = 1: Z +1, X +1
-            //   i = 2: Z +1, X -1
-            //   i = 3: Z -1, X -1
-            Z += ((i + 1) & 2) - 1;       // First bracket is 1,2,3,4  Second bracket is 0,2,2,0  Final is -1,+1,+1,-1
-            X += (i % 3 & 1) - (i / 2);   // First bracket is 0,1,0,0  Second bracket is 0,0,1,1  Final is 0,+1,-1,-1
-        }
         #endregion
 
         #region Distance
@@ -711,7 +746,6 @@ namespace Vintagestory.API.MathTools
         {
             return DistanceTo(pos.X, pos.Y, pos.Z);
         }
-
 
         /// <summary>
         /// Returns the Euclidean distance to between this and given position. Note this is dimension unaware
@@ -812,7 +846,6 @@ namespace Vintagestory.API.MathTools
             return Math.Abs(X - pos.X) + Math.Abs(Y - pos.Y) + Math.Abs(Z - pos.Z);
         }
 
-
         /// <summary>
         /// Returns the manhattan distance to given position
         /// Note this is dimension unaware
@@ -873,6 +906,10 @@ namespace Vintagestory.API.MathTools
             return (obj is BlockPos pos) && X == pos.X && Y == pos.Y && Z == pos.Z && dimension == pos.dimension;
         }
 
+        /// <summary>
+        /// same as in FastBlockPos so they can be safely compared
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return ((17 * 23 + X) * 23 + Y) * 23 + Z + dimension * 269023;
@@ -1010,30 +1047,20 @@ namespace Vintagestory.API.MathTools
             return (Y << 20) + (Z << 10) + X;
         }
 
+        public int ToIndex3d()
+        {
+            const int chunksizeMask = GlobalConstants.ChunkSize - 1;
+            int lx = X & chunksizeMask;
+            int lz = Z & chunksizeMask;
+            return ((Y & chunksizeMask) * GlobalConstants.ChunkSize + lz) * GlobalConstants.ChunkSize + lx;
+        }
+
         public void SetFromSchematicIndex(int index3d)
         {
             const int mask = (int)BlockSchematic.PosBitMask;
             X = index3d & mask;
             Z = (index3d >> 10) & mask;
             Y = (index3d >> 20) & mask;
-        }
-
-        public BlockPos Set(double x, double y, double z)
-        {
-            X = (int)x;
-            Y = (int)y;
-            Z = (int)z;
-            return this;
-        }
-
-        public BlockPos AddCopy(FastVec3i vector)
-        {
-            return new BlockPos(X + vector.X, Y + vector.Y, Z + vector.Z, dimension);
-        }
-
-        public BlockPos AddCopy(Vec3f vector)
-        {
-            return new BlockPos(X + (int)vector.X, Y + (int)vector.Y, Z + (int)vector.Z, dimension);
         }
     }
 

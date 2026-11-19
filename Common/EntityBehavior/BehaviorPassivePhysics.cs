@@ -35,15 +35,11 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
     public bool Ticking { get; set; } = true;
 
     // State info.
-    protected readonly Vec3d prevPos = new();
     protected double motionBeforeY = 0;
     protected bool feetInLiquidBefore = false;
     protected bool onGroundBefore = false;
     protected bool swimmingBefore = false;
     protected bool collidedBefore = false;
-
-    // Output of collision tester.
-    protected Vec3d newPos = new();
 
     /// <summary>
     /// The amount of drag while travelling through water.
@@ -100,6 +96,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
 
     public virtual void SetProperties(JsonObject attributes)
     {
+        MaxWalkableSlopeGrade = attributes["maxWalkableSlopeGrade"].AsDouble(MaxWalkableSlopeGrade);
         WaterDragValue = 1 - (1 - WaterDragValue) * attributes["waterDragFactor"].AsDouble(1);
 
         JsonObject airDragFactor = attributes["airDragFactor"];
@@ -127,6 +124,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
     {
         Init();
         SetProperties(attributes);
+        initializeStandingColliderState(false);
 
         if (entity.Api is ICoreServerAPI esapi)
         {
@@ -197,6 +195,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
 
     public void MotionAndCollision(EntityPos pos, float dt)
     {
+        bool colliderMotionSuspended = suspendInheritedColliderMotion(pos);
         float dtFactor = 60 * dt;
         var entity = this.entity;
         var motion = pos.Motion;
@@ -256,7 +255,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
             {
                 // Above 0 => floats.
                 // Below 0 => sinks.
-                float boyancy = GameMath.Clamp(1 - (entity.MaterialDensity / insideFluid.MaterialDensity), -1, 1);
+                float boyancy = GameMath.Clamp(1 - (entity.MaterialDensity / insideFluid.GetMaterialDensity(tmpPos, entity.World, null)), -1, 1);
 
                 Block aboveFluid = blockAccessor.GetBlockRaw((int)pos.X, (int)(pos.InternalY + 1), (int)pos.Z, BlockLayersAccess.Fluid);
                 float waterY = (int)pos.Y + (insideFluid.LiquidLevel / 8f) + (aboveFluid.IsLiquid() ? 9 / 8f : 0);
@@ -279,6 +278,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
             }
         }
 
+        restoreInheritedColliderMotion(pos, colliderMotionSuspended);
         double nextX = (motion.X * dtFactor) + pos.X;
         double nextY = (motion.Y * dtFactor) + pos.Y;
         double nextZ = (motion.Z * dtFactor) + pos.Z;
@@ -288,7 +288,8 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
 
         // Clamp inside the world.
         if (blockAccessor.IsNotTraversable((int)nextX, (int)pos.Y, (int)pos.Z, dimension)) newPos.X = pos.X;
-        if (blockAccessor.IsNotTraversable((int)pos.X, (int)nextY, (int)pos.Z, dimension)) newPos.Y = pos.Y;
+        bool blockedByUnloadedY = blockAccessor.IsNotTraversable((int)pos.X, (int)nextY, (int)pos.Z, dimension);
+        if (blockedByUnloadedY) newPos.Y = pos.Y;
         if (blockAccessor.IsNotTraversable((int)pos.X, (int)pos.Y, (int)nextZ, dimension)) newPos.Z = pos.Z;
 
         // Finally set position.
@@ -297,7 +298,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
 
         // Stop motion if collided.
         if ((nextX < newPos.X && motion.X < 0) || (nextX > newPos.X && motion.X > 0)) motion.X = 0;
-        if ((nextY < newPos.Y && motion.Y < 0) || (nextY > newPos.Y && motion.Y > 0)) motion.Y = 0;
+        if (blockedByUnloadedY || (!slidingOnSteepCollider && ((nextY < newPos.Y && motion.Y < 0) || (nextY > newPos.Y && motion.Y > 0)))) motion.Y = 0;
         if ((nextZ < newPos.Z && motion.Z < 0) || (nextZ > newPos.Z && motion.Z > 0)) motion.Z = 0;
     }
 
@@ -306,16 +307,32 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
         collisionTester.ApplyTerrainCollision(entity, pos, dtFactor, ref newPos, 0, CollisionYExtra);
     }
 
+    protected virtual Collider getSupportingCollider() => collisionTester.SupportingCollider;
+
+    protected virtual bool slidingOnSteepCollider => collisionTester.SlidingOnSteepCollider;
+
     public void ApplyTests(EntityPos pos)
     {
         var entity = this.entity;
         var blockAccessor = entity.World.BlockAccessor;
         bool falling = pos.Motion.Y <= 0;
         entity.OnGround = entity.CollidedVertically && falling;
+        Collider supportingCollider = falling ? getSupportingCollider() : null;
+        if (supportingCollider == null && standingColliderId != 0 && falling && !entity.CollidedVertically)
+        {
+            supportingCollider = probeStandingCollider(pos);
+        }
+        if (supportingCollider != null) entity.OnGround = true;
 
         Block fluidBlock = blockAccessor.GetBlockRaw((int)pos.X, (int)pos.InternalY, (int)pos.Z, BlockLayersAccess.Fluid);
         entity.FeetInLiquid = fluidBlock.MatterState == EnumMatterState.Liquid;
         entity.InLava = fluidBlock.LiquidCode == "lava";
+
+        if (supportingCollider?.KeepsSupportedEntitiesDry == true || entity.FeetInLiquid && IsInsideDryCollider(pos, fluidBlock))
+        {
+            entity.FeetInLiquid = false;
+            entity.InLava = false;
+        }
 
         if (entity.FeetInLiquid)
         {
@@ -335,10 +352,12 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
             entity.Swimming = false;
 
             if (swimmingBefore || feetInLiquidBefore)
-        {
-            entity.OnExitedLiquid();
+            {
+                entity.OnExitedLiquid();
+            }
         }
-        }
+
+        updateStandingCollider(pos, null, supportingCollider);
 
         if (!collidedBefore && entity.Collided)
         {
@@ -397,7 +416,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
         EntityPos pos = entity.Pos;
         if (UsePhysicsDormancyStateServer)
         {
-            if (entity.OnGround && entity.NearestPlayerDistance > 7 && pos.Motion.LengthSq() < 0.0001)
+            if (standingColliderId == 0 && entity.OnGround && entity.NearestPlayerDistance > 7 && pos.Motion.LengthSq() < 0.0001)
             {
                 restingCounter++;
                 if (restingCounter > 90 && restingCounter % 15 != 0) return;
@@ -405,7 +424,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
             else restingCounter = 0;
         }
 
-        if (mountableSupplier?.IsBeingControlled() == true && entity.World.Side == EnumAppSide.Server) return;
+        if (!entity.IsControlledByServer(mountableSupplier) && entity.World.Side == EnumAppSide.Server) return;
 
         collisionTester.AssignToEntity(this, pos.Dimension);
 
@@ -416,6 +435,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
         for (int i = 0; i < loops; i++)
         {
             SetState(pos);
+            moveWithStandingCollider(pos, null);
             MotionAndCollision(pos, newDt);
             ApplyTests(pos);
         }
@@ -428,6 +448,11 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
         entity.AfterPhysicsTick?.Invoke();
     }
 
+    public override void OnGameTick(float deltaTime)
+    {
+        syncStandingColliderState();
+    }
+
     protected virtual bool IsFirstTick(Entity entity)
     {
         var prevServerPos = entity.PreviousServerPos;
@@ -436,6 +461,7 @@ public class EntityBehaviorPassivePhysics : PhysicsBehaviorBase, IPhysicsTickabl
 
     public override void OnEntityDespawn(EntityDespawnData despawn)
     {
+        disposeRemoteStandingCollider();
         if (sapi != null)
         {
             sapi.Server.RemovePhysicsTickable(this);

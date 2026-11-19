@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ProperVersion;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -9,6 +10,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.Common.Collectible.Block;
+using Vintagestory.Datastructures;
 
 #nullable disable
 
@@ -84,6 +86,10 @@ namespace Vintagestory.API.Common
         [JsonProperty]
         public BlockPos OriginalPos;
 
+        [JsonProperty]
+        public Dictionary<uint, Dictionary<string, byte[]>> ModData = new();
+
+        public Dictionary<BlockPos, Dictionary<string, byte[]>> ModDataUnpacked = new();
         public Dictionary<BlockPos, int> BlocksUnpacked = new Dictionary<BlockPos, int>();
         public Dictionary<BlockPos, int> FluidsLayerUnpacked = new Dictionary<BlockPos, int>();
         public Dictionary<BlockPos, string> BlockEntitiesUnpacked = new Dictionary<BlockPos, string>();
@@ -441,6 +447,11 @@ namespace Vintagestory.API.Common
             {
                 entity.OnStoreCollectibleMappings(BlockCodes, ItemCodes);
             }
+
+            if (world.Api.Event is IServerEventAPI seapi)
+            {
+                seapi.TriggerSchematicExport(blockAccess, world, start, end, ModDataUnpacked);
+            }
         }
 
         /// <summary>
@@ -458,6 +469,7 @@ namespace Vintagestory.API.Common
             Entities.Clear();
             DecorIndices.Clear();
             DecorIds.Clear();
+            ModData.Clear();
             SizeX = 0;
             SizeY = 0;
             SizeZ = 0;
@@ -563,6 +575,14 @@ namespace Vintagestory.API.Common
                 }
             }
 
+            foreach (var (pos, data) in ModDataUnpacked)
+            {
+                int dx = pos.X - minX;
+                int dy = pos.Y - minY;
+                int dz = pos.Z - minZ;
+                ModData.Add((uint)((dy << 20) | (dz << 10) | dx), data);
+            }
+
             // off-by-one problem as usual. A block at x=3 and x=4 means a sizex of 2
             SizeX++;
             SizeY++;
@@ -612,40 +632,34 @@ namespace Vintagestory.API.Common
             DecorsUnpacked.Clear();
             BlockEntitiesUnpacked.Clear();
             EntitiesUnpacked.Clear();
+            ModDataUnpacked.Clear();
             return true;
         }
 
         /// <summary>
-        /// Will place all blocks using the configured replace mode. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()
+        /// Will place Blocks and Decor. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()
         /// </summary>
-        /// <param name="blockAccessor"></param>
-        /// <param name="worldForCollectibleResolve"></param>
-        /// <param name="startPos"></param>
-        /// <param name="replaceMetaBlocks"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public virtual int Place(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, bool replaceMetaBlocks = true)
+        public virtual int Place(SchematicPlacementData data)
         {
-            int result = Place(blockAccessor, worldForCollectibleResolve, startPos, ReplaceMode, replaceMetaBlocks);
-            PlaceDecors(blockAccessor, startPos);
+            int result = PlaceOnlyBlocks(data);
+            PlaceDecors(data);
             return result;
         }
 
         /// <summary>
-        /// Will place all blocks using the supplied replace mode. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()
+        /// Will place only blocks. Note: If you use a revertable or bulk block accessor you will have to call PlaceBlockEntities() after the Commit()
         /// </summary>
-        /// <param name="blockAccessor"></param>
-        /// <param name="worldForCollectibleResolve"></param>
-        /// <param name="startPos"></param>
-        /// <param name="mode"></param>
-        /// <param name="replaceMetaBlocks"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        public virtual int Place(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, EnumReplaceMode mode, bool replaceMetaBlocks = true)
+        public virtual int PlaceOnlyBlocks(SchematicPlacementData data)
         {
-            BlockPos curPos = new BlockPos(startPos.dimension);
+            curPos.SetDimension(data.StartPos.dimension);
             int placed = 0;
 
             PlaceBlockDelegate handler = null;
-            switch (mode)
+            switch (data.ReplaceMode)
             {
                 case EnumReplaceMode.ReplaceAll:
                     handler = PlaceReplaceAll;
@@ -656,9 +670,9 @@ namespace Vintagestory.API.Common
                         {
                             for (int dz = 0; dz < SizeZ; dz++)
                             {
-                                curPos.Set(dx + startPos.X, dy + startPos.Y, dz + startPos.Z);
-                                if (!blockAccessor.IsValidPos(curPos)) continue;    // Deal with cases where we are at the map edge
-                                blockAccessor.SetBlock(0, curPos);
+                                curPos.Set(dx + data.StartPos.X, dy + data.StartPos.Y, dz + data.StartPos.Z);
+                                if (!data.BlockAccessor.IsValidPos(curPos)) continue;    // Deal with cases where we are at the map edge
+                                data.BlockAccessor.SetBlock(0, curPos);
                             }
                         }
                     }
@@ -688,59 +702,61 @@ namespace Vintagestory.API.Common
 
                 AssetLocation blockCode = BlockCodes[storedBlockid];
 
-                Block newBlock = blockAccessor.GetBlock(blockCode);
+                Block newBlock = data.BlockAccessor.GetBlock(blockCode);
 
-                if (newBlock == null || (replaceMetaBlocks && (newBlock.Id == UndergroundBlockId || newBlock.Id == AbovegroundBlockId))) continue;
+                if (newBlock == null || (data.ReplaceMeta && (newBlock.Id == UndergroundBlockId || newBlock.Id == AbovegroundBlockId))) continue;
 
-                curPos.Set(dx + startPos.X, dy + startPos.Y, dz + startPos.Z);
-                if (!blockAccessor.IsValidPos(curPos)) continue;    // Deal with cases where we are at the map edge
-                placed += handler(blockAccessor, curPos, newBlock, replaceMetaBlocks);
+                curPos.Set(dx + data.StartPos.X, dy + data.StartPos.Y, dz + data.StartPos.Z);
+                if (!data.BlockAccessor.IsValidPos(curPos)) continue;    // Deal with cases where we are at the map edge
+                placed += handler(data.BlockAccessor, curPos, newBlock, data.ReplaceMeta);
 
-
-                if (newBlock.LightHsv[2] > 0 && blockAccessor is IWorldGenBlockAccessor)
+                if (newBlock.LightHsv[2] > 0 && data.BlockAccessor is IWorldGenBlockAccessor)
                 {
-                    Block oldBlock = blockAccessor.GetBlock(curPos);
-                    ((IWorldGenBlockAccessor)blockAccessor).ScheduleBlockLightUpdate(curPos, oldBlock.BlockId, newBlock.BlockId);
+                    Block oldBlock = data.BlockAccessor.GetBlock(curPos);
+                    ((IWorldGenBlockAccessor)data.BlockAccessor).ScheduleBlockLightUpdate(curPos, oldBlock.BlockId, newBlock.BlockId);
                 }
             }
 
-            if (!(blockAccessor is IBlockAccessorRevertable))
+            if (!(data.BlockAccessor is IBlockAccessorRevertable))
             {
-                PlaceEntitiesAndBlockEntities(blockAccessor, worldForCollectibleResolve, startPos, BlockCodes, ItemCodes, false, null, 0 , null, replaceMetaBlocks);
+                data.BlockCodes = BlockCodes;
+                data.ItemCodes = ItemCodes;
+                PlaceEntitiesAndBlockEntities(data);
             }
 
             return placed;
         }
 
-        public virtual void PlaceDecors(IBlockAccessor blockAccessor, BlockPos startPos)
+        public virtual void PlaceDecors(SchematicPlacementData data)
         {
-            this.curPos.SetDimension(startPos.dimension);
+            curPos.SetDimension(data.StartPos.dimension);
             for (int i = 0; i < DecorIndices.Count; i++)
             {
                 uint index = DecorIndices[i];
-                int posX = startPos.X + (int)(index & PosBitMask);
-                int posY = startPos.Y + (int)((index >> 20) & PosBitMask);
-                int posZ = startPos.Z + (int)((index >> 10) & PosBitMask);
+                int posX = data.StartPos.X + (int)(index & PosBitMask);
+                int posY = data.StartPos.Y + (int)((index >> 20) & PosBitMask);
+                int posZ = data.StartPos.Z + (int)((index >> 10) & PosBitMask);
                 var storedDecorId = DecorIds[i];
-                PlaceOneDecor(blockAccessor, posX, posY, posZ, storedDecorId);
+                PlaceOneDecor(data.BlockAccessor, posX, posY, posZ, storedDecorId);
             }
         }
 
-        public virtual void PlaceDecors(IBlockAccessor blockAccessor, BlockPos startPos, Rectanglei rect)
+        public virtual void PlaceDecors(SchematicPlacementData data, Rectanglei rect)
         {
+            curPos.SetDimension(data.StartPos.dimension);
             int i = -1;
             foreach (uint index in DecorIndices)
             {
                 i++;   // increment i first, because we have various continue statements
 
-                int posX = startPos.X + (int)(index & PosBitMask);
-                int posZ = startPos.Z + (int)((index >> 10) & PosBitMask);
+                int posX = data.StartPos.X + (int)(index & PosBitMask);
+                int posZ = data.StartPos.Z + (int)((index >> 10) & PosBitMask);
                 if (!rect.Contains(posX, posZ)) continue;
 
-                int posY = startPos.Y + (int)((index >> 20) & PosBitMask);
+                int posY = data.StartPos.Y + (int)((index >> 20) & PosBitMask);
 
                 var storedDecorId = DecorIds[i];
-                PlaceOneDecor(blockAccessor, posX, posY, posZ, storedDecorId);
+                PlaceOneDecor(data.BlockAccessor, posX, posY, posZ, storedDecorId);
             }
         }
 
@@ -770,12 +786,12 @@ namespace Vintagestory.API.Common
         /// <param name="flipAxis"></param>
         public virtual void TransformWhilePacked(IWorldAccessor worldForResolve, EnumOrigin aroundOrigin, int angle, EnumAxis? flipAxis = null)
         {
-
             BlocksUnpacked.Clear();
             FluidsLayerUnpacked.Clear();
             BlockEntitiesUnpacked.Clear();
             DecorsUnpacked.Clear();
             EntitiesUnpacked.Clear();
+            ModDataUnpacked.Clear();
 
             angle = GameMath.Mod(angle, 360);
             if (angle == 0) return;
@@ -961,63 +977,72 @@ namespace Vintagestory.API.Common
                 }
             }
 
-
             foreach (string entityData in Entities)
             {
-                using (MemoryStream ms = new MemoryStream(Ascii85.Decode(entityData)))
+                var reader = new BinarySpanReader(Ascii85.Decode(entityData));
+
+                string className = reader.ReadString();
+                Entity entity = worldForResolve.ClassRegistry.CreateEntity(className);
+
+                entity.FromBytes(ref reader, false);
+
+                var pos = entity.Pos;
+
+                double offx = 0;
+                double offz = 0;
+
+                if (aroundOrigin != EnumOrigin.StartPos)
                 {
-                    BinaryReader reader = new BinaryReader(ms);
-
-                    string className = reader.ReadString();
-                    Entity entity = worldForResolve.ClassRegistry.CreateEntity(className);
-
-                    entity.FromBytes(reader, false);
-
-                    var pos = entity.Pos;
-
-                    double offx = 0;
-                    double offz = 0;
-
-                    if (aroundOrigin != EnumOrigin.StartPos)
-                    {
-                        offx = SizeX / 2.0;
-                        offz = SizeZ / 2.0;
-                    }
-
-                    pos.X -= offx;
-                    pos.Z -= offz;
-
-                    var x = pos.X;
-                    var z = pos.Z;
-
-                    switch (angle)
-                    {
-                        case 90:
-                            pos.X = -z;
-                            pos.Z = x;
-                            break;
-                        case 180:
-                            pos.X = -x;
-                            pos.Z = -z;
-                            break;
-                        case 270:
-                            pos.X = z;
-                            pos.Z = -x;
-                            break;
-                    }
-                    if (aroundOrigin != EnumOrigin.StartPos)
-                    {
-                        pos.X += offx;
-                        pos.Z += offz;
-                    }
-
-                    pos.Yaw -= angle * GameMath.DEG2RAD;
-
-                    entity.PositionBeforeFalling.X = pos.X;
-                    entity.PositionBeforeFalling.Z = pos.Z;
-
-                    EntitiesUnpacked.Add(entity);
+                    offx = SizeX / 2.0;
+                    offz = SizeZ / 2.0;
                 }
+
+                pos.X -= offx;
+                pos.Z -= offz;
+
+                var x = pos.X;
+                var z = pos.Z;
+
+                switch (angle)
+                {
+                    case 90:
+                        pos.X = -z;
+                        pos.Z = x;
+                        break;
+                    case 180:
+                        pos.X = -x;
+                        pos.Z = -z;
+                        break;
+                    case 270:
+                        pos.X = z;
+                        pos.Z = -x;
+                        break;
+                }
+                if (aroundOrigin != EnumOrigin.StartPos)
+                {
+                    pos.X += offx;
+                    pos.Z += offz;
+                }
+
+                pos.Yaw -= angle * GameMath.DEG2RAD;
+
+                entity.PositionBeforeFalling.X = pos.X;
+                entity.PositionBeforeFalling.Z = pos.Z;
+
+                EntitiesUnpacked.Add(entity);
+            }
+
+            foreach (var (index, data) in ModData)
+            {
+                int dx = (int)(index & PosBitMask);
+                int dy = (int)((index >> 20) & PosBitMask);
+                int dz = (int)((index >> 10) & PosBitMask);
+
+                if (flipAxis == EnumAxis.Y) dy = SizeY - dy;
+                if (flipAxis == EnumAxis.X) dx = SizeX - dx;
+                if (flipAxis == EnumAxis.Z) dz = SizeZ - dz;
+                BlockPos pos = GetRotatedPos(aroundOrigin, angle, dx, dy, dz);
+                ModDataUnpacked[pos] = data;
             }
 
             BlockPos startPos = new BlockPos(1024, 1024, 1024);
@@ -1072,21 +1097,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Places all the entities and blocks in the schematic at the position.
         /// </summary>
-        /// <param name="blockAccessor"></param>
-        /// <param name="worldForCollectibleResolve"></param>
-        /// <param name="startPos"></param>
-        /// <param name="blockCodes"></param>
-        /// <param name="itemCodes"></param>
-        /// <param name="replaceBlockEntities"></param>
-        /// <param name="replaceBlocks"></param>
-        /// <param name="centerrockblockid"></param>
-        /// <param name="layerBlockForBlockEntities"></param>
-        /// <param name="resolveImports">Turn it off to spawn structures as they are. For example, in this mode, instead of traders, their meta spawners will spawn</param>
-        public void PlaceEntitiesAndBlockEntities(IBlockAccessor blockAccessor, IWorldAccessor worldForCollectibleResolve, BlockPos startPos, Dictionary<int, AssetLocation> blockCodes, Dictionary<int, AssetLocation> itemCodes, bool replaceBlockEntities = false, Dictionary<int, Dictionary<int, int>> replaceBlocks = null, int centerrockblockid = 0, Dictionary<BlockPos, Block> layerBlockForBlockEntities = null, bool resolveImports = true)
+        /// <param name="data"></param>
+        public void PlaceEntitiesAndBlockEntities(SchematicPlacementData data)
         {
-            BlockPos curPos = startPos.Copy();
+            BlockPos curPos = data.StartPos.Copy();
 
-            int schematicSeed = worldForCollectibleResolve.Rand.Next();
+            int schematicSeed = data.World.Rand.Next();
 
             foreach (var val in BlockEntities)
             {
@@ -1095,31 +1111,31 @@ namespace Vintagestory.API.Common
                 int dy = (int)((index >> 20) & PosBitMask);
                 int dz = (int)((index >> 10) & PosBitMask);
 
-                curPos.Set(dx + startPos.X, dy + startPos.Y, dz + startPos.Z);
-                if (!blockAccessor.IsValidPos(curPos)) continue;
+                curPos.Set(dx + data.StartPos.X, dy + data.StartPos.Y, dz + data.StartPos.Z);
+                if (!data.BlockAccessor.IsValidPos(curPos)) continue;
 
-                BlockEntity be = blockAccessor.GetBlockEntity(curPos);
+                BlockEntity be = data.BlockAccessor.GetBlockEntity(curPos);
 
                 // Block entities need to be manually initialized for world gen block access
-                if ((be == null || replaceBlockEntities) && blockAccessor is IWorldGenBlockAccessor)
+                if ((be == null || data.ReplaceBlockEntities) && data.BlockAccessor is IWorldGenBlockAccessor)
                 {
-                    Block block = blockAccessor.GetBlock(curPos, BlockLayersAccess.Solid);
+                    Block block = data.BlockAccessor.GetBlock(curPos, BlockLayersAccess.Solid);
 
                     if (block.EntityClass != null)
                     {
-                        blockAccessor.SpawnBlockEntity(block.EntityClass, curPos);
-                        be = blockAccessor.GetBlockEntity(curPos);
+                        data.BlockAccessor.SpawnBlockEntity(block.EntityClass, curPos);
+                        be = data.BlockAccessor.GetBlockEntity(curPos);
                     }
                 }
 
                 if (be != null)
                 {
-                    if (!replaceBlockEntities)
+                    if (!data.ReplaceBlockEntities)
                     {
-                        Block block = blockAccessor.GetBlock(curPos, BlockLayersAccess.Solid);
-                        if (block.EntityClass != worldForCollectibleResolve.ClassRegistry.GetBlockEntityClass(be.GetType()))
+                        Block block = data.BlockAccessor.GetBlock(curPos, BlockLayersAccess.Solid);
+                        if (block.EntityClass != data.World.ClassRegistry.GetBlockEntityClass(be.GetType()))
                         {
-                            worldForCollectibleResolve.Logger.Warning("Could not import block entity data for schematic at {0}. There is already {1}, expected {2}. Probably overlapping ruins.", curPos, be.GetType(), block.EntityClass);
+                            data.World.Logger.Warning("Could not import block entity data for schematic at {0}. There is already {1}, expected {2}. Probably overlapping ruins.", curPos, be.GetType(), block.EntityClass);
                             continue;
                         }
                     }
@@ -1130,20 +1146,20 @@ namespace Vintagestory.API.Common
                     string treeBlockCode = tree.GetString("blockCode");
                     if (be.Block != null && treeBlockCode != null)
                     {
-                        Block encodedBlock = worldForCollectibleResolve.GetBlock(new AssetLocation(treeBlockCode));
+                        Block encodedBlock = data.World.GetBlock(new AssetLocation(treeBlockCode));
                         if (encodedBlock != null && encodedBlock.GetType() != be.Block.GetType())   // It should be the same type at least, though it might have been rotated or had some other state change eg. snow to free or vice-versa
                         {
                             foreach (var map in BlockRemaps)
                             {
                                 if (map.Value.TryGetValue(treeBlockCode, out var newBlockCode))
                                 {
-                                    encodedBlock = worldForCollectibleResolve.GetBlock(new AssetLocation(newBlockCode));
+                                    encodedBlock = data.World.GetBlock(new AssetLocation(newBlockCode));
                                     break;
                                 }
                             }
                             if (encodedBlock != null && encodedBlock.GetType() != be.Block.GetType())   // Sanity check again, after the remapping
                             {
-                                worldForCollectibleResolve.Logger.Warning("Could not import block entity data for schematic at {0}. There is already {1}, expected {2}. Possibly overlapping ruins, or is this schematic from an old game version?", curPos, be.Block, treeBlockCode);
+                                data.World.Logger.Warning("Could not import block entity data for schematic at {0}. There is already {1}, expected {2}. Possibly overlapping ruins, or is this schematic from an old game version?", curPos, be.Block, treeBlockCode);
                                 continue;
                             }
                         }
@@ -1153,66 +1169,75 @@ namespace Vintagestory.API.Common
                     tree.SetInt("posy", curPos.InternalY);
                     tree.SetInt("posz", curPos.Z);
 
-                    be.FromTreeAttributes(tree, worldForCollectibleResolve);
-                    be.OnLoadCollectibleMappings(worldForCollectibleResolve, blockCodes, itemCodes, schematicSeed, resolveImports);
+                    be.FromTreeAttributes(tree, data.World);
+                    be.OnLoadCollectibleMappings(data.World, data.BlockCodes, data.ItemCodes, schematicSeed, data.ReplaceMeta);
                     Block layerBlock = null;
-                    layerBlockForBlockEntities?.TryGetValue(curPos, out layerBlock);
+                    data.LayerBlockForBlockEntities?.TryGetValue(curPos, out layerBlock);
                     if (layerBlock != null && layerBlock.Id == 0) layerBlock = null;   // Necessary legacy fix for some positions in the Arctic where rockBlockId is 0, due to an older bug
-                    be.OnPlacementBySchematic(worldForCollectibleResolve.Api as ICoreServerAPI, blockAccessor, curPos, replaceBlocks, centerrockblockid, layerBlock, resolveImports);
-                    if (!(blockAccessor is IWorldGenBlockAccessor)) be.MarkDirty();
+                    be.OnPlacementBySchematic(data.World.Api as ICoreServerAPI, data.BlockAccessor, curPos, data.ResolvedRockTypeRemaps, data.CenterRockBlockId, layerBlock, data.ReplaceMeta);
+
+                    if (data.Attributes != null)
+                    {
+                        data.AttributesDirty |= be.OnPlacementBySchematicCustom(data.World.Api as ICoreServerAPI, data.BlockAccessor, data.Attributes);
+                    }
+                    if (!(data.BlockAccessor is IWorldGenBlockAccessor)) be.MarkDirty();
                 }
             }
 
-            if(blockAccessor is IMiniDimension) return;
+            if(data.BlockAccessor is IMiniDimension) return;
 
             foreach (string entityData in Entities)
             {
-                using (MemoryStream ms = new MemoryStream(Ascii85.Decode(entityData)))
+                var reader = new BinarySpanReader(Ascii85.Decode(entityData));
+
+                string className = reader.ReadString();
+                try
                 {
-                    BinaryReader reader = new BinaryReader(ms);
+                    Entity entity = data.World.ClassRegistry.CreateEntity(className);
 
-                    string className = reader.ReadString();
-                    try
+                    entity.FromBytes(ref reader, false, data.World.RemappedEntities);
+                    entity.DidImportOrExport(data.StartPos);
+                    if (OriginalPos != null)
                     {
-                        Entity entity = worldForCollectibleResolve.ClassRegistry.CreateEntity(className);
-
-                        entity.FromBytes(reader, false, ((IServerWorldAccessor)worldForCollectibleResolve).RemappedEntities);
-                        entity.DidImportOrExport(startPos);
-                        if (OriginalPos != null)
+                        var prevOffset = entity.WatchedAttributes.GetBlockPos("importOffset", Zero);
+                        entity.WatchedAttributes.SetBlockPos("importOffset", data.StartPos - OriginalPos + prevOffset);
+                    }
+                    if (data.World.GetEntityType(entity.Code) != null) // Can be null if its a no longer existent mob type
+                    {
+                        // Not ideal but whatever
+                        if (data.BlockAccessor is IWorldGenBlockAccessor accessor)
                         {
-                            var prevOffset = entity.WatchedAttributes.GetBlockPos("importOffset", Zero);
-                            entity.WatchedAttributes.SetBlockPos("importOffset", startPos - OriginalPos + prevOffset);
-                        }
-                        if (worldForCollectibleResolve.GetEntityType(entity.Code) != null) // Can be null if its a no longer existent mob type
-                        {
-                            // Not ideal but whatever
-                            if (blockAccessor is IWorldGenBlockAccessor accessor)
+                            accessor.AddEntity(entity);
+                            if (!entity.TryEarlyLoadCollectibleMappings(data.World, BlockCodes, ItemCodes, schematicSeed, data.ReplaceMeta))
                             {
-                                accessor.AddEntity(entity);
-                                if (!entity.TryEarlyLoadCollectibleMappings(worldForCollectibleResolve, BlockCodes, ItemCodes, schematicSeed, resolveImports))
-                                {
-                                    entity.OnInitialized += () => entity.OnLoadCollectibleMappings(worldForCollectibleResolve, BlockCodes, ItemCodes, schematicSeed, resolveImports);
-                                }
-                            } else
-                            {
-                                worldForCollectibleResolve.SpawnEntity(entity);
-                                if (blockAccessor is IBlockAccessorRevertable re)
-                                {
-                                    re.StoreEntitySpawnToHistory(entity);
-                                }
-                                entity.OnLoadCollectibleMappings(worldForCollectibleResolve, BlockCodes, ItemCodes, schematicSeed, resolveImports);
+                                entity.OnInitialized += () => entity.OnLoadCollectibleMappings(data.World, BlockCodes, ItemCodes, schematicSeed, data.ReplaceMeta);
                             }
                         }
                         else
                         {
-                            worldForCollectibleResolve.Logger.Error("Couldn't import entity {0} with id {1} and code {2} - it's Type is null! Maybe from an older game version or a missing mod.", entity.GetType(), entity.EntityId, entity.Code);
+                            entity.Attributes.SetBool("onFirstSpawn", false);
+                            data.World.SpawnEntity(entity);
+                            if (data.BlockAccessor is IBlockAccessorRevertable re)
+                            {
+                                re.StoreEntitySpawnToHistory(entity);
+                            }
+                            entity.OnLoadCollectibleMappings(data.World, BlockCodes, ItemCodes, schematicSeed, data.ReplaceMeta);
                         }
                     }
-                    catch (Exception)
+                    else
                     {
-                        worldForCollectibleResolve.Logger.Error("Couldn't import entity with classname {0} - Maybe from an older game version or a missing mod.", className);
+                        data.World.Logger.Error("Couldn't import entity {0} with id {1} and code {2} - it's Type is null! Maybe from an older game version or a missing mod.", entity.GetType(), entity.EntityId, entity.Code);
                     }
                 }
+                catch (Exception)
+                {
+                    data.World.Logger.Error("Couldn't import entity with classname {0} - Maybe from an older game version or a missing mod.", className);
+                }
+            }
+
+            if (ModData.Count > 0)
+            {
+                ((IServerEventAPI)data.World.Api.Event).TriggerSchematicImport(data.BlockAccessor, data.World, data.StartPos, ModData);
             }
         }
 
@@ -1253,7 +1278,7 @@ namespace Vintagestory.API.Common
         }
 
         /// <summary>
-        /// Adjusts the starting position of the schemtic.
+        /// Adjusts the starting position of the schematic.
         /// </summary>
         /// <param name="startpos"></param>
         /// <param name="origin"></param>
@@ -1418,19 +1443,12 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Imports the tree data from a string.
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
         public virtual TreeAttribute DecodeBlockEntityData(string data)
         {
-            byte[] bedata = Ascii85.Decode(data);
+            var reader = new BinarySpanReader(Ascii85.Decode(data));
 
             TreeAttribute tree = new TreeAttribute();
-
-            using (MemoryStream ms = new MemoryStream(bedata))
-            {
-                BinaryReader reader = new BinaryReader(ms);
-                tree.FromBytes(reader);
-            }
+            tree.FromBytes(ref reader);
 
             return tree;
         }
@@ -1510,15 +1528,21 @@ namespace Vintagestory.API.Common
             cloned.ReplaceMode = ReplaceMode;
             cloned.EntranceRotation = EntranceRotation;
             cloned.OriginalPos = OriginalPos;
+
+            cloned.ModData = ModData.ToDictionary(s => s.Key, s => new Dictionary<string, byte[]>(s.Value));
             return cloned;
         }
 
         public void PasteToMiniDimension(ICoreServerAPI sapi, IBlockAccessor blockAccess, IMiniDimension miniDimension, BlockPos originPos, bool replaceMetaBlocks)
         {
-            this.Init(blockAccess);
-
-            this.Place(miniDimension, sapi.World, originPos, EnumReplaceMode.ReplaceAll, replaceMetaBlocks);
-            this.PlaceDecors(miniDimension, originPos);
+            Init(miniDimension);
+            SchematicPlacementData data = new(miniDimension, sapi.World)
+            {
+                StartPos = originPos,
+                ReplaceMode = EnumReplaceMode.ReplaceAll,
+                ReplaceMeta = replaceMetaBlocks
+            };
+            Place(data);
         }
     }
 }

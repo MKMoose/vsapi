@@ -307,6 +307,18 @@ namespace Vintagestory.API.Client
             }
         }
 
+        public override void RenderBoundsDebug()
+        {
+            foreach (IGuiElementCell ele in visibleCells)
+            {
+                if (ele.Bounds.PartiallyInside(Bounds.ParentBounds))
+                {
+                    api.Render.RenderRectangle((int)ele.Bounds.renderX, (int)ele.Bounds.renderY, 501, (int)ele.Bounds.OuterWidth, (int)ele.Bounds.OuterHeight, OutlineColor());
+                }
+            }
+
+            base.RenderBoundsDebug();
+        }
     }
 
     public static partial class GuiComposerHelpers

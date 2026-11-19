@@ -1,5 +1,4 @@
 ﻿
-#nullable disable
 namespace Vintagestory.API.Common
 {
     public enum EnumItemUseCancelReason
@@ -10,6 +9,7 @@ namespace Vintagestory.API.Common
         MovedAway,
         Death,
         Destroyed,
-        OpenedGui
+        OpenedGui,
+        PlayerTriggered
     }
 }

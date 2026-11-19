@@ -1,4 +1,6 @@
+using System;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -41,42 +43,37 @@ namespace Vintagestory.API.Server
         /// <summary>
         /// Sends a blockentity packet to the given player. For quick an easy network communication without setting up a channel first.
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="pos"></param>
-        /// <param name="packetId"></param>
-        /// <param name="data"></param>
         void SendBlockEntityPacket(IServerPlayer player, BlockPos pos, int packetId, byte[] data = null);
 
         /// <summary>
         /// Sends a entity packet to the given player and entity. For quick an easy entity network communication without setting up a channel first.
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="entityid"></param>
-        /// <param name="packetId"></param>
-        /// <param name="data"></param>
         void SendEntityPacket(IServerPlayer player, long entityid, int packetId, byte[] data = null);
 
 
         /// <summary>
         /// Sends a entity packet to all players in range. For quick an easy entity network communication without setting up a channel first.
         /// </summary>
-        /// <param name="entityid"></param>
-        /// <param name="packetId"></param>
-        /// <param name="data"></param>
         void BroadcastEntityPacket(long entityid, int packetId, byte[] data = null);
 
 
         /// <summary>
         /// Broadcasts a blockentity packet to all connected players. For quick an easy network communication without setting up a channel first.
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="packetId"></param>
-        /// <param name="data"></param>
-        //[Obsolete("Prefer using the ReadOnlySpan overload")] // Rennorb: Obsolete in 1.23
-        void BroadcastBlockEntityPacket(BlockPos pos, int packetId, byte[] data = null);
+        [Obsolete("Use the SerializedData overload", true)]
+        void BroadcastBlockEntityPacket(BlockPos pos, int packetId, byte[] data = null)
+            => BroadcastBlockEntityPacket(new(pos), packetId, new SerializedData(data));
+        [Obsolete("Use the SerializedData overload", true)]
+        void BroadcastBlockEntityPacket(BlockPos pos, int packetId, byte[] data = null, params IServerPlayer[] skipPlayers)
+            => BroadcastBlockEntityPacket(new(pos), packetId, new SerializedData(data), skipPlayers.AsSpan());
 
-        //[Obsolete("Prefer using the ReadOnlySpan overload")] // Rennorb: Obsolete in 1.23
-        void BroadcastBlockEntityPacket(BlockPos pos, int packetId, byte[] data = null, params IServerPlayer[] skipPlayers);
+
+        /// <summary>
+        /// Broadcasts a blockentity packet to all connected players. For quick an easy network communication without setting up a channel first.
+        /// </summary>
+        void BroadcastBlockEntityPacket(FastBlockPos pos, int packetId, SerializedData data = default);
+
+        void BroadcastBlockEntityPacket(FastBlockPos pos, int packetId, SerializedData data = default, params ReadOnlySpan<IServerPlayer> skipPlayers);
 
 
         /// <summary>
@@ -106,6 +103,13 @@ namespace Vintagestory.API.Server
         /// <param name="packet"></param>
         /// <param name="exceptPlayers"></param>
         void BroadcastArbitraryPacket(object packet, params IServerPlayer[] exceptPlayers);
+
+        /// <summary>
+        /// Sends the packet to all connected players that may have the given position within their loaded chunks
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="pos"></param>
+        void BroadcastPacketInRange(FastBlockPos pos, byte[] data);
 
 
         /// <summary>

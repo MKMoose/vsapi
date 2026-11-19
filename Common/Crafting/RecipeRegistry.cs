@@ -1,13 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Vintagestory.API.Datastructures;
 
-#nullable disable
-
 namespace Vintagestory.API.Common
 {
-    public class RecipeRegistryGeneric<T> : RecipeRegistryBase where T : IByteSerializable, new()
+    public class RecipeRegistryGeneric<T> : CustomRegistryBase where T : IByteSerializable, new()
     {
         public List<T> Recipes;
 
@@ -23,16 +21,13 @@ namespace Vintagestory.API.Common
 
         public override void FromBytes(IWorldAccessor resolver, int quantity, byte[] data)
         {
-            using (MemoryStream ms = new MemoryStream(data))
-            {
-                BinaryReader reader = new BinaryReader(ms);
+            var reader = new BinarySpanReader(data);
 
-                for (int j = 0; j < quantity; j++)
-                {
-                    T rec = new T();
-                    rec.FromBytes(reader, resolver);
-                    Recipes.Add(rec);
-                }
+            for (int j = 0; j < quantity; j++)
+            {
+                T rec = new T();
+                rec.FromBytes(ref reader, resolver);
+                Recipes.Add(rec);
             }
         }
 
@@ -66,7 +61,12 @@ namespace Vintagestory.API.Common
         }
     }
 
-    public abstract class RecipeRegistryBase
+    [Obsolete("Use CustomRegistryBase instead")]
+    public abstract class RecipeRegistryBase : CustomRegistryBase
+    {
+    }
+
+    public abstract class CustomRegistryBase
     {
         public abstract void ToBytes(IWorldAccessor resolver, out byte[] data, out int quantity);
 

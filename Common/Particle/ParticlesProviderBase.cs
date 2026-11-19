@@ -1,5 +1,9 @@
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -146,17 +150,32 @@ namespace Vintagestory.API.Common
         /// <param name="writer"></param>
         public virtual void ToBytes(BinaryWriter writer)
         {
-            
         }
 
-        /// <summary>
-        /// How the particle is read from the save.
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="resolver"></param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)
         {
-            
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, IWorldAccessor). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader), typeof(IWorldAccessor) ]);
+            if (oldFromBytes != null && oldFromBytes.DeclaringType != typeof(ParticlesProviderBase))
+            {
+                reader.UnsafeActAsBinarySpanReader(resolver, FromBytes);
+            }
+        }
+
+        public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader), typeof(IWorldAccessor) ])!;
+            if (oldFromBytes.DeclaringType != typeof(ParticlesProviderBase))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader, IWorldAccessor). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(resolver, oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction<IWorldAccessor>>(this));
+                #pragma warning restore CS0618
+            }
         }
 
         /// <summary>

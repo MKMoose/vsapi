@@ -594,7 +594,8 @@ public int Version</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void GenerateAllFrames(ShapeElement[] rootElements, Dictionary&lt;int, AnimationJoint&gt; jointsById, bool recursive = true)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the version that takes a sourceForLogging param instead&quot;)]
+public void GenerateAllFrames(ShapeElement[] rootElements, Dictionary&lt;int, AnimationJoint&gt; jointsById, bool recursive = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -619,10 +620,49 @@ public int Version</code></pre>
 
 
 
+  <a id="Vintagestory_API_Common_Animation_GenerateAllFrames_" data-uid="Vintagestory.API.Common.Animation.GenerateAllFrames*"></a>
+
+  <h3 id="Vintagestory_API_Common_Animation_GenerateAllFrames_Vintagestory_API_Common_ShapeElement___System_Collections_Generic_Dictionary_System_Int32_Vintagestory_API_Common_AnimationJoint__System_String_System_Boolean_" data-uid="Vintagestory.API.Common.Animation.GenerateAllFrames(Vintagestory.API.Common.ShapeElement[],System.Collections.Generic.Dictionary{System.Int32,Vintagestory.API.Common.AnimationJoint},System.String,System.Boolean)">
+  GenerateAllFrames(ShapeElement[], Dictionary&lt;int, AnimationJoint&gt;, string, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compiles the animation into a bunch of matrices, 31 matrices per frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GenerateAllFrames(ShapeElement[] rootElements, Dictionary&lt;int, AnimationJoint&gt; jointsById, string sourceForLogging, bool recursive = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>rootElements</code> <a class="xref" href="Vintagestory.API.Common.ShapeElement.html">ShapeElement</a>[]</dt>
+    <dd></dd>
+    <dt><code>jointsById</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="Vintagestory.API.Common.AnimationJoint.html">AnimationJoint</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>sourceForLogging</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>When false, will only do root elements</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_Animation_GenerateFrame_" data-uid="Vintagestory.API.Common.Animation.GenerateFrame*"></a>
 
-  <h3 id="Vintagestory_API_Common_Animation_GenerateFrame_System_Int32_Vintagestory_API_Common_AnimationFrame___Vintagestory_API_Common_ShapeElement___System_Collections_Generic_Dictionary_System_Int32_Vintagestory_API_Common_AnimationJoint__System_Single___System_Collections_Generic_List_Vintagestory_API_Common_ElementPose__System_Boolean_" data-uid="Vintagestory.API.Common.Animation.GenerateFrame(System.Int32,Vintagestory.API.Common.AnimationFrame[],Vintagestory.API.Common.ShapeElement[],System.Collections.Generic.Dictionary{System.Int32,Vintagestory.API.Common.AnimationJoint},System.Single[],System.Collections.Generic.List{Vintagestory.API.Common.ElementPose},System.Boolean)">
-  GenerateFrame(int, AnimationFrame[], ShapeElement[], Dictionary&lt;int, AnimationJoint&gt;, float[], List&lt;ElementPose&gt;, bool)
+  <h3 id="Vintagestory_API_Common_Animation_GenerateFrame_System_Int32_Vintagestory_API_Common_AnimationFrame___Vintagestory_API_Common_ShapeElement___System_Collections_Generic_Dictionary_System_Int32_Vintagestory_API_Common_AnimationJoint__System_Single___System_Collections_Generic_List_Vintagestory_API_Common_ElementPose__System_String_System_Boolean_" data-uid="Vintagestory.API.Common.Animation.GenerateFrame(System.Int32,Vintagestory.API.Common.AnimationFrame[],Vintagestory.API.Common.ShapeElement[],System.Collections.Generic.Dictionary{System.Int32,Vintagestory.API.Common.AnimationJoint},System.Single[],System.Collections.Generic.List{Vintagestory.API.Common.ElementPose},System.String,System.Boolean)">
+  GenerateFrame(int, AnimationFrame[], ShapeElement[], Dictionary&lt;int, AnimationJoint&gt;, float[], List&lt;ElementPose&gt;, string, bool)
   
   </h3>
 
@@ -630,7 +670,7 @@ public int Version</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void GenerateFrame(int indexNumber, AnimationFrame[] resKeyFrames, ShapeElement[] elements, Dictionary&lt;int, AnimationJoint&gt; jointsById, float[] modelMatrix, List&lt;ElementPose&gt; transforms, bool recursive = true)</code></pre>
+    <pre><code class="lang-csharp hljs">protected void GenerateFrame(int indexNumber, AnimationFrame[] resKeyFrames, ShapeElement[] elements, Dictionary&lt;int, AnimationJoint&gt; jointsById, float[] modelMatrix, List&lt;ElementPose&gt; transforms, string sourceForLogging, bool recursive = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -646,6 +686,8 @@ public int Version</code></pre>
     <dt><code>modelMatrix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</dt>
     <dd></dd>
     <dt><code>transforms</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.ElementPose.html">ElementPose</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>sourceForLogging</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>recursive</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -780,7 +822,8 @@ public int Version</code></pre>
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Resolves a keyframe element into the pose, evaluating the channel's curve at the given segment fraction t. Cache-time site for Linear/Bezier; Step is flagged on the pose so ElementPose.Add can hold the prev value at runtime.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">

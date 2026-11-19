@@ -712,6 +712,175 @@ Class AABBIntersectionTest
 
 
 
+  <a id="Vintagestory_API_MathTools_AABBIntersectionTest_RayIntersectsWithCuboid_" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.RayIntersectsWithCuboid*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_AABBIntersectionTest_RayIntersectsWithCuboid_Vintagestory_API_MathTools_Ray_Vintagestory_API_MathTools_Cuboidd_Vintagestory_API_MathTools_BlockFacing__Vintagestory_API_MathTools_Vec3d__" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.RayIntersectsWithCuboid(Vintagestory.API.MathTools.Ray,Vintagestory.API.MathTools.Cuboidd,Vintagestory.API.MathTools.BlockFacing@,Vintagestory.API.MathTools.Vec3d@)">
+  RayIntersectsWithCuboid(Ray, Cuboidd, ref BlockFacing, ref Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>This will test a ray against an axis-aligned or rotated cuboid without replacing the loaded picking ray.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RayIntersectsWithCuboid(Ray testRay, Cuboidd selectionBox, ref BlockFacing hitOnBlockFace, ref Vec3d hitPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>testRay</code> <a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
+    <dt><code>selectionBox</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>hitOnBlockFace</code> <a class="xref" href="Vintagestory.API.MathTools.BlockFacing.html">BlockFacing</a></dt>
+    <dd></dd>
+    <dt><code>hitPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_AABBIntersectionTest_Testintersection_" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.Testintersection*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_AABBIntersectionTest_Testintersection_Vintagestory_API_MathTools_Cuboidd_Vintagestory_API_MathTools_Ray_Vintagestory_API_MathTools_Vec3d__" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.Testintersection(Vintagestory.API.MathTools.Cuboidd,Vintagestory.API.MathTools.Ray,Vintagestory.API.MathTools.Vec3d@)">
+  Testintersection(Cuboidd, Ray, ref Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Testintersection(Cuboidd b, Ray r, ref Vec3d hitPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>b</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>r</code> <a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
+    <dt><code>hitPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_AABBIntersectionTest_Testintersection_" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.Testintersection*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_AABBIntersectionTest_Testintersection_Vintagestory_API_MathTools_Cuboidd_Vintagestory_API_MathTools_Ray_Vintagestory_API_MathTools_Vec3d__Vintagestory_API_MathTools_BlockFacing__" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.Testintersection(Vintagestory.API.MathTools.Cuboidd,Vintagestory.API.MathTools.Ray,Vintagestory.API.MathTools.Vec3d@,Vintagestory.API.MathTools.BlockFacing@)">
+  Testintersection(Cuboidd, Ray, ref Vec3d, out BlockFacing)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests if a ray intersects with a cuboid. The cuboid is defined by its minimum and maximum coordinates (X1, Y1, Z1) and (X2, Y2, Z2).
+The ray is defined by its origin and direction. If an intersection occurs, the hit position is returned in the hitPosition parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Testintersection(Cuboidd b, Ray r, ref Vec3d hitPosition, out BlockFacing hitOnBlockFace)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>b</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>r</code> <a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
+    <dt><code>hitPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>hitOnBlockFace</code> <a class="xref" href="Vintagestory.API.MathTools.BlockFacing.html">BlockFacing</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_AABBIntersectionTest_TestintersectionInfiniteFace_" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.TestintersectionInfiniteFace*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_AABBIntersectionTest_TestintersectionInfiniteFace_Vintagestory_API_MathTools_Cuboidd_Vintagestory_API_MathTools_Ray_Vintagestory_API_MathTools_BlockFacing_Vintagestory_API_MathTools_Vec3d__" data-uid="Vintagestory.API.MathTools.AABBIntersectionTest.TestintersectionInfiniteFace(Vintagestory.API.MathTools.Cuboidd,Vintagestory.API.MathTools.Ray,Vintagestory.API.MathTools.BlockFacing,Vintagestory.API.MathTools.Vec3d@)">
+  TestintersectionInfiniteFace(Cuboidd, Ray, BlockFacing, ref Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TestintersectionInfiniteFace(Cuboidd b, Ray r, BlockFacing blockSideFacing, ref Vec3d hitPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>b</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>r</code> <a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
+    <dt><code>blockSideFacing</code> <a class="xref" href="Vintagestory.API.MathTools.BlockFacing.html">BlockFacing</a></dt>
+    <dd></dd>
+    <dt><code>hitPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 

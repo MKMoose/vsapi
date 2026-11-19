@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -247,14 +248,17 @@ namespace Vintagestory.API.Common
             writer.Write(basePos.Z);
         }
 
-
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+            => reader.UnsafeActAsBinarySpanReader(resolver, FromBytes);
+
+        public void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
             quantityParticles = reader.ReadInt32();
             int cnt = reader.ReadInt32();
 
             offsets.Clear();
-            byte[] tmp = reader.ReadBytes(cnt);
+            var tmp = reader.ReadBytes(cnt);
             for (int i = 0; i < tmp.Length; i++)
             {
                 offsets.Add((sbyte)tmp[i]);

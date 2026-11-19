@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -199,6 +200,20 @@ namespace Vintagestory.API.Common.Entities
             this.y = pos.Y % BlockPos.DimensionBoundary;
             this.z = pos.Z;
             this.Dimension = (int)pos.Y / BlockPos.DimensionBoundary;
+        }
+
+        /// <summary>
+        /// Sets this position to x,y,z , including setting the dimension
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        public void SetPosWithDimension(double x, double y, double z)
+        {
+            X = x;    // One call to .X{set} so that marked dirty if it's a SyncedEntityPos.  Otherwise more efficient to write direct to .y and .z fields
+            this.y = y % BlockPos.DimensionBoundary;
+            this.z = z;
+            Dimension = (int)y / BlockPos.DimensionBoundary;
         }
 
         /// <summary>
@@ -524,6 +539,20 @@ namespace Vintagestory.API.Common.Entities
         }
 
         /// <summary>
+        /// Returns the squared distance of the entity to this position. Note: dimension aware, this requires the parameter FastVec3d pos.Y coordinate also to be based on InternalY as it should be (like EntityPos.XYZ)
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public double SquareDistanceTo(FastVec3d pos)
+        {
+            double dx = this.x - pos.X;
+            double dy = this.InternalY - pos.Y;
+            double dz = this.z - pos.Z;
+
+            return (dx * dx + dy * dy + dz * dz);
+        }
+
+        /// <summary>
         /// Returns the horizontal squared distance of the entity to this position
         /// </summary>
         /// <param name="pos"></param>
@@ -545,6 +574,15 @@ namespace Vintagestory.API.Common.Entities
             return GameMath.Sqrt(dx * dx + dy * dy + dz * dz);
         }
 
+        public double DistanceTo(FastVec3d pos)
+        {
+            double dx = this.x - pos.X;
+            double dy = this.InternalY - pos.Y;
+            double dz = this.z - pos.Z;
+
+            return GameMath.Sqrt(dx * dx + dy * dy + dz * dz);
+        }
+
         public double DistanceTo(EntityPos pos)
         {
             double dx = this.x - pos.x;
@@ -555,6 +593,14 @@ namespace Vintagestory.API.Common.Entities
         }
 
         public double HorDistanceTo(Vec3d pos)
+        {
+            double dx = this.x - pos.X;
+            double dz = this.z - pos.Z;
+
+            return GameMath.Sqrt(dx * dx + dz * dz);
+        }
+
+        public double HorDistanceTo(FastBlockPos pos)
         {
             double dx = this.x - pos.X;
             double dz = this.z - pos.Z;
@@ -826,8 +872,14 @@ namespace Vintagestory.API.Common.Entities
         /// <summary>
         /// Deserializes all positional information. Does not read HeadYaw and HeadPitch
         /// </summary>
-        /// <param name="reader"></param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader)
+            => reader.UnsafeActAsBinarySpanReader(FromBytes);
+
+        /// <summary>
+        /// Deserializes all positional information. Does not read HeadYaw and HeadPitch
+        /// </summary>
+        public void FromBytes(ref BinarySpanReader reader)
         {
             x = reader.ReadDouble();
             y = reader.ReadDouble();

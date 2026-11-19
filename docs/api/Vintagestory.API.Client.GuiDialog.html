@@ -1070,7 +1070,8 @@ If true (default), the Alt button needs to be held to manually grab the mouse.</
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool IsInRangeOf(Vec3d pos)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using player.IsInInteractionRangeOf. A dialog does not have an in-world position.&quot;, true)]
+public virtual bool IsInRangeOf(Vec3d pos)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

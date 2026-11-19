@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -119,13 +121,13 @@ namespace Vintagestory.API.Common
         /// The amount of hours before this item starts the transitioning process.
         /// </summary>
         [DocumentAsJson("Recommended", "36")]
-        public NatFloat FreshHours = NatFloat.createUniform(36f, 0);
+        public INatFloat FreshHours = NatFloat.createUniform(36f, 0);
 
         /// <summary>
         /// The amount of hours it takes for the item to transition, after <see cref="FreshHours"/> has elapsed.
         /// </summary>
         [DocumentAsJson("Recommended", "12")]
-        public NatFloat TransitionHours = NatFloat.createUniform(12f, 0);
+        public INatFloat TransitionHours = NatFloat.createUniform(12f, 0);
 
         /// <summary>
         /// The itemstack the collectible turns into upon transitioning.
@@ -158,21 +160,24 @@ namespace Vintagestory.API.Common
         public void ToBytes(BinaryWriter writer)
         {
             writer.Write((ushort)Type);
-            FreshHours.ToBytes(writer);
-            TransitionHours.ToBytes(writer);
+            INatFloat.INatFloatToBytes(FreshHours, writer);
+            INatFloat.INatFloatToBytes(TransitionHours, writer);
             TransitionedStack.ToBytes(writer);
             writer.Write(TransitionRatio);
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IClassRegistryAPI instancer)
+            => reader.UnsafeActAsBinarySpanReader(instancer, FromBytes);
+
+        public void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)
         {
             Type = (EnumTransitionType)reader.ReadUInt16();
-            FreshHours = NatFloat.createFromBytes(reader);
-            TransitionHours = NatFloat.createFromBytes(reader);
-            TransitionedStack = new JsonItemStack();
-            TransitionedStack.FromBytes(reader, instancer);
+            FreshHours = INatFloat.INatFloatFromBytes(ref reader);
+            TransitionHours = INatFloat.INatFloatFromBytes(ref reader);
+            TransitionedStack = new JsonItemStack { Code = null! };
+            TransitionedStack.FromBytes(ref reader, instancer);
             TransitionRatio = reader.ReadSingle();
         }
-
     }
 }

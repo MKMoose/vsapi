@@ -358,7 +358,8 @@ namespace Vintagestory.API.Client
             if (!Bounds.PointInside(api.Input.MouseX, api.Input.MouseY)) return;
             args.SetHandled(true);
 
-            double dir = args.deltaPrecise * scaled(10.0);
+            // If we have horizontal scrolling we want to use that, otherwise we use vertical scrolling as a backup
+            double dir = (args.DeltaX != 0 ? -args.DeltaX : args.DeltaY) * scaled(10.0);
             if (currentScrollOffset <= 0 && dir < 0 || currentScrollOffset >= maxScrollOffset && dir > 0) return;
             currentScrollOffset = Math.Clamp(currentScrollOffset + dir, 0, maxScrollOffset);
         }

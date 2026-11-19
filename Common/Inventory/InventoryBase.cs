@@ -465,6 +465,21 @@ namespace Vintagestory.API.Common
         }
 
         /// <summary>
+        /// Some inventories can be performance sensitive to slot changes - such as the crafting inventory.
+        /// This method pauses slot change updates until EndBatchUpdate is called
+        /// </summary>
+        public virtual void BeginMultiUpdate()
+        {
+        }
+
+        /// <summary>
+        /// Ends a multi update operation
+        /// </summary>
+        public virtual void EndMultiUpdate()
+        {
+        }
+
+        /// <summary>
         /// Called when one of the containing slots has been modified
         /// </summary>
         /// <param name="slot"></param>
@@ -923,6 +938,11 @@ namespace Vintagestory.API.Common
         public virtual ItemSlot GetAutoPullFromSlot(BlockFacing atBlockFace)
         {
             return null;
+        }
+
+        public virtual void DidAutoMove(ItemSlot sourceSlot, ItemSlot targetSlot, int qmoved)
+        {
+            
         }
     }
 }

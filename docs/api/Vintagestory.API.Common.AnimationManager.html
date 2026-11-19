@@ -181,8 +181,8 @@ Class AnimationManager
 
   <a id="Vintagestory_API_Common_AnimationManager__ctor_" data-uid="Vintagestory.API.Common.AnimationManager.#ctor*"></a>
 
-  <h3 id="Vintagestory_API_Common_AnimationManager__ctor" data-uid="Vintagestory.API.Common.AnimationManager.#ctor">
-  AnimationManager()
+  <h3 id="Vintagestory_API_Common_AnimationManager__ctor_Vintagestory_API_Common_Entities_Entity_" data-uid="Vintagestory.API.Common.AnimationManager.#ctor(Vintagestory.API.Common.Entities.Entity)">
+  AnimationManager(Entity)
   
   </h3>
 
@@ -190,9 +190,14 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AnimationManager()</code></pre>
+    <pre><code class="lang-csharp hljs">public AnimationManager(Entity entity)</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -280,7 +285,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;AnimFrameCallback&gt; Triggers</code></pre>
+    <pre><code class="lang-csharp hljs">public List&lt;AnimFrameCallback&gt;? Triggers</code></pre>
   </div>
 
 
@@ -340,7 +345,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ICoreClientAPI capi</code></pre>
+    <pre><code class="lang-csharp hljs">protected ICoreClientAPI? capi</code></pre>
   </div>
 
 
@@ -470,7 +475,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAnimator Animator { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IAnimator? Animator { get; set; }</code></pre>
   </div>
 
 
@@ -502,7 +507,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IHeadController HeadController { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public IHeadController? HeadController { get; set; }</code></pre>
   </div>
 
 
@@ -524,6 +529,68 @@ Class AnimationManager
 
   <h2 class="section" id="methods">Methods
 </h2>
+
+
+  <a id="Vintagestory_API_Common_AnimationManager_AddActiveAnimation_" data-uid="Vintagestory.API.Common.AnimationManager.AddActiveAnimation*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimationManager_AddActiveAnimation_Vintagestory_API_Common_AnimationMetaData_" data-uid="Vintagestory.API.Common.AnimationManager.AddActiveAnimation(Vintagestory.API.Common.AnimationMetaData)">
+  AddActiveAnimation(AnimationMetaData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void AddActiveAnimation(AnimationMetaData animdata)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>animdata</code> <a class="xref" href="Vintagestory.API.Common.AnimationMetaData.html">AnimationMetaData</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_AnimationManager_ClearFrameCallbacks_" data-uid="Vintagestory.API.Common.AnimationManager.ClearFrameCallbacks*"></a>
+
+  <h3 id="Vintagestory_API_Common_AnimationManager_ClearFrameCallbacks_System_String_" data-uid="Vintagestory.API.Common.AnimationManager.ClearFrameCallbacks(System.String)">
+  ClearFrameCallbacks(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ClearFrameCallbacks(string animation)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>animation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
 
 
   <a id="Vintagestory_API_Common_AnimationManager_CopyOverAnimStates_" data-uid="Vintagestory.API.Common.AnimationManager.CopyOverAnimStates*"></a>
@@ -631,7 +698,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual RunningAnimation GetAnimationState(string anim)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual RunningAnimation? GetAnimationState(string anim)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -699,7 +766,8 @@ Class AnimationManager
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Pass in the animation code, not the metadata code. E.g. IsAnimationActive(animMeta.Animation).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -731,7 +799,7 @@ Class AnimationManager
   <a id="Vintagestory_API_Common_AnimationManager_LoadAnimator_" data-uid="Vintagestory.API.Common.AnimationManager.LoadAnimator*"></a>
 
   <h3 id="Vintagestory_API_Common_AnimationManager_LoadAnimator_Vintagestory_API_Common_ICoreAPI_Vintagestory_API_Common_Entities_Entity_Vintagestory_API_Common_Shape_Vintagestory_API_Common_RunningAnimation___System_Boolean_System_String___System_String___" data-uid="Vintagestory.API.Common.AnimationManager.LoadAnimator(Vintagestory.API.Common.ICoreAPI,Vintagestory.API.Common.Entities.Entity,Vintagestory.API.Common.Shape,Vintagestory.API.Common.RunningAnimation[],System.Boolean,System.String[],System.String[])">
-  LoadAnimator(ICoreAPI, Entity, Shape, RunningAnimation[], bool, string[], params string[])
+  LoadAnimator(ICoreAPI, Entity, Shape?, RunningAnimation[], bool, string[], params string[])
   
   </h3>
 
@@ -739,7 +807,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IAnimator LoadAnimator(ICoreAPI api, Entity entity, Shape entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)</code></pre>
+    <pre><code class="lang-csharp hljs">public IAnimator? LoadAnimator(ICoreAPI api, Entity entity, Shape? entityShape, RunningAnimation[] copyOverAnims, bool requirePosesOnServer, string[] disableElements, params string[] requireJointsForElements)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -910,7 +978,7 @@ Class AnimationManager
   <a id="Vintagestory_API_Common_AnimationManager_ResetAnimation_" data-uid="Vintagestory.API.Common.AnimationManager.ResetAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_AnimationManager_ResetAnimation_System_String_" data-uid="Vintagestory.API.Common.AnimationManager.ResetAnimation(System.String)">
-  ResetAnimation(string)
+  ResetAnimation(string?)
   
   </h3>
 
@@ -919,7 +987,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void ResetAnimation(string animCode)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void ResetAnimation(string? animCode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -983,12 +1051,12 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ShouldPlaySound(string animationMetaCode, AnimationSound sound)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ShouldPlaySound(string animationCode, AnimationSound sound)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>animationMetaCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>animationCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>sound</code> <a class="xref" href="Vintagestory.API.Common.AnimationSound.html">AnimationSound</a></dt>
     <dd></dd>
@@ -1007,8 +1075,8 @@ Class AnimationManager
 
   <a id="Vintagestory_API_Common_AnimationManager_ShouldPlaySound_" data-uid="Vintagestory.API.Common.AnimationManager.ShouldPlaySound*"></a>
 
-  <h3 id="Vintagestory_API_Common_AnimationManager_ShouldPlaySound_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_Vec3f_System_Int32_System_Collections_Generic_Dictionary_System_String_Vintagestory_API_Client_ILoadedSound__System_String_Vintagestory_API_Common_AnimationSound_Vintagestory_API_Common_Entities_Entity_" data-uid="Vintagestory.API.Common.AnimationManager.ShouldPlaySound(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.Vec3f,System.Int32,System.Collections.Generic.Dictionary{System.String,Vintagestory.API.Client.ILoadedSound},System.String,Vintagestory.API.Common.AnimationSound,Vintagestory.API.Common.Entities.Entity)">
-  ShouldPlaySound(IWorldAccessor, Vec3f, int, Dictionary&lt;string, ILoadedSound&gt;, string, AnimationSound, Entity)
+  <h3 id="Vintagestory_API_Common_AnimationManager_ShouldPlaySound_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_Vec3f_System_Int32_System_Collections_Generic_Dictionary_System_String_Vintagestory_API_Client_ILoadedSound___System_String_Vintagestory_API_Common_AnimationSound_Vintagestory_API_Common_Entities_Entity_" data-uid="Vintagestory.API.Common.AnimationManager.ShouldPlaySound(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.Vec3f,System.Int32,System.Collections.Generic.Dictionary{System.String,Vintagestory.API.Client.ILoadedSound}@,System.String,Vintagestory.API.Common.AnimationSound,Vintagestory.API.Common.Entities.Entity)">
+  ShouldPlaySound(IWorldAccessor, Vec3f, int, ref Dictionary&lt;string, ILoadedSound&gt;?, string, AnimationSound, Entity?)
   
   </h3>
 
@@ -1016,7 +1084,7 @@ Class AnimationManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void ShouldPlaySound(IWorldAccessor world, Vec3f pos, int dimension, Dictionary&lt;string, ILoadedSound&gt; loopingSounds, string animationMetaCode, AnimationSound sound, Entity entity = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void ShouldPlaySound(IWorldAccessor world, Vec3f pos, int dimension, ref Dictionary&lt;string, ILoadedSound&gt;? loopingSounds, string animationCode, AnimationSound sound, Entity? entity = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1029,7 +1097,7 @@ Class AnimationManager
     <dd></dd>
     <dt><code>loopingSounds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="Vintagestory.API.Client.ILoadedSound.html">ILoadedSound</a>&gt;</dt>
     <dd></dd>
-    <dt><code>animationMetaCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>animationCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>sound</code> <a class="xref" href="Vintagestory.API.Common.AnimationSound.html">AnimationSound</a></dt>
     <dd></dd>
@@ -1051,7 +1119,7 @@ Class AnimationManager
   <a id="Vintagestory_API_Common_AnimationManager_StartAnimation_" data-uid="Vintagestory.API.Common.AnimationManager.StartAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_AnimationManager_StartAnimation_System_String_" data-uid="Vintagestory.API.Common.AnimationManager.StartAnimation(System.String)">
-  StartAnimation(string)
+  StartAnimation(string?)
   
   </h3>
 
@@ -1061,7 +1129,7 @@ Use StartAnimation(AnimationMetaData animdata) to circumvent the entity config a
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool StartAnimation(string configCode)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool StartAnimation(string? configCode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1155,7 +1223,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <a id="Vintagestory_API_Common_AnimationManager_StopAnimation_" data-uid="Vintagestory.API.Common.AnimationManager.StopAnimation*"></a>
 
   <h3 id="Vintagestory_API_Common_AnimationManager_StopAnimation_System_String_" data-uid="Vintagestory.API.Common.AnimationManager.StopAnimation(System.String)">
-  StopAnimation(string)
+  StopAnimation(string?)
   
   </h3>
 
@@ -1164,7 +1232,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void StopAnimation(string code)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void StopAnimation(string? code)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1324,8 +1392,8 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
 
   <a id="Vintagestory_API_Common_AnimationManager_onReceivedServerAnimation_" data-uid="Vintagestory.API.Common.AnimationManager.onReceivedServerAnimation*"></a>
 
-  <h3 id="Vintagestory_API_Common_AnimationManager_onReceivedServerAnimation_Vintagestory_API_Common_AnimationMetaData_" data-uid="Vintagestory.API.Common.AnimationManager.onReceivedServerAnimation(Vintagestory.API.Common.AnimationMetaData)">
-  onReceivedServerAnimation(AnimationMetaData)
+  <h3 id="Vintagestory_API_Common_AnimationManager_onReceivedServerAnimation_Vintagestory_API_Common_AnimationMetaData__" data-uid="Vintagestory.API.Common.AnimationManager.onReceivedServerAnimation(Vintagestory.API.Common.AnimationMetaData@)">
+  onReceivedServerAnimation(ref AnimationMetaData)
   
   </h3>
 
@@ -1333,7 +1401,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual void onReceivedServerAnimation(AnimationMetaData animmetadata)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual void onReceivedServerAnimation(ref AnimationMetaData animmetadata)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1367,7 +1435,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event StartAnimationDelegate OnAnimationReceived</code></pre>
+    <pre><code class="lang-csharp hljs">public event StartAnimationDelegate? OnAnimationReceived</code></pre>
   </div>
 
 
@@ -1397,7 +1465,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event Action&lt;string&gt; OnAnimationStopped</code></pre>
+    <pre><code class="lang-csharp hljs">public event Action&lt;string&gt;? OnAnimationStopped</code></pre>
   </div>
 
 
@@ -1427,7 +1495,7 @@ Server: Sends all active anims to all connected clients then purges the ActiveAn
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public event StartAnimationDelegate OnStartAnimation</code></pre>
+    <pre><code class="lang-csharp hljs">public event StartAnimationDelegate? OnStartAnimation</code></pre>
   </div>
 
 

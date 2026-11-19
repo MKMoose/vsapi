@@ -235,7 +235,7 @@ public JsonObject? Attributes</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[ProtoMember(2)]
 [DocumentAsJson(&quot;Required&quot;, &quot;&quot;, false)]
-public AssetLocation Code</code></pre>
+public required AssetLocation Code</code></pre>
   </div>
 
 
@@ -534,7 +534,8 @@ Field 'ResolvedItemstack' is left for compatibility reasons</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void FromBytes(BinaryReader reader, IClassRegistryAPI instancer)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the BinarySpanReader overload.&quot;, true)]
+public virtual void FromBytes(BinaryReader reader, IClassRegistryAPI instancer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -560,8 +561,8 @@ Field 'ResolvedItemstack' is left for compatibility reasons</p>
 
   <a id="Vintagestory_API_Common_JsonItemStack_FromBytes_" data-uid="Vintagestory.API.Common.JsonItemStack.FromBytes*"></a>
 
-  <h3 id="Vintagestory_API_Common_JsonItemStack_FromBytes_System_IO_BinaryReader_Vintagestory_API_Common_IWorldAccessor_" data-uid="Vintagestory.API.Common.JsonItemStack.FromBytes(System.IO.BinaryReader,Vintagestory.API.Common.IWorldAccessor)">
-  FromBytes(BinaryReader, IWorldAccessor)
+  <h3 id="Vintagestory_API_Common_JsonItemStack_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Common_IClassRegistryAPI_" data-uid="Vintagestory.API.Common.JsonItemStack.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Common.IClassRegistryAPI)">
+  FromBytes(ref BinarySpanReader, IClassRegistryAPI)
   
   </h3>
 
@@ -570,17 +571,93 @@ Field 'ResolvedItemstack' is left for compatibility reasons</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual void FromBytes(BinaryReader reader, IWorldAccessor resolver)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI instancer)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd><p>The reader to get the ItemStack from</p>
+</dd>
+    <dt><code>instancer</code> <a class="xref" href="Vintagestory.API.Common.IClassRegistryAPI.html">IClassRegistryAPI</a></dt>
+    <dd><p>The instancer for the ItemStack.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonItemStack_FromBytes_" data-uid="Vintagestory.API.Common.JsonItemStack.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonItemStack_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Common_IWorldAccessor_" data-uid="Vintagestory.API.Common.JsonItemStack.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Common.IWorldAccessor)">
+  FromBytes(ref BinarySpanReader, IWorldAccessor)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Loads the ItemStack from the reader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>resolver</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonItemStack_FromItemStack_" data-uid="Vintagestory.API.Common.JsonItemStack.FromItemStack*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonItemStack_FromItemStack_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_Common_ItemStack_System_String___" data-uid="Vintagestory.API.Common.JsonItemStack.FromItemStack(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.Common.ItemStack,System.String[])">
+  FromItemStack(IWorldAccessor, ItemStack, params string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static JsonItemStack FromItemStack(IWorldAccessor resolver, ItemStack stack, params string[] ignoreAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>resolver</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>stack</code> <a class="xref" href="Vintagestory.API.Common.ItemStack.html">ItemStack</a></dt>
+    <dd></dd>
+    <dt><code>ignoreAttributes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.JsonItemStack.html">JsonItemStack</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -677,7 +754,8 @@ Field 'ResolvedItemstack' is left for compatibility reasons</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool Resolve(IWorldAccessor world, string sourceForErrorLogging)</code></pre>
+    <pre><code class="lang-csharp hljs">[MemberNotNullWhen(true, new string[] { &quot;ResolvedItemStack&quot;, &quot;ResolvedItemstack&quot; })]
+public virtual bool Resolve(IWorldAccessor world, string sourceForErrorLogging)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

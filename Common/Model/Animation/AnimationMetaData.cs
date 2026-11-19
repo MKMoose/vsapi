@@ -220,7 +220,15 @@ namespace Vintagestory.API.Common
         /// </summary>
         [JsonProperty]
         [DocumentAsJson("Optional", "False")]
-        public bool SupressDefaultAnimation = false;
+        public bool SuppressDefaultAnimation = false;
+
+        [JsonProperty]
+        [Obsolete("Misspelled, use SuppressDefaultAnimation instead")]
+        public bool SupressDefaultAnimation
+        {
+            get => SuppressDefaultAnimation;
+            set => SuppressDefaultAnimation = value;
+        }
 
         /// <summary>
         /// A value that determines whether to change the first-person eye position for the camera.
@@ -355,7 +363,7 @@ namespace Vintagestory.API.Common
                 WasStartedFromTrigger = this.WasStartedFromTrigger,
                 HoldEyePosAfterEasein = HoldEyePosAfterEasein,
                 StartFrameOnce = StartFrameOnce,
-                SupressDefaultAnimation = SupressDefaultAnimation,
+                SuppressDefaultAnimation = SuppressDefaultAnimation,
                 WeightCapFactor = WeightCapFactor
             };
         }
@@ -439,7 +447,11 @@ namespace Vintagestory.API.Common
             writer.Write(AdjustCollisionBox);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static AnimationMetaData FromBytes(BinaryReader reader, string version)
+            => reader.UnsafeActAsBinarySpanReader(version, FromBytes);
+
+        public static AnimationMetaData FromBytes(ref BinarySpanReader reader, string version)
         {
             AnimationMetaData animdata = new AnimationMetaData();
 
@@ -499,10 +511,10 @@ namespace Vintagestory.API.Common
                 string attributes = reader.ReadString();
                 if (attributes != "")
                 {
-                    animdata.Attributes = new JsonObject(JToken.Parse(attributes));
+                    animdata.Attributes = new JsonObject(JToken.Parse(attributes, JsonUtil.DefaultLoadSettings));
                 } else
                 {
-                    animdata.Attributes = new JsonObject(JToken.Parse("{}"));
+                    animdata.Attributes = new JsonObject(JToken.Parse("{}", JsonUtil.DefaultLoadSettings));
                 }
             }
             if (version != "" && GameVersion.IsAtLeastVersion(version, "1.19.0-rc.6"))
@@ -518,7 +530,7 @@ namespace Vintagestory.API.Common
                     animdata.AnimationSounds = new AnimationSound[animsoundslen];
                     for (int i = 0; i < animsoundslen; i++)
                     {
-                        animdata.AnimationSounds[i] = AnimationSound.CreateFromBytes(reader, version);
+                        animdata.AnimationSounds[i] = AnimationSound.CreateFromBytes(ref reader, version);
                     }
                 }
             }
@@ -529,7 +541,7 @@ namespace Vintagestory.API.Common
                     if (reader.ReadBoolean())
                     {
                         animdata.AnimationSounds = new AnimationSound[1];
-                        animdata.AnimationSounds[0] = AnimationSound.CreateFromBytes(reader, version);
+                        animdata.AnimationSounds[0] = AnimationSound.CreateFromBytes(ref reader, version);
                     }
                 }
             }

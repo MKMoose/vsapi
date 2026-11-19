@@ -687,7 +687,7 @@ protected virtual int RenderTextureId { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void Dispose()</code></pre>
   </div>
 
 
@@ -898,7 +898,7 @@ protected virtual int RenderTextureId { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void OnRenderFrame(float deltaTime, EnumRenderStage stage)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void OnRenderFrame(float deltaTime, EnumRenderStage stage)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -931,12 +931,12 @@ protected virtual int RenderTextureId { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ShouldPlaySound(string animationMetaCode, AnimationSound sound)</code></pre>
+    <pre><code class="lang-csharp hljs">public void ShouldPlaySound(string animationCode, AnimationSound sound)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>animationMetaCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>animationCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
     <dt><code>sound</code> <a class="xref" href="Vintagestory.API.Common.AnimationSound.html">AnimationSound</a></dt>
     <dd></dd>
@@ -1000,7 +1000,7 @@ protected virtual int RenderTextureId { get; }</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void StopAnimation(string code)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void StopAnimation(string code)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

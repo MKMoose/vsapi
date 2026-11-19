@@ -95,8 +95,17 @@
 Classes
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.Array2DAttribute-1.html">Array2DAttribute&lt;T&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.ArrayAttribute-1.html">ArrayAttribute&lt;T&gt;</a></dt>
       <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/BinarySpanReader.cs>Open in GitHub</a></p>
+</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.BoolArrayAttribute.html">BoolArrayAttribute</a></dt>
@@ -119,6 +128,11 @@ Classes
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.ByteArray2DAttribute.html">ByteArray2DAttribute</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/AttributeTree/ByteArray2DAttribute.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.ByteArrayAttribute.html">ByteArrayAttribute</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/AttributeTree/ByteArrayAttribute.cs>Open in GitHub</a></p>
 </dd>
@@ -136,7 +150,8 @@ Can be used to perfrom bilinear interpolation between individual values <a href=
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.CachedCuboidListFaster.html">CachedCuboidListFaster</a></dt>
-      <dd><p>Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>
+      <dd><p>Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility.
+Rotated cuboids are stored as their local AABB here — the rotation is dropped to keep the per-tick collision loop allocation-free. Use CachedCuboidList where rotation precision matters. <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -416,6 +431,10 @@ If two elements return 0 from 'CompareTo' call, they are treated as equal.</p>
 Structs
 </h3>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.html">ComplexTagCondition&lt;TTagSet&gt;</a></dt>
       <dd><p>Holds a complex tag condition, either as a set of disjunctive entries ([a and b and c] or [d and e])
 or as a set of conjunctive entries ([a or b or c] and [d or e]).<br>
@@ -433,6 +452,10 @@ The syntax for using these in json follows one simple rule: If no junction verb 
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.ComplexTagCondition-1.Condition.html">ComplexTagCondition&lt;TTagSet&gt;.Condition</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.SerializedData.html">SerializedData</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">
@@ -456,6 +479,11 @@ Interfaces
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html">IAttribute</a></dt>
       <dd><p>An attribute from an attribute tree</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.IHashWithIgnoredAttributes.html">IHashWithIgnoredAttributes</a></dt>
+      <dd><p>An object that can contain attributes and ignore them when calculating hash</p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -493,6 +521,49 @@ Enums
       <dt><a class="xref" href="Vintagestory.API.Datastructures.TagValidationError.html">TagValidationError</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/Tags/ITagRegistry.cs>Open in GitHub</a></p>
 </dd>
+    </dl>
+    <h3 id="delegates">
+Delegates
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction.html">BinarySpanReaderExtensions.BinaryReaderAction</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-1.html">BinarySpanReaderExtensions.BinaryReaderAction&lt;T1&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-2.html">BinarySpanReaderExtensions.BinaryReaderAction&lt;T1, T2&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-1.html">BinarySpanReaderExtensions.BinaryReaderFunc&lt;TR&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-2.html">BinarySpanReaderExtensions.BinaryReaderFunc&lt;T1, TR&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction.html">BinarySpanReaderExtensions.BinarySpanReaderAction</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-1.html">BinarySpanReaderExtensions.BinarySpanReaderAction&lt;T1&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-2.html">BinarySpanReaderExtensions.BinarySpanReaderAction&lt;T1, T2&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-1.html">BinarySpanReaderExtensions.BinarySpanReaderFunc&lt;TR&gt;</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-2.html">BinarySpanReaderExtensions.BinarySpanReaderFunc&lt;T1, TR&gt;</a></dt>
+      <dd></dd>
     </dl>
 
 

@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.MathTools;
+using Vintagestory.API.MathTools;
 
 #nullable disable
 
@@ -133,6 +133,8 @@ namespace Vintagestory.API.Client
 
         float SsaoAttn { set; }
 
+        int ApplyTexture { set; }
+        
         Vec2f OverlayTextureSize { set; }
         Vec2f BaseTextureSize { set; }
         Vec2f BaseUvOrigin { set; }

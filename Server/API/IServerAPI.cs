@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.Common;
+using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 
 #nullable disable
@@ -36,6 +36,9 @@ namespace Vintagestory.API.Server
         /// </summary>
         /// <value></value>
         EnumServerRunPhase CurrentRunPhase { get; }
+
+
+        bool InDeveloperMode { get; }
 
         /// <summary>
         /// Returns whether the current server a dedicated server

@@ -1,5 +1,7 @@
+using ProperVersion;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 
@@ -30,7 +32,16 @@ namespace Vintagestory.API.Common
         /// <typeparam name="T"></typeparam>
         /// <param name="recipeRegistryCode"></param>
         /// <returns></returns>
-        T RegisterRecipeRegistry<T>(string recipeRegistryCode) where T : RecipeRegistryBase;
+        [Obsolete("Use RegisterCustomRegistry instead")]
+        T RegisterRecipeRegistry<T>(string recipeRegistryCode) where T : RecipeRegistryBase
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Registers whatever you like. Use this for syncing custom asset types from the server to the client. Be sure to register the registry on both server and client.
+        /// </summary>
+        T RegisterCustomRegistry<T>(string customRegistryCode) where T : CustomRegistryBase;
 
 
         /// <summary>
@@ -121,18 +132,17 @@ namespace Vintagestory.API.Common
         /// </summary>
         Dictionary<string, object> ObjectCache { get; }
 
+        #nullable enable annotations
         /// <summary>
         /// Returns the root path of the games data folder
         /// </summary>
-        /// <value></value>
         string DataBasePath { get; }
 
         /// <summary>
         /// Returns the path to given foldername inside the games data folder. Ensures that the folder exists
         /// </summary>
-        /// <param name="foldername"></param>
-        /// <returns></returns>
-        string GetOrCreateDataPath(string foldername);
+        /// <exception cref="ArgumentException">If <paramref name="folderName"/> tries to escape the data directory.</exception>
+        string GetOrCreateDataPath(string folderName);
 
 
         /// <summary>
@@ -140,37 +150,33 @@ namespace Vintagestory.API.Common
         /// For T just make a class with all fields public - this is your configuration class. Be sure to set useful default values for your settings
         /// Be aware that these configs are not synchronized between client and server. Each side will store their own copy of the configuration. If these configs affect gameplay, you will likely need to synchronize it via network packet
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="jsonSerializeableData"></param>
-        /// <param name="filename"></param>
-        void StoreModConfig<T>(T jsonSerializeableData, string filename);
+        /// <exception cref="ArgumentException">If <paramref name="fileName"/> tries to escape the config directory.</exception>
+        void StoreModConfig<T>(T jsonSerializeableData, string fileName);
 
         /// <summary>
         /// Stores a config file in a prepared modconfig folder. You only need to provide a unique filename.
         /// Be aware that these configs are not synchronized between client and server. Each side will store their own copy of the configuration. If these configs affect gameplay, you will likely need to synchronize it to client it via network packet
         /// </summary>
-        /// <param name="jobj"></param>
-        /// <param name="filename"></param>
-        void StoreModConfig(JsonObject jobj, string filename);
+        /// <exception cref="ArgumentException">If <paramref name="fileName"/> tries to escape the config directory.</exception>
+        void StoreModConfig(JsonObject jobj, string fileName);
 
         /// <summary>
         /// Loads a config file from a prepared modconfig folder, you only need to provide a unique filename. Recommendation: Surround this call with a try/catch in case the user made a typo while changing the configuration
         /// Be aware that these configs are not synchronized between client and server. Each side will store their own copy of the configuration. If these configs affect gameplay, you will likely need to synchronize it to client via network packet
         /// Returns null if the file does not exist
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="filename"></param>
-        /// <returns></returns>
-        T LoadModConfig<T>(string filename);
+        /// <exception cref="ArgumentException">If <paramref name="fileName"/> tries to escape the config directory.</exception>
+        [return: MaybeNull]
+        T LoadModConfig<T>(string fileName);
 
         /// <summary>
         /// Loads a config file from a prepared modconfig folder, you only need to provide a unique filename. Recommendation: Surround this call with a try/catch in case the user made a typo while changing the configuration
         /// Be aware that these configs are not synchronized between client and server. Each side will store their own copy of the configuration. If these configs affect gameplay, you will likely need to synchronize it to client via network packet
         /// Returns null if the file does not exist
         /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
-        JsonObject LoadModConfig(string filename);
+        /// <exception cref="ArgumentException">If <paramref name="fileName"/> tries to escape the config directory.</exception>
+        JsonObject? LoadModConfig(string fileName);
+        #nullable disable annotations
     }
 
     /// <summary>
@@ -182,6 +188,11 @@ namespace Vintagestory.API.Common
         /// The local Logger instance.
         /// </summary>
         ILogger Logger { get; }
+
+        /// <summary>
+        /// Returns true if the game is running in developer mode
+        /// </summary>
+        bool InDeveloperMode { get; }
 
         /// <summary>
         /// The command line arguments that were used to start the client or server application

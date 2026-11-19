@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
@@ -36,12 +35,14 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         PlayerGroupMembership[] GetGroups();
 
+        #nullable enable annotations
         /// <summary>
         /// Returns the membership data if player is part of this group, otherwise null
         /// </summary>
         /// <param name="groupId"></param>
         /// <returns></returns>
-        PlayerGroupMembership GetGroup(int groupId);
+        PlayerGroupMembership? GetGroup(int groupId);
+        #nullable disable annotations
 
         /// <summary>
         /// List of the users entitlements, vanilla servers will list VIV and/or VS Team member entitlements
@@ -73,7 +74,7 @@ namespace Vintagestory.API.Common
         /// The players current client id, 0 if not connected. This is the number thats assigned by the server for any connecting player. You probably don't need this number.
         /// </summary>
         int ClientId { get; }
-        
+
         /// <summary>
         /// The entity the player currently controls
         /// </summary>
@@ -106,22 +107,9 @@ namespace Vintagestory.API.Common
         /// <returns>true if the player has the given privilege, false otherwise</returns>
         bool HasPrivilege(string privilegeCode);
 
-
-
-        /*/// <summary>
-        /// Sends a redirection request to the specified client. The target server has to be public!
-        /// </summary>
-        /// <param name = "player"></param>
-        /// <param name = "host">The host of the target server</param>
-        /// <param name = "name">Name of the server the player gets displayed when connecting to it</param>
-        void SendPlayerRedirect(int player, string host, string name);
-        */
-
-
         #nullable enable annotations
         /// <param name="slack">The slack allowed for in the test in blocks. If you set this close to zero you might find that the server disagrees with the client.</param>
-        [Obsolete("This signature will change in 1.23. Avoid it for now.")]
-        internal bool IsInInteractionRangeOf(BlockPos blockPos, float slack = .25f);
+        bool IsInInteractionRangeOf(FastBlockPos blockPos, float slack = .25f);
         /// <param name="slack">The slack allowed for in the test in blocks. If you set this close to zero you might find that the server disagrees with the client.</param>
         bool IsInInteractionRangeOf(Entity entity, float slack = .25f);
         #nullable disable annotations

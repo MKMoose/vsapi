@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-#nullable disable
+#nullable disable annotations
 
 namespace Vintagestory.API.Common
 {
@@ -19,13 +19,15 @@ namespace Vintagestory.API.Common
         /// <summary> Gets the file name of this mod. </summary>
         public string FileName { get; internal set; }
 
+        #nullable enable annotations
         /// <summary>
         /// Gets the info of this mod. Found either as "modinfo.json" in the
         /// of the mod's folder or archive, or in the case of raw .cs and .dll
         /// files, using the <see cref="T:Vintagestory.API.Common.ModInfoAttribute"/>
         /// on the assembly.
         /// </summary>
-        public ModInfo Info { get; internal set; }
+        public ModInfo? Info { get; internal set; }
+        #nullable disable
 
         public ModWorldConfiguration WorldConfig { get; internal set; }
 
@@ -39,8 +41,7 @@ namespace Vintagestory.API.Common
         public ILogger Logger { get; internal set; }
 
         /// <summary> Gets a collection of systems belonging to this mod. </summary>
-        public IReadOnlyCollection<ModSystem> Systems { get; internal set; }
-            = new List<ModSystem>(0).AsReadOnly();
+        public IReadOnlyCollection<ModSystem> Systems { get; internal set; } = [];
 
 
         public override string ToString()

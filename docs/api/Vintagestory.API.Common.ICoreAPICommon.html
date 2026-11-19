@@ -211,12 +211,12 @@ Interface ICoreAPICommon
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetOrCreateDataPath(string foldername)</code></pre>
+    <pre><code class="lang-csharp hljs">string GetOrCreateDataPath(string folderName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>foldername</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>folderName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -233,6 +233,12 @@ Interface ICoreAPICommon
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>If <code class="paramref">folderName</code> tries to escape the data directory.</p>
+</dd>
+  </dl>
 
 
 
@@ -250,12 +256,12 @@ Returns null if the file does not exist</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">JsonObject LoadModConfig(string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">JsonObject? LoadModConfig(string fileName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>filename</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -272,6 +278,12 @@ Returns null if the file does not exist</p>
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>If <code class="paramref">fileName</code> tries to escape the config directory.</p>
+</dd>
+  </dl>
 
 
 
@@ -289,12 +301,12 @@ Returns null if the file does not exist</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T LoadModConfig&lt;T&gt;(string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">T LoadModConfig&lt;T&gt;(string fileName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>filename</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -316,6 +328,12 @@ Returns null if the file does not exist</p>
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>If <code class="paramref">fileName</code> tries to escape the config directory.</p>
+</dd>
+  </dl>
 
 
 
@@ -557,6 +575,48 @@ Returns null if the file does not exist</p>
 
 
 
+  <a id="Vintagestory_API_Common_ICoreAPICommon_RegisterCustomRegistry_" data-uid="Vintagestory.API.Common.ICoreAPICommon.RegisterCustomRegistry*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICoreAPICommon_RegisterCustomRegistry__1_System_String_" data-uid="Vintagestory.API.Common.ICoreAPICommon.RegisterCustomRegistry``1(System.String)">
+  RegisterCustomRegistry&lt;T&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers whatever you like. Use this for syncing custom asset types from the server to the client. Be sure to register the registry on both server and client.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T RegisterCustomRegistry&lt;T&gt;(string customRegistryCode) where T : CustomRegistryBase</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>customRegistryCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_ICoreAPICommon_RegisterEntity_" data-uid="Vintagestory.API.Common.ICoreAPICommon.RegisterEntity*"></a>
 
   <h3 id="Vintagestory_API_Common_ICoreAPICommon_RegisterEntity_System_String_System_Type_" data-uid="Vintagestory.API.Common.ICoreAPICommon.RegisterEntity(System.String,System.Type)">
@@ -706,7 +766,8 @@ Make your your delegate also set tree.SetString(&quot;className&quot;, &quot;[yo
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">T RegisterRecipeRegistry&lt;T&gt;(string recipeRegistryCode) where T : RecipeRegistryBase</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use RegisterCustomRegistry instead&quot;)]
+T RegisterRecipeRegistry&lt;T&gt;(string recipeRegistryCode) where T : RecipeRegistryBase</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -749,14 +810,14 @@ Be aware that these configs are not synchronized between client and server. Each
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void StoreModConfig(JsonObject jobj, string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">void StoreModConfig(JsonObject jobj, string fileName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>jobj</code> <a class="xref" href="Vintagestory.API.Datastructures.JsonObject.html">JsonObject</a></dt>
     <dd></dd>
-    <dt><code>filename</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -768,6 +829,12 @@ Be aware that these configs are not synchronized between client and server. Each
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>If <code class="paramref">fileName</code> tries to escape the config directory.</p>
+</dd>
+  </dl>
 
 
 
@@ -785,14 +852,14 @@ Be aware that these configs are not synchronized between client and server. Each
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void StoreModConfig&lt;T&gt;(T jsonSerializeableData, string filename)</code></pre>
+    <pre><code class="lang-csharp hljs">void StoreModConfig&lt;T&gt;(T jsonSerializeableData, string fileName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>jsonSerializeableData</code> <span class="xref">T</span></dt>
     <dd></dd>
-    <dt><code>filename</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -809,6 +876,12 @@ Be aware that these configs are not synchronized between client and server. Each
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></dt>
+    <dd><p>If <code class="paramref">fileName</code> tries to escape the config directory.</p>
+</dd>
+  </dl>
 
 
 

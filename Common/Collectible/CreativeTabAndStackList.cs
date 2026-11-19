@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -75,7 +77,16 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="reader">The reader to read the json.</param>
         /// <param name="registry">The registry of blocks and items.</param>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader, IClassRegistryAPI registry)
+            => reader.UnsafeActAsBinarySpanReader(registry, FromBytes);
+
+        /// <summary>
+        /// Reads the blocks and items from the Json files and converts them to an array of tabs which contain those blocks and items.
+        /// </summary>
+        /// <param name="reader">The reader to read the json.</param>
+        /// <param name="registry">The registry of blocks and items.</param>
+        public void FromBytes(ref BinarySpanReader reader, IClassRegistryAPI registry)
         {
             Tabs = new string[reader.ReadInt32()];
             for (int i = 0; i < Tabs.Length; i++)
@@ -86,8 +97,8 @@ namespace Vintagestory.API.Common
             Stacks = new JsonItemStack[reader.ReadInt32()];
             for (int i = 0; i < Stacks.Length; i++)
             {
-                Stacks[i] = new JsonItemStack();
-                Stacks[i].FromBytes(reader, registry);
+                Stacks[i] = new JsonItemStack { Code = null! };
+                Stacks[i].FromBytes(ref reader, registry);
             }
         }
 

@@ -53,7 +53,7 @@ namespace Vintagestory.API.Common
         /// The random quantity of item to return. Note that this value is multiplied by <see cref="CrushedStack"/>'s quantity.
         /// </summary>
         [DocumentAsJson("Optional", "1")]
-        public NatFloat Quantity = NatFloat.One;
+        public INatFloat Quantity = INatFloat.One;
 
 
         /// <summary>

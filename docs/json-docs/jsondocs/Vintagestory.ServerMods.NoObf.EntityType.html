@@ -576,6 +576,41 @@ public Vec2f DeadSelectionBoxSize</code></pre>
 
 
 
+  <h3 id="Vintagestory_ServerMods_NoObf_EntityType_DebugColor" data-uid="Vintagestory.ServerMods.NoObf.EntityType.DebugColor">
+  DebugColor (Optional) (Default: None)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><!---->
+<p>A color to use for entities during debugging such as the entity map layer or the heatmap command.
+Needs to be a hexcode for the desired color as a string with # at the beginning.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[JsonProperty]
+[DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
+public string DebugColor</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_ServerMods_NoObf_EntityType_Drops" data-uid="Vintagestory.ServerMods.NoObf.EntityType.Drops">
   Drops (Optional) (Default: None)
   
@@ -589,7 +624,7 @@ public Vec2f DeadSelectionBoxSize</code></pre>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonProperty]
 [DocumentAsJson(&quot;Optional&quot;, &quot;None&quot;, false)]
-public BlockDropItemStack[] Drops</code></pre>
+public EntityDropItemStack[] Drops</code></pre>
   </div>
 
 
@@ -597,7 +632,7 @@ public BlockDropItemStack[] Drops</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Common.BlockDropItemStack.html">BlockDropItemStack</a>[]</dt>
+    <dt><span class="xref">EntityDropItemStack</span>[]</dt>
     <dd></dd>
   </dl>
 

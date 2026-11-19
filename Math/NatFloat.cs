@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using Newtonsoft.Json;
+using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -57,6 +60,90 @@ namespace Vintagestory.API.MathTools
         DIRAC = 9,
     }
 
+    public enum EnumINatFloatType
+    {
+        One = 0,
+        Var25Random = 1,
+        Any = 2
+    }
+
+    [JsonConverter(typeof(NatFloatConverter))]
+    public interface INatFloat
+    {
+        public static INatFloat One = new NatFloatOne();
+        public static INatFloat Var25Random = new NatFloatVar25Random();
+
+        public float Average { get; }
+
+        EnumINatFloatType Type { get; }
+        float nextFloat();
+        float nextFloat(float multiplier);
+        float nextFloat(float multiplier, Random rand);
+        float nextFloat(float multiplier, IRandom rand);
+
+        INatFloat Clone();
+
+        NatFloat ToNatFloat();
+
+        public static INatFloat INatFloatFromBytes(ref BinarySpanReader reader)
+        {
+            EnumINatFloatType type = (EnumINatFloatType)reader.ReadInt32();
+            INatFloat natfloat;
+            switch (type)
+            {
+                case EnumINatFloatType.One: natfloat = One; break;
+                case EnumINatFloatType.Var25Random: natfloat = Var25Random; break;
+                case EnumINatFloatType.Any: natfloat = NatFloat.CreateFromBytes(ref reader); break;
+                default: throw new Exception("Unknown pitch type: " + type);
+            }
+
+            return natfloat;
+        }
+
+        public static void INatFloatToBytes(INatFloat natfloat, BinaryWriter writer)
+        {
+            writer.Write((int)natfloat.Type);
+            switch (natfloat.Type)
+            {
+                case EnumINatFloatType.Any: (natfloat as NatFloat).ToBytes(writer); break;
+                case EnumINatFloatType.One: break;
+                case EnumINatFloatType.Var25Random: break;
+                default: throw new Exception("Unknown pitch type: " + natfloat.GetType().Name);
+            }
+        }
+    }
+
+    public class NatFloatOne : INatFloat
+    {
+        public EnumINatFloatType Type => EnumINatFloatType.One;
+
+        public float Average => 1f;
+
+        public INatFloat Clone()
+        {
+            return this;
+        }
+
+        public float nextFloat()
+        {
+            return 1f;
+        }
+        public float nextFloat(float multiplier)
+        {
+            return multiplier;
+        }
+        public float nextFloat(float multiplier, Random rand)
+        {
+            return multiplier;
+        }
+        public float nextFloat(float multiplier, IRandom rand)
+        {
+            return multiplier;
+        }
+
+        public NatFloat ToNatFloat() => NatFloat.One;
+    }
+
 
     /// <summary>
     /// A more natural random number generator (nature usually doesn't grow by the exact same numbers nor does it completely randomly)
@@ -77,8 +164,12 @@ namespace Vintagestory.API.MathTools
     /// </code>
     /// </example>
     [DocumentAsJson]
-    public class NatFloat
+    public class NatFloat : INatFloat, IEquatable<NatFloat>
     {
+        public EnumINatFloatType Type => EnumINatFloatType.Any;
+        public float Average => avg;
+
+
         /// <summary>
         /// Always 0
         /// </summary>
@@ -486,10 +577,18 @@ namespace Vintagestory.API.MathTools
         }
 
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static NatFloat createFromBytes(BinaryReader reader)
         {
             NatFloat value = NatFloat.Zero;
             value.FromBytes(reader);
+            return value;
+        }
+
+        public static NatFloat CreateFromBytes(ref BinarySpanReader reader)
+        {
+            NatFloat value = NatFloat.Zero;
+            value.FromBytes(ref reader);
             return value;
         }
 
@@ -506,7 +605,15 @@ namespace Vintagestory.API.MathTools
             writer.Write((byte)dist);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public void FromBytes(BinaryReader reader)
+        {
+            offset = reader.ReadSingle();
+            avg = reader.ReadSingle();
+            var = reader.ReadSingle();
+            dist = (EnumDistribution)reader.ReadByte();
+        }
+        public void FromBytes(ref BinarySpanReader reader)
         {
             offset = reader.ReadSingle();
             avg = reader.ReadSingle();
@@ -516,6 +623,16 @@ namespace Vintagestory.API.MathTools
 
         public override string ToString() {
             return $"{{ avg: {avg}, var: {var}, dist: {dist} }}";
+        }
+
+        INatFloat INatFloat.Clone()
+        {
+            return Clone();
+        }
+
+        public NatFloat ToNatFloat()
+        {
+            return Clone();
         }
     }
 }

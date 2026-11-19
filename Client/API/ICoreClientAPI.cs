@@ -18,7 +18,7 @@ namespace Vintagestory.API.Client
         Dictionary<string, Action<LinkTextComponent>> LinkProtocols { get; }
 
         /// <summary>
-        /// Add your own rich text elements here. Your will need to convert a VTML tag into a RichTextComponentBase element. 
+        /// Add your own rich text elements here. Your will need to convert a VTML tag into a RichTextComponentBase element.
         /// </summary>
         Dictionary<string, Tag2RichTextDelegate> TagConverters { get; }
 
@@ -28,9 +28,15 @@ namespace Vintagestory.API.Client
         ISettings Settings { get; }
 
         /// <summary>
-        /// Platform independent ui methods and features. 
+        /// Platform independent ui methods and features.
         /// </summary>
+        [Obsolete("Use PlatformUtils")]
         IXPlatformInterface Forms { get; }
+
+        /// <summary>
+        /// Platform utilities
+        /// </summary>
+        IXPlatformInterface PlatformUtils { get; }
 
         /// <summary>
         /// Api to the client side macros system
@@ -67,13 +73,12 @@ namespace Vintagestory.API.Client
         /// <summary>
         /// If true, the player is in gui-less mode (through the F4 key)
         /// </summary>
-        bool HideGuis { get; }
+        bool HideGuis { get; set; }
 
         /// <summary>
         /// True if all SendPlayerNowReady() was sent, signalling the player is now ready (called by the character selector upon submit)
         /// </summary>
         bool PlayerReadyFired { get; }
-
 
 
         /// <summary>
@@ -111,7 +116,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         ITesselatorAPI Tesselator { get; }
 
-        
+
         /// <summary>
         /// API for the Block Texture Atlas
         /// </summary>
@@ -213,7 +218,7 @@ namespace Vintagestory.API.Client
         /// <param name="text"></param>
         void TriggerIngameError(object sender, string errorCode, string text);
 
-        
+
         /// <summary>
         /// Same as <see cref="ShowChatMessage(string)"/> but will also execute client commands if they are prefixed with a dot.
         /// </summary>
@@ -266,5 +271,6 @@ namespace Vintagestory.API.Client
         /// The threadId of the ChunkTesselator thread client-side
         /// </summary>
         int TesselationThreadId { get; }
+        float DeltaTimeLimiter { get; set; }
     }
 }

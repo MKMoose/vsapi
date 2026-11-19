@@ -137,12 +137,14 @@ Interface IWorldChunk
   
   </h3>
 
-  <div class="markdown level1 summary"><p>An array holding block Entities currently residing in this chunk. This array may be larger than the amount of block entities in the chunk.</p>
+  <div class="markdown level1 summary"><p>A dictionary holding block Entities currently residing in this chunk. This array may be larger than the amount of block entities in the chunk.
+The key is index32 within the chunk; calling code can combine that with the chunk coordinates to create a BlockPos or FastBlockPos if it needs it - for example using FastBlockPos.FromIndex3d()
+<br>Note also, each BlockEntity holds its own pos in a field anyhow</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Dictionary&lt;BlockPos, BlockEntity&gt; BlockEntities { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">Dictionary&lt;int, BlockEntity&gt; BlockEntities { get; set; }</code></pre>
   </div>
 
 
@@ -151,7 +153,7 @@ Interface IWorldChunk
 
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a>, <a class="xref" href="Vintagestory.API.Common.BlockEntity.html">BlockEntity</a>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="Vintagestory.API.Common.BlockEntity.html">BlockEntity</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -1020,6 +1022,43 @@ IChunkBlocks Blocks { get; }</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.BlockEntity.html">BlockEntity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IWorldChunk_GetLocalBlockEntityAtBlockPos_" data-uid="Vintagestory.API.Common.IWorldChunk.GetLocalBlockEntityAtBlockPos*"></a>
+
+  <h3 id="Vintagestory_API_Common_IWorldChunk_GetLocalBlockEntityAtBlockPos_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IWorldChunk.GetLocalBlockEntityAtBlockPos(Vintagestory.API.MathTools.FastBlockPos)">
+  GetLocalBlockEntityAtBlockPos(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieve a block entity from this chunk</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">BlockEntity GetLocalBlockEntityAtBlockPos(FastBlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
   </dl>
 

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BinarySpanReaderExtensions | VintageStory API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BinarySpanReaderExtensions | VintageStory API ">
+      
+      <meta name="description" content="Open in GitHub">
+      <link rel="icon" href="../images/gameicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="VintageStory API">
+            VintageStory API
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions">
+
+
+
+  <h1 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions" class="text-break">
+Class BinarySpanReaderExtensions  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.Datastructures.html">Datastructures</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/BinarySpanReader.cs>Open in GitHub</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class BinarySpanReaderExtensions</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">BinarySpanReaderExtensions</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinaryReaderAction_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction)">
+  ActAsBinaryReader(ref BinarySpanReader, BinaryReaderAction)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void ActAsBinaryReader(this ref BinarySpanReader spanReader, BinarySpanReaderExtensions.BinaryReaderAction action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spanReader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction.html">BinaryReaderAction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader__1_Vintagestory_API_Datastructures_BinarySpanReader__Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinaryReaderFunc___0__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader``1(Vintagestory.API.Datastructures.BinarySpanReader@,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc{``0})">
+  ActAsBinaryReader&lt;TR&gt;(ref BinarySpanReader, BinaryReaderFunc&lt;TR&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static TR ActAsBinaryReader&lt;TR&gt;(this ref BinarySpanReader spanReader, BinarySpanReaderExtensions.BinaryReaderFunc&lt;TR&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spanReader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-1.html">BinaryReaderFunc</a>&lt;TR&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TR</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TR</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader__1_Vintagestory_API_Datastructures_BinarySpanReader____0_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinaryReaderAction___0__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader``1(Vintagestory.API.Datastructures.BinarySpanReader@,``0,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction{``0})">
+  ActAsBinaryReader&lt;T1&gt;(ref BinarySpanReader, T1, BinaryReaderAction&lt;T1&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void ActAsBinaryReader&lt;T1&gt;(this ref BinarySpanReader spanReader, T1 arg1, BinarySpanReaderExtensions.BinaryReaderAction&lt;T1&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spanReader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-1.html">BinaryReaderAction</a>&lt;T1&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader__2_Vintagestory_API_Datastructures_BinarySpanReader____0_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinaryReaderFunc___0___1__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader``2(Vintagestory.API.Datastructures.BinarySpanReader@,``0,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc{``0,``1})">
+  ActAsBinaryReader&lt;T1, TR&gt;(ref BinarySpanReader, T1, BinaryReaderFunc&lt;T1, TR&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static TR ActAsBinaryReader&lt;T1, TR&gt;(this ref BinarySpanReader spanReader, T1 arg1, BinarySpanReaderExtensions.BinaryReaderFunc&lt;T1, TR&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spanReader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderFunc-2.html">BinaryReaderFunc</a>&lt;T1, TR&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TR</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+    <dt><code>TR</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ActAsBinaryReader__2_Vintagestory_API_Datastructures_BinarySpanReader____0___1_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinaryReaderAction___0___1__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ActAsBinaryReader``2(Vintagestory.API.Datastructures.BinarySpanReader@,``0,``1,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction{``0,``1})">
+  ActAsBinaryReader&lt;T1, T2&gt;(ref BinarySpanReader, T1, T2, BinaryReaderAction&lt;T1, T2&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void ActAsBinaryReader&lt;T1, T2&gt;(this ref BinarySpanReader spanReader, T1 arg1, T2 arg2, BinarySpanReaderExtensions.BinaryReaderAction&lt;T1, T2&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>spanReader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <span class="xref">T2</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinaryReaderAction-2.html">BinaryReaderAction</a>&lt;T1, T2&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+    <dt><code>T2</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ReadStringArray_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ReadStringArray*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_ReadStringArray_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.ReadStringArray(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  ReadStringArray(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string[] ReadStringArray(this ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_System_IO_BinaryReader_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinarySpanReaderAction_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader(System.IO.BinaryReader,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction)">
+  UnsafeActAsBinarySpanReader(BinaryReader, BinarySpanReaderAction)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void UnsafeActAsBinarySpanReader(this BinaryReader reader, BinarySpanReaderExtensions.BinarySpanReaderAction action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction.html">BinarySpanReaderAction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader__1_System_IO_BinaryReader_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinarySpanReaderFunc___0__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader``1(System.IO.BinaryReader,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc{``0})">
+  UnsafeActAsBinarySpanReader&lt;TR&gt;(BinaryReader, BinarySpanReaderFunc&lt;TR&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static TR UnsafeActAsBinarySpanReader&lt;TR&gt;(this BinaryReader reader, BinarySpanReaderExtensions.BinarySpanReaderFunc&lt;TR&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-1.html">BinarySpanReaderFunc</a>&lt;TR&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TR</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TR</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader__1_System_IO_BinaryReader___0_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinarySpanReaderAction___0__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader``1(System.IO.BinaryReader,``0,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction{``0})">
+  UnsafeActAsBinarySpanReader&lt;T1&gt;(BinaryReader, T1, BinarySpanReaderAction&lt;T1&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void UnsafeActAsBinarySpanReader&lt;T1&gt;(this BinaryReader reader, T1 arg1, BinarySpanReaderExtensions.BinarySpanReaderAction&lt;T1&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-1.html">BinarySpanReaderAction</a>&lt;T1&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader__2_System_IO_BinaryReader___0_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinarySpanReaderFunc___0___1__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader``2(System.IO.BinaryReader,``0,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc{``0,``1})">
+  UnsafeActAsBinarySpanReader&lt;T1, TR&gt;(BinaryReader, T1, BinarySpanReaderFunc&lt;T1, TR&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static TR UnsafeActAsBinarySpanReader&lt;T1, TR&gt;(this BinaryReader reader, T1 arg1, BinarySpanReaderExtensions.BinarySpanReaderFunc&lt;T1, TR&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderFunc-2.html">BinarySpanReaderFunc</a>&lt;T1, TR&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TR</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+    <dt><code>TR</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeActAsBinarySpanReader__2_System_IO_BinaryReader___0___1_Vintagestory_API_Datastructures_BinarySpanReaderExtensions_BinarySpanReaderAction___0___1__" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeActAsBinarySpanReader``2(System.IO.BinaryReader,``0,``1,Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction{``0,``1})">
+  UnsafeActAsBinarySpanReader&lt;T1, T2&gt;(BinaryReader, T1, T2, BinarySpanReaderAction&lt;T1, T2&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Don&#39;t use this.&quot;)]
+public static void UnsafeActAsBinarySpanReader&lt;T1, T2&gt;(this BinaryReader reader, T1 arg1, T2 arg2, BinarySpanReaderExtensions.BinarySpanReaderAction&lt;T1, T2&gt; action)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>arg1</code> <span class="xref">T1</span></dt>
+    <dd></dd>
+    <dt><code>arg2</code> <span class="xref">T2</span></dt>
+    <dd></dd>
+    <dt><code>action</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.html">BinarySpanReaderExtensions</a>.<a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.BinarySpanReaderAction-2.html">BinarySpanReaderAction</a>&lt;T1, T2&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T1</code></dt>
+    <dd></dd>
+    <dt><code>T2</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeAsBinarySpanReader_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeAsBinarySpanReader*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeAsBinarySpanReader_System_IO_MemoryStream_" data-uid="Vintagestory.API.Datastructures.BinarySpanReaderExtensions.UnsafeAsBinarySpanReader(System.IO.MemoryStream)">
+  UnsafeAsBinarySpanReader(MemoryStream)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BinarySpanReader UnsafeAsBinarySpanReader(this MemoryStream stream)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>stream</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.memorystream">MemoryStream</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Vintagestory_API_Datastructures_BinarySpanReaderExtensions_UnsafeAsBinarySpanReader_System_IO_MemoryStream__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The buffer must have been marked as exposed when the memory stream was constructed. <br>
+The buffer must not be modified while the returned reader is is use. <br>
+Takes the complete buffer of the memory stream, regardless of current position.</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

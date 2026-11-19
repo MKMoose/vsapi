@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using Vintagestory.API.Util;
 using System.Runtime.Serialization;
+using Vintagestory.API.MathTools;
 
 #nullable disable
 
@@ -34,7 +35,7 @@ namespace Vintagestory.API.Common
         [JsonProperty]
         public Animation[] Animations;
 
-        public Dictionary<uint, Animation> AnimationsByCrc32 = new Dictionary<uint, Animation>();
+        public Dictionary<uint, Animation> AnimationsByCrc32 = new Dictionary<uint, Animation>(0);
 
         /// <summary>
         /// The width of the texture. (default: 16)
@@ -52,16 +53,79 @@ namespace Vintagestory.API.Common
         public Dictionary<string, int[]> TextureSizes = new Dictionary<string, int[]>();
 
 
-        public Dictionary<int, AnimationJoint> JointsById = new Dictionary<int, AnimationJoint>();
+        public Dictionary<int, AnimationJoint> JointsById = new Dictionary<int, AnimationJoint>(0);
 
-        // This is never used anywhere. AnimatorBase.cs loads those separatly anyway
-        //public Dictionary<string, AttachmentPoint> AttachmentPointsByCode = new Dictionary<string, AttachmentPoint>();
+        private HashSet<string> removedElementNames;
+
 
 
         [OnDeserialized]
         public void TrimTextureNamesAndResolveFaces(StreamingContext context)
         {
             foreach (ShapeElement el in Elements) el.TrimTextureNamesAndResolveFaces();
+        }
+
+        /// <summary>
+        /// Optional load-time diagnostic for explicit face UVs outside the declared texture dimensions.
+        /// Call after deserialization when UV debugging is enabled. Oversized UVs can be intentional
+        /// for custom rendering, so this only logs warnings and does not modify the shape.
+        /// Auto-generated UVs (faces with no UV array) are not checked.
+        /// </summary>
+        /// <param name="logger">Logger receiving the diagnostics.</param>
+        /// <param name="shapeLocation">The source shape asset location, for diagnostics.</param>
+        /// <returns>The number of faces with invalid UVs or texture dimensions.</returns>
+        public int ValidateUvBounds(ILogger logger, AssetLocation shapeLocation)
+        {
+            int invalidFaces = 0;
+            ValidateElements(Elements, "");
+            return invalidFaces;
+
+            void ValidateElements(ShapeElement[] elements, string parentPath)
+            {
+                if (elements == null) return;
+
+                for (int i = 0; i < elements.Length; i++)
+                {
+                    ShapeElement element = elements[i];
+                    if (element == null) continue;
+                    string elementPath = parentPath + element.Name + "[" + i + "]";
+
+                    if (element.FacesResolved != null)
+                    {
+                        for (int faceIndex = 0; faceIndex < element.FacesResolved.Length; faceIndex++)
+                        {
+                            ShapeElementFace face = element.FacesResolved[faceIndex];
+                            if (face == null || !face.Enabled || face.Uv == null) continue;
+
+                            int width = TextureWidth, height = TextureHeight;
+                            if (face.Texture != null && TextureSizes != null && TextureSizes.TryGetValue(face.Texture, out int[] size))
+                            {
+                                width = size != null && size.Length == 2 ? size[0] : 0;
+                                height = size != null && size.Length == 2 ? size[1] : 0;
+                            }
+
+                            bool invalid = face.Uv.Length != 4;
+                            for (int uvIndex = 0; uvIndex < face.Uv.Length && !invalid; uvIndex++)
+                            {
+                                float value = face.Uv[uvIndex];
+                                int limit = uvIndex % 2 == 0 ? width : height;
+                                invalid = float.IsNaN(value) || float.IsInfinity(value) || value < 0 || value > limit;
+                            }
+
+                            if (!invalid) continue;
+                            invalidFaces++;
+                            string facing = faceIndex < BlockFacing.ALLFACES.Length ? BlockFacing.ALLFACES[faceIndex].Code : faceIndex.ToString();
+
+                            logger.Warning(
+                                "Invalid Shape UV: {0}, element '{1}', {2} face, texture '{3}': UV [{4}], expected four finite values within U=0..{5}, V=0..{6}",
+                                shapeLocation, elementPath, facing, face.Texture, string.Join(", ", face.Uv), width, height
+                            );
+                        }
+                    }
+
+                    ValidateElements(element.Children, elementPath + "/");
+                }
+            }
         }
 
         public void ResolveReferences(ILogger errorLogger, string shapeNameForLogging)
@@ -249,6 +313,7 @@ namespace Vintagestory.API.Common
                     stepparentElem = GetElementByName(childElem.StepParentName, StringComparison.InvariantCultureIgnoreCase);
                     if (stepparentElem == null)
                     {
+                        if (removedElementNames?.Contains(childElem.StepParentName) == true) continue;
                         logger.Warning("Step parented shape {0} requires step parent element with name {1}, but no such element was found in parent shape {2}. Will not be visible.", childLocationForLogging, childElem.StepParentName, parentLocationForLogging);
                         continue;
                     }
@@ -632,6 +697,69 @@ namespace Vintagestory.API.Common
         }
 
         /// <summary>
+        /// Also checks for atachment points being removed
+        /// </summary>
+        public void RemoveElements(string[] elementNames, string shapePathForLogging, ICoreAPI api)
+        {
+            if (elementNames == null) return;
+
+            if (shapePathForLogging != null && api != null && Elements != null)
+            {
+                foreach (ShapeElement element in Elements)
+                {
+                    CheckForAttachmentPointsBeingRemovedRecrusive(element, elementNames, shapePathForLogging, api);
+                }
+            }
+
+            foreach (var val in elementNames)
+            {
+                RemoveElementByName(val);
+                RemoveElementByName("skinpart-" + val);
+            }
+        }
+
+        public static void CheckForAttachmentPointsBeingRemovedRecrusive(ShapeElement element, string[] willDeleteElements, string shapePathForLogging, ICoreAPI api)
+        {
+            if (willDeleteElements == null || element == null || shapePathForLogging == null || api == null) return;
+
+            if (element.AttachmentPoints != null && element.AttachmentPoints.Length > 0)
+            {
+                bool matches = false;
+                foreach (string elementToDelete in willDeleteElements)
+                {
+                    if (elementToDelete != null && element.Name != null && Shape.MatchElementWithoutPrefix(elementToDelete, element.Name))
+                    {
+                        matches = true;
+                        break;
+                    }
+                }
+
+                if (matches)
+                {
+                    IEnumerable<string> affectedPoints = element.AttachmentPoints.Select(point => point.Code ?? "");
+                    if (affectedPoints.Any())
+                    {
+                        string affectedPointsList = affectedPoints.Aggregate((a, b) => $"{a}, {b}");
+                        api.Logger.Warning($"Shape element '{element.Name}' containing attachment points '{affectedPointsList}' being deleted from shape '{shapePathForLogging}' which can result in bugs.");
+                        return;
+                    }
+                }
+            }
+
+            if (element.Children != null)
+            {
+                foreach (ShapeElement childElement in element.Children)
+                {
+                    if (childElement == null) continue;
+
+                    CheckForAttachmentPointsBeingRemovedRecrusive(childElement, willDeleteElements, shapePathForLogging, api);
+                }
+            }
+        }
+
+
+
+        /// <summary>
         /// Removes *all* elements with given name
         /// </summary>
         /// <param name="name"></param>
@@ -642,6 +770,7 @@ namespace Vintagestory.API.Common
             return RemoveElementByName(name, ref Elements, stringComparison);
         }
 
+        public const char RemoveElementPrefixDelimeter = '@';
 
         bool RemoveElementByName(string name, ref ShapeElement[] elems, StringComparison stringComparison = StringComparison.InvariantCultureIgnoreCase)
         {
@@ -651,8 +780,9 @@ namespace Vintagestory.API.Common
 
             for (int i = 0; i < elems.Length; i++)
             {
-                if (elems[i].Name.Equals(name, stringComparison))
+                if (MatchElementWithoutPrefix(name, elems[i].Name, stringComparison))
                 {
+                    RememberRemovedElements(elems[i]);
                     elems = elems.RemoveAt(i);
                     removed = true;
                     i--;
@@ -666,6 +796,27 @@ namespace Vintagestory.API.Common
             }
 
             return removed;
+        }
+
+        public static bool MatchElementWithoutPrefix(string pattern, string elementName, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
+        {
+            int delimeterIndex = elementName.IndexOf(RemoveElementPrefixDelimeter);
+            ReadOnlySpan<char> part = delimeterIndex >= 0 ? elementName.AsSpan(delimeterIndex + 1) : elementName.AsSpan();
+            return part.Equals(pattern.AsSpan(), comparison);
+        }
+
+        private void RememberRemovedElements(ShapeElement element)
+        {
+            removedElementNames ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            removedElementNames.Add(element.Name);
+
+            if (element.Children != null)
+            {
+                foreach (var child in element.Children)
+                {
+                    RememberRemovedElements(child);
+                }
+            }
         }
 
         public ShapeElement[] CloneElements()
@@ -725,6 +876,7 @@ namespace Vintagestory.API.Common
                 TextureHeight = TextureHeight,
                 TextureSizes = TextureSizes,
                 Textures = Textures,
+                removedElementNames = removedElementNames == null ? null : new HashSet<string>(removedElementNames, StringComparer.OrdinalIgnoreCase),
             };
 
             for (int i = 0; i < shape.Elements.Length; i++)
@@ -742,9 +894,17 @@ namespace Vintagestory.API.Common
 
         public void InitForAnimations(ILogger logger, string shapeNameForLogging, string[] disableElements, params string[] requireJointsForElements)
         {
+            if (JointsById.Count > 0) return;     // For animated shapes (with joints) ensure we only resolve joints once per shape, because otherwise some faces stop animating properly (GitHub #6144)
+                                                  // - should work even if different entity codes (e.g. male/female deer) share the same shape instance
+
             CacheInvTransforms();
             Dictionary<string, ShapeElement> elementsByName = CollectAndResolveReferences(logger, shapeNameForLogging, disableElements);
-            ResolveAndFindJoints(logger, shapeNameForLogging, elementsByName, requireJointsForElements);
+
+            lock (JointsById)               // Robust, in case of race condition between this method in different threads
+            {
+                if (JointsById.Count > 0) return;     // Second check, in case of race conditions
+                ResolveAndFindJoints(logger, shapeNameForLogging, elementsByName, requireJointsForElements);
+            }
         }
 
         private void ResolveReferences(ILogger errorLogger, string shapeName, Dictionary<string, ShapeElement> elementsByName, AnimationKeyFrame kf, string[] disableElements)

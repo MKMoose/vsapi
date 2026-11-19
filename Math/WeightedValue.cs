@@ -1,4 +1,6 @@
-﻿using System.IO;
+using System;
+using System.IO;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -77,8 +79,15 @@ namespace Vintagestory.API.MathTools
             writer.Write(Weight);
             writer.Write(Value);
         }
-        
+
+        [Obsolete("Prefer the BinarySpanReader overload.")]
         public void FromBytes(BinaryReader reader)
+        {
+            Weight = reader.ReadSingle();
+            Value = reader.ReadSingle();
+        }
+
+        public void FromBytes(ref BinarySpanReader reader)
         {
             Weight = reader.ReadSingle();
             Value = reader.ReadSingle();
@@ -132,7 +141,15 @@ namespace Vintagestory.API.MathTools
             for (int i = 0; i < Value.Length; i++) writer.Write(Value[i]);
         }
 
+        [Obsolete("Prefer the BinarySpanReader overload.")]
         public void FromBytes(BinaryReader reader)
+        {
+            Weight = reader.ReadSingle();
+            Value = new float[reader.ReadInt32()];
+            for (int i = 0; i < Value.Length; i++) Value[i] = reader.ReadSingle();
+        }
+
+        public void FromBytes(ref BinarySpanReader reader)
         {
             Weight = reader.ReadSingle();
             Value = new float[reader.ReadInt32()];

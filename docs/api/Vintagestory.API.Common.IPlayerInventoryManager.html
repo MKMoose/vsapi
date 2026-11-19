@@ -143,7 +143,7 @@ Interface IPlayerInventoryManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemSlot ActiveHotbarSlot { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">ItemSlot? ActiveHotbarSlot { get; }</code></pre>
   </div>
 
 
@@ -239,7 +239,7 @@ Interface IPlayerInventoryManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemSlot CurrentHoveredSlot { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">ItemSlot? CurrentHoveredSlot { get; set; }</code></pre>
   </div>
 
 
@@ -336,7 +336,7 @@ Interface IPlayerInventoryManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemSlot MouseItemSlot { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">ItemSlot? MouseItemSlot { get; }</code></pre>
   </div>
 
 
@@ -368,7 +368,7 @@ Interface IPlayerInventoryManager
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemSlot OffhandHotbarSlot { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">ItemSlot? OffhandHotbarSlot { get; }</code></pre>
   </div>
 
 
@@ -491,12 +491,13 @@ Client side: No effect</p>
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Notifies the inventory manager that the player has closed an inventory. Should always be called on both sides (client and server). After closing interaction with given inventory becomes no longer possible until reopened</p>
+  <div class="markdown level1 summary"><p>Notifies the inventory manager that the player has closed an inventory. Should always be called on both sides (client and server).
+After closing interaction with given inventory becomes no longer possible until reopened.  Returns null on the server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object CloseInventory(IInventory inventory)</code></pre>
+    <pre><code class="lang-csharp hljs">object? CloseInventory(IInventory inventory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -615,7 +616,7 @@ Client side: No effect</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_DropItem_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.DropItem*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_DropItem_Vintagestory_API_Common_ItemSlot_System_Boolean_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.DropItem(Vintagestory.API.Common.ItemSlot,System.Boolean)">
-  DropItem(ItemSlot, bool)
+  DropItem(ItemSlot?, bool)
   
   </h3>
 
@@ -624,7 +625,7 @@ Client side: No effect</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool DropItem(ItemSlot slot, bool fullStack)</code></pre>
+    <pre><code class="lang-csharp hljs">bool DropItem(ItemSlot? slot, bool fullStack)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -729,7 +730,7 @@ Client side: No effect</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_GetBestSuitedSlot_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetBestSuitedSlot*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_GetBestSuitedSlot_Vintagestory_API_Common_ItemSlot_System_Boolean_Vintagestory_API_Common_ItemStackMoveOperation_System_Collections_Generic_List_Vintagestory_API_Common_ItemSlot__" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetBestSuitedSlot(Vintagestory.API.Common.ItemSlot,System.Boolean,Vintagestory.API.Common.ItemStackMoveOperation,System.Collections.Generic.List{Vintagestory.API.Common.ItemSlot})">
-  GetBestSuitedSlot(ItemSlot, bool, ItemStackMoveOperation, List&lt;ItemSlot&gt;)
+  GetBestSuitedSlot(ItemSlot, bool, ItemStackMoveOperation?, List&lt;ItemSlot&gt;?)
   
   </h3>
 
@@ -738,7 +739,7 @@ Client side: No effect</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation op = null, List&lt;ItemSlot&gt; skipSlots = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ItemSlot? GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation? op = null, List&lt;ItemSlot&gt;? skipSlots = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -772,7 +773,7 @@ Client side: No effect</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_GetBestSuitedSlot_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetBestSuitedSlot*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_GetBestSuitedSlot_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemStackMoveOperation_System_Collections_Generic_List_Vintagestory_API_Common_ItemSlot__" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetBestSuitedSlot(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.ItemStackMoveOperation,System.Collections.Generic.List{Vintagestory.API.Common.ItemSlot})">
-  GetBestSuitedSlot(ItemSlot, ItemStackMoveOperation, List&lt;ItemSlot&gt;)
+  GetBestSuitedSlot(ItemSlot, ItemStackMoveOperation?, List&lt;ItemSlot&gt;?)
   
   </h3>
 
@@ -781,7 +782,7 @@ Client side: No effect</p>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use GetBestSuitedSlot(ItemSlot sourceSlot, bool onlyPlayerInventory, ItemStackMoveOperation op, List&lt;ItemSlot&gt; skipSlots = null) instead&quot;)]
-ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&lt;ItemSlot&gt; skipSlots)</code></pre>
+ItemSlot? GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation? op, List&lt;ItemSlot&gt;? skipSlots)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -822,7 +823,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IInventory GetHotbarInventory()</code></pre>
+    <pre><code class="lang-csharp hljs">IInventory? GetHotbarInventory()</code></pre>
   </div>
 
 
@@ -854,7 +855,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemStack GetHotbarItemstack(int slotId)</code></pre>
+    <pre><code class="lang-csharp hljs">ItemStack? GetHotbarItemstack(int slotId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -866,6 +867,43 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.ItemStack.html">ItemStack</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IPlayerInventoryManager_GetHotbarSlotIndex_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetHotbarSlotIndex*"></a>
+
+  <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_GetHotbarSlotIndex_System_Int32_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetHotbarSlotIndex(System.Int32)">
+  GetHotbarSlotIndex(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Turn a inventory manager slot ID into the slot index for the hotbar inventory</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int GetHotbarSlotIndex(int slotId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>slotId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
   </dl>
 
@@ -891,7 +929,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IInventory GetInventory(string inventoryId)</code></pre>
+    <pre><code class="lang-csharp hljs">IInventory? GetInventory(string inventoryId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -919,7 +957,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_GetInventory_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetInventory*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_GetInventory_System_String_Vintagestory_API_Common_InventoryBase__" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.GetInventory(System.String,Vintagestory.API.Common.InventoryBase@)">
-  GetInventory(string, out InventoryBase)
+  GetInventory(string, out InventoryBase?)
   
   </h3>
 
@@ -928,7 +966,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool GetInventory(string invID, out InventoryBase invFound)</code></pre>
+    <pre><code class="lang-csharp hljs">bool GetInventory(string invID, out InventoryBase? invFound)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1004,7 +1042,7 @@ ItemSlot GetBestSuitedSlot(ItemSlot sourceSlot, ItemStackMoveOperation op, List&
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IInventory GetOwnInventory(string inventoryClassName)</code></pre>
+    <pre><code class="lang-csharp hljs">IInventory? GetOwnInventory(string inventoryClassName)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1136,12 +1174,12 @@ If called on server side, the server will send a network packet to notify the cl
   </h3>
 
   <div class="markdown level1 summary"><p>Notifies the inventory manager that the player has opened an inventory. Should always be called on both sides (client and server).
-Only then interaction with other inventories becomes possible</p>
+Only then interaction with other inventories becomes possible. Returns null on the server.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object OpenInventory(IInventory inventory)</code></pre>
+    <pre><code class="lang-csharp hljs">object? OpenInventory(IInventory inventory)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1169,7 +1207,7 @@ Only then interaction with other inventories becomes possible</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_TryGiveItemstack_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryGiveItemstack*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_TryGiveItemstack_Vintagestory_API_Common_ItemStack_System_Boolean_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryGiveItemstack(Vintagestory.API.Common.ItemStack,System.Boolean)">
-  TryGiveItemstack(ItemStack, bool)
+  TryGiveItemstack(ItemStack?, bool)
   
   </h3>
 
@@ -1178,7 +1216,7 @@ Only then interaction with other inventories becomes possible</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool TryGiveItemstack(ItemStack itemstack, bool slotNotifyEffect = false)</code></pre>
+    <pre><code class="lang-csharp hljs">bool TryGiveItemstack(ItemStack? itemstack, bool slotNotifyEffect = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1217,7 +1255,7 @@ Only then interaction with other inventories becomes possible</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object[] TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, bool slotNotifyEffect = false)</code></pre>
+    <pre><code class="lang-csharp hljs">object[]? TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, bool slotNotifyEffect = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1253,7 +1291,7 @@ Only then interaction with other inventories becomes possible</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_TryTransferAway_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryTransferAway*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_TryTransferAway_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemStackMoveOperation__System_Boolean_System_Text_StringBuilder_System_Boolean_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryTransferAway(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.ItemStackMoveOperation@,System.Boolean,System.Text.StringBuilder,System.Boolean)">
-  TryTransferAway(ItemSlot, ref ItemStackMoveOperation, bool, StringBuilder, bool)
+  TryTransferAway(ItemSlot, ref ItemStackMoveOperation, bool, StringBuilder?, bool)
   
   </h3>
 
@@ -1261,7 +1299,7 @@ Only then interaction with other inventories becomes possible</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object[] TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, StringBuilder shiftClickDebugText, bool slotNotifyEffect = false)</code></pre>
+    <pre><code class="lang-csharp hljs">object[]? TryTransferAway(ItemSlot sourceSlot, ref ItemStackMoveOperation op, bool onlyPlayerInventory, StringBuilder? shiftClickDebugText, bool slotNotifyEffect = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1297,7 +1335,7 @@ Only then interaction with other inventories becomes possible</p>
   <a id="Vintagestory_API_Common_IPlayerInventoryManager_TryTransferTo_" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryTransferTo*"></a>
 
   <h3 id="Vintagestory_API_Common_IPlayerInventoryManager_TryTransferTo_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_ItemStackMoveOperation__" data-uid="Vintagestory.API.Common.IPlayerInventoryManager.TryTransferTo(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.ItemStackMoveOperation@)">
-  TryTransferTo(ItemSlot, ItemSlot, ref ItemStackMoveOperation)
+  TryTransferTo(ItemSlot, ItemSlot?, ref ItemStackMoveOperation)
   
   </h3>
 
@@ -1306,7 +1344,7 @@ Only then interaction with other inventories becomes possible</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">object TryTransferTo(ItemSlot sourceSlot, ItemSlot targetSlot, ref ItemStackMoveOperation op)</code></pre>
+    <pre><code class="lang-csharp hljs">object? TryTransferTo(ItemSlot sourceSlot, ItemSlot? targetSlot, ref ItemStackMoveOperation op)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

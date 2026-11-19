@@ -97,7 +97,7 @@ Class StatModifiers
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityAgent.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/StatModifiers.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -194,6 +194,37 @@ Class StatModifiers
 
 
 
+  <h3 id="Vintagestory_API_Common_StatModifiers_generalStats" data-uid="Vintagestory.API.Common.StatModifiers.generalStats">
+  generalStats
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Unaffected by item being broken</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, float&gt;? generalStats</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_StatModifiers_healingeffectivness" data-uid="Vintagestory.API.Common.StatModifiers.healingeffectivness">
   healingeffectivness
   
@@ -242,6 +273,68 @@ Class StatModifiers
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_negativeEffectStats" data-uid="Vintagestory.API.Common.StatModifiers.negativeEffectStats">
+  negativeEffectStats
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>When item broken only positive values applied</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, float&gt;? negativeEffectStats</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_positiveEffectStats" data-uid="Vintagestory.API.Common.StatModifiers.positiveEffectStats">
+  positiveEffectStats
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>When item broken only negative values applied</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, float&gt;? positiveEffectStats</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -334,6 +427,189 @@ Class StatModifiers
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Common_StatModifiers_AddFrom_" data-uid="Vintagestory.API.Common.StatModifiers.AddFrom*"></a>
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_AddFrom_Vintagestory_API_Common_StatModifiers_System_Boolean_System_Single_System_Single_" data-uid="Vintagestory.API.Common.StatModifiers.AddFrom(Vintagestory.API.Common.StatModifiers,System.Boolean,System.Single,System.Single)">
+  AddFrom(StatModifiers, bool, float, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void AddFrom(StatModifiers other, bool broken = false, float multiplier = 1, float walkSpeedDebufMultiplier = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.Common.StatModifiers.html">StatModifiers</a></dt>
+    <dd></dd>
+    <dt><code>broken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>multiplier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>walkSpeedDebufMultiplier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_StatModifiers_AggregateStatsFrom_" data-uid="Vintagestory.API.Common.StatModifiers.AggregateStatsFrom*"></a>
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_AggregateStatsFrom_System_Collections_Generic_Dictionary_System_String_System_Single__System_Collections_Generic_Dictionary_System_String_System_Single__System_String_" data-uid="Vintagestory.API.Common.StatModifiers.AggregateStatsFrom(System.Collections.Generic.Dictionary{System.String,System.Single},System.Collections.Generic.Dictionary{System.String,System.Single},System.String)">
+  AggregateStatsFrom(Dictionary&lt;string, float&gt;?, Dictionary&lt;string, float&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static void AggregateStatsFrom(Dictionary&lt;string, float&gt;? statValues, Dictionary&lt;string, float&gt; aggregatedValues, string code)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>statValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>aggregatedValues</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_StatModifiers_Apply_" data-uid="Vintagestory.API.Common.StatModifiers.Apply*"></a>
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_Apply_Vintagestory_API_Common_EntityStats_System_String_" data-uid="Vintagestory.API.Common.StatModifiers.Apply(Vintagestory.API.Common.EntityStats,System.String)">
+  Apply(EntityStats, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Apply(EntityStats entityStats, string entityStatCode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entityStats</code> <a class="xref" href="Vintagestory.API.Common.EntityStats.html">EntityStats</a></dt>
+    <dd></dd>
+    <dt><code>entityStatCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_StatModifiers_GetDescription_" data-uid="Vintagestory.API.Common.StatModifiers.GetDescription*"></a>
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_GetDescription_System_Text_StringBuilder_System_Boolean_" data-uid="Vintagestory.API.Common.StatModifiers.GetDescription(System.Text.StringBuilder,System.Boolean)">
+  GetDescription(StringBuilder, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void GetDescription(StringBuilder description, bool broken = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+    <dt><code>broken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_StatModifiers_GetStatDescription_" data-uid="Vintagestory.API.Common.StatModifiers.GetStatDescription*"></a>
+
+  <h3 id="Vintagestory_API_Common_StatModifiers_GetStatDescription_System_String_System_Single_" data-uid="Vintagestory.API.Common.StatModifiers.GetStatDescription(System.String,System.Single)">
+  GetStatDescription(string, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets translated stat value description entry<br>
+&quot;wearable-stat-description-hungerrate&quot;: &quot;Hunger rate: {1}{0:0%}&quot; - will result in 'Hunger rate: +12%' from value of 0.123<br>
+&quot;wearable-stat-description-rangedweaponsspeed&quot;: &quot;Ranged Weapon Charge Time: {2}{0:0.#%}&quot; - will result in 'Ranged Weapon Charge Time: -12.3%' from value of 0.123</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetStatDescription(string entityStatCategory, float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entityStatCategory</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 
 

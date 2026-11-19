@@ -58,42 +58,52 @@ namespace Vintagestory.API.Common
         /// </summary>
         [DocumentAsJson("Obsolete")]
         [Obsolete("Use Satiety instead.")]
-        public float Saturation
-        {
-            get { return Satiety; }
-            set { Satiety = value; }
-        }
+        public float Saturation { get => Satiety; set => Satiety = value; }
 
         /// <summary>
         /// How much eating this will affect the player's intoxication. (0..1)
         /// </summary>
         [DocumentAsJson("Optional", "0")]
-        public float Intoxication
-        {
-            get; set;
-        }
+        public float Intoxication { get; set; }
 
 
         /// <summary>
         /// How much eating this will affect the player's psychedelic perception. (0..1)
         /// </summary>
         [DocumentAsJson("Optional", "0")]
-        public float Psychedelic
-        {
-            get; set;
-        }
+        public float Psychedelic { get; set; }
+
+        /// <summary>
+        /// Obsolete - Please use <see cref="SatietyLossDelay"/> instead.
+        /// </summary>
+        [DocumentAsJson("Obsolete")]
+        [Obsolete("Use SatietyLossDelay instead.")]
+        public float SaturationLossDelay { get => SatietyLossDelay; set => SatietyLossDelay = value; }
 
         /// <summary>
         /// The delay before that extra saturation starts to go away.
         /// </summary>
         [DocumentAsJson("Optional", "10")]
-        public float SaturationLossDelay = 10f;
+        public float SatietyLossDelay = 10f;
 
         /// <summary>
         /// The health restored by the food. Usually actually used to hurt the player with negative values.
         /// </summary>
         [DocumentAsJson("Optional", "0")]
         public float Health = 0f;
+
+        /// <summary>
+        /// If greater than zero, healing will be turned into healing over time and will be fully applied over this time.
+        /// If HealthTicks is set to 1, it will mean that healing will just be delayed by HealthDurationSec.
+        /// </summary>
+        [DocumentAsJson("Optional", "0")]
+        public float HealthDurationSec { get; set; }
+
+        /// <summary>
+        /// If HealthDurationSec greater than zero, total healing will be split into this many portions, each applied in HealthDurationSec/HealthTicks time after another.
+        /// </summary>
+        [DocumentAsJson("Optional", "1")]
+        public int HealthTicks { get; set; } = 1;
 
         /// <summary>
         /// When an instance of this collectible is eaten, what item stack should be returned to the player?
@@ -109,11 +119,14 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         public FoodNutritionProperties Clone()
         {
-            return new FoodNutritionProperties()
+            return new FoodNutritionProperties
             {
                 FoodCategory = FoodCategory,
                 Satiety = Satiety,
                 Health = Health,
+                HealthDurationSec = HealthDurationSec,
+                HealthTicks = HealthTicks,
+                SatietyLossDelay = SatietyLossDelay,
                 Intoxication = Intoxication,
                 Psychedelic = Psychedelic,
                 EatenStack = EatenStack?.Clone()

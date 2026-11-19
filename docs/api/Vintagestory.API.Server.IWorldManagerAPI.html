@@ -682,7 +682,7 @@ string CurrentWorldName { get; }</code></pre>
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Get the seed used to generate the current world</p>
+  <div class="markdown level1 summary"><p>Get the seed used Client and Server side for determining randomness in Weather, Temperature, and Calendar</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -699,6 +699,39 @@ string CurrentWorldName { get; }</code></pre>
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>The map seed</p>
 </dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IWorldManagerAPI_SeedWorldgen_" data-uid="Vintagestory.API.Server.IWorldManagerAPI.SeedWorldgen*"></a>
+
+  <h3 id="Vintagestory_API_Server_IWorldManagerAPI_SeedWorldgen" data-uid="Vintagestory.API.Server.IWorldManagerAPI.SeedWorldgen">
+  SeedWorldgen
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the seed used to generate the current world.
+This can only be used server side and should never be sent to the client</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int SeedWorldgen { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
   </dl>
 
 

@@ -4,20 +4,18 @@ using System.Globalization;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
-#nullable disable
-
 namespace Vintagestory.API.Datastructures
 {
     public class JsonTreeAttribute
     {
-        public string value;
-        public string[] values;
+        public string? value;
+        public string[]? values;
 
-        public Dictionary<string, JsonTreeAttribute> elems = new Dictionary<string, JsonTreeAttribute>();
+        public Dictionary<string, JsonTreeAttribute>? elems = new Dictionary<string, JsonTreeAttribute>();
         public EnumAttributeType type;
 
 
-        public IAttribute ToAttribute(IWorldAccessor resolver)
+        public IAttribute? ToAttribute(IWorldAccessor resolver)
         {
             if (type == EnumAttributeType.Unknown)
             {
@@ -58,10 +56,10 @@ namespace Vintagestory.API.Datastructures
                     }
 
                 case EnumAttributeType.String:
-                    return new StringAttribute(value);
+                    return new StringAttribute(value ?? "");
 
                 case EnumAttributeType.StringArray:
-                    return new StringArrayAttribute(values);
+                    return new StringArrayAttribute(values ?? []);
 
                 case EnumAttributeType.Tree:
                     ITreeAttribute tree = new TreeAttribute();
@@ -69,7 +67,7 @@ namespace Vintagestory.API.Datastructures
 
                     foreach (var val in elems)
                     {
-                        IAttribute attribute = val.Value.ToAttribute(resolver);
+                        IAttribute? attribute = val.Value.ToAttribute(resolver);
                         if (attribute == null) continue;
                         tree[val.Key] = attribute;
                     }
@@ -79,23 +77,23 @@ namespace Vintagestory.API.Datastructures
                 case EnumAttributeType.Itemstack:
                     if (elems == null) return null;
 
-                    bool haveClass = elems.TryGetValue("class", out var elemClass) && elemClass.type == EnumAttributeType.String;
-                    bool haveItemCode = elems.TryGetValue("code", out var elemCode) && elemCode.type == EnumAttributeType.String;
-                    bool haveStackSize = elems.TryGetValue("quantity", out var elemQuantity) && elemQuantity.type == EnumAttributeType.Int;
+                    if (!elems.TryGetValue("class", out var elemClass) || elemClass.type != EnumAttributeType.String || elemClass.value == null) return null;
 
-                    if (!haveClass || !haveItemCode || !haveStackSize) return null;
+                    if (!elems.TryGetValue("code", out var elemCode) || elemCode.type != EnumAttributeType.String) return null;
+
+                    if (!elems.TryGetValue("quantity", out var elemQuantity) || elemQuantity.type != EnumAttributeType.Int) return null;
 
                     EnumItemClass itemclass;
                     try
                     {
-                        itemclass = (EnumItemClass)Enum.Parse(typeof(EnumItemClass), elems["class"].value);
+                        itemclass = (EnumItemClass)Enum.Parse(typeof(EnumItemClass), elemClass.value);
                     } catch (Exception)
                     {
                         return null;
                     }
 
                     int quantity = 0;
-                    if (!int.TryParse(elems["quantity"].value, out quantity))
+                    if (!int.TryParse(elemQuantity.value, out quantity))
                     {
                         return null;
                     }                    
@@ -104,19 +102,19 @@ namespace Vintagestory.API.Datastructures
 
                     if (itemclass == EnumItemClass.Block)
                     {
-                        Block block = resolver.GetBlock(new AssetLocation(elems["code"].value));
+                        Block? block = resolver.GetBlock(new AssetLocation(elemCode.value));
                         if (block == null) return null;
                         itemstack = new ItemStack(block, quantity);
                     } else
                     {
-                        Item item = resolver.GetItem(new AssetLocation(elems["code"].value));
+                        Item? item = resolver.GetItem(new AssetLocation(elemCode.value));
                         if (item == null) return null;
                         itemstack = new ItemStack(item, quantity);
                     }
 
                     if (elems.TryGetValue("attributes", out var jsonAttribs))
                     {
-                        IAttribute attributes = jsonAttribs.ToAttribute(resolver);
+                        IAttribute? attributes = jsonAttribs.ToAttribute(resolver);
                         if (attributes is ITreeAttribute)
                         {
                             itemstack.Attributes = (ITreeAttribute)attributes;

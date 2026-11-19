@@ -651,6 +651,19 @@ namespace Vintagestory.API.Client
             ComposeDynamicElements();
         }
 
+        /// <summary>
+        /// Sets the list for the GUI Element list value.
+        /// </summary>
+        /// <param name="values">The values of the list.</param>
+        /// <param name="names">The names of the values.</param>
+        public void SetList(DropDownEntry[] entries)
+        {
+            this.Values = entries.Select(e => e.Value).ToArray();
+            this.Names = entries.Select(e => e.Name).ToArray();
+            ComposeDynamicElements();
+        }
+
+
 
         public override void Dispose()
         {

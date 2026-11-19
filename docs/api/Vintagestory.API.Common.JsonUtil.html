@@ -149,6 +149,72 @@ Class JsonUtil
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_DefaultLoadSettings_" data-uid="Vintagestory.API.Common.JsonUtil.DefaultLoadSettings*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_DefaultLoadSettings" data-uid="Vintagestory.API.Common.JsonUtil.DefaultLoadSettings">
+  DefaultLoadSettings
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static JsonLoadSettings DefaultLoadSettings { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">JsonLoadSettings</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_DefaultTextJsonSerializerOptions_" data-uid="Vintagestory.API.Common.JsonUtil.DefaultTextJsonSerializerOptions*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_DefaultTextJsonSerializerOptions" data-uid="Vintagestory.API.Common.JsonUtil.DefaultTextJsonSerializerOptions">
+  DefaultTextJsonSerializerOptions
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static JsonSerializerOptions DefaultTextJsonSerializerOptions { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -181,6 +247,101 @@ Class JsonUtil
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_DeserializeFastFromFile_" data-uid="Vintagestory.API.Common.JsonUtil.DeserializeFastFromFile*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_DeserializeFastFromFile__1_System_String_System_Text_Json_JsonSerializerOptions_" data-uid="Vintagestory.API.Common.JsonUtil.DeserializeFastFromFile``1(System.String,System.Text.Json.JsonSerializerOptions)">
+  DeserializeFastFromFile&lt;T&gt;(string, JsonSerializerOptions?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deserializes a file using System.Text.Json.
+Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotations to include and exclude them.
+The defaults for what to include and exclude are different from Newtonsoft.Json.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T? DeserializeFastFromFile&lt;T&gt;(string path, JsonSerializerOptions? settings = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filepath</p>
+</dd>
+    <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd><p>If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_DeserializeFast_" data-uid="Vintagestory.API.Common.JsonUtil.DeserializeFast*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_DeserializeFast__1_System_String_System_Text_Json_JsonSerializerOptions_" data-uid="Vintagestory.API.Common.JsonUtil.DeserializeFast``1(System.String,System.Text.Json.JsonSerializerOptions)">
+  DeserializeFast&lt;T&gt;(string, JsonSerializerOptions?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Deserializes a string using System.Text.Json.
+Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotation to include and exclude them.
+The defaults for what to include and exclude are different from Newtonsoft.Json.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T? DeserializeFast&lt;T&gt;(string json, JsonSerializerOptions? settings = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>json</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd><p>If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -370,6 +531,98 @@ Class JsonUtil
     <dd></dd>
   </dl>
 
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_SerializeFastToFile_" data-uid="Vintagestory.API.Common.JsonUtil.SerializeFastToFile*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_SerializeFastToFile__1_System_String___0_System_Text_Json_JsonSerializerOptions_" data-uid="Vintagestory.API.Common.JsonUtil.SerializeFastToFile``1(System.String,``0,System.Text.Json.JsonSerializerOptions)">
+  SerializeFastToFile&lt;T&gt;(string, T, JsonSerializerOptions?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serializes an object to a file using System.Text.Json.
+Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotations to include and exclude them.
+The defaults for what to include and exclude are different from Newtonsoft.Json.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SerializeFastToFile&lt;T&gt;(string path, T data, JsonSerializerOptions? settings = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>Filepath</p>
+</dd>
+    <dt><code>data</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd><p>If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All)</p>
+</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_SerializeFast_" data-uid="Vintagestory.API.Common.JsonUtil.SerializeFast*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_SerializeFast__1___0_System_Text_Json_JsonSerializerOptions_" data-uid="Vintagestory.API.Common.JsonUtil.SerializeFast``1(``0,System.Text.Json.JsonSerializerOptions)">
+  SerializeFast&lt;T&gt;(T, JsonSerializerOptions?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serializes an object to a string using System.Text.Json.
+Which means you need to make sure your objects do have the proper fields marked with System.Text.Json annotation to include and exclude them.
+The defaults for what to include and exclude are different from Newtonsoft.Json.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string SerializeFast&lt;T&gt;(T data, JsonSerializerOptions? settings = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>data</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>settings</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></dt>
+    <dd><p>If this is not specified, we set IncludeFields=true, WriteIndented=true and use Encoder=JavaScriptEncoder.Create(UnicodeRanges.All)</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
 
   <h4 class="section">Type Parameters</h4>
   <dl class="parameters">
@@ -602,6 +855,37 @@ Class JsonUtil
     <dt><code>T</code></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_JsonUtil_setupLoadSettings_" data-uid="Vintagestory.API.Common.JsonUtil.setupLoadSettings*"></a>
+
+  <h3 id="Vintagestory_API_Common_JsonUtil_setupLoadSettings_System_Boolean_" data-uid="Vintagestory.API.Common.JsonUtil.setupLoadSettings(System.Boolean)">
+  setupLoadSettings(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void setupLoadSettings(bool ramOptimized)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ramOptimized</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
 
 
 

@@ -1,5 +1,6 @@
 using System;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -33,15 +34,27 @@ namespace Vintagestory.API.Common
         /// <param name="byPlayer">The player the packet came from</param>
         /// <param name="packetId">the ID of the packet.</param>
         /// <param name="data">the contents of the packet.</param>
-        void HandleClientPacket(IPlayer byPlayer, int packetId, byte[] data);
+        [Obsolete("prefer using the SerializedData overload.", true)]
+        void HandleClientPacket(IPlayer byPlayer, int packetId, byte[] packetData)
+        {
+            HandleClientPacket((Server.IServerPlayer)byPlayer, packetId, new SerializedData(packetData));
+        }
 
         /// <summary>
-        /// Discards a packet that would normally be passed into <see cref=" HandleClientPacket(IPlayer, int, ReadOnlySpan{T})"/> and tells the client to revert the interaction.
+        /// Handles the client packet.
+        /// </summary>
+        /// <param name="byPlayer">The player the packet came from</param>
+        /// <param name="packetId">the ID of the packet.</param>
+        /// <param name="data">the contents of the packet.</param>
+        void HandleClientPacket(Server.IServerPlayer byPlayer, int packetId, SerializedData packetData);
+
+        /// <summary>
+        /// Discards a packet that would normally be passed into <see cref=" HandleClientPacket(IPlayer, int, SerializedData)"/> and tells the client to revert the interaction.
         /// </summary>
         /// <param name="byPlayer">The player the packet came from</param>
         /// <param name="forClientPacketId">The packet id the client sent us, which we need to roll back client side</param>
         /// <param name="forClientPacketData">The packet data the client sent us, which we need to roll back client side</param>
-        void SendInventoryRollback(Server.IServerPlayer byPlayer, int forClientPacketId, ReadOnlySpan<byte> forClientPacketData);
+        void SendInventoryRollback(Server.IServerPlayer byPlayer, int forClientPacketId, SerializedData forClientPacketData);
 
         /// <summary>
         /// Opens a target inventory, passing it to the player.

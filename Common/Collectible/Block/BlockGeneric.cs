@@ -378,5 +378,32 @@ namespace Vintagestory.API.Common
 
             return base.GetLightAbsorption(blockAccessor, pos);
         }
+
+        public override BlockDropItemStack[] GetDropsForHandbook(ItemStack handbookStack, IPlayer forPlayer)
+        {
+            bool preventDefault = false;
+            List<BlockDropItemStack> allstacks = null;
+
+            foreach (BlockBehavior behavior in BlockBehaviors)
+            {
+                StrongBlockBehavior sbh = behavior as StrongBlockBehavior;
+                if (sbh == null) continue;
+
+
+                EnumHandling handled = EnumHandling.PassThrough;
+
+                BlockDropItemStack[] stacks = sbh.GetDropsForHandbook(handbookStack, forPlayer, ref handled);
+                if (handled == EnumHandling.PreventSubsequent) return stacks;
+                if (handled == EnumHandling.PreventDefault) preventDefault = true;
+                if (stacks == null) continue;
+
+                allstacks ??= [];
+                allstacks.AddRange(stacks);
+            }
+
+            if (preventDefault) return allstacks.ToArray();
+
+            return base.GetDropsForHandbook(handbookStack, forPlayer);
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ProtoBuf;
-using System;
+using System.ComponentModel;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
@@ -40,19 +40,19 @@ namespace Vintagestory.API.Client
         /// <summary>
         /// Probably want to set this to false on looping sounds. But remember to dispose it yourself when you no longer need it
         /// </summary>
-        [ProtoMember(5)]
+        [ProtoMember(5), DefaultValue(true)]
         public bool DisposeOnFinish = true;
 
         /// <summary>
-        /// The sounds intial pitch. 
+        /// The sounds intial pitch.
         /// </summary>
-        [ProtoMember(6)]
+        [ProtoMember(6), DefaultValue(1f)]
         public float Pitch = 1f;
 
         /// <summary>
         /// 0...1
         /// </summary>
-        [ProtoMember(7)]
+        [ProtoMember(7), DefaultValue(1f)]
         public float LowPassFilter = 1f;
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Vintagestory.API.Client
         /// <summary>
         /// The range in which the sound does not attenuate at all
         /// </summary>
-        [ProtoMember(9)]
+        [ProtoMember(9), DefaultValue(3f)]
         public float ReferenceDistance = 3f;
 
         /// <summary>
@@ -84,13 +84,13 @@ namespace Vintagestory.API.Client
             }
         }
 
-        [ProtoMember(10)]
+        [ProtoMember(10), DefaultValue(1f)]
         float volume = 1f;
 
         /// <summary>
         /// The sounds initial range (default is 32)
         /// </summary>
-        [ProtoMember(11)]
+        [ProtoMember(11), DefaultValue(32)]
         public float Range = 32;
 
         /// <summary>

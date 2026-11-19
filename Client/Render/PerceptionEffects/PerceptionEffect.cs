@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.Common;
+using Vintagestory.API.Common;
 
 #nullable disable
 
@@ -13,6 +13,8 @@ namespace Vintagestory.API.Client
         public double DurationHours;
 
         protected ICoreClientAPI capi;
+
+        public bool DoCameraRotation;
 
         public PerceptionEffect(ICoreClientAPI capi)
         {
@@ -30,7 +32,7 @@ namespace Vintagestory.API.Client
 
         public virtual void OnOwnPlayerDataReceived(EntityPlayer eplr)
         {
-
+            DoCameraRotation = capi.World.Config.GetBool("perceptionEffectsCameraRotation", true);
         }
 
         public virtual void ApplyToFpHand(Matrixf modelMat)

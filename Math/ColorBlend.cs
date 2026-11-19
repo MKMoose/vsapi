@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 #nullable disable
@@ -68,7 +70,18 @@ namespace Vintagestory.API.MathTools
         ColorDodge = 5,
         ColorBurn = 6,
         Overlay = 7,
-        OverlayCutout = 8
+        OverlayCutout = 8,
+        Replace,
+        NormalPreserveAlpha,
+        AlphaMask,
+        AlphaMaskBlackAndWhite,
+        AlphaMaskBlackAndWhiteInverted,
+        MultiplyPreserveAlpha,
+        HueBlend,
+        HueShift,
+        SaturationBlend,
+        LuminosityBlend,
+        HueSaturationBlend
     }
 
 
@@ -89,7 +102,18 @@ namespace Vintagestory.API.MathTools
                 ColorDodge,
                 ColorBurn,
                 Overlay,
-                OverlayCutout
+                OverlayCutout,
+                Replace,
+                NormalPreserveAlphaBlend,
+                AlphaMask,
+                AlphaMaskBlackAndWhite,
+                AlphaMaskBlackAndWhiteInverted,
+                MultiplyPreserveAlpha,
+                HueBlend,
+                HueShift,
+                SaturationBlend,
+                LuminosityBlend,
+                HueSaturationBlend
             };
         }
 
@@ -1004,5 +1028,315 @@ namespace Vintagestory.API.MathTools
         }
 
 
+        public static int Replace(int baseColor, int overlayColor) => overlayColor;
+
+        public static int NormalBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+
+            if (overlayAlpha == 0) return baseColor;
+
+            if (overlayAlpha == 255) return overlayColor;
+
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            int inverseOverlayAlpha = 255 - overlayAlpha;
+            int outAlpha = overlayAlpha + (baseAlpha * inverseOverlayAlpha) / 255;
+
+            if (outAlpha == 0) return 0;
+
+            int outR = (overlayR * overlayAlpha + baseR * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outG = (overlayG * overlayAlpha + baseG * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outB = (overlayB * overlayAlpha + baseB * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+
+            return (outAlpha << 24) | (outR << 16) | (outG << 8) | outB;
+        }
+
+        public static int NormalPreserveAlphaBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+
+            if (baseAlpha == 0) return 0;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            int inverseOverlayAlpha = 255 - overlayAlpha;
+            int outAlpha = overlayAlpha + (baseAlpha * inverseOverlayAlpha) / 255;
+
+
+
+            int outR = (overlayR * overlayAlpha + baseR * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outG = (overlayG * overlayAlpha + baseG * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outB = (overlayB * overlayAlpha + baseB * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+
+            return (baseAlpha << 24) | (outR << 16) | (outG << 8) | outB;
+        }
+
+        public static int AlphaMaskBlackAndWhite(int baseColor, int overlayColor)
+        {
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            int luminance = (overlayR * 2126 + overlayG * 7152 + overlayB * 722) / 10000;
+
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+            int newAlpha = (baseAlpha * luminance) / 255;
+
+            return (baseColor & 0x00FFFFFF) | (newAlpha << 24);
+        }
+
+        public static int AlphaMaskBlackAndWhiteInverted(int baseColor, int overlayColor)
+        {
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            int luminance = (overlayR * 2126 + overlayG * 7152 + overlayB * 722) / 10000;
+
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+            int newAlpha = (baseAlpha * (1 - luminance)) / 255;
+
+            return (baseColor & 0x00FFFFFF) | (newAlpha << 24);
+        }
+
+        public static int AlphaMask(int baseColor, int overlayColor)
+        {
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            int newAlpha = (baseAlpha * overlayAlpha) / 255;
+            return (baseColor & 0x00FFFFFF) | (newAlpha << 24);
+        }
+
+        public static int HueBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            RgbToHsl(baseR, baseG, baseB, out float baseH, out float baseS, out float baseL);
+            RgbToHsl(overlayR, overlayG, overlayB, out float overlayH, out float overlayS, out float overlayL);
+            HslToRgb(overlayH, baseS, baseL, out int outR, out int outG, out int outB);
+
+            return ComposeWithAlpha(baseColor, overlayColor, baseR, baseG, baseB, outR, outG, outB);
+        }
+
+        public static int HueShift(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            RgbToHsl(baseR, baseG, baseB, out float baseH, out float baseS, out float baseL);
+            RgbToHsl(overlayR, overlayG, overlayB, out float overlayH, out float overlayS, out float overlayL);
+            HslToRgb((baseH + overlayL) % 1, baseS, baseL, out int outR, out int outG, out int outB);
+
+            return ComposeWithAlpha(baseColor, overlayColor, baseR, baseG, baseB, outR, outG, outB);
+        }
+
+        public static int SaturationBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            RgbToHsl(baseR, baseG, baseB, out float baseH, out float baseS, out float baseL);
+            RgbToHsl(overlayR, overlayG, overlayB, out float overlayH, out float overlayS, out float overlayL);
+            HslToRgb(baseH, overlayS, baseL, out int outR, out int outG, out int outB);
+
+            return ComposeWithAlpha(baseColor, overlayColor, baseR, baseG, baseB, outR, outG, outB);
+        }
+
+        public static int LuminosityBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            RgbToHsl(baseR, baseG, baseB, out float baseH, out float baseS, out float baseL);
+            RgbToHsl(overlayR, overlayG, overlayB, out float overlayH, out float overlayS, out float overlayL);
+            HslToRgb(baseH, baseS, overlayL, out int outR, out int outG, out int outB);
+
+            return ComposeWithAlpha(baseColor, overlayColor, baseR, baseG, baseB, outR, outG, outB);
+        }
+
+        public static int HueSaturationBlend(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            RgbToHsl(baseR, baseG, baseB, out float baseH, out float baseS, out float baseL);
+            RgbToHsl(overlayR, overlayG, overlayB, out float overlayH, out float overlayS, out float overlayL);
+            HslToRgb(overlayH, overlayS, baseL, out int outR, out int outG, out int outB);
+
+            return ComposeWithAlpha(baseColor, overlayColor, baseR, baseG, baseB, outR, outG, outB);
+        }
+
+        public static int MultiplyPreserveAlpha(int baseColor, int overlayColor)
+        {
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+
+            if (overlayAlpha == 0) return baseColor;
+
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+
+            if (baseAlpha == 0) return 0;
+
+            int baseR = (baseColor >> 16) & 0xFF;
+            int baseG = (baseColor >> 8) & 0xFF;
+            int baseB = baseColor & 0xFF;
+
+            int overlayR = (overlayColor >> 16) & 0xFF;
+            int overlayG = (overlayColor >> 8) & 0xFF;
+            int overlayB = overlayColor & 0xFF;
+
+            int multipliedR = (baseR * overlayR) / 255;
+            int multipliedG = (baseG * overlayG) / 255;
+            int multipliedB = (baseB * overlayB) / 255;
+
+            int inverseOverlayAlpha = 255 - overlayAlpha;
+
+            int outR = (multipliedR * overlayAlpha + baseR * inverseOverlayAlpha) / 255;
+            int outG = (multipliedG * overlayAlpha + baseG * inverseOverlayAlpha) / 255;
+            int outB = (multipliedB * overlayAlpha + baseB * inverseOverlayAlpha) / 255;
+
+            return (baseAlpha << 24) | (outR << 16) | (outG << 8) | outB;
+        }
+
+        public static void RgbToHsl(int r, int g, int b, out float h, out float s, out float l)
+        {
+            float rf = r / 255f;
+            float gf = g / 255f;
+            float bf = b / 255f;
+
+            float max = Math.Max(rf, Math.Max(gf, bf));
+            float min = Math.Min(rf, Math.Min(gf, bf));
+            float delta = max - min;
+
+            l = (max + min) / 2f;
+
+            if (delta == 0f)
+            {
+                h = 0f;
+                s = 0f;
+                return;
+            }
+
+            s = l < 0.5f
+                ? delta / (max + min)
+                : delta / (2f - max - min);
+
+            if (max == rf)
+                h = ((gf - bf) / delta + (gf < bf ? 6f : 0f)) / 6f;
+            else if (max == gf)
+                h = ((bf - rf) / delta + 2f) / 6f;
+            else
+                h = ((rf - gf) / delta + 4f) / 6f;
+        }
+
+        public static void HslToRgb(float h, float s, float l, out int r, out int g, out int b)
+        {
+            if (s == 0f)
+            {
+                int gray = (int)(l * 255f);
+                r = g = b = gray;
+                return;
+            }
+
+            float q = l < 0.5f ? l * (1f + s) : l + s - l * s;
+            float p = 2f * l - q;
+
+            r = (int)(HueToRgb(p, q, h + 1f / 3f) * 255f);
+            g = (int)(HueToRgb(p, q, h) * 255f);
+            b = (int)(HueToRgb(p, q, h - 1f / 3f) * 255f);
+        }
+
+        public static float HueToRgb(float p, float q, float t)
+        {
+            if (t < 0f) t += 1f;
+            if (t > 1f) t -= 1f;
+
+            if (t < 1f / 6f) return p + (q - p) * 6f * t;
+            if (t < 1f / 2f) return q;
+            if (t < 2f / 3f) return p + (q - p) * (2f / 3f - t) * 6f;
+
+            return p;
+        }
+
+        public static int ComposeWithAlpha(int baseColor, int overlayColor, int baseR, int baseG, int baseB, int overlayR, int overlayG, int overlayB)
+        {
+            int baseAlpha = (baseColor >> 24) & 0xFF;
+            int overlayAlpha = (overlayColor >> 24) & 0xFF;
+
+            if (baseAlpha == 0) return 0;
+            if (overlayAlpha == 0) return baseColor;
+
+            int inverseOverlayAlpha = 255 - overlayAlpha;
+            int outAlpha = overlayAlpha + (baseAlpha * inverseOverlayAlpha) / 255;
+
+            int outR = (overlayR * overlayAlpha + baseR * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outG = (overlayG * overlayAlpha + baseG * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+            int outB = (overlayB * overlayAlpha + baseB * baseAlpha * inverseOverlayAlpha / 255) / outAlpha;
+
+            outR = Math.Clamp(outR, 0, 255);
+            outG = Math.Clamp(outG, 0, 255);
+            outB = Math.Clamp(outB, 0, 255);
+
+            return (baseAlpha << 24) | (outR << 16) | (outG << 8) | outB;
+        }
     }
 }

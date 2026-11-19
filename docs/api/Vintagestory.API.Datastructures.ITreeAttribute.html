@@ -121,6 +121,9 @@ Interface ITreeAttribute
       <a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html#Vintagestory_API_Datastructures_IAttribute_FromBytes_System_IO_BinaryReader_">IAttribute.FromBytes(BinaryReader)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html#Vintagestory_API_Datastructures_IAttribute_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__">IAttribute.FromBytes(ref BinarySpanReader)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Datastructures.IAttribute.html#Vintagestory_API_Datastructures_IAttribute_GetAttributeId">IAttribute.GetAttributeId()</a>
     </div>
     <div>
@@ -168,13 +171,13 @@ Interface ITreeAttribute
       <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.GetBlockPos(ITreeAttribute, string, BlockPos)</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.GetBlockPos(ITreeAttribute, string, BlockPos?)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3i_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i_">TreeAttributeUtil.GetVec3i(ITreeAttribute, string, Vec3i)</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3i_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i_">TreeAttributeUtil.GetVec3i(ITreeAttribute, string, Vec3i?)</a>
   </div>
   <div>
-      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3is_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i___">TreeAttributeUtil.GetVec3is(ITreeAttribute, string, Vec3i[])</a>
+      <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_GetVec3is_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_Vec3i___">TreeAttributeUtil.GetVec3is(ITreeAttribute, string, Vec3i[]?)</a>
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Datastructures.TreeAttributeUtil.html#Vintagestory_API_Datastructures_TreeAttributeUtil_SetBlockPos_Vintagestory_API_Datastructures_ITreeAttribute_System_String_Vintagestory_API_MathTools_BlockPos_">TreeAttributeUtil.SetBlockPos(ITreeAttribute, string, BlockPos)</a>
@@ -239,7 +242,8 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IAttribute this[string key] { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[DisallowNull]
+IAttribute? this[string key] { get; set; }</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -335,7 +339,7 @@ Interface ITreeAttribute
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_Equals_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Equals*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_Equals_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_Datastructures_IAttribute_System_String___" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Equals(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.Datastructures.IAttribute,System.String[])">
-  Equals(IWorldAccessor, IAttribute, params string[])
+  Equals(IWorldAccessor, IAttribute?, params string[])
   
   </h3>
 
@@ -343,7 +347,7 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool Equals(IWorldAccessor worldForResolve, IAttribute attr, params string[] ignoreSubTrees)</code></pre>
+    <pre><code class="lang-csharp hljs">bool Equals(IWorldAccessor worldForResolve, IAttribute? attr, params string[] ignoreSubTrees)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -359,6 +363,45 @@ Interface ITreeAttribute
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_ITreeAttribute_Get2DByteArray_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Get2DByteArray*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_Get2DByteArray_System_String_System_Byte_0__0___" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Get2DByteArray(System.String,System.Byte[0:,0:])">
+  Get2DByteArray(string, byte[,]?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieves a 2D byte array or defaultValue if key is not found</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">byte[,]? Get2DByteArray(string key, byte[,]? defaultValue = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>defaultValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[,]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[,]</dt>
     <dd></dd>
   </dl>
 
@@ -453,7 +496,7 @@ Interface ITreeAttribute
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_GetAsString_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetAsString*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_GetAsString_System_String_System_String_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetAsString(System.String,System.String)">
-  GetAsString(string, string)
+  GetAsString(string, string?)
   
   </h3>
 
@@ -462,7 +505,7 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetAsString(string key, string defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">string? GetAsString(string key, string? defaultValue = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -531,7 +574,7 @@ Interface ITreeAttribute
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_GetBytes_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetBytes*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_GetBytes_System_String_System_Byte___" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetBytes(System.String,System.Byte[])">
-  GetBytes(string, byte[])
+  GetBytes(string, byte[]?)
   
   </h3>
 
@@ -540,7 +583,7 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">byte[] GetBytes(string key, byte[] defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">byte[]? GetBytes(string key, byte[]? defaultValue = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -687,7 +730,7 @@ Interface ITreeAttribute
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_GetHashCode_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetHashCode*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_GetHashCode_System_String___" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetHashCode(System.String[])">
-  GetHashCode(string[])
+  GetHashCode(string[]?)
   
   </h3>
 
@@ -695,7 +738,7 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">int GetHashCode(string[] ignoredAttributes)</code></pre>
+    <pre><code class="lang-csharp hljs">int GetHashCode(string[]? ignoredAttributes)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -762,7 +805,7 @@ Interface ITreeAttribute
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_GetItemstack_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetItemstack*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_GetItemstack_System_String_Vintagestory_API_Common_ItemStack_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetItemstack(System.String,Vintagestory.API.Common.ItemStack)">
-  GetItemstack(string, ItemStack)
+  GetItemstack(string, ItemStack?)
   
   </h3>
 
@@ -771,7 +814,7 @@ Interface ITreeAttribute
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ItemStack GetItemstack(string key, ItemStack defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">ItemStack? GetItemstack(string key, ItemStack? defaultValue = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -878,7 +921,7 @@ Throws an exception if the key does exist but is not a tree.</p>
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_GetString_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetString*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_GetString_System_String_System_String_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.GetString(System.String,System.String)">
-  GetString(string, string)
+  GetString(string, string?)
   
   </h3>
 
@@ -887,7 +930,7 @@ Throws an exception if the key does exist but is not a tree.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">string GetString(string key, string defaultValue = null)</code></pre>
+    <pre><code class="lang-csharp hljs">string? GetString(string key, string? defaultValue = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -926,7 +969,7 @@ Throws an exception if the key does exist but is not a tree.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">ITreeAttribute GetTreeAttribute(string key)</code></pre>
+    <pre><code class="lang-csharp hljs">ITreeAttribute? GetTreeAttribute(string key)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -1076,6 +1119,40 @@ Throws an exception if the key does exist but is not a tree.</p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Datastructures_ITreeAttribute_Set2DByteArray_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Set2DByteArray*"></a>
+
+  <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_Set2DByteArray_System_String_System_Byte_0__0___" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.Set2DByteArray(System.String,System.Byte[0:,0:])">
+  Set2DByteArray(string, byte[,])
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a byte[,] attribute with given key and value</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Set2DByteArray(string key, byte[,] value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>[,]</dt>
     <dd></dd>
   </dl>
 
@@ -1402,7 +1479,7 @@ Throws an exception if the key does exist but is not a tree.</p>
   <a id="Vintagestory_API_Datastructures_ITreeAttribute_TryGetAttribute_" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.TryGetAttribute*"></a>
 
   <h3 id="Vintagestory_API_Datastructures_ITreeAttribute_TryGetAttribute_System_String_Vintagestory_API_Datastructures_IAttribute__" data-uid="Vintagestory.API.Datastructures.ITreeAttribute.TryGetAttribute(System.String,Vintagestory.API.Datastructures.IAttribute@)">
-  TryGetAttribute(string, out IAttribute)
+  TryGetAttribute(string, out IAttribute?)
   
   </h3>
 
@@ -1411,7 +1488,7 @@ Throws an exception if the key does exist but is not a tree.</p>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool TryGetAttribute(string key, out IAttribute value)</code></pre>
+    <pre><code class="lang-csharp hljs">bool TryGetAttribute(string key, out IAttribute? value)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

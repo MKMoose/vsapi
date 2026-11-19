@@ -155,6 +155,9 @@ public abstract class BlockBehavior : CollectibleBehavior</code></pre>
       <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_OnHeldAttackStart_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_BlockSelection_Vintagestory_API_Common_EntitySelection_Vintagestory_API_Common_EnumHandHandling__Vintagestory_API_Common_EnumHandling__">CollectibleBehavior.OnHeldAttackStart(ItemSlot, EntityAgent, BlockSelection, EntitySelection, ref EnumHandHandling, ref EnumHandling)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_OnHeldActionAnimStart_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_EnumHandInteract_">CollectibleBehavior.OnHeldActionAnimStart(ItemSlot, EntityAgent, EnumHandInteract)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_OnHeldAttackCancel_System_Single_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_BlockSelection_Vintagestory_API_Common_EntitySelection_Vintagestory_API_Common_EnumItemUseCancelReason_Vintagestory_API_Common_EnumHandling__">CollectibleBehavior.OnHeldAttackCancel(float, ItemSlot, EntityAgent, BlockSelection, EntitySelection, EnumItemUseCancelReason, ref EnumHandling)</a>
     </div>
     <div>
@@ -183,6 +186,9 @@ public abstract class BlockBehavior : CollectibleBehavior</code></pre>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_GetToolModes_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Client_IClientPlayer_Vintagestory_API_Common_BlockSelection_">CollectibleBehavior.GetToolModes(ItemSlot, IClientPlayer, BlockSelection)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_IsToolModeToggle_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Client_IClientPlayer_Vintagestory_API_Common_BlockSelection_">CollectibleBehavior.IsToolModeToggle(ItemSlot, IClientPlayer, BlockSelection)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_GetToolMode_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_IPlayer_Vintagestory_API_Common_BlockSelection_">CollectibleBehavior.GetToolMode(ItemSlot, IPlayer, BlockSelection)</a>
@@ -285,6 +291,12 @@ public abstract class BlockBehavior : CollectibleBehavior</code></pre>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_TryMergeStacks_Vintagestory_API_Common_ItemStackMergeOperation_Vintagestory_API_Common_EnumHandling__">CollectibleBehavior.TryMergeStacks(ItemStackMergeOperation, ref EnumHandling)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_GetDamageType_Vintagestory_API_Common_ItemStack_Vintagestory_API_Common_EnumDamageType_Vintagestory_API_Common_EnumHandling__">CollectibleBehavior.GetDamageType(ItemStack, EnumDamageType, ref EnumHandling)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.CollectibleBehavior.html#Vintagestory_API_Common_CollectibleBehavior_GetKnockbackStrength_Vintagestory_API_Common_ItemStack_System_Single_Vintagestory_API_Common_EnumHandling__">CollectibleBehavior.GetKnockbackStrength(ItemStack, float, ref EnumHandling)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
@@ -608,6 +620,45 @@ public abstract class BlockBehavior : CollectibleBehavior</code></pre>
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockBehavior_GetDecal_" data-uid="Vintagestory.API.Common.BlockBehavior.GetDecal*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockBehavior_GetDecal_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_Client_ITexPositionSource_Vintagestory_API_Client_MeshData__Vintagestory_API_Client_MeshData__" data-uid="Vintagestory.API.Common.BlockBehavior.GetDecal(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.Client.ITexPositionSource,Vintagestory.API.Client.MeshData@,Vintagestory.API.Client.MeshData@)">
+  GetDecal(IWorldAccessor, BlockPos, ITexPositionSource, ref MeshData, ref MeshData)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void GetDecal(IWorldAccessor world, BlockPos pos, ITexPositionSource decalTexSource, ref MeshData decalModelData, ref MeshData blockModelData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>decalTexSource</code> <a class="xref" href="Vintagestory.API.Client.ITexPositionSource.html">ITexPositionSource</a></dt>
+    <dd></dd>
+    <dt><code>decalModelData</code> <a class="xref" href="Vintagestory.API.Client.MeshData.html">MeshData</a></dt>
+    <dd></dd>
+    <dt><code>blockModelData</code> <a class="xref" href="Vintagestory.API.Client.MeshData.html">MeshData</a></dt>
+    <dd></dd>
+  </dl>
+
 
 
 
@@ -1640,6 +1691,88 @@ For Worldgen you might be able to use TryPlaceBlockForWorldGen() to attach custo
     <dt><code>byRecipe</code> <a class="xref" href="Vintagestory.API.Common.IRecipeBase.html">IRecipeBase</a></dt>
     <dd></dd>
     <dt><code>handled</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockBehavior_OnEntityCollide_" data-uid="Vintagestory.API.Common.BlockBehavior.OnEntityCollide*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockBehavior_OnEntityCollide_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_Common_Entities_Entity_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_MathTools_BlockFacing_Vintagestory_API_MathTools_Vec3d_System_Boolean_Vintagestory_API_Common_EnumHandling__" data-uid="Vintagestory.API.Common.BlockBehavior.OnEntityCollide(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.Common.Entities.Entity,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.MathTools.BlockFacing,Vintagestory.API.MathTools.Vec3d,System.Boolean,Vintagestory.API.Common.EnumHandling@)">
+  OnEntityCollide(IWorldAccessor, Entity, BlockPos, BlockFacing, Vec3d, bool, ref EnumHandling)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whenever an entity collides with the collision box of the block</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnEntityCollide(IWorldAccessor world, Entity entity, BlockPos pos, BlockFacing facing, Vec3d collideSpeed, bool isImpact, ref EnumHandling handling)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>entity</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>facing</code> <a class="xref" href="Vintagestory.API.MathTools.BlockFacing.html">BlockFacing</a></dt>
+    <dd></dd>
+    <dt><code>collideSpeed</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>isImpact</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>handling</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_BlockBehavior_OnEntityInside_" data-uid="Vintagestory.API.Common.BlockBehavior.OnEntityInside*"></a>
+
+  <h3 id="Vintagestory_API_Common_BlockBehavior_OnEntityInside_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_Common_Entities_Entity_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_Common_EnumHandling__" data-uid="Vintagestory.API.Common.BlockBehavior.OnEntityInside(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.Common.Entities.Entity,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.Common.EnumHandling@)">
+  OnEntityInside(IWorldAccessor, Entity, BlockPos, ref EnumHandling)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>When an entity is inside a block 1x1x1 space, independent of of its selection box or collision box</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnEntityInside(IWorldAccessor world, Entity entity, BlockPos pos, ref EnumHandling handling)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>entity</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>handling</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
     <dd></dd>
   </dl>
 

@@ -22,6 +22,7 @@ namespace Vintagestory.API.Client
         public bool Inside;
         public bool Smoothstep;
         public bool Structures;
+        public bool Colliders;
     }
 
     public interface IMultiStageDecals
@@ -33,6 +34,18 @@ namespace Vintagestory.API.Client
     {
         Dictionary<string, int> TextureNameToIdMapping { get; }
         TextureAtlasPosition[] DecalTextureAtlasPositionsByTextureSubId { get; }
+    }
+
+    public interface ICameraAPI
+    {
+        /// <summary>
+        /// Field of view in Radians. Also updates ZNear to a value that is appropriate for the current FOV. If you want to change ZNear, set it after changing FOV.
+        /// </summary>
+        float Fov { get; set; }
+        ModelTransform CameraOffset { get; }
+        double deltaSum { get; }
+        float CameraShakeStrength { get; }
+        bool UpdateCameraPos { get; set; }
     }
 
     /// <summary>
@@ -63,11 +76,14 @@ namespace Vintagestory.API.Client
         /// A number of default shader uniforms
         /// </summary>
         DefaultShaderUniforms ShaderUniforms { get; }
-        
+
         /// <summary>
         /// Can be used to offset the position of the player camera
         /// </summary>
         ModelTransform CameraOffset { get; }
+
+        ICameraAPI MainCamera { get; }
+
 
         /// <summary>
         /// The render stage the engine is currently at
@@ -78,7 +94,7 @@ namespace Vintagestory.API.Client
         /// The default view matrix used during perspective rendering. Is refreshed before EnumRenderStage.Opaque. Useful for doing projections in the Ortho stage via MatrixToolsd.Project()
         /// </summary>
         double[] PerspectiveViewMat { get; }
-        
+
         /// <summary>
         /// The default projection matrix used during perspective rendering. Is refreshed before EnumRenderStage.Opaque. Useful for doing projections in the Ortho stage via MatrixToolsd.Project()
         /// </summary>
@@ -151,7 +167,7 @@ namespace Vintagestory.API.Client
         string GlGetError();
 
         /// <summary>
-        /// If opengl debug mode is enabled and an opengl error is found this method will throw an exception. 
+        /// If opengl debug mode is enabled and an opengl error is found this method will throw an exception.
         /// It is recommended to use this methods in a few spots during render code to track down rendering issues in time.
         /// </summary>
         /// <param name="message"></param>
@@ -231,8 +247,8 @@ namespace Vintagestory.API.Client
         /// <summary>
         /// Enables the Depth Test.
         /// </summary>
-        void GLEnableDepthTest();       
-        
+        void GLEnableDepthTest();
+
         /// <summary>
         /// Disables the Depth Test.
         /// </summary>
@@ -262,7 +278,7 @@ namespace Vintagestory.API.Client
 
 
         /// <summary>
-        /// The current top most matrix in the model view matrix stack. 
+        /// The current top most matrix in the model view matrix stack.
         /// </summary>
         float[] CurrentModelviewMatrix
         {
@@ -367,6 +383,11 @@ namespace Vintagestory.API.Client
         /// </summary>
         void GlClearStencil();
 
+        /// <summary>
+        /// Clears the depth buffer
+        /// </summary>
+        void GlClearDepthBuffer();
+
 
         #endregion
 
@@ -436,7 +457,7 @@ namespace Vintagestory.API.Client
         /// </summary>
         /// <param name="textureId">the OpenGL Identifier for the target Texture.</param>
         void GLDeleteTexture(int textureId);
-        
+
 
         /// <summary>
         /// Max size a texture can have on the current graphics card
@@ -451,14 +472,14 @@ namespace Vintagestory.API.Client
         void BindTexture2d(int textureid);
 
         /// <summary>
-        /// Loads given texture through the assets managers and loads it onto the graphics card. Will return a cached version on every subsequent call to this method. 
+        /// Loads given texture through the assets managers and loads it onto the graphics card. Will return a cached version on every subsequent call to this method.
         /// </summary>
         /// <param name="name">the location of the texture as it exists within the game or mod directory.</param>
         /// <returns>The texture id</returns>
         int GetOrLoadTexture(AssetLocation name);
 
         /// <summary>
-        /// Loads given texture through the assets managers and loads it onto the graphics card. Will return a cached version on every subsequent call to this method. 
+        /// Loads given texture through the assets managers and loads it onto the graphics card. Will return a cached version on every subsequent call to this method.
         /// </summary>
         /// <param name="name">the location of the texture as it exists within the game or mod directory.</param>
         /// <param name="intoTexture">the texture object to be populated. If it already is populated it will be disposed first</param>
@@ -466,7 +487,7 @@ namespace Vintagestory.API.Client
         void GetOrLoadTexture(AssetLocation name, ref LoadedTexture intoTexture);
 
         /// <summary>
-        /// Loads the texture supplied by the bitmap, uploads it to the graphics card and keeps a cached version under given name. Will return that cached version on every subsequent call to this method. 
+        /// Loads the texture supplied by the bitmap, uploads it to the graphics card and keeps a cached version under given name. Will return that cached version on every subsequent call to this method.
         /// </summary>
         /// <param name="name">the location of the texture as it exists within the game or mod directory.</param>
         /// <param name="bmp">The referenced bitmap</param>
@@ -596,7 +617,7 @@ namespace Vintagestory.API.Client
 
 
 
-        #region Render 
+        #region Render
 
         /// <summary>
         /// Renders given mesh onto the screen
@@ -651,7 +672,7 @@ namespace Vintagestory.API.Client
         /// <param name="posY"></param>
         /// <param name="posZ"></param>
         /// <param name="size"></param>
-        /// <param name="color">Set to <seealso cref="ColorUtil.WhiteArgb"/> for normal rendering</param> 
+        /// <param name="color">Set to <seealso cref="ColorUtil.WhiteArgb"/> for normal rendering</param>
         /// <param name="shading">Unused.</param>
         /// <param name="rotate">If true, will slowly rotate the itemstack around the Y-Axis</param>
         /// <param name="showStackSize">If true, will render a number depicting how many blocks/item are in the stack</param>
@@ -701,7 +722,7 @@ namespace Vintagestory.API.Client
         bool RenderItemStackToAtlas(ItemStack stack, ITextureAtlasAPI atlas, int size, Action<int> onComplete, int color = ColorUtil.WhiteArgb, float sepiaLevel = 0f, float scale = 1f);
 
         /// <summary>
-        /// Returns the first TextureAtlasPosition it can find for given block or item texture in itemstack. 
+        /// Returns the first TextureAtlasPosition it can find for given block or item texture in itemstack.
         /// </summary>
         TextureAtlasPosition GetTextureAtlasPosition(ItemStack itemstack);
 
@@ -719,7 +740,7 @@ namespace Vintagestory.API.Client
         void RenderEntityToGui(float dt, Entity entity, double posX, double posY, double posZ, float yawDelta, float size, int color);
 
 
-        
+
 
         /// <summary>
         /// Renders given texture onto the screen, uses a simple quad for rendering (gui mode). Assumes the texture to use a premultiplied alpha channel
@@ -835,7 +856,7 @@ namespace Vintagestory.API.Client
 
 
         /// <summary>
-        /// Inefficiently renders a line between 2 points 
+        /// Inefficiently renders a line between 2 points
         /// </summary>
         /// <param name="origin"></param>
         /// <param name="posX1"></param>
@@ -846,6 +867,11 @@ namespace Vintagestory.API.Client
         /// <param name="posZ2"></param>
         /// <param name="color"></param>
         void RenderLine(BlockPos origin, float posX1, float posY1, float posZ1, float posX2, float posY2, float posZ2, int color);
+
+        /// <summary>
+        /// Inefficiently renders a wireframe sphere
+        /// </summary>
+        void RenderWireframeSphere(BlockPos origin, Vec3f center, float radius, int color, int segments = -1);
 
         FrameBufferRef CreateFrameBuffer(LoadedTexture intoTexture);
         FrameBufferRef CreateFrameBuffer(FramebufferAttrs fbattributes);
@@ -871,7 +897,7 @@ namespace Vintagestory.API.Client
         Vec4f FogColor { get; }
 
         /// <summary>
-        /// Current minimum fog value 
+        /// Current minimum fog value
         /// </summary>
         float FogMin { get; }
 
@@ -884,6 +910,7 @@ namespace Vintagestory.API.Client
         /// If true, chunk rendering will use SSBOs - a OpenGL 4.30+ feature - for higher performance in game version 1.21+
         /// </summary>
         bool UseSSBOs { get; }
+        bool AllowCameraControl { get; set; }
 
 
         #endregion
@@ -905,6 +932,9 @@ namespace Vintagestory.API.Client
 
         #endregion
 
+
+        IAviWriter CreateAviWriter(float framerate, string codec);
+        AvailableCodec[] GetAvailableCodecs();
     }
 
 

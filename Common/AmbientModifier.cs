@@ -1,4 +1,6 @@
-﻿using System.IO;
+using System;
+using System.IO;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -107,19 +109,23 @@ namespace Vintagestory.API.Common
             FogBrightness.ToBytes(writer);
         }
 
+        [Obsolete("Use the BinarySpanReader overload.", true)]
         public void FromBytes(BinaryReader reader)
+            => reader.UnsafeActAsBinarySpanReader(FromBytes);
+
+        public void FromBytes(ref BinarySpanReader reader)
         {
-            FogMin.FromBytes(reader);
-            FogDensity.FromBytes(reader);
-            FogColor.FromBytes(reader);
-            AmbientColor.FromBytes(reader);
-            CloudDensity.FromBytes(reader);
-            CloudBrightness.FromBytes(reader);
-            LerpSpeed.FromBytes(reader);
-            FlatFogDensity.FromBytes(reader);
-            FlatFogYPos.FromBytes(reader);
-            SceneBrightness.FromBytes(reader);
-            FogBrightness.FromBytes(reader);
+            FogMin.FromBytes(ref reader);
+            FogDensity.FromBytes(ref reader);
+            FogColor.FromBytes(ref reader);
+            AmbientColor.FromBytes(ref reader);
+            CloudDensity.FromBytes(ref reader);
+            CloudBrightness.FromBytes(ref reader);
+            LerpSpeed.FromBytes(ref reader);
+            FlatFogDensity.FromBytes(ref reader);
+            FlatFogYPos.FromBytes(ref reader);
+            SceneBrightness.FromBytes(ref reader);
+            FogBrightness.FromBytes(ref reader);
         }
     }
 }

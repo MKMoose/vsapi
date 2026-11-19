@@ -23,38 +23,38 @@ namespace Vintagestory.API.Config
             else
             {
                 string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.DoNotVerify);
-                DataPath = Path.Combine(appdata, "VintagestoryData");
+                DataPath = Path.Join(appdata, "VintagestoryData");
             }
 
             // Production env
-            if (Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets")))
+            if (Directory.Exists(Path.Join(AppDomain.CurrentDomain.BaseDirectory, "assets")))
             {
-                AssetsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
+                AssetsPath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "assets");
             }
             else
             // Dev env
             {
-                AssetsPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "assets"));
+                AssetsPath = Path.GetFullPath(Path.Join(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "assets"));
             }
         }
 
         public static string Binaries { get { return AppDomain.CurrentDomain.BaseDirectory; } }
-        public static string BinariesMods { get { return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Mods"); } }
+        public static string BinariesMods { get { return Path.Join(AppDomain.CurrentDomain.BaseDirectory, "Mods"); } }
 
         public static string Config { get { return DataPath; } }
-        public static string ModConfig { get { return Path.Combine(DataPath, "ModConfig"); } }
-        public static string Cache { get { return Path.Combine(DataPath, "Cache"); } }
-        public static string Saves { get { return Path.Combine(DataPath, "Saves"); } }
-        public static string OldSaves { get { return Path.Combine(DataPath, "OldSaves"); } }
-        public static string BackupSaves { get { return Path.Combine(DataPath, "BackupSaves"); } }
-        public static string PlayerData { get { return Path.Combine(DataPath, "Playerdata"); } }
-        public static string Backups { get { return Path.Combine(DataPath, "Backups"); } }
-        public static string Logs { get { return CustomLogPath != null ? CustomLogPath : Path.Combine(DataPath, "Logs"); } }
-        public static string Macros { get { return Path.Combine(DataPath, "Macros"); } }
-        public static string Screenshots { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures, Environment.SpecialFolderOption.DoNotVerify), "Vintagestory"); } }
-        public static string Videos { get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos, Environment.SpecialFolderOption.DoNotVerify), "Vintagestory"); } }
-        public static string DataPathMods { get { return Path.Combine(DataPath, "Mods"); } }
-        public static string DataPathServerMods { get { return Path.Combine(DataPath, "ModsByServer"); } }
+        public static string ModConfig { get { return Path.Join(DataPath, "ModConfig"); } }
+        public static string Cache { get { return Path.Join(DataPath, "Cache"); } }
+        public static string Saves { get { return Path.Join(DataPath, "Saves"); } }
+        public static string OldSaves { get { return Path.Join(DataPath, "OldSaves"); } }
+        public static string BackupSaves { get { return Path.Join(DataPath, "BackupSaves"); } }
+        public static string PlayerData { get { return Path.Join(DataPath, "Playerdata"); } }
+        public static string Backups { get { return Path.Join(DataPath, "Backups"); } }
+        public static string Logs { get { return CustomLogPath != null ? CustomLogPath : Path.Join(DataPath, "Logs"); } }
+        public static string Macros { get { return Path.Join(DataPath, "Macros"); } }
+        public static string Screenshots { get { return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures, Environment.SpecialFolderOption.DoNotVerify), "Vintagestory"); } }
+        public static string Videos { get { return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos, Environment.SpecialFolderOption.DoNotVerify), "Vintagestory"); } }
+        public static string DataPathMods { get { return Path.Join(DataPath, "Mods"); } }
+        public static string DataPathServerMods { get { return Path.Join(DataPath, "ModsByServer"); } }
 
 
         public static string DefaultSaveFilenameWithoutExtension = "default";

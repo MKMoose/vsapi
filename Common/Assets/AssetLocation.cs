@@ -153,8 +153,10 @@ namespace Vintagestory.API.Common
             set { path = value; }
         }
 
-        public bool IsWildCard => Path.IndexOf('*') >= 0 || Path[0] == '@';
-        public bool EndsWithWildCard => path.Length > 1 && path[path.Length - 1] == '*';
+        public bool IsWildCard => Path.Contains('*') || Path[0] == '@';
+        // Checks whether the Domain and Path are both "*" and thus the AssetLocation will match any AssetLocation
+        public bool IsGlobalWildcard => Domain.Length * Path.Length == 1 && Domain[0] == '*' && Path[0] == '*';
+        public bool EndsWithWildCard => path.Length > 1 && path[^1] == '*';
 
         // Needed for ProtoBuf
         public AssetLocation()

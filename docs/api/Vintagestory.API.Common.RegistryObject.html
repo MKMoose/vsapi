@@ -263,6 +263,37 @@ Class RegistryObject
 
 
 
+  <h3 id="Vintagestory_API_Common_RegistryObject_SourceFilePath" data-uid="Vintagestory.API.Common.RegistryObject.SourceFilePath">
+  SourceFilePath
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Non-null if developer mode is enabled and this was loaded from file</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SourceFilePath</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_RegistryObject_Variant" data-uid="Vintagestory.API.Common.RegistryObject.Variant">
   Variant
   
@@ -770,6 +801,45 @@ Class RegistryObject
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_RegistryObject_FillPlaceHolderOptimized_" data-uid="Vintagestory.API.Common.RegistryObject.FillPlaceHolderOptimized*"></a>
+
+  <h3 id="Vintagestory_API_Common_RegistryObject_FillPlaceHolderOptimized_System_String_Vintagestory_API_Datastructures_OrderedDictionary_System_String_System_String__" data-uid="Vintagestory.API.Common.RegistryObject.FillPlaceHolderOptimized(System.String,Vintagestory.API.Datastructures.OrderedDictionary{System.String,System.String})">
+  FillPlaceHolderOptimized(string, OrderedDictionary&lt;string, string&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fast variant of FillPlaceHolder that processes all replacements in a single pass</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string FillPlaceHolderOptimized(string input, OrderedDictionary&lt;string, string&gt; searchReplace)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>searchReplace</code> <a class="xref" href="Vintagestory.API.Datastructures.OrderedDictionary-2.html">OrderedDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 

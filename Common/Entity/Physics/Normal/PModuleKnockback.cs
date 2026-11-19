@@ -1,4 +1,4 @@
-﻿using Vintagestory.API.Datastructures;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 

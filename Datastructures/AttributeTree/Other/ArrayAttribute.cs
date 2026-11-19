@@ -1,31 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Util;
-
-#nullable disable
 
 namespace Vintagestory.API.Datastructures
 {
     public abstract class ArrayAttribute<T>
     {
-        public T[] value;
+        public T[] value = null!;
 
-        public virtual bool Equals(IWorldAccessor worldForResolve, IAttribute attr)
+        public virtual bool Equals(IWorldAccessor worldForResolve, IAttribute? attr)
         {
-            object othervalue = attr.GetValue();
+            if (attr is null) return false;
+
+            object? othervalue = attr.GetValue();
+            if (othervalue == null) return false;
             if (!othervalue.GetType().IsArray) return false;
 
-            IList a = value as IList;
-            IList b = othervalue as IList;
+            IList a = (IList)value;
+            IList? b = othervalue as IList;
 
+            if (b == null) return false;
             if (a.Count != b.Count) return false;
 
             for (int i = 0; i < a.Count; i++)
             {
-                if (!a[i].Equals(b[i]))
+                if (!Equals(a[i], b[i]) && !EqualityUtil.NumberEquals(a[i], b[i]))
                 {
-                    if (!EqualityUtil.NumberEquals(a[i], b[i])) return false;
+                    return false;
                 }
             }
 
@@ -49,9 +52,9 @@ namespace Vintagestory.API.Datastructures
             {
                 if (i > 0) sb.Append(", ");
 
-                if (value[i] is IAttribute)
+                if (value[i] is IAttribute attribute)
                 {
-                    sb.Append((value[i] as IAttribute).ToJsonToken());
+                    sb.Append(attribute.ToJsonToken());
                 } else
                 {
                     sb.Append(value[i]);
@@ -82,13 +85,13 @@ namespace Vintagestory.API.Datastructures
 
         public override int GetHashCode()
         {
-            int hashcode = 0;
+            HashCode hash = new();
             for (int i = 0; i < value.Length; i++)
             {
-                hashcode ^= value[i].GetHashCode();
+                hash.Add(value[i]);
             }
 
-            return hashcode;
+            return hash.ToHashCode();
         }
     }
 }

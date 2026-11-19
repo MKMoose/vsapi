@@ -12,6 +12,11 @@ namespace Vintagestory.API.Common
     public delegate void AfterAssetFolderLoaded(List<IAsset> assets);*/
 
     /// <summary>
+    /// Callback for when an asset has been changed.
+    /// </summary>
+    public delegate void AssetChangedDelegate(IAsset asset);
+
+    /// <summary>
     /// Takes care loading, reloading and managing all files inside the assets folder. All asset names and paths are always converted to lower case.
     /// </summary>
     public interface IAssetManager
@@ -115,7 +120,31 @@ namespace Vintagestory.API.Common
         int Reload(AssetCategory category);
 
         /// <summary>
-        /// Returns all origins in the priority order. Highest (First) to Lowest (Last)
+        /// Reloads a single asset's contents from its origin on disk.
+        /// Returns false (and removes the asset from the manager) if the file no longer exists.
+        /// </summary>
+        bool Reload(IAsset asset);
+
+        /// <summary>
+        /// Watches all origins for changes to assets in the given category.
+        /// </summary>
+        /// <remarks>
+        /// onAssetChanged will be invoked on the worker thread where FileSystemWatcher events are raised.
+        /// It's the caller's responsibility to ensure that the callback is threadsafe.
+        /// </remarks>
+        /// <param name="category">The asset category to watch</param>
+        /// <param name="onAssetChanged">Invoked when an asset is created or changed</param>
+        /// <param name="filter">Filename filter to use for the watcher. Use "*.*" to match all files.</param>
+        void WatchCategory(AssetCategory category, AssetChangedDelegate onAssetChanged, string filter = "*.json");
+
+        /// <summary>
+        /// Stops watching the given category.
+        /// </summary>
+        /// <param name="category"></param>
+        void UnwatchCategory(AssetCategory category);
+
+        /// <summary>
+        /// Returns all origins in the priority order. Lowest (first) to highest (last)
         /// </summary>
         /// <returns></returns>
         List<IAssetOrigin> Origins { get; }

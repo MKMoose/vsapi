@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -101,14 +102,12 @@ namespace Vintagestory.API.Common
             writer.Write(QuantityMul);
         }
 
-        public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+        public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            BasePos = Vec3d.CreateFromBytes(reader);
-            AddPos = Vec3d.CreateFromBytes(reader);
-            AddVelocity = Vec3f.CreateFromBytes(reader);
+            BasePos = Vec3d.CreateFromBytes(ref reader);
+            AddPos = Vec3d.CreateFromBytes(ref reader);
+            AddVelocity = Vec3f.CreateFromBytes(ref reader);
             QuantityMul = reader.ReadSingle();
         }
-
-
     }
 }

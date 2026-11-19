@@ -118,6 +118,9 @@ Interface ICoreClientAPI
       <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html#Vintagestory_API_Common_ICoreAPI_Logger">ICoreAPI.Logger</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html#Vintagestory_API_Common_ICoreAPI_InDeveloperMode">ICoreAPI.InDeveloperMode</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html#Vintagestory_API_Common_ICoreAPI_CmdlArguments">ICoreAPI.CmdlArguments</a>
     </div>
     <div>
@@ -146,6 +149,9 @@ Interface ICoreClientAPI
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.ICoreAPICommon.html#Vintagestory_API_Common_ICoreAPICommon_RegisterRecipeRegistry__1_System_String_">ICoreAPICommon.RegisterRecipeRegistry&lt;T&gt;(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.ICoreAPICommon.html#Vintagestory_API_Common_ICoreAPICommon_RegisterCustomRegistry__1_System_String_">ICoreAPICommon.RegisterCustomRegistry&lt;T&gt;(string)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.ICoreAPICommon.html#Vintagestory_API_Common_ICoreAPICommon_RegisterColorMap_Vintagestory_API_Common_ColorMap_">ICoreAPICommon.RegisterColorMap(ColorMap)</a>
@@ -353,6 +359,37 @@ Interface ICoreClientAPI
 
 
 
+  <a id="Vintagestory_API_Client_ICoreClientAPI_DeltaTimeLimiter_" data-uid="Vintagestory.API.Client.ICoreClientAPI.DeltaTimeLimiter*"></a>
+
+  <h3 id="Vintagestory_API_Client_ICoreClientAPI_DeltaTimeLimiter" data-uid="Vintagestory.API.Client.ICoreClientAPI.DeltaTimeLimiter">
+  DeltaTimeLimiter
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float DeltaTimeLimiter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Client_ICoreClientAPI_ElapsedMilliseconds_" data-uid="Vintagestory.API.Client.ICoreClientAPI.ElapsedMilliseconds*"></a>
 
   <h3 id="Vintagestory_API_Client_ICoreClientAPI_ElapsedMilliseconds" data-uid="Vintagestory.API.Client.ICoreClientAPI.ElapsedMilliseconds">
@@ -461,7 +498,8 @@ Interface ICoreClientAPI
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IXPlatformInterface Forms { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use PlatformUtils&quot;)]
+IXPlatformInterface Forms { get; }</code></pre>
   </div>
 
 
@@ -525,7 +563,7 @@ Interface ICoreClientAPI
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">bool HideGuis { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">bool HideGuis { get; set; }</code></pre>
   </div>
 
 
@@ -918,6 +956,38 @@ Interface ICoreClientAPI
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ICoreClientAPI_PlatformUtils_" data-uid="Vintagestory.API.Client.ICoreClientAPI.PlatformUtils*"></a>
+
+  <h3 id="Vintagestory_API_Client_ICoreClientAPI_PlatformUtils" data-uid="Vintagestory.API.Client.ICoreClientAPI.PlatformUtils">
+  PlatformUtils
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Platform utilities</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IXPlatformInterface PlatformUtils { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.IXPlatformInterface.html">IXPlatformInterface</a></dt>
     <dd></dd>
   </dl>
 

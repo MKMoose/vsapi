@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class CachedCuboidListFaster | VintageStory API ">
       
-      <meta name="description" content="Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility Open in GitHub">
+      <meta name="description" content="Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility. Rotated cuboids are stored as their local AABB here — the rotation is dropped to keep the per-tick collision loop allocation-free. Use CachedCuboidList where rotation precision matters. Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,8 @@ Class CachedCuboidListFaster
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility.
+Rotated cuboids are stored as their local AABB here — the rotation is dropped to keep the per-tick collision loop allocation-free. Use CachedCuboidList where rotation precision matters. <a href=https://github.com/anegostudios/vsapi/blob/master///Datastructures/CachedCuboidListFaster.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -165,6 +166,9 @@ Class CachedCuboidListFaster
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_Nearest__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Double__">EnumerableExtensions.Nearest&lt;T&gt;(IEnumerable&lt;T&gt;, Func&lt;T, double&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html#Vintagestory_API_Util_EnumerableExtensions_WithoutNulls__1_System_Collections_Generic_IEnumerable___0__">EnumerableExtensions.WithoutNulls&lt;T&gt;(IEnumerable&lt;T?&gt;)</a>
   </div>
   <div>
       <a class="xref" href="Vintagestory.API.Util.ListExtensions.html#Vintagestory_API_Util_ListExtensions_Contains__1_System_Collections_Generic_IEnumerable___0__System_Func___0_System_Boolean__">ListExtensions.Contains&lt;TSource&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, bool&gt;)</a>

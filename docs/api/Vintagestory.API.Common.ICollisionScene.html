@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface ICollisionScene | VintageStory API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface ICollisionScene | VintageStory API ">
+      
+      <meta name="description" content="Stores and queries persistent colliders outside the normal terrain and entity broad phases. Registration changes and queries may run concurrently. Returned snapshots remain valid after their registration is updated or removed.">
+      <link rel="icon" href="../images/gameicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="VintageStory API">
+            VintageStory API
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Vintagestory.API.Common.ICollisionScene">
+
+
+
+  <h1 id="Vintagestory_API_Common_ICollisionScene" data-uid="Vintagestory.API.Common.ICollisionScene" class="text-break">
+Interface ICollisionScene  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.Common.html">Common</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Stores and queries persistent colliders outside the normal terrain and entity broad phases.
+Registration changes and queries may run concurrently. Returned snapshots remain valid after their registration is updated or removed.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICollisionScene : IDisposable</code></pre>
+  </div>
+
+
+
+
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose">IDisposable.Dispose()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToGcHandle_System_Object_">ObjectHandleExtensions.ToGcHandle(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_GetColliders_" data-uid="Vintagestory.API.Common.ICollisionScene.GetColliders*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_GetColliders_Vintagestory_API_MathTools_Cuboidd_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_Collider__System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__" data-uid="Vintagestory.API.Common.ICollisionScene.GetColliders(Vintagestory.API.MathTools.Cuboidd,System.Int32,System.Collections.Generic.List{Vintagestory.API.Common.Collider},System.Nullable{Vintagestory.API.Common.CollisionQueryFilter})">
+  GetColliders(Cuboidd, int, List&lt;Collider&gt;, CollisionQueryFilter?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces <code class="paramref">results</code> with the colliders whose bounds overlap the supplied axis-aligned, dimension-local bounds.
+Returned colliders and their boxes are owned by the scene and must not be modified.
+The caller owns the results list and must not use the same list from concurrent queries.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void GetColliders(Cuboidd bounds, int dimension, List&lt;Collider&gt; results, CollisionQueryFilter? filter = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_GetIntersectingColliders_" data-uid="Vintagestory.API.Common.ICollisionScene.GetIntersectingColliders*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_GetIntersectingColliders_Vintagestory_API_MathTools_TransformedCuboidd_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_Collider__System_Boolean_System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__" data-uid="Vintagestory.API.Common.ICollisionScene.GetIntersectingColliders(Vintagestory.API.MathTools.TransformedCuboidd,System.Int32,System.Collections.Generic.List{Vintagestory.API.Common.Collider},System.Boolean,System.Nullable{Vintagestory.API.Common.CollisionQueryFilter})">
+  GetIntersectingColliders(TransformedCuboidd, int, List&lt;Collider&gt;, bool, CollisionQueryFilter?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces <code class="paramref">results</code> with colliders whose exact boxes intersect the supplied transformed cuboid.
+The query box must not be mutated until this call returns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void GetIntersectingColliders(TransformedCuboidd box, int dimension, List&lt;Collider&gt; results, bool alsoCheckTouch = true, CollisionQueryFilter? filter = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_IntersectsAny_" data-uid="Vintagestory.API.Common.ICollisionScene.IntersectsAny*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_IntersectsAny_Vintagestory_API_MathTools_Cuboidd_System_Int32_System_Boolean_System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__" data-uid="Vintagestory.API.Common.ICollisionScene.IntersectsAny(Vintagestory.API.MathTools.Cuboidd,System.Int32,System.Boolean,System.Nullable{Vintagestory.API.Common.CollisionQueryFilter})">
+  IntersectsAny(Cuboidd, int, bool, CollisionQueryFilter?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests the exact boxes of the registered colliders against the supplied axis-aligned, dimension-local bounds.
+Unlike <a class="xref" href="Vintagestory.API.Common.ICollisionScene.html#Vintagestory_API_Common_ICollisionScene_GetColliders_Vintagestory_API_MathTools_Cuboidd_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_Collider__System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__">GetColliders(Cuboidd, int, List&lt;Collider&gt;, CollisionQueryFilter?)</a>, this method keeps no caller state and stops at the first hit, so concurrent calls are safe.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IntersectsAny(Cuboidd bounds, int dimension, bool alsoCheckTouch = true, CollisionQueryFilter? filter = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_IntersectsAny_" data-uid="Vintagestory.API.Common.ICollisionScene.IntersectsAny*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_IntersectsAny_Vintagestory_API_MathTools_TransformedCuboidd_System_Int32_System_Boolean_System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__" data-uid="Vintagestory.API.Common.ICollisionScene.IntersectsAny(Vintagestory.API.MathTools.TransformedCuboidd,System.Int32,System.Boolean,System.Nullable{Vintagestory.API.Common.CollisionQueryFilter})">
+  IntersectsAny(TransformedCuboidd, int, bool, CollisionQueryFilter?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests the exact boxes of the registered colliders against a transformed cuboid.
+The query box must not be mutated until this call returns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool IntersectsAny(TransformedCuboidd box, int dimension, bool alsoCheckTouch = true, CollisionQueryFilter? filter = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_Raycast_" data-uid="Vintagestory.API.Common.ICollisionScene.Raycast*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_Raycast_Vintagestory_API_MathTools_FastVec3d_Vintagestory_API_MathTools_FastVec3d_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_CollisionHit__System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__System_Boolean_" data-uid="Vintagestory.API.Common.ICollisionScene.Raycast(Vintagestory.API.MathTools.FastVec3d,Vintagestory.API.MathTools.FastVec3d,System.Int32,System.Collections.Generic.List{Vintagestory.API.Common.CollisionHit},System.Nullable{Vintagestory.API.Common.CollisionQueryFilter},System.Boolean)">
+  Raycast(FastVec3d, FastVec3d, int, List&lt;CollisionHit&gt;, CollisionQueryFilter?, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Casts a finite ray from origin to origin plus displacement using the shared sweep hit contract.
+The displacement need not be normalized.
+A zero displacement tests whether the origin is inside a box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Raycast(FastVec3d origin, FastVec3d displacement, int dimension, List&lt;CollisionHit&gt; results, CollisionQueryFilter? filter = null, bool includeInitialOverlap = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>origin</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>displacement</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.CollisionHit.html">CollisionHit</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+    <dt><code>includeInitialOverlap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_RegisterCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.RegisterCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_RegisterCollider_System_Int32_System_Collections_Generic_IReadOnlyList_Vintagestory_API_MathTools_Cuboidd__Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_IReadOnlyList_System_Int32__Vintagestory_API_Common_CollisionLayer_Vintagestory_API_Common_CollisionLayer_" data-uid="Vintagestory.API.Common.ICollisionScene.RegisterCollider(System.Int32,System.Collections.Generic.IReadOnlyList{Vintagestory.API.MathTools.Cuboidd},Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.IReadOnlyList{System.Int32},Vintagestory.API.Common.CollisionLayer,Vintagestory.API.Common.CollisionLayer)">
+  RegisterCollider(int, IReadOnlyList&lt;Cuboidd&gt;, BlockPos?, IReadOnlyList&lt;int&gt;?, CollisionLayer, CollisionLayer)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a persistent solid collider. The supplied boxes use dimension-local world coordinates and are copied by the scene.
+Supplying a selection position makes the boxes selectable as that block. Selection indices default to the collision-box order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">long RegisterCollider(int dimension, IReadOnlyList&lt;Cuboidd&gt; collisionBoxes, BlockPos? selectionPosition = null, IReadOnlyList&lt;int&gt;? selectionBoxIndices = null, CollisionLayer collisionLayer = CollisionLayer.Solid, CollisionLayer collisionMask = (CollisionLayer)18446744073709551615)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>collisionBoxes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>selectionPosition</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>selectionBoxIndices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>collisionLayer</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+    <dt><code>collisionMask</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_RegisterTransformedCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.RegisterTransformedCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_RegisterTransformedCollider_System_Int32_System_Collections_Generic_IReadOnlyList_Vintagestory_API_MathTools_Cuboidd__Vintagestory_API_Common_ColliderTransform_System_Boolean_System_Int64_System_String_System_Boolean_Vintagestory_API_Common_CollisionLayer_Vintagestory_API_Common_CollisionLayer_Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_IReadOnlyList_System_Int32__" data-uid="Vintagestory.API.Common.ICollisionScene.RegisterTransformedCollider(System.Int32,System.Collections.Generic.IReadOnlyList{Vintagestory.API.MathTools.Cuboidd},Vintagestory.API.Common.ColliderTransform,System.Boolean,System.Int64,System.String,System.Boolean,Vintagestory.API.Common.CollisionLayer,Vintagestory.API.Common.CollisionLayer,Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.IReadOnlyList{System.Int32})">
+  RegisterTransformedCollider(int, IReadOnlyList&lt;Cuboidd&gt;, ColliderTransform, bool, long, string?, bool, CollisionLayer, CollisionLayer, BlockPos?, IReadOnlyList&lt;int&gt;?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers a collider whose boxes use collider-local coordinates.
+Updating its transform reuses that registered geometry. Colliders which carry entities can be used as moving platforms or floors.
+The owning entity's physics will ignore the collider when <code class="paramref">ownerEntityId</code> is nonzero.
+An owner collider code can identify that local registration on the client and server through <a class="xref" href="Vintagestory.API.Common.IEntityColliderProvider.html">IEntityColliderProvider</a>.
+<code class="paramref">keepsSupportedEntitiesDry</code> prevents overlapping block liquid from affecting an entity while this collider supports it.
+Supplying a selection position makes the transformed boxes selectable as that block.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">long RegisterTransformedCollider(int dimension, IReadOnlyList&lt;Cuboidd&gt; localCollisionBoxes, ColliderTransform transform, bool canCarryEntities = false, long ownerEntityId = 0, string? ownerColliderCode = null, bool keepsSupportedEntitiesDry = false, CollisionLayer collisionLayer = CollisionLayer.Solid, CollisionLayer collisionMask = (CollisionLayer)18446744073709551615, BlockPos? selectionPosition = null, IReadOnlyList&lt;int&gt;? selectionBoxIndices = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>localCollisionBoxes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>transform</code> <a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a></dt>
+    <dd></dd>
+    <dt><code>canCarryEntities</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>ownerEntityId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>ownerColliderCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>keepsSupportedEntitiesDry</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>collisionLayer</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+    <dt><code>collisionMask</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+    <dt><code>selectionPosition</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>selectionBoxIndices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_Sweep_" data-uid="Vintagestory.API.Common.ICollisionScene.Sweep*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_Sweep_Vintagestory_API_MathTools_Cuboidd_System_Double_System_Double_System_Double_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_CollisionHit__System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__System_Boolean_" data-uid="Vintagestory.API.Common.ICollisionScene.Sweep(Vintagestory.API.MathTools.Cuboidd,System.Double,System.Double,System.Double,System.Int32,System.Collections.Generic.List{Vintagestory.API.Common.CollisionHit},System.Nullable{Vintagestory.API.Common.CollisionQueryFilter},System.Boolean)">
+  Sweep(Cuboidd, double, double, double, int, List&lt;CollisionHit&gt;, CollisionQueryFilter?, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Sweep(Cuboidd box, double motionX, double motionY, double motionZ, int dimension, List&lt;CollisionHit&gt; results, CollisionQueryFilter? filter = null, bool includeInitialOverlap = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.CollisionHit.html">CollisionHit</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+    <dt><code>includeInitialOverlap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_Sweep_" data-uid="Vintagestory.API.Common.ICollisionScene.Sweep*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_Sweep_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_System_Double_System_Double_System_Int32_System_Collections_Generic_List_Vintagestory_API_Common_CollisionHit__System_Nullable_Vintagestory_API_Common_CollisionQueryFilter__System_Boolean_" data-uid="Vintagestory.API.Common.ICollisionScene.Sweep(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,System.Double,System.Double,System.Int32,System.Collections.Generic.List{Vintagestory.API.Common.CollisionHit},System.Nullable{Vintagestory.API.Common.CollisionQueryFilter},System.Boolean)">
+  Sweep(TransformedCuboidd, double, double, double, int, List&lt;CollisionHit&gt;, CollisionQueryFilter?, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces the caller-owned list with one hit per collision box, ordered by fraction, collider ID, then box index.
+Sweeps translation against current snapshots without sweeping target motion or query rotation.
+Initial strict overlaps are included by default.
+Motion along or away from a touching surface is ignored.
+The query box must not be mutated until the call returns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Sweep(TransformedCuboidd box, double motionX, double motionY, double motionZ, int dimension, List&lt;CollisionHit&gt; results, CollisionQueryFilter? filter = null, bool includeInitialOverlap = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>box</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>results</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.CollisionHit.html">CollisionHit</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>filter</code> <a class="xref" href="Vintagestory.API.Common.CollisionQueryFilter.html">CollisionQueryFilter</a>?</dt>
+    <dd></dd>
+    <dt><code>includeInitialOverlap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_TryGetCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.TryGetCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_TryGetCollider_System_Int64_System_String_Vintagestory_API_Common_Collider__" data-uid="Vintagestory.API.Common.ICollisionScene.TryGetCollider(System.Int64,System.String,Vintagestory.API.Common.Collider@)">
+  TryGetCollider(long, string, out Collider?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Resolves an entity's unique collider code to its current local snapshot.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryGetCollider(long ownerEntityId, string ownerColliderCode, out Collider? collider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ownerEntityId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>ownerColliderCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>collider</code> <a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_TryGetCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.TryGetCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_TryGetCollider_System_Int64_Vintagestory_API_Common_Collider__" data-uid="Vintagestory.API.Common.ICollisionScene.TryGetCollider(System.Int64,Vintagestory.API.Common.Collider@)">
+  TryGetCollider(long, out Collider?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the current immutable snapshot of a registered collider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryGetCollider(long colliderId, out Collider? collider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>collider</code> <a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_UnregisterCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.UnregisterCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_UnregisterCollider_System_Int64_" data-uid="Vintagestory.API.Common.ICollisionScene.UnregisterCollider(System.Int64)">
+  UnregisterCollider(long)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a registered collider.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UnregisterCollider(long colliderId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_UnregisterEntityColliders_" data-uid="Vintagestory.API.Common.ICollisionScene.UnregisterEntityColliders*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_UnregisterEntityColliders_System_Int64_" data-uid="Vintagestory.API.Common.ICollisionScene.UnregisterEntityColliders(System.Int64)">
+  UnregisterEntityColliders(long)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes every collider registered to this entity, including registrations without a collider code.
+Returns the number removed.
+Entity despawn calls this after the owner callbacks on both client and server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int UnregisterEntityColliders(long ownerEntityId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>ownerEntityId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_UpdateCollider_" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_UpdateCollider_System_Int64_System_Int32_System_Collections_Generic_IReadOnlyList_Vintagestory_API_MathTools_Cuboidd__Vintagestory_API_MathTools_BlockPos_System_Collections_Generic_IReadOnlyList_System_Int32__System_Nullable_Vintagestory_API_Common_CollisionLayer__System_Nullable_Vintagestory_API_Common_CollisionLayer__" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateCollider(System.Int64,System.Int32,System.Collections.Generic.IReadOnlyList{Vintagestory.API.MathTools.Cuboidd},Vintagestory.API.MathTools.BlockPos,System.Collections.Generic.IReadOnlyList{System.Int32},System.Nullable{Vintagestory.API.Common.CollisionLayer},System.Nullable{Vintagestory.API.Common.CollisionLayer})">
+  UpdateCollider(long, int, IReadOnlyList&lt;Cuboidd&gt;, BlockPos?, IReadOnlyList&lt;int&gt;?, CollisionLayer?, CollisionLayer?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces the dimension, boxes, and optional block-selection metadata of a registered collider.
+Filtering is retained unless supplied.
+Replacing a transformed collider removes its transform and entity-owner metadata.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UpdateCollider(long colliderId, int dimension, IReadOnlyList&lt;Cuboidd&gt; collisionBoxes, BlockPos? selectionPosition = null, IReadOnlyList&lt;int&gt;? selectionBoxIndices = null, CollisionLayer? collisionLayer = null, CollisionLayer? collisionMask = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>collisionBoxes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>selectionPosition</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+    <dt><code>selectionBoxIndices</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>collisionLayer</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a>?</dt>
+    <dd></dd>
+    <dt><code>collisionMask</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_UpdateColliderFilter_" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateColliderFilter*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_UpdateColliderFilter_System_Int64_Vintagestory_API_Common_CollisionLayer_Vintagestory_API_Common_CollisionLayer_" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateColliderFilter(System.Int64,Vintagestory.API.Common.CollisionLayer,Vintagestory.API.Common.CollisionLayer)">
+  UpdateColliderFilter(long, CollisionLayer, CollisionLayer)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UpdateColliderFilter(long colliderId, CollisionLayer collisionLayer, CollisionLayer collisionMask)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>collisionLayer</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+    <dt><code>collisionMask</code> <a class="xref" href="Vintagestory.API.Common.CollisionLayer.html">CollisionLayer</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ICollisionScene_UpdateColliderTransform_" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateColliderTransform*"></a>
+
+  <h3 id="Vintagestory_API_Common_ICollisionScene_UpdateColliderTransform_System_Int64_System_Int32_Vintagestory_API_Common_ColliderTransform_System_Double_" data-uid="Vintagestory.API.Common.ICollisionScene.UpdateColliderTransform(System.Int64,System.Int32,Vintagestory.API.Common.ColliderTransform,System.Double)">
+  UpdateColliderTransform(long, int, ColliderTransform, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates the dimension and transform of a transformed collider without replacing its local geometry.
+<code class="paramref">elapsedSeconds</code> is the time since the previous transform and is used to derive point velocity for carrying entities.
+It will pass zero when velocity is not known.
+Block-selection metadata is retained and must remain in the collider's dimension.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UpdateColliderTransform(long colliderId, int dimension, ColliderTransform transform, double elapsedSeconds = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>transform</code> <a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a></dt>
+    <dd></dd>
+    <dt><code>elapsedSeconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

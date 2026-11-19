@@ -102,6 +102,16 @@ namespace Vintagestory.API.Client
         /// <returns></returns>
         MultiTextureMeshRef GetDefaultItemMeshRef(Item item);
 
+        /// <summary>
+        /// Returns the held item shape animation codes without creating an animation mesh.
+        /// </summary>
+        string[] GetAnimationCodes(ItemStack itemstack, int variant);
+
+        /// <summary>
+        /// Gets or creates the cached animation model for a held item.
+        /// </summary>
+        void GetAnimationModel(ItemStack itemstack, int variant, out MultiTextureMeshRef modelRef, out Shape animationShape);
+
         Shape GetCachedShape(AssetLocation location);
         MeshData CreateMesh(string typeForLogging, CompositeShape cshape, TextureSourceBuilder texgen, ITexPositionSource texSource = null);
         void ThreadDispose();

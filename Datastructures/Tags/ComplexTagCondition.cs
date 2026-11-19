@@ -129,7 +129,7 @@ public static partial class ComplexTagConditionExtensions
             foreach (var condition in complexCondition.conditions)
             {
                 // Has to match each sub-condition, so exit if one does not:
-                if(condition.ForbiddenTags.Overlaps(in matchAgainst) || !condition.RequiredTags.Overlaps(in matchAgainst)) return false;
+                if(condition.ForbiddenTags.Overlaps(in matchAgainst) || (!condition.RequiredTags.Overlaps(in matchAgainst) && !condition.RequiredTags.IsEmpty)) return false;
             }
             return true;
         }
@@ -157,7 +157,8 @@ public static partial class ComplexTagConditionExtensions
             foreach (var condition in complexCondition.conditions)
             {
                 // Has to match each sub-condition, so exit if one does not:
-                if (!condition.RequiredTags.Overlaps(matchAgainst) || condition.ForbiddenTags.Overlaps(matchAgainst)) return false;
+                // Rennorb 08.09.2026 perf: It feels like there should be a branchless version similar to above, but I am unable to find it right now.
+                if ((!condition.RequiredTags.Overlaps(matchAgainst) && !condition.RequiredTags.IsEmpty) || condition.ForbiddenTags.Overlaps(matchAgainst)) return false;
             }
             return true;
         }
@@ -181,6 +182,7 @@ public static partial class ComplexTagConditionExtensions
         }
     }
 
+    [Obsolete("Prefer using the BinarySpanReader overload.")]
     public static ComplexTagCondition<TagSetFast> FastFromBytes(BinaryReader reader)
     {
         var length = reader.ReadUInt16();
@@ -194,6 +196,24 @@ public static partial class ComplexTagConditionExtensions
         {
             result.conditions[i].RequiredTags = TagSetFast.FromBytes(reader);
             result.conditions[i].ForbiddenTags = TagSetFast.FromBytes(reader);
+        }
+
+        return result;
+    }
+
+    public static ComplexTagCondition<TagSetFast> FastFromBytes(ref BinarySpanReader reader)
+    {
+        var length = reader.ReadUInt16();
+        if (length == 0) return default;
+
+        ComplexTagCondition<TagSetFast> result = default;
+        result.conditions = new ComplexTagCondition<TagSetFast>.Condition[length];
+        result.isDisjunctive = reader.ReadBoolean();
+
+        for (UInt16 i = 0; i < length; i++)
+        {
+            result.conditions[i].RequiredTags = TagSetFast.FromBytes(ref reader);
+            result.conditions[i].ForbiddenTags = TagSetFast.FromBytes(ref reader);
         }
 
         return result;
@@ -217,6 +237,7 @@ public static partial class ComplexTagConditionExtensions
         }
     }
 
+    [Obsolete("Prefer using the BinarySpanReader overload.")]
     public static ComplexTagCondition<TagSet> FromBytes(BinaryReader reader)
     {
         var length = reader.ReadUInt16();
@@ -230,6 +251,24 @@ public static partial class ComplexTagConditionExtensions
         {
             result.conditions[i].RequiredTags = TagSet.FromBytes(reader);
             result.conditions[i].ForbiddenTags = TagSet.FromBytes(reader);
+        }
+
+        return result;
+    }
+
+    public static ComplexTagCondition<TagSet> FromBytes(ref BinarySpanReader reader)
+    {
+        var length = reader.ReadUInt16();
+        if (length == 0) return default;
+
+        ComplexTagCondition<TagSet> result = default;
+        result.conditions = new ComplexTagCondition<TagSet>.Condition[length];
+        result.isDisjunctive = reader.ReadBoolean();
+
+        for (UInt16 i = 0; i < length; i++)
+        {
+            result.conditions[i].RequiredTags = TagSet.FromBytes(ref reader);
+            result.conditions[i].ForbiddenTags = TagSet.FromBytes(ref reader);
         }
 
         return result;
@@ -251,8 +290,16 @@ public sealed class GenericComplexConditionConverter : JsonConverter
 
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
-        if (objectType == typeof(ComplexTagCondition<TagSet>)) return CollectibleConverter.ReadJson(reader, objectType, existingValue, serializer);
-        else return EntityConverter.ReadJson(reader, objectType, existingValue, serializer);
+        //NOTE(Rennorb): Newtonsoft calls this method with the complete type of the member. For Nullable structs this happens to be a wrapper struct, so we need to handle it explicitly.
+        // We could go the "clean" route, namely
+        //    if(objectType.GetGenericTypeDefinition() == typeof(Nullable<>)) objectType = objectType.GetGenericParameterConstraints()[0];
+        // But that does a bunch of allocations and may create arrays for the type on every deserialization.
+        // Afaict System.Nullable should be the only type this might be an issue with, so an explicit check should suffice.
+        
+        if (objectType == typeof(ComplexTagCondition<TagSet>) || objectType == typeof(ComplexTagCondition<TagSet>?))
+            return CollectibleConverter.ReadJson(reader, objectType, existingValue, serializer);
+        else
+            return EntityConverter.ReadJson(reader, objectType, existingValue, serializer);
     }
 
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
@@ -261,13 +308,17 @@ public sealed class GenericComplexConditionConverter : JsonConverter
 }
 
 
-public sealed class ComplexConditionConverter<TTagSet>(ITagRegistry<TTagSet> registry) : JsonConverter<ComplexTagCondition<TTagSet>> where TTagSet : IEquatable<TTagSet>
+public sealed class ComplexConditionConverter<TTagSet>(ITagRegistry<TTagSet> registry) : JsonConverter where TTagSet : IEquatable<TTagSet>
 {
     readonly ITagRegistry<TTagSet> registry = registry;
-
-    public override ComplexTagCondition<TTagSet> ReadJson(JsonReader reader, Type objectType, ComplexTagCondition<TTagSet> existingValue, bool hasExistingValue, JsonSerializer serializer)
+    public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         var rootToken = JToken.ReadFrom(reader);
+
+        // Because Newtonsoft potentially calls the generic converter with ComplexTagCondition<T>? we have to handle the null case in here:
+        // null should be an error if we call the actual parser.
+        if (rootToken.Type == JTokenType.Null && objectType.GetGenericTypeDefinition() == typeof(System.Nullable<>)) return null;
+
         return ReadJson(rootToken);
     }
 
@@ -533,7 +584,9 @@ public sealed class ComplexConditionConverter<TTagSet>(ITagRegistry<TTagSet> reg
         return set;
     }
 
-    public override void WriteJson(JsonWriter writer, ComplexTagCondition<TTagSet> value, JsonSerializer serializer) => throw new NotImplementedException();
+    public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
+
+    public override bool CanConvert(Type objectType) => typeof(ITagRegistry<TTagSet>).IsAssignableFrom(objectType);
 }
 
 

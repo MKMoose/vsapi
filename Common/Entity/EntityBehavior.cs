@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
@@ -19,10 +20,12 @@ namespace Vintagestory.API.Common.Entities
 
         public string ProfilerName { get; private set; }
 
-        public EntityBehavior(Entity entity)
+        protected EntityBehavior(Entity entity)
         {
             this.entity = entity;
+#pragma warning disable S1699 // Constructors should only call non-overridable methods // It is expected for 'PropertyName' to just return constant string and not access any or call any members of derived class
             ProfilerName = ("done-behavior-" + PropertyName()).DeDuplicate();
+#pragma warning restore S1699 // Constructors should only call non-overridable methods
         }
 
         /// <summary>
@@ -70,6 +73,7 @@ namespace Vintagestory.API.Common.Entities
 
         /// <summary>
         /// The name of the property tied to this entity behavior.
+        /// Called in base class, so expect derived class to be not initialized when this method is called.
         /// </summary>
         /// <returns></returns>
         public abstract string PropertyName();
@@ -102,13 +106,21 @@ namespace Vintagestory.API.Common.Entities
         }
 
         /// <summary>
-        /// The event fired when the entity recieves saturation.
+        /// The event fired when the entity jumps.
         /// </summary>
-        /// <param name="saturation">The amount of saturation recieved.</param>
+        public virtual void OnEntityJump()
+        {
+
+        }
+
+        /// <summary>
+        /// The event fired when the entity recieves satiety.
+        /// </summary>
+        /// <param name="satiety">The amount of satiety recieved.</param>
         /// <param name="foodCat">The category of food recieved.</param>
-        /// <param name="saturationLossDelay">The delay before the loss of saturation.</param>
+        /// <param name="satietyLossDelay">The delay before the loss of satiety.</param>
         /// <param name="nutritionGainMultiplier"></param>
-        public virtual void OnEntityReceiveSaturation(float saturation, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float saturationLossDelay = 10, float nutritionGainMultiplier = 1f)
+        public virtual void OnEntityReceiveSaturation(float satiety, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float satietyLossDelay = 10, float nutritionGainMultiplier = 1f)
         {
 
         }
@@ -131,7 +143,7 @@ namespace Vintagestory.API.Common.Entities
         /// <param name="byPlayer">The player this entity was killed by.</param>
         /// <param name="handling">How this event was handled.</param>
         /// <returns>the items dropped from this entity</returns>
-        public virtual ItemStack[]? GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public virtual ItemStack[]? GetDrops(IWorldAccessor world, BlockPos pos, IPlayer? byPlayer, ref EnumHandling handling)
         {
             handling = EnumHandling.PassThrough;
 
@@ -193,10 +205,23 @@ namespace Vintagestory.API.Common.Entities
         /// The event fired when the server receives a packet.
         /// </summary>
         /// <param name="player">The server player.</param>
-        /// <param name="packetid">the packet id.</param>
+        /// <param name="packetId">the packet id.</param>
+        /// <param name="packetData">The data contents.</param>
+        /// <param name="handled">How this event is handled.</param>
+        [Obsolete("Use the SerializedData overload. Never override both.")]
+        public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, byte[] packetData, ref EnumHandling handled)
+        {
+
+        }
+
+        /// <summary>
+        /// The event fired when the server receives a packet.
+        /// </summary>
+        /// <param name="player">The server player.</param>
+        /// <param name="packetId">the packet id.</param>
         /// <param name="data">The data contents.</param>
         /// <param name="handled">How this event is handled.</param>
-        public virtual void OnReceivedClientPacket(IServerPlayer player, int packetid, byte[] data, ref EnumHandling handled)
+        public virtual void OnReceivedClientPacket(IServerPlayer player, int packetId, SerializedData packetData, ref EnumHandling handled, ref Entity.CachedAccessPerms perms)
         {
 
         }
@@ -204,10 +229,16 @@ namespace Vintagestory.API.Common.Entities
         /// <summary>
         /// The event fired when the client receives a packet.
         /// </summary>
-        /// <param name="packetid"></param>
-        /// <param name="data"></param>
-        /// <param name="handled"></param>
-        public virtual void OnReceivedServerPacket(int packetid, byte[] data, ref EnumHandling handled)
+        [Obsolete("Use the SerializedData overload. Never override both.")]
+        public virtual void OnReceivedServerPacket(int packetId, byte[] data, ref EnumHandling handled)
+        {
+
+        }
+
+        /// <summary>
+        /// The event fired when the client receives a packet.
+        /// </summary>
+        public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData, ref EnumHandling handled)
         {
 
         }
@@ -277,7 +308,7 @@ namespace Vintagestory.API.Common.Entities
             return false;
         }
 
-        public virtual void OnTesselation(ref Shape entityShape, string shapePathForLogging, ref bool shapeIsCloned, ref string[] willDeleteElements)
+        public virtual void OnTesselation(ref Shape entityShape, string shapePathForLogging, ref bool shapeIsCloned, ref string[]? willDeleteElements)
         {
 
         }

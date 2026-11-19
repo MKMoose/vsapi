@@ -1,4 +1,7 @@
-﻿using System.IO;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using Vintagestory.API.Datastructures;
 
 #nullable disable
@@ -60,11 +63,35 @@ namespace Vintagestory.API.Common
         /// <param name="stream"></param>
         void ToBytes(BinaryWriter stream);
 
-        /// <summary>
-        /// Deserializes an itemstack from given byte stream
-        /// </summary>
-        /// <param name="stream"></param>
-        void FromBytes(BinaryReader stream);
+        /// <summary> Deserializes an itemstack from given byte stream. </summary>
+        /// <remarks> Obsolete: Do not implement this overload. </remarks>
+        [Obsolete("Use the BinarySpanReader overload.", true)]
+        void FromBytes(BinaryReader stream)
+        {
+            var thisT = this.GetType();
+            Trace.WriteLine($"You are calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinarySpanReader) ]);
+            if (oldFromBytes.DeclaringType != typeof(IItemStack))
+            {
+                stream.UnsafeActAsBinarySpanReader(FromBytes);
+            }
+        }
+
+        /// <summary> Deserializes an itemstack from given byte stream. </summary>
+        /// <remarks> Do not call this default implementation when overriding this method, it only exists for backwards compat. </remarks>
+        void FromBytes(ref BinarySpanReader reader)
+        {
+            var thisT = this.GetType();
+            var oldFromBytes = thisT.GetMethod(nameof(this.FromBytes), BindingFlags.Public | BindingFlags.Instance, [ typeof(BinaryReader) ]);
+            if (oldFromBytes.DeclaringType != typeof(IItemStack))
+            {
+                Trace.WriteLine($"Calling obsolete overload {thisT}.{nameof(this.FromBytes)}(BinaryReader). If you are the developer make sure to move to the BinarySpanReader overload as soon as possible.");
+                #pragma warning disable CS0618 // Type or member is obsolete
+                reader.ActAsBinaryReader(oldFromBytes.CreateDelegate<BinarySpanReaderExtensions.BinaryReaderAction>(this));
+                #pragma warning restore CS0618
+            }
+        }
 
         /// <summary>
         /// Checks if the contained item or block name contains given searchtext

@@ -278,18 +278,34 @@ namespace Vintagestory.API.Common
         int Year { get; }
 
         /// <summary>
-        /// Returns the season at given position
+        /// Returns the season at given block position
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
         EnumSeason GetSeason(BlockPos pos);
 
         /// <summary>
-        /// Returns the season at given position between 0..1, respects hemisphere
+        /// Returns the season at given coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        EnumSeason GetSeason(double x, double z);
+
+        /// <summary>
+        /// Returns the season at given block position between 0..1, respects hemisphere
         /// </summary>
         /// <param name="pos"></param>
         /// <returns></returns>
         float GetSeasonRel(BlockPos pos);
+
+        /// <summary>
+        /// Returns the season at given coordinates between 0..1, respects hemisphere
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        float GetSeasonRel(double x, double z);
 
         /// <summary>
         /// Returns the hemisphere at given position
@@ -297,6 +313,14 @@ namespace Vintagestory.API.Common
         /// <param name="pos"></param>
         /// <returns></returns>
         EnumHemisphere GetHemisphere(BlockPos pos);
+
+        /// <summary>
+        /// Returns the hemisphere at given coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        EnumHemisphere GetHemisphere(double x, double z);
 
         /// <summary>
         /// Returns the current season in a value of 0 to 1

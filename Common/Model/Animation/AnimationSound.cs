@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Vintagestory.API.Common
@@ -53,14 +55,14 @@ namespace Vintagestory.API.Common
         /// </summary>
         [DocumentAsJson("Optional", "1")]
         [JsonProperty]
-        private NatFloat Pitch { set => Attributes.Pitch = value; }
+        private INatFloat Pitch { set => Attributes.Pitch = value; }
 
         /// <summary>
         /// Controls a random volume for the sound.
         /// </summary>
         [DocumentAsJson("Optional", "1")]
         [JsonProperty]
-        private NatFloat Volume { set => Attributes.Volume = value; }
+        private INatFloat Volume { set => Attributes.Volume = value; }
 
         /// <summary>
         /// At this many meters away, the sound will be 1% of the volume.
@@ -74,7 +76,7 @@ namespace Vintagestory.API.Common
         /// </summary>
         [DocumentAsJson("Optional", "False")]
         [JsonProperty]
-        private bool RandomizePitch { set => Attributes.Pitch = value ? SoundAttributes.RandomPitch : SoundAttributes.NatFloatOne; }
+        private bool RandomizePitch { set => Attributes.Pitch = value ? INatFloat.Var25Random : INatFloat.One; }
 
 
         public AnimationSound Clone()
@@ -96,13 +98,17 @@ namespace Vintagestory.API.Common
             writer.Write(Frame);
         }
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static AnimationSound CreateFromBytes(BinaryReader reader, string version)
+            => reader.UnsafeActAsBinarySpanReader(version, CreateFromBytes);
+
+        public static AnimationSound CreateFromBytes(ref BinarySpanReader reader, string version)
         {
             if (GameVersion.IsAtLeastVersion(version, "1.22.0-dev.5"))
             {
                 return new AnimationSound()
                 {
-                    Attributes = SoundAttributes.FromBytes(reader, version),
+                    Attributes = SoundAttributes.FromBytes(ref reader, version),
                     Chance = reader.ReadSingle(),
                     Looping = reader.ReadBoolean(),
                     Frame = reader.ReadInt32(),
@@ -114,7 +120,7 @@ namespace Vintagestory.API.Common
                 sound.Location = AssetLocation.Create(reader.ReadString());
                 sound.Range = reader.ReadSingle();
                 bool randomizePitch = reader.ReadBoolean();
-                sound.Pitch = randomizePitch ? SoundAttributes.RandomPitch : SoundAttributes.NatFloatOne;
+                sound.Pitch = randomizePitch ? INatFloat.Var25Random : INatFloat.One;
                 sound.Looping = GameVersion.IsAtLeastVersion(version, "1.22.0-dev.3") ? reader.ReadBoolean() : false;
                 return sound;
             }
@@ -128,7 +134,7 @@ namespace Vintagestory.API.Common
                         Range = reader.ReadSingle()
                     },
                     Frame = reader.ReadInt32(),
-                    Pitch = reader.ReadBoolean() ? SoundAttributes.RandomPitch : SoundAttributes.NatFloatOne
+                    Pitch = reader.ReadBoolean() ? INatFloat.Var25Random : INatFloat.One
                 };
             }
         }

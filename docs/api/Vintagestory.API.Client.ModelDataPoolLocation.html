@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class ModelDataPoolLocation | VintageStory API ">
       
-      <meta name="description" content="Contains all the data for the given model pool. Open in GitHub">
+      <meta name="description" content="Description of one pool part (one chunk mesh in one LOD and one render pass) The flags Hide, LodLevel, FrustumVisible and CullVisible are properties: while the part is in a pool they live in the pool slot arrays (PoolCullData) so culling reads them without touching this object After the part is removed from the pool the last values stay in this object Note: this class implements no visibility rules All rules (the frustum test per mode, the LOD and view distance rule, the shadow pass threshold) live in FrustumCulling and the batched version lives in PoolCullData There is no separate per object version to keep in sync Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,13 @@ Class ModelDataPoolLocation
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Contains all the data for the given model pool. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Description of one pool part (one chunk mesh in one LOD and one render pass)</p>
+<p>The flags Hide, LodLevel, FrustumVisible and CullVisible are properties: while the part is in a pool
+they live in the pool slot arrays (PoolCullData) so culling reads them without touching this object
+After the part is removed from the pool the last values stay in this object</p>
+<p>Note: this class implements no visibility rules All rules (the frustum test per mode, the LOD and
+view distance rule, the shadow pass threshold) live in FrustumCulling and the batched version
+lives in PoolCullData There is no separate per object version to keep in sync <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -164,42 +170,12 @@ Class ModelDataPoolLocation
 
 
 
-  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_CullVisible" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.CullVisible">
-  CullVisible
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Bools CullVisible</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.Datastructures.Bools.html">Bools</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_FrustumCullSphere" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.FrustumCullSphere">
   FrustumCullSphere
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The culling sphere.</p>
+  <div class="markdown level1 summary"><p>The sphere used for culling</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -225,73 +201,12 @@ Class ModelDataPoolLocation
 
 
 
-  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_FrustumVisible" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.FrustumVisible">
-  FrustumVisible
-  
-  </h3>
-
-  <div class="markdown level1 summary"><p>Whether this model is visible or not.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool FrustumVisible</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_Hide" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.Hide">
-  Hide
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Hide</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_IndicesEnd" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.IndicesEnd">
   IndicesEnd
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Where the indices of the model end.</p>
+  <div class="markdown level1 summary"><p>Where the mesh indices end</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -322,7 +237,7 @@ Class ModelDataPoolLocation
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Where the indices of the model start.</p>
+  <div class="markdown level1 summary"><p>Where the mesh indices start</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -348,42 +263,12 @@ Class ModelDataPoolLocation
 
 
 
-  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_LodLevel" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.LodLevel">
-  LodLevel
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int LodLevel</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_PoolId" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.PoolId">
   PoolId
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The ID of the pool model.</p>
+  <div class="markdown level1 summary"><p>ID of the pool that owns this part</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -414,7 +299,7 @@ Class ModelDataPoolLocation
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Used for models with movements (like a door).</p>
+  <div class="markdown level1 summary"><p>For models that move, such as a door</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -445,7 +330,7 @@ Class ModelDataPoolLocation
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Where the vertices end.</p>
+  <div class="markdown level1 summary"><p>Where the vertices end</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -476,7 +361,7 @@ Class ModelDataPoolLocation
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Where the vertices start.</p>
+  <div class="markdown level1 summary"><p>Where the vertices start</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -507,7 +392,8 @@ Class ModelDataPoolLocation
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Which of the two visibility buffers to read this frame (0 or 1)</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -531,33 +417,63 @@ Class ModelDataPoolLocation
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Vintagestory_API_Client_ModelDataPoolLocation_IsVisible_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.IsVisible*"></a>
+  <a id="Vintagestory_API_Client_ModelDataPoolLocation_CullVisible_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.CullVisible*"></a>
 
-  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_IsVisible_Vintagestory_API_Client_EnumFrustumCullMode_Vintagestory_API_Client_FrustumCulling_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.IsVisible(Vintagestory.API.Client.EnumFrustumCullMode,Vintagestory.API.Client.FrustumCulling)">
-  IsVisible(EnumFrustumCullMode, FrustumCulling)
+  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_CullVisible" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.CullVisible">
+  CullVisible
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Visibility set by the chunk culler This is the shared Bools object of the chunk itself
+so a change is visible to every slot of the chunk at once</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsVisible(EnumFrustumCullMode mode, FrustumCulling culler)</code></pre>
+    <pre><code class="lang-csharp hljs">public Bools CullVisible { get; set; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><code>mode</code> <a class="xref" href="Vintagestory.API.Client.EnumFrustumCullMode.html">EnumFrustumCullMode</a></dt>
-    <dd></dd>
-    <dt><code>culler</code> <a class="xref" href="Vintagestory.API.Client.FrustumCulling.html">FrustumCulling</a></dt>
+    <dt><a class="xref" href="Vintagestory.API.Datastructures.Bools.html">Bools</a></dt>
     <dd></dd>
   </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ModelDataPoolLocation_FrustumVisible_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.FrustumVisible*"></a>
+
+  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_FrustumVisible" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.FrustumVisible">
+  FrustumVisible
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether the part was visible in the last CullNormal pass</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FrustumVisible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -565,6 +481,67 @@ Class ModelDataPoolLocation
 
 
 
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ModelDataPoolLocation_Hide_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.Hide*"></a>
+
+  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_Hide" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.Hide">
+  Hide
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Hidden parts are not drawn</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Hide { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_ModelDataPoolLocation_LodLevel_" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.LodLevel*"></a>
+
+  <h3 id="Vintagestory_API_Client_ModelDataPoolLocation_LodLevel" data-uid="Vintagestory.API.Client.ModelDataPoolLocation.LodLevel">
+  LodLevel
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mesh detail level: 0 is the most detailed and 3 is the coarsest</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LodLevel { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
 
 
 

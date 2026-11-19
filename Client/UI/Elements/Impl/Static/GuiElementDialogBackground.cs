@@ -1,4 +1,5 @@
-﻿using Cairo;
+using Cairo;
+using System;
 
 #nullable disable
 
@@ -46,6 +47,12 @@ namespace Vintagestory.API.Client
 
                 ctx.LineWidth = strokeWidth * 2;
                 ctx.StrokePreserve();
+
+                // Better error reporting. Wrong dimensions would cause a invalid memory write and consequent unintuitive crash in the blur method
+                if (surface.Height < (int)Bounds.OuterHeight || surface.Width < (int)Bounds.OuterWidth)
+                {
+                    throw new InvalidOperationException("Dialog background larger than the draw surface. Did you supply correctly sized bounds for the Dialog?");
+                }
 
                 var r = scaled(9);
                 if (FullBlur)

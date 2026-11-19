@@ -37,9 +37,12 @@ namespace Vintagestory.API.Client
             float dizzinessAccum = accum / 4;
 
             float dp = (float)(Math.Cos(dizzinessAccum / 1.15) + Math.Cos(dizzinessAccum / 1.35f)) * f;
-            capi.World.Player.Entity.Pos.Pitch += dp;
-            capi.Input.MousePitch += dp;
-            capi.Input.MouseYaw += (float)(Math.Sin(dizzinessAccum / 1.1) + Math.Sin(dizzinessAccum / 1.5f) + Math.Sin(dizzinessAccum / 5f) * 0.2f) * f;
+            if (DoCameraRotation)
+            {
+                capi.World.Player.Entity.Pos.Pitch += dp;
+                capi.Input.MousePitch += dp;
+                capi.Input.MouseYaw += (float)(Math.Sin(dizzinessAccum / 1.1) + Math.Sin(dizzinessAccum / 1.5f) + Math.Sin(dizzinessAccum / 5f) * 0.2f) * f;
+            }
 
             // When mouse is in gui mode we need to manually update the players yaw, otherwise the fp hands dont rotate with the camera
             if (!capi.Input.MouseGrabbed)

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 namespace Vintagestory.API.Client
@@ -17,6 +18,24 @@ namespace Vintagestory.API.Client
         Size2i? AtlasSize { get; }
     }
 
+    /// <summary>
+    /// A concrete but flexible ITexPositionSource for use with custom code logic
+    /// </summary>
+    public class DictionaryTextureSource : ITexPositionSource
+    {
+        public required FastSmallDictionary<string, int> Mapping;
+        public required ITextureAtlasAPI Atlas;
+
+        public TextureAtlasPosition this[string textureCode]
+        {
+            get => Atlas.Positions[Mapping[textureCode]];
+        }
+
+        public Size2i AtlasSize
+        {
+            get => Atlas.Size;
+        }
+    }
 
     /// <summary>
     /// Helper class for implementors of ITexPositionSource

@@ -82,6 +82,13 @@ namespace Vintagestory.API.Common
             handling = EnumHandling.PassThrough;
         }
 
+        /// <summary>
+        /// Called after a held action animation starts, including each swing in a held attack combo.
+        /// </summary>
+        public virtual void OnHeldActionAnimStart(ItemSlot slot, EntityAgent byEntity, EnumHandInteract type)
+        {
+
+        }
 
         /// <summary>
         /// When the player has canceled a custom attack action. Return false to deny action cancellation.
@@ -228,6 +235,8 @@ namespace Vintagestory.API.Common
         {
             return null;
         }
+
+        public virtual bool IsToolModeToggle(ItemSlot slot, IClientPlayer forPlayer, BlockSelection blockSelection) => false;
 
         /// <summary>
         /// Should return the current items tool mode.
@@ -495,6 +504,18 @@ namespace Vintagestory.API.Common
         public virtual void TryMergeStacks(ItemStackMergeOperation op, ref EnumHandling handling)
         {
             handling = EnumHandling.PassThrough;
+        }
+
+        public virtual EnumDamageType GetDamageType(ItemStack itemStack, EnumDamageType damageType, ref EnumHandling handling)
+        {
+            handling = EnumHandling.PassThrough;
+            return damageType;
+        }
+
+        public virtual float GetKnockbackStrength(ItemStack itemStack, float kbStrength, ref EnumHandling handling)
+        {
+            handling = EnumHandling.PassThrough;
+            return 1f;
         }
     }
 }

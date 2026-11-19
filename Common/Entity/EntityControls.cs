@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -390,6 +391,7 @@ namespace Vintagestory.API.Common
 
             double normalization = (Forward || Backward) && (Right || Left) ? 1 / Math.Sqrt(2) : 1;
             WalkVector.Mul(normalization);
+            FlyVector.Mul(normalization);
 
             if (FlyPlaneLock == EnumFreeMovAxisLock.X) { FlyVector.X = 0; }
             if (FlyPlaneLock == EnumFreeMovAxisLock.Y) { FlyVector.Y = 0; }
@@ -495,13 +497,18 @@ namespace Vintagestory.API.Common
             writer.Write(ToInt());
         }
 
+        [Obsolete("Prefer the binarySpanReader overload.")]
         public virtual void FromBytes(BinaryReader reader, bool ignoreData)
         {
             int flags = reader.ReadInt32();
             if (!ignoreData) FromInt(flags);
         }
 
-
+        public virtual void FromBytes(ref BinarySpanReader reader, bool ignoreData)
+        {
+            int flags = reader.ReadInt32();
+            if (!ignoreData) FromInt(flags);
+        }
     }
 
 }

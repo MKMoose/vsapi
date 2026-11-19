@@ -166,6 +166,9 @@ public abstract class PhysicsBehaviorBase : EntityBehavior</code></pre>
       <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnFallToGround_Vintagestory_API_MathTools_Vec3d_System_Double_">EntityBehavior.OnFallToGround(Vec3d, double)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnEntityJump">EntityBehavior.OnEntityJump()</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnEntityReceiveSaturation_System_Single_Vintagestory_API_Common_EnumFoodCategory_System_Single_System_Single_">EntityBehavior.OnEntityReceiveSaturation(float, EnumFoodCategory, float, float)</a>
     </div>
     <div>
@@ -193,7 +196,13 @@ public abstract class PhysicsBehaviorBase : EntityBehavior</code></pre>
       <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_System_Byte___Vintagestory_API_Common_EnumHandling__">EntityBehavior.OnReceivedClientPacket(IServerPlayer, int, byte[], ref EnumHandling)</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnReceivedClientPacket_Vintagestory_API_Server_IServerPlayer_System_Int32_Vintagestory_API_Datastructures_SerializedData_Vintagestory_API_Common_EnumHandling__Vintagestory_API_Common_Entities_Entity_CachedAccessPerms__">EntityBehavior.OnReceivedClientPacket(IServerPlayer, int, SerializedData, ref EnumHandling, ref Entity.CachedAccessPerms)</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnReceivedServerPacket_System_Int32_System_Byte___Vintagestory_API_Common_EnumHandling__">EntityBehavior.OnReceivedServerPacket(int, byte[], ref EnumHandling)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_OnReceivedServerPacket_System_Int32_Vintagestory_API_Datastructures_SerializedData_Vintagestory_API_Common_EnumHandling__">EntityBehavior.OnReceivedServerPacket(int, SerializedData, ref EnumHandling)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.Entities.EntityBehavior.html#Vintagestory_API_Common_Entities_EntityBehavior_GetInteractionHelp_Vintagestory_API_Client_IClientWorldAccessor_Vintagestory_API_Common_EntitySelection_Vintagestory_API_Client_IClientPlayer_Vintagestory_API_Common_EnumHandling__">EntityBehavior.GetInteractionHelp(IClientWorldAccessor, EntitySelection, IClientPlayer, ref EnumHandling)</a>
@@ -357,6 +366,38 @@ public abstract class PhysicsBehaviorBase : EntityBehavior</code></pre>
 
 
 
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_MaxWalkableSlopeGrade" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.MaxWalkableSlopeGrade">
+  MaxWalkableSlopeGrade
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Maximum walkable collider slope as vertical rise per horizontal block (1 = 45 degrees).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;1&quot;, false)]
+public double MaxWalkableSlopeGrade</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_capi" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.capi">
   capi
   
@@ -405,6 +446,96 @@ public abstract class PhysicsBehaviorBase : EntityBehavior</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_colliderSupportBox" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.colliderSupportBox">
+  colliderSupportBox
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly Cuboidd colliderSupportBox</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_colliderSupportDistance" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.colliderSupportDistance">
+  colliderSupportDistance
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected const double colliderSupportDistance = 0.05</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_colliderSupportHits" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.colliderSupportHits">
+  colliderSupportHits
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly List&lt;CollisionHit&gt; colliderSupportHits</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Vintagestory.API.Common.CollisionHit.html">CollisionHit</a>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -538,6 +669,66 @@ protected static CachingCollisionTester collisionTester</code></pre>
 
 
 
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_newPos" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.newPos">
+  newPos
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vec3d newPos</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_prevPos" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.prevPos">
+  prevPos
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly Vec3d prevPos</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_previousVersion" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.previousVersion">
   previousVersion
   
@@ -556,6 +747,36 @@ protected static CachingCollisionTester collisionTester</code></pre>
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_resettingMountedCollisionBox" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.resettingMountedCollisionBox">
+  resettingMountedCollisionBox
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool resettingMountedCollisionBox</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -597,6 +818,72 @@ protected static CachingCollisionTester collisionTester</code></pre>
 
 
 
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_standingColliderId" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.standingColliderId">
+  standingColliderId
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected long standingColliderId</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_StandingColliderId_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.StandingColliderId*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_StandingColliderId" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.StandingColliderId">
+  StandingColliderId
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current carrying collider, including the applied remote pose on clients.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long StandingColliderId { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -622,6 +909,37 @@ protected static CachingCollisionTester collisionTester</code></pre>
     <dd></dd>
   </dl>
 
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_GetStandingColliderPose_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.GetStandingColliderPose*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_GetStandingColliderPose" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.GetStandingColliderPose">
+  GetStandingColliderPose()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StandingColliderPose GetStandingColliderPose()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Entities.StandingColliderPose.html">StandingColliderPose</a></dt>
+    <dd></dd>
+  </dl>
 
 
 
@@ -676,6 +994,597 @@ protected static CachingCollisionTester collisionTester</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>sapi</code> <a class="xref" href="Vintagestory.API.Server.ICoreServerAPI.html">ICoreServerAPI</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_IsInsideDryCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.IsInsideDryCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_IsInsideDryCollider_Vintagestory_API_Common_Entities_EntityPos_Vintagestory_API_Common_Block_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.IsInsideDryCollider(Vintagestory.API.Common.Entities.EntityPos,Vintagestory.API.Common.Block)">
+  IsInsideDryCollider(EntityPos, Block)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInsideDryCollider(EntityPos pos, Block fluidBlock)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>fluidBlock</code> <a class="xref" href="Vintagestory.API.Common.Block.html">Block</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_SetInterpolatedRemotePose_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.SetInterpolatedRemotePose*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_SetInterpolatedRemotePose_System_Double_System_Double_System_Double_System_Single_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.SetInterpolatedRemotePose(System.Double,System.Double,System.Double,System.Single)">
+  SetInterpolatedRemotePose(double, double, double, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Supplies the absolute pose produced by remote entity interpolation before a standing collider adjusts it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetInterpolatedRemotePose(double x, double y, double z, float yaw)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>z</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>yaw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_TryApplyStandingColliderPose_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.TryApplyStandingColliderPose*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_TryApplyStandingColliderPose_Vintagestory_API_Common_Entities_StandingColliderPose_System_Double_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.TryApplyStandingColliderPose(Vintagestory.API.Common.Entities.StandingColliderPose,System.Double)">
+  TryApplyStandingColliderPose(StandingColliderPose, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Validates a received standing pose against the current collider before publishing it to other clients.
+The correction is bounded by the position packet's existing per-axis movement limit, in blocks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryApplyStandingColliderPose(StandingColliderPose pose, double maxCorrection)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pose</code> <a class="xref" href="Vintagestory.API.Common.Entities.StandingColliderPose.html">StandingColliderPose</a></dt>
+    <dd></dd>
+    <dt><code>maxCorrection</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_TryStandOnCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.TryStandOnCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_TryStandOnCollider_System_Int64_System_Nullable_Vintagestory_API_Common_ColliderTransform__System_Boolean_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.TryStandOnCollider(System.Int64,System.Nullable{Vintagestory.API.Common.ColliderTransform},System.Boolean)">
+  TryStandOnCollider(long, ColliderTransform?, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Starts carrying this entity with a collider at its current position.
+A supplied contact transform can anchor a seat exit before the scene publishes the boat pose.
+Resetting the mounted collision box clears motion and restores the standing body until the seated animation ends.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryStandOnCollider(long colliderId, ColliderTransform? contactTransform = null, bool resetMountedCollisionBox = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>colliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+    <dt><code>contactTransform</code> <a class="xref" href="Vintagestory.API.Common.ColliderTransform.html">ColliderTransform</a>?</dt>
+    <dd></dd>
+    <dt><code>resetMountedCollisionBox</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True when the collider exists in the entity's dimension and can carry entities.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_applyRemoteStandingColliderPose_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.applyRemoteStandingColliderPose*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_applyRemoteStandingColliderPose_System_Single_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.applyRemoteStandingColliderPose(System.Single)">
+  applyRemoteStandingColliderPose(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void applyRemoteStandingColliderPose(float deltaTime)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deltaTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearColliderMotion_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearColliderMotion*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearColliderMotion" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearColliderMotion">
+  clearColliderMotion()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void clearColliderMotion()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearColliderMotion_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearColliderMotion*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearColliderMotion_Vintagestory_API_Common_Entities_EntityPos_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearColliderMotion(Vintagestory.API.Common.Entities.EntityPos)">
+  clearColliderMotion(EntityPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void clearColliderMotion(EntityPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearStandingCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearStandingCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_clearStandingCollider" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.clearStandingCollider">
+  clearStandingCollider()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void clearStandingCollider()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_disposeRemoteStandingCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.disposeRemoteStandingCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_disposeRemoteStandingCollider" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.disposeRemoteStandingCollider">
+  disposeRemoteStandingCollider()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void disposeRemoteStandingCollider()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_inheritStandingColliderMotion_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.inheritStandingColliderMotion*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_inheritStandingColliderMotion_Vintagestory_API_Common_Entities_EntityPos_Vintagestory_API_Common_EntityControls_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.inheritStandingColliderMotion(Vintagestory.API.Common.Entities.EntityPos,Vintagestory.API.Common.EntityControls)">
+  inheritStandingColliderMotion(EntityPos, EntityControls)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void inheritStandingColliderMotion(EntityPos pos, EntityControls controls)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>controls</code> <a class="xref" href="Vintagestory.API.Common.EntityControls.html">EntityControls</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_initializeStandingColliderState_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.initializeStandingColliderState*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_initializeStandingColliderState_System_Boolean_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.initializeStandingColliderState(System.Boolean)">
+  initializeStandingColliderState(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void initializeStandingColliderState(bool keepRendererRegistered)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>keepRendererRegistered</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_moveWithStandingCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.moveWithStandingCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_moveWithStandingCollider_Vintagestory_API_Common_Entities_EntityPos_Vintagestory_API_Common_EntityControls_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.moveWithStandingCollider(Vintagestory.API.Common.Entities.EntityPos,Vintagestory.API.Common.EntityControls,Vintagestory.API.MathTools.Vec3d)">
+  moveWithStandingCollider(EntityPos, EntityControls, Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void moveWithStandingCollider(EntityPos pos, EntityControls controls, Vec3d previousPos = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>controls</code> <a class="xref" href="Vintagestory.API.Common.EntityControls.html">EntityControls</a></dt>
+    <dd></dd>
+    <dt><code>previousPos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_probeStandingCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.probeStandingCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_probeStandingCollider_Vintagestory_API_Common_Entities_EntityPos_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.probeStandingCollider(Vintagestory.API.Common.Entities.EntityPos)">
+  probeStandingCollider(EntityPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Collider probeStandingCollider(EntityPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_releaseRemoteStandingColliderRenderer_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.releaseRemoteStandingColliderRenderer*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_releaseRemoteStandingColliderRenderer" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.releaseRemoteStandingColliderRenderer">
+  releaseRemoteStandingColliderRenderer()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void releaseRemoteStandingColliderRenderer()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_restoreInheritedColliderMotion_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.restoreInheritedColliderMotion*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_restoreInheritedColliderMotion_Vintagestory_API_Common_Entities_EntityPos_System_Boolean_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.restoreInheritedColliderMotion(Vintagestory.API.Common.Entities.EntityPos,System.Boolean)">
+  restoreInheritedColliderMotion(EntityPos, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void restoreInheritedColliderMotion(EntityPos pos, bool wasSuspended)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>wasSuspended</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_suspendInheritedColliderMotion_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.suspendInheritedColliderMotion*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_suspendInheritedColliderMotion_Vintagestory_API_Common_Entities_EntityPos_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.suspendInheritedColliderMotion(Vintagestory.API.Common.Entities.EntityPos)">
+  suspendInheritedColliderMotion(EntityPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool suspendInheritedColliderMotion(EntityPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_syncStandingColliderState_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.syncStandingColliderState*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_syncStandingColliderState" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.syncStandingColliderState">
+  syncStandingColliderState()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void syncStandingColliderState()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_updateStandingCollider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.updateStandingCollider*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_PhysicsBehaviorBase_updateStandingCollider_Vintagestory_API_Common_Entities_EntityPos_Vintagestory_API_Common_EntityControls_Vintagestory_API_Common_Collider_" data-uid="Vintagestory.API.Common.Entities.PhysicsBehaviorBase.updateStandingCollider(Vintagestory.API.Common.Entities.EntityPos,Vintagestory.API.Common.EntityControls,Vintagestory.API.Common.Collider)">
+  updateStandingCollider(EntityPos, EntityControls, Collider)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void updateStandingCollider(EntityPos pos, EntityControls controls, Collider collider)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>controls</code> <a class="xref" href="Vintagestory.API.Common.EntityControls.html">EntityControls</a></dt>
+    <dd></dd>
+    <dt><code>collider</code> <a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
     <dd></dd>
   </dl>
 

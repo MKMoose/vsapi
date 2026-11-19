@@ -516,6 +516,38 @@ Interface IInputAPI
 
 
 
+  <a id="Vintagestory_API_Client_IInputAPI_PreviousKeyboardKeyState_" data-uid="Vintagestory.API.Client.IInputAPI.PreviousKeyboardKeyState*"></a>
+
+  <h3 id="Vintagestory_API_Client_IInputAPI_PreviousKeyboardKeyState" data-uid="Vintagestory.API.Client.IInputAPI.PreviousKeyboardKeyState">
+  PreviousKeyboardKeyState
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The state of each input before its most recent update, indexed by key code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool[] PreviousKeyboardKeyState { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -578,6 +610,75 @@ Interface IInputAPI
     <dt><a class="xref" href="Vintagestory.API.Client.HotKey.html">HotKey</a></dt>
     <dd><p>The registered hotkey.</p>
 </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_IInputAPI_GetPickingRayFromMousePosition_" data-uid="Vintagestory.API.Client.IInputAPI.GetPickingRayFromMousePosition*"></a>
+
+  <h3 id="Vintagestory_API_Client_IInputAPI_GetPickingRayFromMousePosition" data-uid="Vintagestory.API.Client.IInputAPI.GetPickingRayFromMousePosition">
+  GetPickingRayFromMousePosition()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Ray GetPickingRayFromMousePosition()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_IInputAPI_GetPickingRayFromMousePosition_" data-uid="Vintagestory.API.Client.IInputAPI.GetPickingRayFromMousePosition*"></a>
+
+  <h3 id="Vintagestory_API_Client_IInputAPI_GetPickingRayFromMousePosition_System_Int32_System_Int32_" data-uid="Vintagestory.API.Client.IInputAPI.GetPickingRayFromMousePosition(System.Int32,System.Int32)">
+  GetPickingRayFromMousePosition(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Ray GetPickingRayFromMousePosition(int mouseX, int mouseY)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>mouseX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>mouseY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Ray.html">Ray</a></dt>
+    <dd></dd>
   </dl>
 
 

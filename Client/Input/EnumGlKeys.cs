@@ -1,5 +1,6 @@
 using System;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using Vintagestory.API.Config;
 
 #nullable disable
 
@@ -33,9 +34,15 @@ namespace Vintagestory.API.Client
                 GlKeys.KeypadDecimal => "Keypad Decimal",
                 GlKeys.KeypadEnter => "Keypad Enter",
                 GlKeys.Unknown => "Unknown",
-                GlKeys.LShift => "Shift",    // Replace the default "LShift" which is hideous and confusing (it's not what the key cap says, especially for non-English languages)
-                GlKeys.LControl => "Ctrl",    // Replace the default "LCtrl" which is hideous and confusing (it's not what the key cap says, especially for non-English languages)
-                GlKeys.LAlt => "Alt",    // Replace the default "LAlt" which is hideous and confusing (it's not what the key cap says, especially for non-English languages)
+                // Replace the default names for all modifier keys which are hideous and confusing (it's not what the key caps say, especially for non-English languages)
+                GlKeys.LShift => "Left Shift",
+                GlKeys.RShift => "Right Shift",
+                GlKeys.LControl => RuntimeEnv.OS == OS.Mac ? "Left Control" : "Left Ctrl",
+                GlKeys.RControl => RuntimeEnv.OS == OS.Mac ? "Right Control" : "Right Ctrl",
+                GlKeys.LAlt => RuntimeEnv.OS == OS.Mac ? "Left Option" : "Left Alt",
+                GlKeys.RAlt => RuntimeEnv.OS == OS.Mac ? "Right Option" : "Right Alt",
+                GlKeys.LWin => RuntimeEnv.OS == OS.Mac ? "Left Command" : "Left Win",
+                GlKeys.RWin => RuntimeEnv.OS == OS.Mac ? "Right Command" : "Right Win",
                 _ => GetKeyName(key)
             };
             ;

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Cairo;
 using Vintagestory.API.Config;
@@ -8,6 +9,16 @@ using Vintagestory.API.MathTools;
 namespace Vintagestory.API.Client
 {
     public delegate void SelectionChangedDelegate(string code, bool selected);
+
+    /// <summary>
+    /// A value/name pair for use with dropdown elements.
+    /// </summary>
+    public class DropDownEntry
+    {
+        public string Value { get; }
+        public string Name  { get; }
+        public DropDownEntry(string value, string name) { Value = value; Name = name; }
+    }
 
     /// <summary>
     /// Creates a drop-down list of items.
@@ -21,7 +32,7 @@ namespace Vintagestory.API.Client
 
         public GuiElementListMenu listMenu;
         public GuiElementRichtext richTextElem;
-        
+
         protected LoadedTexture highlightTexture;
         protected LoadedTexture currentValueTexture;
 
@@ -32,7 +43,7 @@ namespace Vintagestory.API.Client
         protected SelectionChangedDelegate onSelectionChanged;
 
         bool multiSelect;
-        
+
 
         /// <summary>
         /// The draw order of this GUI Element.
@@ -81,7 +92,7 @@ namespace Vintagestory.API.Client
         public string[] SelectedValues => listMenu.SelectedIndices.Select(index => listMenu.Values[index]).ToArray();
 
 
-        public override bool Enabled { 
+        public override bool Enabled {
             get => base.Enabled;
             set
             {
@@ -115,7 +126,7 @@ namespace Vintagestory.API.Client
             var listBounds = bounds.ForkChildOffseted(-bounds.fixedX, -bounds.fixedY).WithAlignment(EnumDialogArea.None);
             listMenu = new GuiElementListMenu(capi, values, names, selectedIndex, didSelect, listBounds, font, multiSelect)
             {
-                HoveredIndex = selectedIndex   
+                HoveredIndex = selectedIndex
             };
 
             ElementBounds textBounds = ElementBounds.Fixed(0, 0, 900, 100).WithEmptyParent();
@@ -212,7 +223,7 @@ namespace Vintagestory.API.Client
             ctx.Fill();
 
             generateTexture(surface, ref arrowDownButtonPressed);
-            
+
             surface.Dispose();
             ctx.Dispose();
 
@@ -292,7 +303,7 @@ namespace Vintagestory.API.Client
                         break;
                     }
                 }
-                
+
             }
             else
             {
@@ -330,7 +341,7 @@ namespace Vintagestory.API.Client
             }
 
             api.Render.Render2DTexturePremultipliedAlpha(
-                currentValueTexture.TextureId, 
+                currentValueTexture.TextureId,
                 (int)Bounds.renderX,
                 (int)Bounds.renderY + (Bounds.InnerHeight - valueHeight) / 2,
                 valueWidth,
@@ -348,7 +359,7 @@ namespace Vintagestory.API.Client
             {
                 api.Render.Render2DTexturePremultipliedAlpha(arrowDownButtonReleased.TextureId, renderX, renderY, arrowDownButtonReleased.Width, arrowDownButtonReleased.Height);
             }
-            
+
 
 
             listMenu.RenderInteractiveElements(deltaTime);
@@ -378,9 +389,11 @@ namespace Vintagestory.API.Client
 
             if (!listMenu.IsOpened)
             {
+                if (args.DeltaYInt == 0) return;
+
                 if (IsPositionInside(api.Input.MouseX, api.Input.MouseY))
                 {
-                    SetSelectedIndex(GameMath.Mod(listMenu.SelectedIndex + (args.delta > 0 ? -1 : 1), listMenu.Values.Length));
+                    SetSelectedIndex(GameMath.Mod(listMenu.SelectedIndex + args.DeltaYInt, listMenu.Values.Length));
                     args.SetHandled(true);
                     onSelectionChanged?.Invoke(SelectedValue, true);
                     return;
@@ -410,7 +423,7 @@ namespace Vintagestory.API.Client
             if (!enabled) return;
 
             listMenu.OnMouseDown(api, args);
-            
+
             if (!listMenu.IsOpened && IsPositionInside(args.X, args.Y) && !args.Handled)
             {
                 listMenu.Open();
@@ -461,6 +474,18 @@ namespace Vintagestory.API.Client
         public void SetList(string[] values, string[] names)
         {
             this.listMenu.SetList(values, names);
+            ComposeCurrentValue();
+        }
+
+        /// <summary>
+        /// Sets the values of the list with their corresponding names.
+        /// </summary>
+        /// <param name="values">The values of the list.</param>
+        /// <param name="names">The names of the list.</param>
+        public void SetList(DropDownEntry[] entries)
+        {
+            this.listMenu.SetList(entries);
+            ComposeCurrentValue();
         }
 
         public override void Dispose()
@@ -538,6 +563,41 @@ namespace Vintagestory.API.Client
             return composer;
         }
 
+
+        /// <summary>
+        /// Adds a dropdown to the current GUI instance using pre-paired value/name entries.
+        /// </summary>
+        /// <param name="composer"></param>
+        /// <param name="entries">The paired values and display names of the dropdown.</param>
+        /// <param name="selectedIndex">The default selected index.</param>
+        /// <param name="onSelectionChanged">The event fired when the index is changed.</param>
+        /// <param name="bounds">The bounds of the dropdown.</param>
+        /// <param name="key">The name of this dropdown.</param>
+        public static GuiComposer AddDropDown(this GuiComposer composer, DropDownEntry[] entries, int selectedIndex, SelectionChangedDelegate onSelectionChanged, ElementBounds bounds, string key = null)
+        {
+            return composer.AddDropDown(
+                entries.Select(e => e.Value).ToArray(),
+                entries.Select(e => e.Name).ToArray(),
+                selectedIndex, onSelectionChanged, bounds, key);
+        }
+
+        /// <summary>
+        /// Adds a dropdown to the current GUI instance using pre-paired value/name entries.
+        /// </summary>
+        /// <param name="composer"></param>
+        /// <param name="entries">The paired values and display names of the dropdown.</param>
+        /// <param name="selectedIndex">The default selected index.</param>
+        /// <param name="onSelectionChanged">The event fired when the index is changed.</param>
+        /// <param name="bounds">The bounds of the dropdown.</param>
+        /// <param name="font">The font used to render the dropdown text.</param>
+        /// <param name="key">The name of this dropdown.</param>
+        public static GuiComposer AddDropDown(this GuiComposer composer, DropDownEntry[] entries, int selectedIndex, SelectionChangedDelegate onSelectionChanged, ElementBounds bounds, CairoFont font, string key = null)
+        {
+            return composer.AddDropDown(
+                entries.Select(e => e.Value).ToArray(),
+                entries.Select(e => e.Name).ToArray(),
+                selectedIndex, onSelectionChanged, bounds, font, key);
+        }
 
         /// <summary>
         /// Gets the Drop Down element from the GUIComposer by their key.

@@ -20,7 +20,7 @@ namespace Vintagestory.API.Datastructures
 
         public static JsonObject FromJson(string jsonCode)
         {
-            return new JsonObject(JToken.Parse(jsonCode));
+            return new JsonObject(JToken.Parse(jsonCode, JsonUtil.DefaultLoadSettings));
         }
 
         /// <summary>
@@ -208,10 +208,9 @@ namespace Vintagestory.API.Datastructures
         /// <param name="defaultDomain"></param>
         /// <returns></returns>
         [return: NotNullIfNotNull(nameof(defaultValue))]
-        public T?[]? AsArray<T>(T[]? defaultValue = null, string defaultDomain = GlobalConstants.DefaultDomain)
+        public T?[]? AsArray<T>(T?[]? defaultValue = null, string defaultDomain = GlobalConstants.DefaultDomain)
         {
-            if (!(token is JArray)) return defaultValue;
-            JArray arr = (JArray)token;
+            if (token is not JArray arr) return defaultValue;
 
             T?[] objs = new T[arr.Count];
 
@@ -230,6 +229,44 @@ namespace Vintagestory.API.Datastructures
             return objs;
         }
 
+        /// <summary>
+        /// Turn the token into an array. Stops early, logs a warning, and returns the default value if any array entry is null or fails to parse.
+        /// </summary>
+        /// <param name="defaultValue">If the conversion fails, this value is used instead</param>
+        /// <param name="defaultDomain"></param>
+        /// <returns></returns>
+        [return: NotNullIfNotNull(nameof(defaultValue))]
+        public T[]? AsNonNullArray<T>(string sourceForLogging, T[]? defaultValue = null, string defaultDomain = GlobalConstants.DefaultDomain)
+        {
+            if (token is not JArray arr) return defaultValue;
+
+            T[] objs = new T[arr.Count];
+
+            for (int i = 0; i < objs.Length; i++)
+            {
+                JToken token = arr[i];
+                if (token is JValue || token is JObject)
+                {
+                    T? parsed = token.ToObject<T>(defaultDomain);
+
+                    if (parsed == null)
+                    {
+                        ILogger.Instance.Warning("Json error: Null entry " + i + " (contents: " + token.ToString() + ") in array for " + sourceForLogging);
+                        return defaultValue;
+                    }
+
+                    objs[i] = parsed;
+                }
+                else
+                {
+                    ILogger.Instance.Warning("Json error: Failed to parse entry " + i + " (contents: " + token.ToString() + ") in array for " + sourceForLogging);
+                    return defaultValue;
+                }
+
+            }
+
+            return objs;
+        }
 
         /// <summary>
         /// Turn the token into a boolean
@@ -352,6 +389,42 @@ namespace Vintagestory.API.Datastructures
             return (T)value;
         }
 
+        public JsonObject? FirstByWildcardKey(string key)
+        {
+            if (Token is not JObject token)
+            {
+                return null;
+            }
+
+            foreach ((string code, JToken? element) in token)
+            {
+                if (element != null && WildcardUtil.Match(code, key))
+                {
+                    return new(element);
+                }
+            }
+
+            return null;
+        }
+
+        public IEnumerable<JsonObject> AllByWildcardKey(string key)
+        {
+            if (Token is not JObject token)
+            {
+                yield break;
+            }
+
+            foreach ((string code, JToken? element) in token)
+            {
+                if (element != null && WildcardUtil.Match(code, key))
+                {
+                    yield return new(element);
+                }
+            }
+
+            yield break;
+        }
+
 
         /// <summary>
         /// Calls token.ToString()
@@ -439,7 +512,8 @@ namespace Vintagestory.API.Datastructures
 
                 foreach (var val in jobj)
                 {
-                    tree[val.Key] = ToAttribute(val.Value);
+                    var attr = ToAttribute(val.Value);
+                    if (attr != null) tree[val.Key] = attr;
                 }
 
                 return tree;

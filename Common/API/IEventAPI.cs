@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -85,6 +86,8 @@ namespace Vintagestory.API.Common
 
     public delegate EnumWorldAccessResponse TestBlockAccessDelegate(IPlayer player, BlockSelection blockSel, EnumBlockAccessFlags accessType, ref string claimant, EnumWorldAccessResponse response);
     public delegate EnumWorldAccessResponse TestBlockAccessClaimDelegate(IPlayer player, BlockSelection blockSel, EnumBlockAccessFlags accessType, ref string claimant, LandClaim claim, EnumWorldAccessResponse response);
+    public delegate void OnSchematicExport(IBlockAccessor blockAccessor, IWorldAccessor world,BlockPos start, BlockPos end, Dictionary<BlockPos, Dictionary<string, byte[]>> modData);
+    public delegate void OnSchematicImport(IBlockAccessor blockAccessor, IWorldAccessor world, BlockPos startpos, Dictionary<uint, Dictionary<string, byte[]>> modData, Rectanglei? rect = null);
 
     /// <summary>
     /// Events that are available on the server and the client

@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class MeshDataPool | VintageStory API ">
       
-      <meta name="description" content="This is a modeldata pool, which can hold 400k vertices, 300k indices but not more than 900 chunks Open in GitHub">
+      <meta name="description" content="A model data pool: one large buffer on the GPU that chunk meshes are packed into It holds up to 400k vertices and 300k indices but never more than 900 chunks Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,8 @@ Class MeshDataPool
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>This is a modeldata pool, which can hold 400k vertices, 300k indices but not more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>A model data pool: one large buffer on the GPU that chunk meshes are packed into
+It holds up to 400k vertices and 300k indices but never more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -169,7 +170,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>How many triangles are allocated.</p>
+  <div class="markdown level1 summary"><p>How many triangles are allocated</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -200,7 +201,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The current fragmentaton.</p>
+  <div class="markdown level1 summary"><p>Current buffer fragmentation (share of holes)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -231,7 +232,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>the amount of indicies for this pool.</p>
+  <div class="markdown level1 summary"><p>Size of the pool index buffer</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -262,7 +263,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The maximum parts for this pool.</p>
+  <div class="markdown level1 summary"><p>Maximum number of parts (meshes) in this pool</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -293,7 +294,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>How many triangles are rendered.</p>
+  <div class="markdown level1 summary"><p>How many triangles were drawn</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -324,7 +325,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>How many of the vertices are used.</p>
+  <div class="markdown level1 summary"><p>How many vertices are actually used</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -355,7 +356,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The current vertices for this pool.</p>
+  <div class="markdown level1 summary"><p>Size of the pool vertex buffer</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -386,7 +387,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>How many index groups are there.</p>
+  <div class="markdown level1 summary"><p>How many index groups there are (how many draw calls to make)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -417,7 +418,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>the position of the indices.</p>
+  <div class="markdown level1 summary"><p>Position in the index buffer</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -448,12 +449,12 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The size of each index.</p>
+  <div class="markdown level1 summary"><p>Size of each index group</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int[] indicesSizes</code></pre>
+    <pre><code class="lang-csharp hljs">public required int[] indicesSizes</code></pre>
   </div>
 
 
@@ -479,12 +480,12 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>The starting byte for each index.</p>
+  <div class="markdown level1 summary"><p>Start byte of each index group</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int[] indicesStartsByte</code></pre>
+    <pre><code class="lang-csharp hljs">public required int[] indicesStartsByte</code></pre>
   </div>
 
 
@@ -510,7 +511,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>the position of the vertices.</p>
+  <div class="markdown level1 summary"><p>Position in the vertex buffer</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -542,16 +543,16 @@ Class MeshDataPool
   <a id="Vintagestory_API_Client_MeshDataPool_AllocateNewPool_" data-uid="Vintagestory.API.Client.MeshDataPool.AllocateNewPool*"></a>
 
   <h3 id="Vintagestory_API_Client_MeshDataPool_AllocateNewPool_Vintagestory_API_Client_ICoreClientAPI_System_Int32_System_Int32_System_Int32_Vintagestory_API_Client_CustomMeshDataPartFloat_Vintagestory_API_Client_CustomMeshDataPartShort_Vintagestory_API_Client_CustomMeshDataPartByte_Vintagestory_API_Client_CustomMeshDataPartInt_" data-uid="Vintagestory.API.Client.MeshDataPool.AllocateNewPool(Vintagestory.API.Client.ICoreClientAPI,System.Int32,System.Int32,System.Int32,Vintagestory.API.Client.CustomMeshDataPartFloat,Vintagestory.API.Client.CustomMeshDataPartShort,Vintagestory.API.Client.CustomMeshDataPartByte,Vintagestory.API.Client.CustomMeshDataPartInt)">
-  AllocateNewPool(ICoreClientAPI, int, int, int, CustomMeshDataPartFloat, CustomMeshDataPartShort, CustomMeshDataPartByte, CustomMeshDataPartInt)
+  AllocateNewPool(ICoreClientAPI, int, int, int, CustomMeshDataPartFloat?, CustomMeshDataPartShort?, CustomMeshDataPartByte?, CustomMeshDataPartInt?)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Allocates a new pool for mesh data.</p>
+  <div class="markdown level1 summary"><p>Creates a new pool for mesh data</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static MeshDataPool AllocateNewPool(ICoreClientAPI capi, int verticesPoolSize, int indicesPoolSize, int maxPartsPerPool, CustomMeshDataPartFloat customFloats = null, CustomMeshDataPartShort customShorts = null, CustomMeshDataPartByte customBytes = null, CustomMeshDataPartInt customInts = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static MeshDataPool AllocateNewPool(ICoreClientAPI capi, int verticesPoolSize, int indicesPoolSize, int maxPartsPerPool, CustomMeshDataPartFloat? customFloats = null, CustomMeshDataPartShort? customShorts = null, CustomMeshDataPartByte? customBytes = null, CustomMeshDataPartInt? customInts = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -563,7 +564,7 @@ Class MeshDataPool
     <dd><p>The vertices pool size.</p>
 </dd>
     <dt><code>indicesPoolSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd><p>The index pool size.</p>
+    <dd><p>The indices pool size.</p>
 </dd>
     <dt><code>maxPartsPerPool</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd><p>The maximum parts per pool.</p>
@@ -572,7 +573,8 @@ Class MeshDataPool
     <dd><p>The custom floats of the pool.</p>
 </dd>
     <dt><code>customShorts</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartShort.html">CustomMeshDataPartShort</a></dt>
-    <dd></dd>
+    <dd><p>The custom shorts of the pool.</p>
+</dd>
     <dt><code>customBytes</code> <a class="xref" href="Vintagestory.API.Client.CustomMeshDataPartByte.html">CustomMeshDataPartByte</a></dt>
     <dd><p>The custom bytes of the pool.</p>
 </dd>
@@ -605,7 +607,8 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Calculates the current fragmentation of the mesh.</p>
+  <div class="markdown level1 summary"><p>Computes fragmentation: the share of the used vertex buffer taken up by holes between meshes
+The more holes there are, the more worthwhile it is to insert new meshes into the gaps</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -632,7 +635,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Disposes of the current mesh pool.</p>
+  <div class="markdown level1 summary"><p>Releases the pool buffers on the GPU</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -643,8 +646,7 @@ Class MeshDataPool
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>capi</code> <a class="xref" href="Vintagestory.API.Client.ICoreClientAPI.html">ICoreClientAPI</a></dt>
-    <dd><p>The core client API</p>
-</dd>
+    <dd></dd>
   </dl>
 
 
@@ -665,7 +667,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Draw the model.</p>
+  <div class="markdown level1 summary"><p>Draws the pool: first picks the visible parts, then sends them in one call</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -700,26 +702,25 @@ Class MeshDataPool
   <a id="Vintagestory_API_Client_MeshDataPool_FrustumCull_" data-uid="Vintagestory.API.Client.MeshDataPool.FrustumCull*"></a>
 
   <h3 id="Vintagestory_API_Client_MeshDataPool_FrustumCull_Vintagestory_API_Client_FrustumCulling_Vintagestory_API_Client_EnumFrustumCullMode_" data-uid="Vintagestory.API.Client.MeshDataPool.FrustumCull(Vintagestory.API.Client.FrustumCulling,Vintagestory.API.Client.EnumFrustumCullMode)">
-  FrustumCull(FrustumCulling, EnumFrustumCullMode)
+  FrustumCull(FrustumCulling?, EnumFrustumCullMode)
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Cleans up the rendering view of the models.</p>
+  <div class="markdown level1 summary"><p>Finds the visible parts and fills the arrays for MultiDrawElements
+The rules themselves are implemented in PoolCullData and set by FrustumCulling</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void FrustumCull(FrustumCulling frustumCuller, EnumFrustumCullMode frustumCullMode)</code></pre>
+    <pre><code class="lang-csharp hljs">public void FrustumCull(FrustumCulling? frustumCuller, EnumFrustumCullMode frustumCullMode)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>frustumCuller</code> <a class="xref" href="Vintagestory.API.Client.FrustumCulling.html">FrustumCulling</a></dt>
-    <dd><p>The area where models can be viewed from the camera.</p>
-</dd>
+    <dd></dd>
     <dt><code>frustumCullMode</code> <a class="xref" href="Vintagestory.API.Client.EnumFrustumCullMode.html">EnumFrustumCullMode</a></dt>
-    <dd><p>The mode of the culling.</p>
-</dd>
+    <dd></dd>
   </dl>
 
 
@@ -740,7 +741,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Gets the current fragmentation of the pool.</p>
+  <div class="markdown level1 summary"><p>Current pool fragmentation</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -772,7 +773,7 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Is this an empty pool.</p>
+  <div class="markdown level1 summary"><p>Is the pool empty</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -784,8 +785,7 @@ Class MeshDataPool
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd><p>true if the pool is empty.</p>
-</dd>
+    <dd></dd>
   </dl>
 
 
@@ -805,7 +805,8 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Attempts to remove the model from the pool if the model exists.  Will throw an invalid call or an InvalidOperationException if used improperly.</p>
+  <div class="markdown level1 summary"><p>Removes a mesh from the pool Throws when it cannot be removed
+(wrong pool or no such mesh in this pool)</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
@@ -816,8 +817,7 @@ Class MeshDataPool
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>location</code> <a class="xref" href="Vintagestory.API.Client.ModelDataPoolLocation.html">ModelDataPoolLocation</a></dt>
-    <dd><p>The location of the model data.</p>
-</dd>
+    <dd></dd>
   </dl>
 
 
@@ -838,7 +838,8 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Sends only the parts found by the previous FrustumCull to the GPU</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -869,7 +870,9 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Draws every part that is not hidden without frustum culling Used for mini dimension pools
+Everything goes through Cull so Hide, the group layout and the triangle stats share one place</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -895,12 +898,13 @@ Class MeshDataPool
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Attempts to add the new model.</p>
+  <div class="markdown level1 summary"><p>Tries to add a new mesh to the pool.
+Returns null when there is no room or when the mesh is from another dimension.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ModelDataPoolLocation TryAdd(ICoreClientAPI capi, MeshData modeldata, Vec3i modelOrigin, int dimension, Sphere frustumCullSphere)</code></pre>
+    <pre><code class="lang-csharp hljs">public ModelDataPoolLocation? TryAdd(ICoreClientAPI capi, MeshData modeldata, Vec3i modelOrigin, int dimension, Sphere frustumCullSphere)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -915,7 +919,8 @@ Class MeshDataPool
     <dd><p>The origin point of the model.</p>
 </dd>
     <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
+    <dd><p>The dimension this model appears in.</p>
+</dd>
     <dt><code>frustumCullSphere</code> <a class="xref" href="Vintagestory.API.MathTools.Sphere.html">Sphere</a></dt>
     <dd><p>The culling sphere.</p>
 </dd>

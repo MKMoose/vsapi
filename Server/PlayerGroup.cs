@@ -18,7 +18,7 @@ namespace Vintagestory.API.Server
         public string CreatedDate;
         [JsonProperty]
         public string OwnerUID;
-        [JsonProperty]
+        [System.Text.Json.Serialization.JsonIgnore]
         public List<ChatLine> ChatHistory;
         [JsonProperty]
         public string Md5Identifier;
@@ -26,7 +26,7 @@ namespace Vintagestory.API.Server
         public bool CreatedByPrivateMessage;
         [JsonProperty]
         public string JoinPolicy = null;
-
+        [System.Text.Json.Serialization.JsonIgnore]
         public List<IPlayer> OnlinePlayers = new List<IPlayer>();
 
 
@@ -35,7 +35,5 @@ namespace Vintagestory.API.Server
             ChatHistory = new List<ChatLine>();
             CreatedDate = DateTime.Now.ToLongDateString();
         }
-
-        
     }
 }

@@ -283,6 +283,21 @@ namespace Vintagestory.API.Common
         [DocumentAsJson("Recommended", "False")]
         public bool LargeItem;
 
+        public BakingProperties Clone()
+        {
+            return new BakingProperties()
+            {
+                Temp = Temp,
+                LevelFrom = LevelFrom,
+                LevelTo = LevelTo,
+                StartScaleY = StartScaleY,
+                EndScaleY = EndScaleY,
+                ResultCode = ResultCode,
+                InitialCode = InitialCode,
+                LargeItem = LargeItem
+            };
+        }
+
         public static BakingProperties ReadFrom(ItemStack stack)
         {
             if (stack == null) return null;

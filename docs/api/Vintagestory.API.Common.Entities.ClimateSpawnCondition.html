@@ -215,7 +215,7 @@ public int HabitatSize</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonIgnore]
-public string MapCode</code></pre>
+public string? MapCode</code></pre>
   </div>
 
 
@@ -599,7 +599,7 @@ public float MinY</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;null&quot;, false)]
-public string[] RandomMapCodePool</code></pre>
+public string[]? RandomMapCodePool</code></pre>
   </div>
 
 
@@ -641,6 +641,46 @@ public string[] RandomMapCodePool</code></pre>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.Entities.ClimateSpawnCondition.html">ClimateSpawnCondition</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Entities_ClimateSpawnCondition_Matches_" data-uid="Vintagestory.API.Common.Entities.ClimateSpawnCondition.Matches*"></a>
+
+  <h3 id="Vintagestory_API_Common_Entities_ClimateSpawnCondition_Matches_Vintagestory_API_Common_ClimateCondition_System_Int32_Vintagestory_API_Server_ICoreServerAPI_" data-uid="Vintagestory.API.Common.Entities.ClimateSpawnCondition.Matches(Vintagestory.API.Common.ClimateCondition,System.Int32,Vintagestory.API.Server.ICoreServerAPI)">
+  Matches(ClimateCondition?, int, ICoreServerAPI)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Matches(ClimateCondition? climate, int y, ICoreServerAPI sapi)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>climate</code> <a class="xref" href="Vintagestory.API.Common.ClimateCondition.html">ClimateCondition</a></dt>
+    <dd></dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>sapi</code> <a class="xref" href="Vintagestory.API.Server.ICoreServerAPI.html">ICoreServerAPI</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

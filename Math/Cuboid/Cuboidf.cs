@@ -1,13 +1,10 @@
 using System;
-using Vintagestory.API.Client;
-
-#nullable disable
 
 namespace Vintagestory.API.MathTools
 {
     public class CuboidfWithId : Cuboidf
     {
-        public string Id;
+        public string? Id;
 
         public CuboidfWithId()
         {
@@ -34,6 +31,8 @@ namespace Vintagestory.API.MathTools
     [DocumentAsJson]
     public class Cuboidf : ICuboid<float,Cuboidf>
     {
+        public virtual bool IsRotated() => false;
+
         /// <summary>
         /// Start X Pos
         /// </summary>
@@ -73,30 +72,36 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// This is equivalent to width so long as X2 > X1, but could in theory be a negative number if the box has its corners the wrong way around
         /// </summary>
-        public float XSize { get { return X2 - X1; } }
+        public float XSize => X2 - X1;
+
         /// <summary>
         /// This is equivalent to height so long as Y2 > Y1, but could in theory be a negative number if the box has its corners the wrong way around
         /// </summary>
-        public float YSize { get { return Y2 - Y1; } }
+        public float YSize => Y2 - Y1;
+
         /// <summary>
         /// This is equivalent to length so long as Z2 > Z1, but could in theory be a negative number if the box has its corners the wrong way around
         /// </summary>
-        public float ZSize { get { return Z2 - Z1; } }
+        public float ZSize => Z2 - Z1;
 
-        public float Width { get { return MaxX - MinX; } }
-        public float Height { get { return MaxY - MinY; } }
-        public float Length { get { return MaxZ - MinZ; } }
+        public float HalfExtentX => Math.Abs(X2 / 2 - X1 / 2);
+        public float HalfExtentY => Math.Abs(Y2 / 2 - Y1 / 2);
+        public float HalfExtentZ => Math.Abs(Z2 / 2 - Z1 / 2);
 
-        public float MinX {  get { return Math.Min(X1, X2); } }
-        public float MinY { get { return Math.Min(Y1, Y2); } }
-        public float MinZ { get { return Math.Min(Z1, Z2); } }
-        public float MaxX { get { return Math.Max(X1, X2); } }
-        public float MaxY { get { return Math.Max(Y1, Y2); } }
-        public float MaxZ { get { return Math.Max(Z1, Z2); } }
+        public float Width => Math.Abs(X2 - X1);
+        public float Height => Math.Abs(Y2 - Y1);
+        public float Length => Math.Abs(Z2 - Z1);
 
-        public float MidX { get { return (X1 + X2)/2; } }
-        public float MidY { get { return (Y1 + Y2)/2; } }
-        public float MidZ { get { return (Z1 + Z2)/2; } }
+        public float MinX => Math.Min(X1, X2);
+        public float MinY => Math.Min(Y1, Y2);
+        public float MinZ => Math.Min(Z1, Z2);
+        public float MaxX => Math.Max(X1, X2);
+        public float MaxY => Math.Max(Y1, Y2);
+        public float MaxZ => Math.Max(Z1, Z2);
+
+        public float MidX => X1 / 2 + X2 / 2;
+        public float MidY => Y1 / 2 + Y2 / 2;
+        public float MidZ => Z1 / 2 + Z2 / 2;
 
 
         public float this[int index]
@@ -134,30 +139,15 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// True when all values are 0
         /// </summary>
-        public bool Empty
-        {
-            get { return X1 == 0 && Y1 == 0 && Z1 == 0 && X2 == 0 && Y2 == 0 && Z2 == 0; }
-        }
+        public bool Empty => X1 == 0 && Y1 == 0 && Z1 == 0 && X2 == 0 && Y2 == 0 && Z2 == 0;
 
-        public Vec3f Start
-        {
-            get { return new Vec3f(MinX, MinY, MinZ); }
-        }
+        public Vec3f Start => new(MinX, MinY, MinZ);
 
-        public Vec3f End
-        {
-            get { return new Vec3f(MaxX, MaxY, MaxZ); }
-        }
+        public Vec3f End => new(MaxX, MaxY, MaxZ);
 
-        public Vec3d Startd
-        {
-            get { return new Vec3d(MinX, MinY, MinZ); }
-        }
+        public Vec3d Startd => new(MinX, MinY, MinZ);
 
-        public Vec3d Endd
-        {
-            get { return new Vec3d(MaxX, MaxY, MaxZ); }
-        }
+        public Vec3d Endd => new(MaxX, MaxY, MaxZ);
 
         public Vec3d Center => new Vec3d(MidX, MidY, MidZ);
 
@@ -240,7 +230,7 @@ namespace Vintagestory.API.MathTools
             this.Z2 = collisionBox.Z2;
         }
 
- 
+
         /// <summary>
         /// Adds the given offset to the cuboid
         /// </summary>
@@ -312,8 +302,13 @@ namespace Vintagestory.API.MathTools
         }
 
 
-        public bool Intersects(Cuboidf other, double offsetx, double offsety, double offsetz)
+        public virtual bool Intersects(Cuboidf other, double offsetx, double offsety, double offsetz)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.Intersects(this, new Vec3d(-offsetx, -offsety, -offsetz));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 > other.X1 + offsetx &&
@@ -327,12 +322,20 @@ namespace Vintagestory.API.MathTools
             return false;
         }
 
+        public virtual bool Intersects(Cuboidf other, Vec3d offset)
+            => Intersects(other, offset.X, offset.Y, offset.Z);
+
 
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool IntersectsOrTouches(Cuboidf other)
+        public virtual bool IntersectsOrTouches(Cuboidf other)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.IntersectsOrTouches(this, new Vec3d(0, 0, 0));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 >= other.X1 &&
@@ -344,6 +347,18 @@ namespace Vintagestory.API.MathTools
             ) return true;
 
             return false;
+        }
+
+        public virtual bool IntersectsOrTouches(Cuboidf other, Vec3d offset)
+        {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.IntersectsOrTouches(this, new Vec3d(-offset.X, -offset.Y, -offset.Z));
+            }
+
+            return X2 >= other.X1 + offset.X && X1 <= other.X2 + offset.X
+                && Y2 >= other.Y1 + offset.Y && Y1 <= other.Y2 + offset.Y
+                && Z2 >= other.Z1 + offset.Z && Z1 <= other.Z2 + offset.Z;
         }
 
 
@@ -439,7 +454,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new x coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutX(Cuboidf from, float x, ref EnumPushDirection direction)
+        public virtual double pushOutX(Cuboidf from, float x, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.Y2 > Y1 && from.Y1 < Y2 && from.Z2 > Z1 && from.Z1 < Z2)
@@ -462,7 +477,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new y coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutY(Cuboidf from, float y, ref EnumPushDirection direction)
+        public virtual double pushOutY(Cuboidf from, float y, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.X2 > X1 && from.X1 < X2 && from.Z2 > Z1 && from.Z1 < Z2)
@@ -485,7 +500,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new z coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutZ(Cuboidf from, float z, ref EnumPushDirection direction)
+        public virtual double pushOutZ(Cuboidf from, float z, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.X2 > X1 && from.X1 < X2 && from.Y2 > Y1 && from.Y1 < Y2)
@@ -602,7 +617,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new cuboid offseted by given position
         /// </summary>
-        public Cuboidd OffsetCopyDouble(double x, double y, double z)
+        public virtual Cuboidd OffsetCopyDouble(double x, double y, double z)
         {
             return new Cuboidd(X1 + x, Y1 + y, Z1 + z, X2 + x, Y2 + y, Z2 + z);
         }
@@ -655,7 +670,7 @@ namespace Vintagestory.API.MathTools
             return new Cuboidf(0f, 0f, 0f, 1f, 1f, 1f);
         }
 
-        
+
         /// <summary>
         /// Makes sure the collisionbox coords are multiples of 0.0001
         /// </summary>
@@ -674,9 +689,11 @@ namespace Vintagestory.API.MathTools
             return (int) (val * 10000f + 0.5f) / 10000f;
         }
 
-        public bool Equals(Cuboidf other)
+        public bool Equals(Cuboidf? other)
         {
-            return other.X1 == X1 && other.Y1 == Y1 && other.Z1 == Z1 && other.X2 == X2 && other.Y2 == Y2 && other.Z2 == Z2;
+            return other != null
+                && other.X1.Equals(X1) && other.Y1.Equals(Y1) && other.Z1.Equals(Z1)
+                && other.X2.Equals(X2) && other.Y2.Equals(Y2) && other.Z2.Equals(Z2);
         }
 
         public Cuboidi ConvertToCuboidi()

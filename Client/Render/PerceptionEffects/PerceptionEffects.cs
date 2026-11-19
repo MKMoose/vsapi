@@ -16,7 +16,6 @@ namespace Vintagestory.API.Client
         public PerceptionEffects(ICoreClientAPI capi)
         {
             this.capi = capi;
-
             RegisterPerceptionEffect(new DamagedPerceptionEffect(capi), "damaged");
             RegisterPerceptionEffect(new FreezingPerceptionEffect(capi), "freezing");
             RegisterPerceptionEffect(new DrunkPerceptionEffect(capi), "drunk");
@@ -28,7 +27,6 @@ namespace Vintagestory.API.Client
             effect.PerceptionEffectId = nextPerceptionEffectId++;
             effect.Code = code;
             registeredPerceptionEffects[code] = effect;
-            
         }
 
         public ICollection<string> RegisteredEffects => registeredPerceptionEffects.Keys;
@@ -50,10 +48,7 @@ namespace Vintagestory.API.Client
 
                     capi.Render.ShaderUniforms.PerceptionEffectId = 0;
                 }
-
-                
             }
-            
         }
 
 

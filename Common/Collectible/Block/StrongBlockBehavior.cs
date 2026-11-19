@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 
@@ -96,6 +97,12 @@ namespace Vintagestory.API.Common
         {
             handled = EnumHandling.PassThrough;
             return 0;
+        }
+
+        public virtual BlockDropItemStack[] GetDropsForHandbook(ItemStack handbookStack, IPlayer forPlayer, ref EnumHandling handled)
+        {
+            handled = EnumHandling.PassThrough;
+            return [];
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -49,11 +49,27 @@ namespace Vintagestory.API.Config
         /// </summary>
         public static bool DebugThreadPool = false;
 
+        /// <summary>
+        /// If true, loaded shape files will get checked for out-of-bounds UV coordinates.
+        /// </summary>
+        public static bool DebugOversizedUVs = false;
+
         public static int MainThreadId;
         public static int ServerMainThreadId;
 
+        /// <summary>
+        /// Horizontal Monitor DPI scale
+        /// </summary>
+        public static float DPIHScale;
+
+        /// <summary>
+        /// Vertical Monitor DPI scale
+        /// </summary>
+        public static float DPIVScale;
 
         public static float GUIScale;
+
+        public static bool RetroMode;
 
         /// <summary>
         /// The current operating system

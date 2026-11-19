@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Cairo;
 using Vintagestory.API.Util;
 
@@ -8,10 +8,16 @@ namespace Vintagestory.API.Client
 {
     public class LinkTextComponent : RichTextComponent
     {
-        Action<LinkTextComponent> onLinkClicked;
+        protected Action<LinkTextComponent> onLinkClicked;
+        protected bool clickable = true;
+        protected LoadedTexture normalText;
+        protected LoadedTexture hoverText;
+        protected double leftMostX;
+        protected double topMostY;
 
         public string Href;
-        bool clickable =true;
+        public bool Underline = true;
+
         public bool Clickable {
             get
             {
@@ -24,8 +30,6 @@ namespace Vintagestory.API.Client
             }
         }
 
-        LoadedTexture normalText;
-        LoadedTexture hoverText;
 
         /// <summary>
         /// Create a dummy link text component for use with triggering link protocols through code. Not usable for anything gui related (it'll crash if you try)
@@ -54,8 +58,6 @@ namespace Vintagestory.API.Client
             normalText = new LoadedTexture(api);
         }
 
-        double leftMostX;
-        double topMostY;
 
         public override EnumCalcBoundsResult CalcBounds(TextFlowPath[] flowPath, double currentLineHeight, double offsetX, double lineY, out double nextOffsetX)
         {
@@ -122,12 +124,15 @@ namespace Vintagestory.API.Client
             ctx.LineWidth = 1;
             ctx.SetSourceRGBA(Font.Color);
 
-            for (int i = 0; i < Lines.Length; i++)
+            if (Underline)
             {
-                TextLine line = Lines[i];
-                ctx.MoveTo(line.Bounds.X, line.Bounds.Y + line.Bounds.AscentOrHeight + 2);
-                ctx.LineTo(line.Bounds.X + line.Bounds.Width, line.Bounds.Y + line.Bounds.AscentOrHeight + 2);
-                ctx.Stroke();
+                for (int i = 0; i < Lines.Length; i++)
+                {
+                    TextLine line = Lines[i];
+                    ctx.MoveTo(line.Bounds.X, line.Bounds.Y + line.Bounds.AscentOrHeight + 2);
+                    ctx.LineTo(line.Bounds.X + line.Bounds.Width, line.Bounds.Y + line.Bounds.AscentOrHeight + 2);
+                    ctx.Stroke();
+                }
             }
         }
 
@@ -153,7 +158,7 @@ namespace Vintagestory.API.Client
 
             api.Render.Render2DTexturePremultipliedAlpha(
                 isHover ? hoverText.TextureId : normalText.TextureId, 
-                (int)(renderX + leftMostX + offsetX), 
+                (int)(renderX + leftMostX + offsetX),
                 (int)(renderY + topMostY), 
                 hoverText.Width, hoverText.Height, (float)renderZ + 50
             );

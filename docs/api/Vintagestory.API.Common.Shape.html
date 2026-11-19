@@ -289,6 +289,36 @@ public ShapeElement[] Elements</code></pre>
 
 
 
+  <h3 id="Vintagestory_API_Common_Shape_RemoveElementPrefixDelimeter" data-uid="Vintagestory.API.Common.Shape.RemoveElementPrefixDelimeter">
+  RemoveElementPrefixDelimeter
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const char RemoveElementPrefixDelimeter = &#39;@&#39;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.char">char</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <h3 id="Vintagestory_API_Common_Shape_TextureHeight" data-uid="Vintagestory.API.Common.Shape.TextureHeight">
   TextureHeight
   
@@ -463,6 +493,43 @@ public Dictionary&lt;string, AssetLocation&gt; Textures</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>elements</code> <a class="xref" href="Vintagestory.API.Common.ShapeElement.html">ShapeElement</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Shape_CheckForAttachmentPointsBeingRemovedRecrusive_" data-uid="Vintagestory.API.Common.Shape.CheckForAttachmentPointsBeingRemovedRecrusive*"></a>
+
+  <h3 id="Vintagestory_API_Common_Shape_CheckForAttachmentPointsBeingRemovedRecrusive_Vintagestory_API_Common_ShapeElement_System_String___System_String_Vintagestory_API_Common_ICoreAPI_" data-uid="Vintagestory.API.Common.Shape.CheckForAttachmentPointsBeingRemovedRecrusive(Vintagestory.API.Common.ShapeElement,System.String[],System.String,Vintagestory.API.Common.ICoreAPI)">
+  CheckForAttachmentPointsBeingRemovedRecrusive(ShapeElement, string[], string, ICoreAPI)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CheckForAttachmentPointsBeingRemovedRecrusive(ShapeElement element, string[] willDeleteElements, string shapePathForLogging, ICoreAPI api)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>element</code> <a class="xref" href="Vintagestory.API.Common.ShapeElement.html">ShapeElement</a></dt>
+    <dd></dd>
+    <dt><code>willDeleteElements</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+    <dt><code>shapePathForLogging</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>api</code> <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html">ICoreAPI</a></dt>
     <dd></dd>
   </dl>
 
@@ -895,6 +962,46 @@ public Dictionary&lt;string, AssetLocation&gt; Textures</code></pre>
 
 
 
+  <a id="Vintagestory_API_Common_Shape_MatchElementWithoutPrefix_" data-uid="Vintagestory.API.Common.Shape.MatchElementWithoutPrefix*"></a>
+
+  <h3 id="Vintagestory_API_Common_Shape_MatchElementWithoutPrefix_System_String_System_String_System_StringComparison_" data-uid="Vintagestory.API.Common.Shape.MatchElementWithoutPrefix(System.String,System.String,System.StringComparison)">
+  MatchElementWithoutPrefix(string, string, StringComparison)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool MatchElementWithoutPrefix(string pattern, string elementName, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pattern</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>elementName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>comparison</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.stringcomparison">StringComparison</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_Shape_RemoveElementByName_" data-uid="Vintagestory.API.Common.Shape.RemoveElementByName*"></a>
 
   <h3 id="Vintagestory_API_Common_Shape_RemoveElementByName_System_String_System_StringComparison_" data-uid="Vintagestory.API.Common.Shape.RemoveElementByName(System.String,System.StringComparison)">
@@ -951,6 +1058,42 @@ public Dictionary&lt;string, AssetLocation&gt; Textures</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>elementNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Shape_RemoveElements_" data-uid="Vintagestory.API.Common.Shape.RemoveElements*"></a>
+
+  <h3 id="Vintagestory_API_Common_Shape_RemoveElements_System_String___System_String_Vintagestory_API_Common_ICoreAPI_" data-uid="Vintagestory.API.Common.Shape.RemoveElements(System.String[],System.String,Vintagestory.API.Common.ICoreAPI)">
+  RemoveElements(string[], string, ICoreAPI)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Also checks for atachment points being removed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveElements(string[] elementNames, string shapePathForLogging, ICoreAPI api)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>elementNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+    <dt><code>shapePathForLogging</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>api</code> <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html">ICoreAPI</a></dt>
     <dd></dd>
   </dl>
 
@@ -1339,6 +1482,51 @@ public void TrimTextureNamesAndResolveFaces(StreamingContext context)</code></pr
   <dl class="parameters">
     <dt><a class="xref" href="Vintagestory.API.Common.Shape.html">Shape</a></dt>
     <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Shape_ValidateUvBounds_" data-uid="Vintagestory.API.Common.Shape.ValidateUvBounds*"></a>
+
+  <h3 id="Vintagestory_API_Common_Shape_ValidateUvBounds_Vintagestory_API_Common_ILogger_Vintagestory_API_Common_AssetLocation_" data-uid="Vintagestory.API.Common.Shape.ValidateUvBounds(Vintagestory.API.Common.ILogger,Vintagestory.API.Common.AssetLocation)">
+  ValidateUvBounds(ILogger, AssetLocation)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional load-time diagnostic for explicit face UVs outside the declared texture dimensions.
+Call after deserialization when UV debugging is enabled. Oversized UVs can be intentional
+for custom rendering, so this only logs warnings and does not modify the shape.
+Auto-generated UVs (faces with no UV array) are not checked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ValidateUvBounds(ILogger logger, AssetLocation shapeLocation)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>logger</code> <a class="xref" href="Vintagestory.API.Common.ILogger.html">ILogger</a></dt>
+    <dd><p>Logger receiving the diagnostics.</p>
+</dd>
+    <dt><code>shapeLocation</code> <a class="xref" href="Vintagestory.API.Common.AssetLocation.html">AssetLocation</a></dt>
+    <dd><p>The source shape asset location, for diagnostics.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>The number of faces with invalid UVs or texture dimensions.</p>
+</dd>
   </dl>
 
 

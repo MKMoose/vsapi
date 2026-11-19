@@ -3,7 +3,6 @@ using System.Buffers.Binary;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 #nullable disable
 

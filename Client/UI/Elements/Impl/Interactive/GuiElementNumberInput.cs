@@ -176,7 +176,7 @@ namespace Vintagestory.API.Client
 
             rightSpacing = scaled(17);
 
-            float size = args.deltaPrecise > 0 ? 1 : -1;
+            float size = args.DeltaY;
             size *= Interval;
 
             size = ApplyKeyModifier(size);
@@ -223,17 +223,14 @@ namespace Vintagestory.API.Client
             SetValue(lines[0]);
         }
 
-        public override void LoadValue(List<string> newLines)
+        public override bool LoadValue(List<string> newLines)
         {
-            // Disallow edit if not a valid number for this input
-            if (newLines.Any(line => !isValidText(line)))
-            {
-                // Revert edits
-                linesStaging = [.. lines];
-                return;
-            }
+            // Allow edit if it's a valid number for this input
+            if (newLines.All(isValidText)) return base.LoadValue(newLines);
 
-            base.LoadValue(newLines);
+            // Otherwise revert edits
+            linesStaging = [.. lines];
+            return false;
         }
 
         bool isValidText(string text)
@@ -254,6 +251,8 @@ namespace Vintagestory.API.Client
         public override void OnMouseDownOnElement(ICoreClientAPI api, MouseEvent args)
         {
             base.OnMouseDownOnElement(api, args);
+
+            if (!Enabled) return;
 
             rightSpacing = scaled(17);
 

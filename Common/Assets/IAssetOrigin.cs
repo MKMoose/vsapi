@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-
-#nullable disable
+using System.Diagnostics.CodeAnalysis;
 
 namespace Vintagestory.API.Common
 {
@@ -9,11 +8,19 @@ namespace Vintagestory.API.Common
         string OriginPath { get; }
 
         /// <summary>
-        /// Loads the asset into memeory.
+        /// Loads the asset into memory.
         /// </summary>
         /// <param name="asset">The asset to be loaded</param>
         /// <returns></returns>
         void LoadAsset(IAsset asset);
+
+        /// <summary>
+        /// Attempts to resolve the asset from the given path without loading it.
+        /// </summary>
+        /// <param name="filePath">The path to the asset file.</param>
+        /// <param name="asset">The resolved asset.</param>
+        /// <returns></returns>
+        bool TryResolveAsset(string filePath, [NotNullWhen(true)] out IAsset? asset);
 
         /// <summary>
         /// Attempts to load the asset.  Returns false if it fails.
@@ -23,7 +30,7 @@ namespace Vintagestory.API.Common
         bool TryLoadAsset(IAsset asset);
 
         /// <summary>
-        /// Returns all assets of the given category which can be found in this origin 
+        /// Returns all assets of the given category which can be found in this origin
         /// </summary>
         /// <param name="category"></param>
         /// <param name="shouldLoad"></param>
@@ -32,7 +39,7 @@ namespace Vintagestory.API.Common
 
 
         /// <summary>
-        /// Returns all assets of the given base location path which can be found in this origin 
+        /// Returns all assets of the given base location path which can be found in this origin
         /// </summary>
         /// <param name="baseLocation"></param>
         /// <param name="shouldLoad"></param>
@@ -45,6 +52,5 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <returns></returns>
         bool IsAllowedToAffectGameplay();
-        
     }
 }

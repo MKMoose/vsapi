@@ -450,16 +450,7 @@ namespace Vintagestory.API.MathTools
 
         public bool IsAdjacent(BlockFacing facing)
         {
-            if (IsVertical)
-            {
-                return facing.IsHorizontal;
-            }
-
-            return
-                (IsHorizontal && facing.IsVertical)
-                || (axis == EnumAxis.X && facing.axis == EnumAxis.Z)
-                || (axis == EnumAxis.Z && facing.axis == EnumAxis.X)
-            ;
+            return facing.axis != axis;
         }
 
 

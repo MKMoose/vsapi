@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TransformedCuboidd | VintageStory API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TransformedCuboidd | VintageStory API ">
+      
+      <meta name="description" content="A cuboid transformed by an affine matrix. Instances may be reused with . Open in GitHub">
+      <link rel="icon" href="../images/gameicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="VintageStory API">
+            VintageStory API
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Vintagestory.API.MathTools.TransformedCuboidd">
+
+
+
+  <h1 id="Vintagestory_API_MathTools_TransformedCuboidd" data-uid="Vintagestory.API.MathTools.TransformedCuboidd" class="text-break">
+Class TransformedCuboidd  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.MathTools.html">MathTools</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>A cuboid transformed by an affine matrix. Instances may be reused with <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html#Vintagestory_API_MathTools_TransformedCuboidd_Set_Vintagestory_API_MathTools_Cuboidd_System_Double___">Set(Cuboidd, double[])</a>. <a href=https://github.com/anegostudios/vsapi/blob/master///Math/Cuboid/TransformedCuboidd.cs>Open in GitHub</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class TransformedCuboidd</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">TransformedCuboidd</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToGcHandle_System_Object_">ObjectHandleExtensions.ToGcHandle(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd__ctor_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd__ctor" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor">
+  TransformedCuboidd()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd__ctor_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd__ctor_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor(Vintagestory.API.MathTools.Cuboidd)">
+  TransformedCuboidd(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd(Cuboidd bounds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd__ctor_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd__ctor_Vintagestory_API_MathTools_Cuboidd_System_Double___" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.#ctor(Vintagestory.API.MathTools.Cuboidd,System.Double[])">
+  TransformedCuboidd(Cuboidd, double[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd(Cuboidd localBounds, double[] transform)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>localBounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>transform</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsX1_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsX1*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsX1" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsX1">
+  BoundsX1
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsX1 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsX2_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsX2*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsX2" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsX2">
+  BoundsX2
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsX2 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsY1_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsY1*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsY1" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsY1">
+  BoundsY1
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsY1 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsY2_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsY2*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsY2" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsY2">
+  BoundsY2
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsY2 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsZ1_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsZ1*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsZ1" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsZ1">
+  BoundsZ1
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsZ1 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsZ2_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsZ2*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_BoundsZ2" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.BoundsZ2">
+  BoundsZ2
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double BoundsZ2 { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Clone_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Clone*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Clone" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Clone">
+  Clone()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Copies this shape into a new independently reusable instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd Clone()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_GetAABB_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetAABB*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_GetAABB_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetAABB(Vintagestory.API.MathTools.Cuboidd)">
+  GetAABB(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the conservative axis-aligned bounds into <code class="paramref">result</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Cuboidd GetAABB(Cuboidd result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>result</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_GetCenter_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetCenter*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_GetCenter_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetCenter(Vintagestory.API.MathTools.Vec3d)">
+  GetCenter(Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the transformed center into <code class="paramref">result</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3d GetCenter(Vec3d result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>result</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisX_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisX*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisX_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisX(Vintagestory.API.MathTools.Vec3d)">
+  GetHalfAxisX(Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the transformed half-axis corresponding to the local X axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3d GetHalfAxisX(Vec3d result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>result</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisY_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisY*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisY_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisY(Vintagestory.API.MathTools.Vec3d)">
+  GetHalfAxisY(Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the transformed half-axis corresponding to the local Y axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3d GetHalfAxisY(Vec3d result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>result</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisZ_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisZ*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_GetHalfAxisZ_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.GetHalfAxisZ(Vintagestory.API.MathTools.Vec3d)">
+  GetHalfAxisZ(Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Writes the transformed half-axis corresponding to the local Z axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vec3d GetHalfAxisZ(Vec3d result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>result</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+  Intersects(double, double, double, double, double, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(double x1, double y1, double z1, double x2, double y2, double z2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>y1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>z1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>x2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>y2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>z2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects(Vintagestory.API.MathTools.Cuboidd)">
+  Intersects(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(Cuboidd other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Intersects_Vintagestory_API_MathTools_TransformedCuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Intersects(Vintagestory.API.MathTools.TransformedCuboidd)">
+  Intersects(TransformedCuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(TransformedCuboidd other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_System_Double_System_Double_System_Double_System_Double_System_Double_System_Double_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+  IntersectsOrTouches(double, double, double, double, double, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IntersectsOrTouches(double x1, double y1, double z1, double x2, double y2, double z2)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>y1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>z1</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>x2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>y2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>z2</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches(Vintagestory.API.MathTools.Cuboidd)">
+  IntersectsOrTouches(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IntersectsOrTouches(Cuboidd other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_IntersectsOrTouches_Vintagestory_API_MathTools_TransformedCuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.IntersectsOrTouches(Vintagestory.API.MathTools.TransformedCuboidd)">
+  IntersectsOrTouches(TransformedCuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IntersectsOrTouches(TransformedCuboidd other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Set_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Set_Vintagestory_API_MathTools_Cuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set(Vintagestory.API.MathTools.Cuboidd)">
+  Set(Cuboidd)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets this shape to an axis-aligned cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd Set(Cuboidd bounds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>bounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Set_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Set_Vintagestory_API_MathTools_Cuboidd_System_Double___" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set(Vintagestory.API.MathTools.Cuboidd,System.Double[])">
+  Set(Cuboidd, double[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Transforms local cuboid bounds by a column-major affine matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd Set(Cuboidd localBounds, double[] transform)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>localBounds</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>transform</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_Set_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_Set_Vintagestory_API_MathTools_Vec3d_Vintagestory_API_MathTools_Vec3d_Vintagestory_API_MathTools_Vec3d_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.Set(Vintagestory.API.MathTools.Vec3d,Vintagestory.API.MathTools.Vec3d,Vintagestory.API.MathTools.Vec3d,Vintagestory.API.MathTools.Vec3d)">
+  Set(Vec3d, Vec3d, Vec3d, Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets this shape from its center and three transformed half-axes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TransformedCuboidd Set(Vec3d center, Vec3d halfAxisX, Vec3d halfAxisY, Vec3d halfAxisZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>center</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>halfAxisX</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>halfAxisY</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>halfAxisZ</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_ToRotatedCuboidd_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.ToRotatedCuboidd*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_ToRotatedCuboidd" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.ToRotatedCuboidd">
+  ToRotatedCuboidd()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Converts this orthogonal transformed cuboid to a rotated cuboid with the same center and half-axes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RotatedCuboidd ToRotatedCuboidd()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.RotatedCuboidd.html">RotatedCuboidd</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetAABBContact_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetAABBContact*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetAABBContact_Vintagestory_API_MathTools_Cuboidd_System_Double_Vintagestory_API_MathTools_CuboidContact__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetAABBContact(Vintagestory.API.MathTools.Cuboidd,System.Double,Vintagestory.API.MathTools.CuboidContact@)">
+  TryGetAABBContact(Cuboidd, double, out CuboidContact)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the outward contact normal and signed separation from this cuboid to a nearby axis-aligned cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAABBContact(Cuboidd other, double maxSeparation, out CuboidContact contact)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>maxSeparation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>contact</code> <a class="xref" href="Vintagestory.API.MathTools.CuboidContact.html">CuboidContact</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetAABBPenetration_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetAABBPenetration*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetAABBPenetration_Vintagestory_API_MathTools_Cuboidd_System_Double__System_Double__System_Double__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetAABBPenetration(Vintagestory.API.MathTools.Cuboidd,System.Double@,System.Double@,System.Double@)">
+  TryGetAABBPenetration(Cuboidd, out double, out double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the shortest translation which moves an overlapping axis-aligned cuboid out of this shape.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetAABBPenetration(Cuboidd other, out double translationX, out double translationY, out double translationZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>translationX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetContact_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetContact*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetContact_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_Vintagestory_API_MathTools_CuboidContact__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetContact(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,Vintagestory.API.MathTools.CuboidContact@)">
+  TryGetContact(TransformedCuboidd, double, out CuboidContact)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the outward contact normal and signed separation from this cuboid to another nearby transformed cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetContact(TransformedCuboidd other, double maxSeparation, out CuboidContact contact)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>maxSeparation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>contact</code> <a class="xref" href="Vintagestory.API.MathTools.CuboidContact.html">CuboidContact</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetIntersectionSegment_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetIntersectionSegment*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetIntersectionSegment_Vintagestory_API_MathTools_TransformedCuboidd_Vintagestory_API_MathTools_FastVec3d__Vintagestory_API_MathTools_FastVec3d__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetIntersectionSegment(Vintagestory.API.MathTools.TransformedCuboidd,Vintagestory.API.MathTools.FastVec3d@,Vintagestory.API.MathTools.FastVec3d@)">
+  TryGetIntersectionSegment(TransformedCuboidd, out FastVec3d, out FastVec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns an edge segment contained in both boxes, including touching and containment.
+These endpoints describe the current overlap and not the path or time of an impact.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetIntersectionSegment(TransformedCuboidd other, out FastVec3d start, out FastVec3d end)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>start</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>end</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetPenetration_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetPenetration*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TryGetPenetration_Vintagestory_API_MathTools_TransformedCuboidd_System_Double__System_Double__System_Double__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TryGetPenetration(Vintagestory.API.MathTools.TransformedCuboidd,System.Double@,System.Double@,System.Double@)">
+  TryGetPenetration(TransformedCuboidd, out double, out double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the shortest translation which moves another overlapping transformed cuboid out of this shape.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetPenetration(TransformedCuboidd other, out double translationX, out double translationY, out double translationZ)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>translationX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>translationZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweep_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweep*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweep_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_System_Double_System_Double_System_Double__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweep(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,System.Double,System.Double,System.Double@)">
+  TrySweep(TransformedCuboidd, double, double, double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the first contact while another transformed cuboid translates through this shape without rotating.
+An initial strict overlap is left to the caller's depenetration path and returns false.
+On success, <code class="paramref">collisionFraction</code> is at least zero and less than one. Otherwise, it is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweep(TransformedCuboidd movingShape, double motionX, double motionY, double motionZ, out double collisionFraction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingShape</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepAABB_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepAABB*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepAABB_Vintagestory_API_MathTools_Cuboidd_System_Double_System_Double_System_Double_System_Double__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepAABB(Vintagestory.API.MathTools.Cuboidd,System.Double,System.Double,System.Double,System.Double@)">
+  TrySweepAABB(Cuboidd, double, double, double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the first contact while an axis-aligned cuboid translates through this shape.
+An initial strict overlap is left to the caller's depenetration path and returns false.
+On success, <code class="paramref">collisionFraction</code> is at least zero and less than one. Otherwise, it is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweepAABB(Cuboidd movingBox, double motionX, double motionY, double motionZ, out double collisionFraction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidd.html">Cuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepAABB_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepAABB*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepAABB_Vintagestory_API_MathTools_Cuboidf_System_Double_System_Double_System_Double_System_Double__" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepAABB(Vintagestory.API.MathTools.Cuboidf,System.Double,System.Double,System.Double,System.Double@)">
+  TrySweepAABB(Cuboidf, double, double, double, out double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Finds the first contact while an axis-aligned float cuboid translates through this shape.
+An initial strict overlap is left to the caller's depenetration path and returns false.
+On success <code class="paramref">collisionFraction</code> is at least zero and less than one. Otherwise, it is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweepAABB(Cuboidf movingBox, double motionX, double motionY, double motionZ, out double collisionFraction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidf.html">Cuboidf</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepContact_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepContact*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_TransformedCuboidd_TrySweepContact_Vintagestory_API_MathTools_TransformedCuboidd_System_Double_System_Double_System_Double_System_Double__Vintagestory_API_MathTools_FastVec3d__System_Boolean__System_Boolean_" data-uid="Vintagestory.API.MathTools.TransformedCuboidd.TrySweepContact(Vintagestory.API.MathTools.TransformedCuboidd,System.Double,System.Double,System.Double,System.Double@,Vintagestory.API.MathTools.FastVec3d@,System.Boolean@,System.Boolean)">
+  TrySweepContact(TransformedCuboidd, double, double, double, out double, out FastVec3d, out bool, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns continuous translation contact, including the endpoint and optionally initial strict overlap.
+The normal points from this cuboid toward the moving cuboid.
+Touching motion away from or along a surface is ignored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySweepContact(TransformedCuboidd movingBox, double motionX, double motionY, double motionZ, out double collisionFraction, out FastVec3d normal, out bool startedOverlapping, bool includeInitialOverlap = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>movingBox</code> <a class="xref" href="Vintagestory.API.MathTools.TransformedCuboidd.html">TransformedCuboidd</a></dt>
+    <dd></dd>
+    <dt><code>motionX</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>motionZ</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>collisionFraction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+    <dt><code>normal</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>startedOverlapping</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>includeInitialOverlap</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

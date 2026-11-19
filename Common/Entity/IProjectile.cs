@@ -17,6 +17,8 @@ public interface IProjectileJsonConfig
     /// </summary>
     EnumDamageType DamageType { get; }
 
+    bool? ApplyUnderwaterPenalty { get; }
+
     /// <summary>
     /// If damage source done by projectile will ignore invincibility frames.
     /// </summary>
@@ -68,6 +70,8 @@ public interface IProjectile
     /// Projectile damage type when hitting an entity.
     /// </summary>
     EnumDamageType DamageType { get; set; }
+
+    bool ApplyUnderwaterPenalty { get; set; }
 
     /// <summary>
     /// If damage source done by projectile will ignore invincibility frames.
@@ -142,6 +146,8 @@ public class ProjectileJsonConfig : IProjectileJsonConfig
     /// Projectile damage type when hitting an entity.
     /// </summary>
     public EnumDamageType DamageType { get; set; } = EnumDamageType.PiercingAttack;
+
+    public bool? ApplyUnderwaterPenalty { get; set; }
 
     /// <summary>
     /// If damage source done by projectile will ignore invincibility frames.

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Runtime.Serialization;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
@@ -382,6 +383,33 @@ namespace Vintagestory.API.Common
         {
             if (Translation.Equals(defaultTf)) Translation = new FastVec3f();
             if (Rotation.Equals(defaultTf)) Rotation = new FastVec3f();
+        }
+
+        public static ModelTransform Lerp(ModelTransform left, ModelTransform right, float l)
+        {
+            return new ModelTransform()
+            {
+                Translation = new FastVec3f(
+                    left.Translation.X * (1 - l) + right.Translation.X * l,
+                    left.Translation.Y * (1 - l) + right.Translation.Y * l,
+                    left.Translation.Z * (1 - l) + right.Translation.Z * l
+                ),
+                Rotation = new FastVec3f(
+                    left.Rotation.X * (1 - l) + right.Rotation.X * l,
+                    left.Rotation.Y * (1 - l) + right.Rotation.Y * l,
+                    left.Rotation.Z * (1 - l) + right.Rotation.Z * l
+                ),
+                Origin = new FastVec3f(
+                    left.Origin.X * (1 - l) + right.Origin.X * l,
+                    left.Origin.Y * (1 - l) + right.Origin.Y * l,
+                    left.Origin.Z * (1 - l) + right.Origin.Z * l
+                ),
+                ScaleXYZ = new FastVec3f(
+                    left.ScaleXYZ.X * (1 - l) + right.ScaleXYZ.X * l,
+                    left.ScaleXYZ.Y * (1 - l) + right.ScaleXYZ.Y * l,
+                    left.ScaleXYZ.Z * (1 - l) + right.ScaleXYZ.Z * l
+                )
+            };
         }
     }
 }

@@ -37,6 +37,11 @@ namespace Vintagestory.API.Common
         public float EasingFactor;
         public float BlendedWeight;
 
+        /// <summary>
+        /// Scales elapsed time for this running animation without changing it configured animation speed.
+        /// </summary>
+        public float TimeScale = 1f;
+
         public ShapeElementWeights[] ElementWeights;
 
         public int[] SoundPlayedAtIteration = null;
@@ -103,6 +108,13 @@ namespace Vintagestory.API.Common
         public void Progress(float dt, float walkspeed)
         {
             if (meta.AnimationSpeed == 0) return;
+
+            dt *= TimeScale;
+            if (dt == 0)
+            {
+                NowPlaying = false;
+                return;
+            }
 
             NowPlaying = true;
 
@@ -182,11 +194,12 @@ namespace Vintagestory.API.Common
             EasingFactor = 0;
             SoundPlayedAtIteration = null;
             NowPlaying = false;
+            TimeScale = 1f;
         }
 
         public void EaseOut(float dt)
         {
-            EasingFactor = Math.Max(0, EasingFactor - (EasingFactor - 0) * dt * meta.EaseOutSpeed);
+            EasingFactor = Math.Max(0, EasingFactor - (EasingFactor - 0) * dt * TimeScale * meta.EaseOutSpeed);
         }
     }
 }

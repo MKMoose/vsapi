@@ -12,6 +12,8 @@ namespace Vintagestory.API.Client
 {
     /// <summary>
     /// Defines a texture to be overlayed on another texture.
+    /// Overlay textures no longer have to be of same size.
+    /// Overlays are applied in reverse order, from last to first.
     /// </summary>
     [DocumentAsJson]
     public class BlendedOverlayTexture
@@ -28,21 +30,113 @@ namespace Vintagestory.API.Client
         [DocumentAsJson("Optional", "Normal")]
         public EnumColorBlendMode BlendMode;
 
+        /// <summary>
+        /// Offsets texture by X axis by set amount of pixels.<br/>
+        /// Value must be between -2048 and 2047.
+        /// </summary>
+        [DocumentAsJson("Optional", "0")]
+        public short OffsetX;
+
+        /// <summary>
+        /// Offsets texture by Y axis by set amount of pixels.<br/>
+        /// Value must be between -2048 and 2047.
+        /// </summary>
+        [DocumentAsJson("Optional", "0")]
+        public short OffsetY;
+
+        /// <summary>
+        /// Index of overlay this overlay will be applied to.<br/>
+        /// Value of '0' targets base texture.<br/>
+        /// Cannot be equal or higher than index of overlay it is specified in.<br/>
+        /// Cannot target overlays with indexes '16' or higher.
+        /// </summary>
+        [DocumentAsJson("Optional", "0")]
+        public byte AppliedTo;
+
+        [DocumentAsJson("Optional", "255")]
+        public int Alpha = 255;
+
+        public int PackBlending()
+        {
+            if ((byte)BlendMode > 15) throw new ArgumentOutOfRangeException(nameof(BlendMode));
+            if (AppliedTo > 15) throw new ArgumentOutOfRangeException(nameof(AppliedTo));
+            if (OffsetX < -2048 || OffsetX > 2047) throw new ArgumentOutOfRangeException(nameof(OffsetX));
+            if (OffsetY < -2048 || OffsetY > 2047) throw new ArgumentOutOfRangeException(nameof(OffsetY));
+
+            return ((byte)BlendMode & 0xF)
+                 | ((AppliedTo & 0xF) << 4)
+                 | ((OffsetX & 0xFFF) << 8)
+                 | ((OffsetY & 0xFFF) << 20);
+        }
+
+        public void UnpackBlending(int packed)
+        {
+            BlendMode = (EnumColorBlendMode)(packed & 0xF);
+            AppliedTo = (byte)((packed >> 4) & 0xF);
+
+            int offsetX = (packed >> 8) & 0xFFF;
+            if ((offsetX & 0x800) != 0) offsetX -= 0x1000; // processing sign correctly
+            OffsetX = (short)offsetX;
+
+            OffsetY = (short)(packed >> 20); // no need to process sign, cause it is located in top bits
+        }
+
+        public static (EnumColorBlendMode blendMode, int offsetX, int offsetY, int appliedTo) UnpackBlendingToTuple(int packed)
+        {
+            EnumColorBlendMode blendMode = (EnumColorBlendMode)(packed & 0xF);
+            int appliedTo = (packed >> 4) & 0xF;
+
+            int offsetX = (packed >> 8) & 0xFFF;
+            if ((offsetX & 0x800) != 0) offsetX -= 0x1000;  // processing sign correctly
+
+            int offsetY = packed >> 20; // no need to process sign, cause it is located in top bits
+
+            return (blendMode, offsetX, offsetY, appliedTo);
+        }
+
         public BlendedOverlayTexture Clone()
         {
-            return new BlendedOverlayTexture() { Base = this.Base.Clone(), BlendMode = BlendMode };
+            return new BlendedOverlayTexture() { Base = this.Base.Clone(), BlendMode = BlendMode, OffsetX = OffsetX, OffsetY = OffsetY, AppliedTo = AppliedTo, Alpha = Alpha };
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is BlendedOverlayTexture other
+                && BlendMode == other.BlendMode
+                && Alpha == other.Alpha
+                && OffsetX == other.OffsetX
+                && OffsetY == other.OffsetY
+                && AppliedTo == other.AppliedTo
+                && (Base == null ? other.Base == null : Base.Equals(other.Base));
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Base, BlendMode, Alpha, OffsetX, OffsetY, AppliedTo);
+        }
+
+        public static bool operator ==(BlendedOverlayTexture a, BlendedOverlayTexture b)
+        {
+            return a is null ? b is null : a.Equals(b);
+        }
+
+        public static bool operator !=(BlendedOverlayTexture a, BlendedOverlayTexture b)
+        {
+            return !(a == b);
         }
 
         public override string ToString()
         {
-            return Base.ToString() + "-b" + BlendMode;
+            return Base.ToString() + "-b" + PackBlending() + "-a" + Alpha;
         }
 
         public void ToString(StringBuilder sb)
         {
             sb.Append(Base.ToString());
             sb.Append("-b");
-            sb.Append(BlendMode);
+            sb.Append(PackBlending());
+            sb.Append("-a");
+            sb.Append(Alpha);
         }
     }
 
@@ -111,7 +205,7 @@ namespace Vintagestory.API.Client
         /// A set of textures to overlay above this texture. The base texture may be overlayed with any quantity of textures. These are baked together during texture atlas creation.
         /// </summary>
         [DocumentAsJson("Optional", "None")]
-        public BlendedOverlayTexture[] BlendedOverlays = null;
+        public BlendedOverlayTexture[] BlendedOverlays { get; set; } = null;
 
         /// <summary>
         /// The texture may consists of any amount of alternatives, one of which will be randomly chosen when the block is placed in the world.
@@ -403,6 +497,24 @@ namespace Vintagestory.API.Client
 
             bct.BakedName = ct.Base.Clone();
 
+            if (ct.Rotation != 0)
+            {
+                if (ct.Rotation != 90 && ct.Rotation != 180 && ct.Rotation != 270)
+                {
+                    throw new Exception("Texture definition " + ct.Base + " has a rotation that's not 0, 90, 180 or 270. These are the only allowed values!");
+                }
+                bct.BakedName.Path += "@" + ct.Rotation;
+            }
+
+            if (ct.Alpha != 255)
+            {
+                if (ct.Alpha < 0 || ct.Alpha > 255)
+                {
+                    throw new Exception("Texture definition " + ct.Base + " has an alpha value outside the 0..255 range.");
+                }
+
+                bct.BakedName.Path += "" + AlphaSeparator + ct.Alpha;
+            }
 
             if (ct.BlendedOverlays != null)
             {
@@ -413,31 +525,20 @@ namespace Vintagestory.API.Client
                 {
                     BlendedOverlayTexture bov = ct.BlendedOverlays[i];
                     bct.TextureFilenames[i + 1] = bov.Base;
-                    bct.BakedName.Path += OverlaysSeparator + ((int)bov.BlendMode).ToString() + BlendmodeSeparator + bov.Base.ToString();
+                    bct.BakedName.Path += OverlaysSeparator + bov.PackBlending().ToString() + BlendmodeSeparator + bov.Base.ToString();
+                    if (bov.Alpha != 255)
+                    {
+                        if (bov.Alpha < 0 || bov.Alpha > 255)
+                        {
+                            throw new Exception("Texture definition " + bov.Base + " has an alpha value outside the 0..255 range.");
+                        }
+                        bct.BakedName.Path += AlphaSeparator + bov.Alpha.ToString();
+                    }
                 }
             }
             else
             {
                 bct.TextureFilenames = new AssetLocation[] { ct.Base };
-            }
-
-            if (ct.Rotation != 0)
-            {
-                if (ct.Rotation != 90 && ct.Rotation != 180 && ct.Rotation != 270)
-                {
-                    throw new Exception("Texture definition " + ct.Base + " has a rotation thats not 0, 90, 180 or 270. These are the only allowed values!");
-                }
-                bct.BakedName.Path += "@" + ct.Rotation;
-            }
-
-            if (ct.Alpha != 255)
-            {
-                if (ct.Alpha < 0 || ct.Alpha > 255)
-                {
-                    throw new Exception("Texture definition " + ct.Base + " has a alpha value outside the 0..255 range.");
-                }
-
-                bct.BakedName.Path += "" + AlphaSeparator + ct.Alpha;
             }
 
             if (ct.Alternates != null)

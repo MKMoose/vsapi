@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Cairo;
 using Vintagestory.API.Common;
@@ -33,10 +33,10 @@ namespace Vintagestory.API.Client
 
         public static int Outlines = 0;
 
-        internal IGuiComposerManager composerManager;
+        public IGuiComposerManager composerManager;
 
-        internal Dictionary<string, GuiElement> staticElements = new Dictionary<string, GuiElement>();
-        internal Dictionary<string, GuiElement> interactiveElements = new Dictionary<string, GuiElement>();
+        public Dictionary<string, GuiElement> staticElements = new Dictionary<string, GuiElement>();
+        public Dictionary<string, GuiElement> interactiveElements = new Dictionary<string, GuiElement>();
 
         protected List<GuiElement> interactiveElementsInDrawOrder = new List<GuiElement>();
 
@@ -59,9 +59,9 @@ namespace Vintagestory.API.Client
         public ElementBounds CurParentBounds => parentBoundsForNextElement.Peek();
 
         public bool Composed = false;
-        internal bool recomposeOnRender = false;
-        internal bool onlyDynamicRender = false;
-        internal ElementBounds InsideClipBounds;
+        public bool recomposeOnRender = false;
+        public bool onlyDynamicRender = false;
+        public ElementBounds InsideClipBounds;
 
         public ICoreClientAPI Api;
         public float zDepth=50;
@@ -104,7 +104,7 @@ namespace Vintagestory.API.Client
             get { return bounds; }
         }
 
-        internal bool IsCached;
+        public bool IsCached;
 
         /// <summary>
         /// Whether or not the Tab-Key down event should be used and consumed to cycle-focus individual gui elements
@@ -115,7 +115,7 @@ namespace Vintagestory.API.Client
 
         bool renderFocusHighlight;
 
-        internal GuiComposer(ICoreClientAPI api, ElementBounds bounds, string dialogName)
+        public GuiComposer(ICoreClientAPI api, ElementBounds bounds, string dialogName)
         {
             staticElementsTexture = new LoadedTexture(api);
             this.DialogName = dialogName;
@@ -239,7 +239,7 @@ namespace Vintagestory.API.Client
             Compose(false);
         }
 
-        internal void UnFocusElements()
+        public void UnFocusElements()
         {
             composerManager.UnfocusElements();
             OnFocusChanged?.Invoke(false);
@@ -771,7 +771,7 @@ namespace Vintagestory.API.Client
         }
 
 
-        internal static double scaled(double value)
+        public static double scaled(double value)
         {
             return value * RuntimeEnv.GUIScale;
         }

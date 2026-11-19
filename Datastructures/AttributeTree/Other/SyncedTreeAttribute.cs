@@ -1,17 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Vintagestory.API.Util;
 
-#nullable disable
-
 namespace Vintagestory.API.Datastructures
 {
     public class TreeModifiedListener
     {
-        public Action listener;
-        public string path;
+        public required Action listener;
+        public string? path;
     }
 
     public class SyncedTreeAttribute : TreeAttribute
@@ -29,7 +27,7 @@ namespace Vintagestory.API.Datastructures
 
         public List<TreeModifiedListener> OnModified = new List<TreeModifiedListener>();
 
-        public void RegisterModifiedListener(string path, Action listener)
+        public void RegisterModifiedListener(string? path, Action listener)
         {
             OnModified.Add(new TreeModifiedListener() { path = path, listener = listener });
         }
@@ -116,7 +114,7 @@ namespace Vintagestory.API.Datastructures
         /// <returns></returns>
         public virtual int GetIntAndIncrement(string key, int defaultValue = 0)
         {
-            IntAttribute attr = attributes.TryGetValue(key) as IntAttribute;
+            IntAttribute? attr = attributes.TryGetValue(key) as IntAttribute;
             if (attr == null) attributes[key] = attr = new IntAttribute(defaultValue);
             int value = attr.value;
             attr.SetValue(value + 1);
@@ -176,14 +174,15 @@ namespace Vintagestory.API.Datastructures
 
         public override SyncedTreeAttribute Clone()
         {
-            MemoryStream ms = new MemoryStream();
-            BinaryWriter writer = new BinaryWriter(ms);
+            var ms = new MemoryStream();
+            var writer = new BinaryWriter(ms, System.Text.Encoding.UTF8, true);
             ToBytes(writer);
-            ms.Position = 0;
 
-            BinaryReader reader = new BinaryReader(ms);
-            SyncedTreeAttribute tree = new SyncedTreeAttribute();
-            tree.FromBytes(reader);
+            var reader = ms.UnsafeAsBinarySpanReader();
+
+            var tree = new SyncedTreeAttribute();
+            tree.FromBytes(ref reader);
+
             return tree;
         }
 
@@ -209,9 +208,9 @@ namespace Vintagestory.API.Datastructures
 
             for (int i = 0; i < paths.Length; i++)
             {
-                string path;
+                string? path;
                 if ((path = paths[i]) == null) continue;
-                IAttribute attr;
+                IAttribute? attr;
                 if ((attr = GetAttributeByPath(path)) == null) continue;
 
                 ms.Reset();
@@ -222,9 +221,9 @@ namespace Vintagestory.API.Datastructures
         }
 
 
-        public override void FromBytes(BinaryReader stream)
+        public override void FromBytes(ref BinarySpanReader stream)
         {
-            base.FromBytes(stream);
+            base.FromBytes(ref stream);
 
             foreach (TreeModifiedListener listener in OnModified)
             {
@@ -234,7 +233,7 @@ namespace Vintagestory.API.Datastructures
 
         public void PartialUpdate(string path, byte[] data)
         {
-            IAttribute attr = GetAttributeByPath(path);
+            IAttribute? attr = GetAttributeByPath(path);
             
             if (data == null)
             {
@@ -242,19 +241,18 @@ namespace Vintagestory.API.Datastructures
                 return;
             }
 
-            MemoryStream ms = new MemoryStream(data);
-            BinaryReader reader = new BinaryReader(ms);
+            var reader = new BinarySpanReader(data);
 
             int attrId = reader.ReadByte();
 
             if (attr == null)
             {
                 Type t = AttributeIdMapping[attrId];
-                attr = (IAttribute)Activator.CreateInstance(t);
+                attr = (IAttribute)Activator.CreateInstance(t)!;
                 attributes[path] = attr;
             }
 
-            attr.FromBytes(reader);
+            attr.FromBytes(ref reader);
 
             foreach (TreeModifiedListener listener in OnModified)
             {

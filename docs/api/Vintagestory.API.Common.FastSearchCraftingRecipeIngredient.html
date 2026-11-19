@@ -166,8 +166,8 @@ Class FastSearchCraftingRecipeIngredient
 
   <a id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient__ctor_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.#ctor*"></a>
 
-  <h3 id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient__ctor_Vintagestory_API_Common_CraftingRecipeIngredient_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.#ctor(Vintagestory.API.Common.CraftingRecipeIngredient)">
-  FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient)
+  <h3 id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient__ctor_Vintagestory_API_Common_CraftingRecipeIngredient_Vintagestory_API_Common_IWorldAccessor_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.#ctor(Vintagestory.API.Common.CraftingRecipeIngredient,Vintagestory.API.Common.IWorldAccessor)">
+  FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient, IWorldAccessor)
   
   </h3>
 
@@ -175,12 +175,14 @@ Class FastSearchCraftingRecipeIngredient
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient parent)</code></pre>
+    <pre><code class="lang-csharp hljs">public FastSearchCraftingRecipeIngredient(CraftingRecipeIngredient parent, IWorldAccessor worldForResolve)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>parent</code> <a class="xref" href="Vintagestory.API.Common.CraftingRecipeIngredient.html">CraftingRecipeIngredient</a></dt>
+    <dd></dd>
+    <dt><code>worldForResolve</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
     <dd></dd>
   </dl>
 
@@ -220,6 +222,37 @@ Class FastSearchCraftingRecipeIngredient
   <h4 class="section">Property Value</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient_Attributes_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.Attributes*"></a>
+
+  <h3 id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient_Attributes" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.Attributes">
+  Attributes
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JsonObject? Attributes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Datastructures.JsonObject.html">JsonObject</a></dt>
     <dd></dd>
   </dl>
 
@@ -534,7 +567,7 @@ Class FastSearchCraftingRecipeIngredient
   <a id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient_SatisfiesAsIngredient_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.SatisfiesAsIngredient*"></a>
 
   <h3 id="Vintagestory_API_Common_FastSearchCraftingRecipeIngredient_SatisfiesAsIngredient_Vintagestory_API_Common_ItemStack_System_Boolean_" data-uid="Vintagestory.API.Common.FastSearchCraftingRecipeIngredient.SatisfiesAsIngredient(Vintagestory.API.Common.ItemStack,System.Boolean)">
-  SatisfiesAsIngredient(ItemStack, bool)
+  SatisfiesAsIngredient(ItemStack?, bool)
   
   </h3>
 
@@ -542,7 +575,7 @@ Class FastSearchCraftingRecipeIngredient
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool SatisfiesAsIngredient(ItemStack inputStack, bool unused = false)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool SatisfiesAsIngredient(ItemStack? inputStack, bool unused = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

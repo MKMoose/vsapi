@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 
 namespace Vintagestory.API.Common;
@@ -314,18 +315,16 @@ public class GridRecipe : RecipeBase, IByteSerializable, IConcreteCloneable<Grid
     /// <summary>
     /// Deserializes the recipe
     /// </summary>
-    /// <param name="reader"></param>
-    /// <param name="resolver"></param>
-    public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+    public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
     {
-        base.FromBytes(reader, resolver);
+        base.FromBytes(ref reader, resolver);
 
         Width = reader.ReadInt32();
         Height = reader.ReadInt32();
         Shapeless = reader.ReadBoolean();
 
         Output = new CraftingRecipeIngredient();
-        Output.FromBytes(reader, resolver);
+        Output.FromBytes(ref reader, resolver);
 
         ResolvedIngredients = new CraftingRecipeIngredient[Width * Height];
         for (int i = 0; i < ResolvedIngredients.Length; i++)
@@ -334,7 +333,7 @@ public class GridRecipe : RecipeBase, IByteSerializable, IConcreteCloneable<Grid
             if (isNull) continue;
 
             CraftingRecipeIngredient ingredient = new();
-            ingredient.FromBytes(reader, resolver);
+            ingredient.FromBytes(ref reader, resolver);
             ingredient.Resolve(resolver, "Grid recipes deserialized", this);
             ResolvedIngredients[i] = ingredient;
         }

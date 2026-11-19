@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-#nullable disable
+using System.Collections.Generic;
 
 namespace Vintagestory.API.Common
 {
@@ -20,7 +18,7 @@ namespace Vintagestory.API.Common
         /// Gets the enabled mod with the specified mod ID (domain).
         /// Returns null if no mod with that mod ID was found.
         /// </summary>
-        Mod GetMod(string modID);
+        Mod? GetMod(string modID);
 
         /// <summary>
         /// Returns if the mod with the specified mod ID (domain) is enabled.
@@ -32,13 +30,13 @@ namespace Vintagestory.API.Common
         /// class name, for example "Vintagestory.ServerMods.Core" for the survival mod.
         /// Returns null if no mod with that name was found.
         /// </summary>
-        ModSystem GetModSystem(string fullName);
+        ModSystem? GetModSystem(string fullName);
 
         /// <summary>
         /// Gets a loaded mod system with the specified type.
         /// Returns null if no mod of that type was found.
         /// </summary>
-        T GetModSystem<T>(bool withInheritance = true) where T : ModSystem;
+        TModSystem? GetModSystem<TModSystem>(bool withInheritance = true) where TModSystem : ModSystem;
 
         /// <summary>
         /// Returns if the mod system with the specified full name is loaded and enabled.

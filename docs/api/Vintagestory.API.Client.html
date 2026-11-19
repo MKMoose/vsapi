@@ -106,7 +106,9 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.BlendedOverlayTexture.html">BlendedOverlayTexture</a></dt>
-      <dd><p>Defines a texture to be overlayed on another texture. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>
+      <dd><p>Defines a texture to be overlayed on another texture.
+Overlay textures no longer have to be of same size.
+Overlays are applied in reverse order, from last to first. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/CompositeTexture.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -205,6 +207,16 @@ Specific examples:</li>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.DictionaryTextureSource.html">DictionaryTextureSource</a></dt>
+      <dd><p>A concrete but flexible ITexPositionSource for use with custom code logic <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Texture/ITextureSource.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.DropDownEntry.html">DropDownEntry</a></dt>
+      <dd><p>A value/name pair for use with dropdown elements. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Interactive/Controls/GuiElementDropDown.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.DrunkPerceptionEffect.html">DrunkPerceptionEffect</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/PerceptionEffects/DrunkPerceptionEffect.cs>Open in GitHub</a></p>
 </dd>
@@ -222,13 +234,18 @@ Padding is counted towards the size of the box, whereas margin is not <a href=ht
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ElementHitbox.html">ElementHitbox</a></dt>
+      <dd><p>Represents an AABB hitbox for a model element with rendering capabilities. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ElementHitbox.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.ElementStdBounds.html">ElementStdBounds</a></dt>
       <dd><p>Just some default sizings for various ui elements <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/ElementStdBounds.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.EnumLodPool.html">EnumLodPool</a></dt>
-      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
+      <dd><p>LOD level numbers used for the pool (values of LodLevel) <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -273,7 +290,9 @@ Padding is counted towards the size of the box, whereas margin is not <a href=ht
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.FrustumCulling.html">FrustumCulling</a></dt>
-      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
+      <dd><p>The frustum culler keeps the planes of the current view pyramid and tests whether an object is
+inside them All visibility rules live here and are used by both the single object checks
+(InFrustum and friends) and the batched version in PoolCullData <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -544,6 +563,11 @@ You add components by chaining the functions of the composer together for buildi
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.GuiElementServerCell.html">GuiElementServerCell</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Misc/GuiElementServerCell.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.GuiElementSkillItemGrid.html">GuiElementSkillItemGrid</a></dt>
       <dd><p>A slot for item skills. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Interactive/Inventory/GuiElementSkillItemGrid.cs>Open in GitHub</a></p>
 </dd>
@@ -631,6 +655,29 @@ You add components by chaining the functions of the composer together for buildi
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.HotkeyComponent.html">HotkeyComponent</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Interactive/Text/Richtext/HotkeyComponent.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.Hud3DElement.html">Hud3DElement</a></dt>
+      <dd><p>Abstract base class for HUD elements rendered as 3D models in orthographic projection. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DElement.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.Hud3DFilterOverlaySet.html">Hud3DFilterOverlaySet</a></dt>
+      <dd><p>Owns the selected-state overlay meshes for a group of filter buttons. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DFilterOverlaySet.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.Hud3DPanelScene.html">Hud3DPanelScene</a></dt>
+      <dd><p>Reusable 3D panel scene that owns a shape, mesh, animator, raycaster, and
+scene-local tessellation state. This avoids mutating shared dialog texture
+source state when a dialog needs multiple independently rendered shapes. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DPanelScene.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.Hud3DRaycastElement.html">Hud3DRaycastElement</a></dt>
+      <dd><p>Abstract middle layer that adds raycaster-based mouse interaction to a 3D HUD element.
+Extracts hitboxes from the shape, raycasts on mouse events, and dispatches to virtual handlers. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DRaycastElement.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -722,12 +769,14 @@ Please note, all arrays are used as a buffer. They do not tightly fit the data b
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.MeshDataPool.html">MeshDataPool</a></dt>
-      <dd><p>This is a modeldata pool, which can hold 400k vertices, 300k indices but not more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
+      <dd><p>A model data pool: one large buffer on the GPU that chunk meshes are packed into
+It holds up to 400k vertices and 300k indices but never more than 900 chunks <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.MeshDataPoolManager.html">MeshDataPoolManager</a></dt>
-      <dd><p>Holds a collection of pools, usually for 1 render pass <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>
+      <dd><p>Holds a set of pools, usually for one render pass.
+A new mesh is first offered to the existing pools and if none of them takes it, a new pool is created. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPoolManager.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -757,7 +806,37 @@ Please note, all arrays are used as a buffer. They do not tightly fit the data b
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.ModelDataPoolLocation.html">ModelDataPoolLocation</a></dt>
-      <dd><p>Contains all the data for the given model pool. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
+      <dd><p>Description of one pool part (one chunk mesh in one LOD and one render pass)</p>
+<p>The flags Hide, LodLevel, FrustumVisible and CullVisible are properties: while the part is in a pool
+they live in the pool slot arrays (PoolCullData) so culling reads them without touching this object
+After the part is removed from the pool the last values stay in this object</p>
+<p>Note: this class implements no visibility rules All rules (the frustum test per mode, the LOD and
+view distance rule, the shadow pass threshold) live in FrustumCulling and the batched version
+lives in PoolCullData There is no separate per object version to keep in sync <a href=https://github.com/anegostudios/vsapi/blob/master///Client/MeshPool/MeshDataPool.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ModelHitboxGenerator.html">ModelHitboxGenerator</a></dt>
+      <dd><p>Generates AABB hitboxes from Vintage Story Shape models. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelHitboxGenerator.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ModelHitboxTransform.html">ModelHitboxTransform</a></dt>
+      <dd><p>Handles transformation matrix building and ray transformations for 3D model raycasting.
+Encapsulates the logic for converting between screen space and model local space. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelHitboxTransform.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ModelRayCaster.html">ModelRayCaster</a></dt>
+      <dd><p>Performs raycasting against a 3D mesh to determine UV coordinates from screen clicks.
+Also supports AABB-based hitbox detection for precise element selection.
+Useful for making clickable 3D UI elements.</p>
+<p>Usage:</p>
+<ol>
+<li>Create raycaster: new ModelRayCaster(capi, () =&gt; yaw, () =&gt; pitch, () =&gt; scale, -1000)</li>
+<li>Load hitboxes: rayCaster.LoadHitboxes(hitboxes)</li>
+<li>On click: rayCaster.RayCastToHitbox(mouseX, mouseY, out ElementHitbox hitbox) <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/ModelRayCaster.cs>Open in GitHub</a></li>
+</ol>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -849,6 +928,11 @@ Please note, all arrays are used as a buffer. They do not tightly fit the data b
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.SavegameCellEntry.html">SavegameCellEntry</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Misc/SavegameCellEntry.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ServerCellEntry.html">ServerCellEntry</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Elements/Impl/Misc/ServerCellEntry.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -950,7 +1034,9 @@ Structs
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.Plane.html">Plane</a></dt>
-      <dd></dd>
+      <dd><p>A plane of the form n.p + D = 0 A point in front of the plane gives a value above zero
+and a point behind it gives a value below zero</p>
+</dd>
     </dl>
     <h3 id="interfaces">
 Interfaces
@@ -967,6 +1053,10 @@ Interfaces
       <dt><a class="xref" href="Vintagestory.API.Client.IBlockTextureAtlasAPI.html">IBlockTextureAtlasAPI</a></dt>
       <dd><p>Block texture Atlas</p>
 </dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ICameraAPI.html">ICameraAPI</a></dt>
+      <dd></dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.IClientEventAPI.html">IClientEventAPI</a></dt>
@@ -1269,7 +1359,7 @@ Second word = Y Alignment (top, middle, bottom or fixed) <a href=https://github.
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.EnumFrustumCullMode.html">EnumFrustumCullMode</a></dt>
-      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
+      <dd><p>Frustum culling mode <a href=https://github.com/anegostudios/vsapi/blob/master///Client/Render/FrustumCulling.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -1360,6 +1450,10 @@ Upon typing text in a Text input field it will produce the correct characters ac
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.ModelCubeUtilExt.EnumShadeMode.html">ModelCubeUtilExt.EnumShadeMode</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Client.ServerCellEntry.ProbeState.html">ServerCellEntry.ProbeState</a></dt>
       <dd></dd>
     </dl>
     <h3 id="delegates">
@@ -1535,7 +1629,8 @@ Delegates
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Client.VisibleTestDelegate.html">VisibleTestDelegate</a></dt>
-      <dd></dd>
+      <dd><p>Visibility test delegate for external code</p>
+</dd>
     </dl>
 
 

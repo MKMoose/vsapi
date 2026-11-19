@@ -147,9 +147,6 @@ Struct BlockEntity.CachedAccessPerms
 
 
 
-  <h2 id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms_remarks">Remarks</h2>
-  <div class="markdown level0 remarks"><p>Proper use of this (passdown into handlers) will be introduced in the next version.</p>
-</div>
 
 
   <h2 class="section" id="constructors">Constructors
@@ -158,24 +155,24 @@ Struct BlockEntity.CachedAccessPerms
 
   <a id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms__ctor_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.#ctor*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms__ctor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_BlockPos_Vintagestory_API_Common_IPlayer_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.#ctor(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.BlockPos,Vintagestory.API.Common.IPlayer)">
-  CachedAccessPerms(IWorldAccessor, BlockPos, IPlayer)
+  <h3 id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms__ctor_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_FastBlockPos_Vintagestory_API_Common_IPlayer_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.#ctor(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.FastBlockPos,Vintagestory.API.Common.IPlayer)">
+  CachedAccessPerms(IWorldAccessor, FastBlockPos, IPlayer)
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Access permissions cache for a specific block for a specific player. Used in packet handling to not have to duplicate work if multiple handlers are interested in validation.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[Obsolete(&quot;This signature will change in 1.23. Avoid it for now.&quot;)]
-public CachedAccessPerms(IWorldAccessor world, BlockPos blockPos, IPlayer player)</code></pre>
+    <pre><code class="lang-csharp hljs">public CachedAccessPerms(IWorldAccessor world, FastBlockPos blockPos, IPlayer player)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>world</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
     <dd></dd>
-    <dt><code>blockPos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dt><code>blockPos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
     <dt><code>player</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
     <dd></dd>
@@ -290,10 +287,10 @@ public CachedAccessPerms(IWorldAccessor world, BlockPos blockPos, IPlayer player
 </h2>
 
 
-  <a id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms_IsInteractingPlayerAllowedTo_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.IsInteractingPlayerAllowedTo*"></a>
+  <a id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms_TryAccessingBlockAtPos_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.TryAccessingBlockAtPos*"></a>
 
-  <h3 id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms_IsInteractingPlayerAllowedTo_Vintagestory_API_Common_EnumBlockAccessFlags_System_Boolean_System_String_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.IsInteractingPlayerAllowedTo(Vintagestory.API.Common.EnumBlockAccessFlags,System.Boolean,System.String)">
-  IsInteractingPlayerAllowedTo(EnumBlockAccessFlags, bool, string)
+  <h3 id="Vintagestory_API_Common_BlockEntity_CachedAccessPerms_TryAccessingBlockAtPos_Vintagestory_API_Common_EnumBlockAccessFlags_System_Boolean_System_String_" data-uid="Vintagestory.API.Common.BlockEntity.CachedAccessPerms.TryAccessingBlockAtPos(Vintagestory.API.Common.EnumBlockAccessFlags,System.Boolean,System.String)">
+  TryAccessingBlockAtPos(EnumBlockAccessFlags, bool, string)
   
   </h3>
 
@@ -302,7 +299,7 @@ public CachedAccessPerms(IWorldAccessor world, BlockPos blockPos, IPlayer player
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool IsInteractingPlayerAllowedTo(EnumBlockAccessFlags accessToCheck, bool validatePickRange, string thingNameForLog)</code></pre>
+    <pre><code class="lang-csharp hljs">public bool TryAccessingBlockAtPos(EnumBlockAccessFlags accessToCheck, bool validatePickRange, string thingNameForLog)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

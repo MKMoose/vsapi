@@ -101,7 +101,7 @@ Class RecipeRegistryGeneric&lt;T&gt;
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RecipeRegistryGeneric&lt;T&gt; : RecipeRegistryBase where T : IByteSerializable, new()</code></pre>
+    <pre><code class="lang-csharp hljs">public class RecipeRegistryGeneric&lt;T&gt; : CustomRegistryBase where T : IByteSerializable, new()</code></pre>
   </div>
 
 
@@ -116,7 +116,7 @@ Class RecipeRegistryGeneric&lt;T&gt;
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="Vintagestory.API.Common.RecipeRegistryBase.html">RecipeRegistryBase</a></div>
+      <div><a class="xref" href="Vintagestory.API.Common.CustomRegistryBase.html">CustomRegistryBase</a></div>
       <div><span class="xref">RecipeRegistryGeneric&lt;T&gt;</span></div>
     </dd>
   </dl>

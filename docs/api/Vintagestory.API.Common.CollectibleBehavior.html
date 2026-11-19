@@ -511,6 +511,46 @@ public abstract class CollectibleBehavior</code></pre>
 
 
 
+  <a id="Vintagestory_API_Common_CollectibleBehavior_GetDamageType_" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetDamageType*"></a>
+
+  <h3 id="Vintagestory_API_Common_CollectibleBehavior_GetDamageType_Vintagestory_API_Common_ItemStack_Vintagestory_API_Common_EnumDamageType_Vintagestory_API_Common_EnumHandling__" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetDamageType(Vintagestory.API.Common.ItemStack,Vintagestory.API.Common.EnumDamageType,Vintagestory.API.Common.EnumHandling@)">
+  GetDamageType(ItemStack, EnumDamageType, ref EnumHandling)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual EnumDamageType GetDamageType(ItemStack itemStack, EnumDamageType damageType, ref EnumHandling handling)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemStack</code> <a class="xref" href="Vintagestory.API.Common.ItemStack.html">ItemStack</a></dt>
+    <dd></dd>
+    <dt><code>damageType</code> <a class="xref" href="Vintagestory.API.Common.EnumDamageType.html">EnumDamageType</a></dt>
+    <dd></dd>
+    <dt><code>handling</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.EnumDamageType.html">EnumDamageType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_CollectibleBehavior_GetHeldInteractionHelp_" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetHeldInteractionHelp*"></a>
 
   <h3 id="Vintagestory_API_Common_CollectibleBehavior_GetHeldInteractionHelp_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_EnumHandling__" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetHeldInteractionHelp(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.EnumHandling@)">
@@ -771,6 +811,46 @@ public abstract class CollectibleBehavior</code></pre>
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_CollectibleBehavior_GetKnockbackStrength_" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetKnockbackStrength*"></a>
+
+  <h3 id="Vintagestory_API_Common_CollectibleBehavior_GetKnockbackStrength_Vintagestory_API_Common_ItemStack_System_Single_Vintagestory_API_Common_EnumHandling__" data-uid="Vintagestory.API.Common.CollectibleBehavior.GetKnockbackStrength(Vintagestory.API.Common.ItemStack,System.Single,Vintagestory.API.Common.EnumHandling@)">
+  GetKnockbackStrength(ItemStack, float, ref EnumHandling)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float GetKnockbackStrength(ItemStack itemStack, float kbStrength, ref EnumHandling handling)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>itemStack</code> <a class="xref" href="Vintagestory.API.Common.ItemStack.html">ItemStack</a></dt>
+    <dd></dd>
+    <dt><code>kbStrength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>handling</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
   </dl>
 
@@ -1239,6 +1319,46 @@ If 'bhHandling' is not set to 'PreventDefault', standard item durability will be
 
 
 
+  <a id="Vintagestory_API_Common_CollectibleBehavior_IsToolModeToggle_" data-uid="Vintagestory.API.Common.CollectibleBehavior.IsToolModeToggle*"></a>
+
+  <h3 id="Vintagestory_API_Common_CollectibleBehavior_IsToolModeToggle_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Client_IClientPlayer_Vintagestory_API_Common_BlockSelection_" data-uid="Vintagestory.API.Common.CollectibleBehavior.IsToolModeToggle(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Client.IClientPlayer,Vintagestory.API.Common.BlockSelection)">
+  IsToolModeToggle(ItemSlot, IClientPlayer, BlockSelection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsToolModeToggle(ItemSlot slot, IClientPlayer forPlayer, BlockSelection blockSelection)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>slot</code> <a class="xref" href="Vintagestory.API.Common.ItemSlot.html">ItemSlot</a></dt>
+    <dd></dd>
+    <dt><code>forPlayer</code> <a class="xref" href="Vintagestory.API.Client.IClientPlayer.html">IClientPlayer</a></dt>
+    <dd></dd>
+    <dt><code>blockSelection</code> <a class="xref" href="Vintagestory.API.Common.BlockSelection.html">BlockSelection</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_CollectibleBehavior_OnBeforeRender_" data-uid="Vintagestory.API.Common.CollectibleBehavior.OnBeforeRender*"></a>
 
   <h3 id="Vintagestory_API_Common_CollectibleBehavior_OnBeforeRender_Vintagestory_API_Client_ICoreClientAPI_Vintagestory_API_Common_ItemStack_Vintagestory_API_Client_EnumItemRenderTarget_Vintagestory_API_Client_ItemRenderInfo__" data-uid="Vintagestory.API.Common.CollectibleBehavior.OnBeforeRender(Vintagestory.API.Client.ICoreClientAPI,Vintagestory.API.Common.ItemStack,Vintagestory.API.Client.EnumItemRenderTarget,Vintagestory.API.Client.ItemRenderInfo@)">
@@ -1606,6 +1726,42 @@ public virtual float OnGetMiningSpeed(IItemStack itemstack, BlockSelection block
     <dt><code>size</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
     <dd></dd>
     <dt><code>handling</code> <a class="xref" href="Vintagestory.API.Common.EnumHandling.html">EnumHandling</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_CollectibleBehavior_OnHeldActionAnimStart_" data-uid="Vintagestory.API.Common.CollectibleBehavior.OnHeldActionAnimStart*"></a>
+
+  <h3 id="Vintagestory_API_Common_CollectibleBehavior_OnHeldActionAnimStart_Vintagestory_API_Common_ItemSlot_Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_EnumHandInteract_" data-uid="Vintagestory.API.Common.CollectibleBehavior.OnHeldActionAnimStart(Vintagestory.API.Common.ItemSlot,Vintagestory.API.Common.EntityAgent,Vintagestory.API.Common.EnumHandInteract)">
+  OnHeldActionAnimStart(ItemSlot, EntityAgent, EnumHandInteract)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called after a held action animation starts, including each swing in a held attack combo.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void OnHeldActionAnimStart(ItemSlot slot, EntityAgent byEntity, EnumHandInteract type)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>slot</code> <a class="xref" href="Vintagestory.API.Common.ItemSlot.html">ItemSlot</a></dt>
+    <dd></dd>
+    <dt><code>byEntity</code> <a class="xref" href="Vintagestory.API.Common.EntityAgent.html">EntityAgent</a></dt>
+    <dd></dd>
+    <dt><code>type</code> <a class="xref" href="Vintagestory.API.Common.EnumHandInteract.html">EnumHandInteract</a></dt>
     <dd></dd>
   </dl>
 

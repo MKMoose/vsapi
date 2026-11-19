@@ -33,7 +33,10 @@ namespace Vintagestory.API.Common
                 {
                     throw new IOException(string.Format("Cannot create {2} file {0}, the folder {1} does not seem to be writable!", filename, Path.GetDirectoryName(filename), DBTypeCode));
                 }
-
+                if (!requireWriteAccess)
+                {
+                    throw new Exception("Cannot create savegame if it does not exist while in --readonly mode!");
+                }
             }
             else
             {
@@ -62,8 +65,11 @@ namespace Vintagestory.API.Common
 
                 sqliteConn = new SqliteConnection(conf.ToString());
                 sqliteConn.Open();
-                using (var cmd = sqliteConn.CreateCommand())
+
+                // if we are in readonly mode we have to stick to the journal_mode that is set in the db currently
+                if (requireWriteAccess)
                 {
+                    using var cmd = sqliteConn.CreateCommand();
                     cmd.CommandTimeout = 1;
                     if (corruptionProtection)
                     {
@@ -75,12 +81,8 @@ namespace Vintagestory.API.Common
                     }
 
                     cmd.ExecuteNonQuery();
-                }
 
-
-                if (requireWriteAccess)
-                {
-                    CreateTablesIfNotExists(sqliteConn);
+                    CreateTablesIfNotExists();
                 }
 
                 if (doIntegrityCheck && !DoIntegrityCheck(sqliteConn))
@@ -118,7 +120,7 @@ namespace Vintagestory.API.Common
         }
 
 
-        protected virtual void CreateTablesIfNotExists(SqliteConnection sqliteConn)
+        protected virtual void CreateTablesIfNotExists()
         {
             // Create your tables here
         }
@@ -136,23 +138,19 @@ namespace Vintagestory.API.Common
         public bool DoIntegrityCheck(SqliteConnection sqliteConn, bool logResults = true)
         {
             var okay = false;
-            using (var command = sqliteConn.CreateCommand())
+            using var command = sqliteConn.CreateCommand();
+            command.CommandText = "PRAGMA integrity_check";
+
+            using var sqlite_datareader = command.ExecuteReader();
+            if (logResults) logger.Notification($"Database: {sqliteConn.DataSource}. Running SQLite integrity check:");
+
+            while (sqlite_datareader.Read())
             {
-                command.CommandText = "PRAGMA integrity_check";
-
-                using (var sqlite_datareader = command.ExecuteReader())
+                logger.Notification("Integrity check " + sqlite_datareader[0].ToString());
+                if (sqlite_datareader[0].ToString() == "ok")
                 {
-                    if (logResults) logger.Notification(string.Format("Database: {0}. Running SQLite integrity check:", sqliteConn.DataSource));
-
-                    while (sqlite_datareader.Read())
-                    {
-                        logger.Notification("Integrity check " + sqlite_datareader[0].ToString());
-                        if (sqlite_datareader[0].ToString() == "ok")
-                        {
-                            okay = true;
-                            break;
-                        }
-                    }
+                    okay = true;
+                    break;
                 }
             }
 

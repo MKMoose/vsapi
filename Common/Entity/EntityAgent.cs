@@ -6,7 +6,6 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 
 #nullable disable
 
@@ -22,6 +21,7 @@ namespace Vintagestory.API.Common
     {
         public void ChangeCondition(ItemSlot slot, float changeVal);
         public float GetWarmth(ItemSlot slot);
+        public float GetRainProtectionPercentage(ItemSlot inSlot);
     }
 
     public interface IWearableShapeSupplier
@@ -44,26 +44,6 @@ namespace Vintagestory.API.Common
         public ProtectionModifiers GetProtectionModifiers(ItemSlot slot);
         public AssetLocation[] GetFootStepSounds(ItemSlot slot);
         public float GetMaxWarmth(ItemSlot slot);
-    }
-
-    public class StatModifiers
-    {
-        public float rangedWeaponsSpeed = 0f;
-        public float rangedWeaponsAcc = 0f;
-        public float walkSpeed = 0f;
-        public float healingeffectivness = 0f;
-        public float hungerrate = 0f;
-        public bool canEat = true;
-    }
-
-    public class ProtectionModifiers
-    {
-        public float RelativeProtection;
-        public float[] PerTierRelativeProtectionLoss;
-        public float FlatDamageReduction;
-        public float[] PerTierFlatDamageReductionLoss;
-        public int ProtectionTier;
-        public bool HighDamageTierResistant;
     }
 
     /// <summary>
@@ -271,7 +251,7 @@ namespace Vintagestory.API.Common
                     (MountedOn.Entity?.EntityId != mountable.Entity?.EntityId || mountable.SeatId != seat?.SeatId))
                 {
                     if (seat != null) seat.DoTeleportOnUnmount = false;
-                    TryUnmount();
+                    TryUnmount(true);
                     if (seat != null) seat.DoTeleportOnUnmount = true;
                 }
 
@@ -282,7 +262,7 @@ namespace Vintagestory.API.Common
             }
             else
             {
-                TryUnmount();
+                TryUnmount(true);
             }
 
         }
@@ -317,7 +297,13 @@ namespace Vintagestory.API.Common
         /// <returns>Whether or not unmounting was successful</returns>
         public bool TryUnmount()
         {
-            if (MountedOn?.CanUnmount(this) == false) return false;
+            return TryUnmount(false);
+        }
+
+        /// <param name="force">Bypasses the seat's exit veto for authoritative mount updates and removal.</param>
+        public bool TryUnmount(bool force)
+        {
+            if (!force && MountedOn?.CanUnmount(this) == false) return false;
 
             if (curMountedAnim != null)
             {
@@ -345,7 +331,7 @@ namespace Vintagestory.API.Common
                 }
             }
 
-            if (Api.Side == EnumAppSide.Server && oldMountedOn != null && oldMountedOn.MountSupplier?.OnEntity is Entity entity) Api.World.Logger.Audit("{0} dismounts/disembarks from a {1} at {2}", GetName(), entity.Code.ToShortString(), entity.Pos.AsBlockPos);
+            if (Api.Side == EnumAppSide.Server && oldMountedOn != null && oldMountedOn.MountSupplier?.OnEntity is Entity entity) Api.World.Logger.Audit("{0} dismounts/disembarks from a {1} ({2}) at {3}", GetName(), entity.Code.ToShortString(), entity.EntityId, entity.Pos.AsBlockPos);
 
             return true;
         }
@@ -378,7 +364,7 @@ namespace Vintagestory.API.Common
 
             if (despawn != null && despawn.Reason == EnumDespawnReason.Removed)
             {
-                if (this is EntityHumanoid || MountedOn != null) TryUnmount();
+                if (this is EntityHumanoid || MountedOn != null) TryUnmount(true);
             }
         }
 
@@ -400,11 +386,35 @@ namespace Vintagestory.API.Common
             {
                 float damage = slot.Itemstack == null ? 0.5f : slot.Itemstack.Collectible.GetAttackPower(slot.Itemstack);
                 int damagetier = slot.Itemstack == null ? 0 : slot.Itemstack.Collectible.GetToolTier(slot);
+                var damageType = (byEntity as EntityPlayer)?.GetHeldAttackDamageType(slot)
+                    ?? slot.Itemstack?.Collectible.GetDamageType(slot.Itemstack)
+                    ?? EnumDamageType.BluntAttack;
+                var kbStrength = slot.Itemstack == null ? 1f : slot.Itemstack.Collectible.GetKnockbackStrength(slot.Itemstack);
+
 
                 var dmgMultiplier = byEntity.Stats.GetBlended("meleeWeaponsDamage");
+                var itemstack = slot.Itemstack;
                 if (Properties.Attributes?["isMechanical"].AsBool() == true)
                 {
                     dmgMultiplier *= byEntity.Stats.GetBlended("mechanicalsDamage");
+                }
+
+                if (itemstack != null && byEntity.Swimming)
+                {
+                    dmgMultiplier *= (float)byEntity.World.Config.GetDecimal("underwaterDamageMultiplier", 0.7);
+                    if (!byEntity.OnGround)
+                    {
+                        dmgMultiplier *= (float)byEntity.World.Config.GetDecimal("underwaterFloatingDamageMultiplier", 0.8);
+                    }
+                    bool applyUnderwaterPenalty = damageType != EnumDamageType.PiercingAttack;
+                    applyUnderwaterPenalty = itemstack.Attributes.TryGetBool("applyUnderwaterPenalty")
+                        ?? itemstack.ItemAttributes?["applyUnderwaterPenalty"].AsBool(applyUnderwaterPenalty)
+                        ?? applyUnderwaterPenalty;
+
+                    if (applyUnderwaterPenalty)
+                    {
+                        dmgMultiplier *= (float)byEntity.World.Config.GetDecimal("underwaterSevereDamageMultiplier", 0.2);
+                    }
                 }
 
                 damage *= dmgMultiplier;
@@ -466,9 +476,10 @@ namespace Vintagestory.API.Common
                 {
                     Source = (byEntity as EntityPlayer).Player == null ? EnumDamageSource.Entity : EnumDamageSource.Player,
                     SourceEntity = byEntity,
-                    Type = EnumDamageType.BluntAttack,
+                    Type = damageType,
                     HitPosition = hitPosition,
-                    DamageTier = damagetier
+                    DamageTier = damagetier,
+                    KnockbackStrength = kbStrength
                 };
 
                 var im = GetInterface<IMountable>();
@@ -551,33 +562,33 @@ namespace Vintagestory.API.Common
         }
 
         /// <summary>
-        /// Recieves the saturation from a food source.
+        /// Recieves the satiety from a food source.
         /// </summary>
-        /// <param name="saturation">The amount of saturation recieved.</param>
+        /// <param name="satiety">The amount of satiety recieved.</param>
         /// <param name="foodCat">The cat of food... err Category of food.</param>
-        /// <param name="saturationLossDelay">The delay before the loss of saturation</param>
+        /// <param name="satietyLossDelay">The delay before the loss of satiety</param>
         /// <param name="nutritionGainMultiplier"></param>
-        public virtual void ReceiveSaturation(float saturation, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float saturationLossDelay = 10, float nutritionGainMultiplier = 1f)
+        public virtual void ReceiveSaturation(float satiety, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float satietyLossDelay = 10, float nutritionGainMultiplier = 1f)
         {
             if (!Alive) return;
 
-            if (ShouldReceiveSaturation(saturation, foodCat, saturationLossDelay))
+            if (ShouldReceiveSaturation(satiety, foodCat, satietyLossDelay))
             {
                 foreach (EntityBehavior behavior in SidedProperties.Behaviors)
                 {
-                    behavior.OnEntityReceiveSaturation(saturation, foodCat, saturationLossDelay, nutritionGainMultiplier);
+                    behavior.OnEntityReceiveSaturation(satiety, foodCat, satietyLossDelay, nutritionGainMultiplier);
                 }
             }
         }
 
         /// <summary>
-        /// Whether or not the target should recieve saturation.
+        /// Whether or not the target should recieve satiety.
         /// </summary>
-        /// <param name="saturation">The amount of saturation recieved.</param>
+        /// <param name="satiety">The amount of satiety recieved.</param>
         /// <param name="foodCat">The cat of food... err Category of food.</param>
-        /// <param name="saturationLossDelay">The delay before the loss of saturation</param>
+        /// <param name="satietyLossDelay">The delay before the loss of satiety</param>
         /// <param name="nutritionGainMultiplier"></param>
-        public virtual bool ShouldReceiveSaturation(float saturation, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float saturationLossDelay = 10, float nutritionGainMultiplier = 1f)
+        public virtual bool ShouldReceiveSaturation(float satiety, EnumFoodCategory foodCat = EnumFoodCategory.Unknown, float satietyLossDelay = 10, float nutritionGainMultiplier = 1f)
         {
             return true;
         }
@@ -592,11 +603,13 @@ namespace Vintagestory.API.Common
             PlayPlayerAnim = 200,
             PlayMusic = 201,
             StopMusic = 202,
-            Talk = 203
+            Talk = 203,
+            EmoteStop = 204
         }
         public enum EntityClientPacketId
         {
-            SitfloorEdge = 296
+            SitfloorEdge = 296,
+            HeldAttackCommitted = 297
         }
 
 
@@ -608,14 +621,18 @@ namespace Vintagestory.API.Common
                 var nowSuggestedAnim = MountedOn.SuggestedAnimation;
                 if (curMountedAnim?.Code != nowSuggestedAnim?.Code)
                 {
-                    if (curMountedAnim != null) AnimManager?.StopAnimation(curMountedAnim.Code);
+                    if (curMountedAnim != null) AnimManager?.StopAnimation(curMountedAnim.Animation);
                     if (nowSuggestedAnim != null) AnimManager?.StartAnimation(nowSuggestedAnim);
                     curMountedAnim = nowSuggestedAnim;
+                }
+                else if (nowSuggestedAnim != null && this is EntityPlayer player && AnimManager == player.SelfFpAnimManager && !AnimManager.IsAnimationActive (nowSuggestedAnim.Animation))
+                {
+                    AnimManager.StartAnimation(nowSuggestedAnim);
                 }
             }
             else if (curMountedAnim != null)
             {
-                AnimManager?.StopAnimation(curMountedAnim.Code);
+                AnimManager?.StopAnimation(curMountedAnim.Animation);
                 curMountedAnim = null;
             }
 
@@ -631,7 +648,7 @@ namespace Vintagestory.API.Common
                         (Swimming && !servercontrols.FloorSitting ? EnumEntityActivity.Swim : 0) |
                         (servercontrols.FloorSitting ? EnumEntityActivity.FloorSitting : 0) |
                         (servercontrols.Sneak && !servercontrols.IsClimbing && !servercontrols.FloorSitting && !Swimming ? EnumEntityActivity.SneakMode : 0) |
-                        (servercontrols.TriesToMove && servercontrols.Sprint && !Swimming && !servercontrols.Sneak ? EnumEntityActivity.SprintMode : 0) |
+                        (servercontrols.TriesToMove && servercontrols.Sprint && !Swimming && !servercontrols.Sneak && !servercontrols.IsClimbing ? EnumEntityActivity.SprintMode : 0) |
                         (servercontrols.IsFlying ? servercontrols.Gliding ? EnumEntityActivity.Glide : EnumEntityActivity.Fly : 0) |
                         (servercontrols.IsClimbing ? EnumEntityActivity.Climb : 0) |
                         (servercontrols.Jump && OnGround ? EnumEntityActivity.Jump : 0) |
@@ -671,7 +688,7 @@ namespace Vintagestory.API.Common
                     bool nowActive = anim.Matches((int)CurrentControls) || (isDefaultAnim && CurrentControls == EnumEntityActivity.Idle);
 
                     anyAverageAnimActive |= !isDefaultAnim && wasActive && anim.BlendMode == EnumAnimationBlendMode.Average; //  // (nowActive && anim.TriggeredBy?.DefaultAnim != true) || (wasActive && !anim.WasStartedFromTrigger) || (MountedOn != null && MountedOn.SkipIdleAnimation);
-                    skipDefaultAnim |= (nowActive || (wasActive && !anim.WasStartedFromTrigger)) && anim.SupressDefaultAnimation;
+                    skipDefaultAnim |= (nowActive || (wasActive && !anim.WasStartedFromTrigger)) && anim.SuppressDefaultAnimation;
 
                     if (isDefaultAnim)
                     {
@@ -692,6 +709,17 @@ namespace Vintagestory.API.Common
                         AnimManager.StopAnimation(anim.Animation);
                     }
                 }
+                if (!alwaysRunIdle)
+                {
+                    foreach (AnimationMetaData anim in AnimManager.ActiveAnimationsByAnimCode.Values)
+                    {
+                        if (anim.SuppressDefaultAnimation && anim.TriggeredBy?.DefaultAnim != true)
+                        {
+                            skipDefaultAnim = true;
+                            break;
+                        }
+                    }
+                }
 
 
                 if (defaultAnim != null && Alive && !skipDefaultAnim)
@@ -709,7 +737,7 @@ namespace Vintagestory.API.Common
 
                 if ((!Alive || skipDefaultAnim) && defaultAnim != null)
                 {
-                    AnimManager.StopAnimation(defaultAnim.Code);
+                    AnimManager.StopAnimation(defaultAnim.Animation);
                 }
 
                 bool isSelf = (Api as ICoreClientAPI).World.Player.Entity.EntityId == EntityId;
@@ -833,7 +861,9 @@ namespace Vintagestory.API.Common
                 multiplier /= 2.5;
             }
 
-            multiplier *= belowBlock.WalkSpeedMultiplier * (y1 == y2 ? 1 : insideBlock.WalkSpeedMultiplier);
+            // Liquid blocks can occupy the same space as a 'dry' collider
+            if (FeetInLiquid || !belowBlock.IsLiquid()) multiplier *= belowBlock.WalkSpeedMultiplier;
+            if (y1 != y2 && (FeetInLiquid || !insideBlock.IsLiquid())) multiplier *= insideBlock.WalkSpeedMultiplier;
 
             return multiplier;
         }
@@ -870,14 +900,15 @@ namespace Vintagestory.API.Common
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="forClient"></param>
-        public override void FromBytes(BinaryReader reader, bool forClient)
+        public override void FromBytes(ref BinarySpanReader reader, bool forClient)
         {
             try
             {
-                base.FromBytes(reader, forClient);
-                controls.FromBytes(reader, LoadControlsFromServer);
+                base.FromBytes(ref reader, forClient);
+                controls.FromBytes(ref reader, LoadControlsFromServer);
 
-            } catch (EndOfStreamException e)
+            }
+            catch (EndOfStreamException e)
             {
                 throw new Exception("EndOfStreamException thrown while reading entity, you might be able to recover your savegame through repair mode", e);
 
@@ -905,6 +936,8 @@ namespace Vintagestory.API.Common
             Pos.HeadPitch = WatchedAttributes.GetFloat("headPitch");
         }
 
+
+        public EnumItemUseCancelReason? RequestedHandUseCancelReason;
 
         /// <summary>
         /// Attempts to stop the hand  action.

@@ -1,5 +1,5 @@
-using System;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
@@ -68,7 +68,7 @@ namespace Vintagestory.API.Common
         public JsonObject? properties;
 
         public ICoreAPI Api = null!;
-        
+
         public BlockEntityBehavior(BlockEntity blockentity)
         {
             this.Blockentity = blockentity;
@@ -86,52 +86,64 @@ namespace Vintagestory.API.Common
 
         public virtual void OnBlockRemoved()
         {
-            
+
         }
 
         public virtual void OnBlockUnloaded()
         {
-            
+
         }
 
         public virtual void OnBlockBroken(IPlayer? byPlayer = null)
         {
-            
+
         }
 
         public virtual void OnBlockPlaced(ItemStack? byItemStack = null)
         {
-            
+
         }
 
         public virtual void ToTreeAttributes(ITreeAttribute tree)
         {
-            
+
         }
 
         public virtual void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
         {
-            
+
         }
 
-        public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)
+        [Obsolete("Use the SerializedData overload. Never override both.")]
+        public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetId, byte[] packetData)
         {
-            
+
         }
 
-        public virtual void OnReceivedServerPacket(int packetid, byte[] data)
+        public virtual void OnReceivedClientPacket(IServerPlayer fromPlayer, int packetId, SerializedData packetData, ref BlockEntity.CachedAccessPerms perms)
         {
-            
+
+        }
+
+        [Obsolete("Use the SerializedData overload. Never override both.")]
+        public virtual void OnReceivedServerPacket(int packetId, byte[] packetData)
+        {
+
+        }
+
+        public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData)
+        {
+
         }
 
         public virtual void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
-            
+
         }
 
         public virtual void OnStoreCollectibleMappings(Dictionary<int, AssetLocation> blockIdMapping, Dictionary<int, AssetLocation> itemIdMapping)
         {
-            
+
         }
 
         [Obsolete("Use the variant with resolveImports parameter")]
@@ -142,7 +154,7 @@ namespace Vintagestory.API.Common
 
         public virtual void OnLoadCollectibleMappings(IWorldAccessor worldForNewMappings, Dictionary<int, AssetLocation> oldBlockIdMapping, Dictionary<int, AssetLocation> oldItemIdMapping, int schematicSeed, bool resolveImports)
         {
-            
+
         }
 
         /// <summary>
@@ -160,7 +172,20 @@ namespace Vintagestory.API.Common
 
         public virtual void OnPlacementBySchematic(ICoreServerAPI api, IBlockAccessor blockAccessor, BlockPos pos, Dictionary<int, Dictionary<int, int>> replaceBlocks, int centerrockblockid, Block layerBlock, bool resolveImports)
         {
-            
+
+        }
+
+        /// <summary>
+        /// Called when a schematic is placed, the tree may contain special data for example to spawn door keys per dungeon.
+        /// The custom data needs to be supplied via the SchematicPlacementData.Attributes when calling PlaceEntitiesAndBlockEntities or PlacePartial
+        /// </summary>
+        /// <param name="sapi"></param>
+        /// <param name="worldAccessor"></param>
+        /// <param name="schematicTreeData"></param>
+        /// <returns>return true if the ITreeAttribute was modified</returns>
+        public virtual bool OnPlacementBySchematicCustom(ICoreServerAPI sapi, IBlockAccessor worldAccessor, ITreeAttribute schematicTreeData)
+        {
+            return false;
         }
     }
 }

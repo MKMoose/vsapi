@@ -802,9 +802,9 @@ namespace Vintagestory.API.Client
             var sourceRgba = data.Rgba;
             var sourceFlags = data.Flags;
             var sourceIndices = data.Indices;
-            int valsPerVertex_Ints = data.CustomInts == null ? 0 : data.CustomInts.InterleaveStride == 0 ? data.CustomInts.InterleaveSizes[0] : data.CustomInts.InterleaveStride;
-            int valsPerVertex_Floats = data.CustomFloats == null ? 0 : data.CustomFloats.InterleaveStride == 0 ? data.CustomFloats.InterleaveSizes[0] : data.CustomFloats.InterleaveStride;
-            int valsPerVertex_Shorts = data.CustomShorts == null ? 0 : data.CustomShorts.InterleaveStride == 0 ? data.CustomShorts.InterleaveSizes[0] : data.CustomShorts.InterleaveStride;
+            int valsPerVertex_Ints = data.CustomInts == null ? 0 : data.CustomInts.InterleaveStride == 0 ? data.CustomInts.InterleaveSizes[0] : data.CustomInts.InterleaveStride / sizeof(int);
+            int valsPerVertex_Floats = data.CustomFloats == null ? 0 : data.CustomFloats.InterleaveStride == 0 ? data.CustomFloats.InterleaveSizes[0] : data.CustomFloats.InterleaveStride / sizeof(float);
+            int valsPerVertex_Shorts = data.CustomShorts == null ? 0 : data.CustomShorts.InterleaveStride == 0 ? data.CustomShorts.InterleaveSizes[0] : data.CustomShorts.InterleaveStride / sizeof(short);
             int valsPerVertex_Bytes = data.CustomBytes == null ? 0 : data.CustomBytes.InterleaveStride == 0 ? data.CustomBytes.InterleaveSizes[0] : data.CustomBytes.InterleaveStride;
 
             int faceCount = data.VerticesCount / verticesPerFace;
@@ -879,7 +879,7 @@ namespace Vintagestory.API.Client
 
                         for (int j = 0; j < valsPerVertex_Ints; j++)
                         {
-                            CustomInts.Add(dataCustomInts.Values[vertexNum / valsPerVertex_Ints + j]);
+                            CustomInts.Add(dataCustomInts.Values[vertexNum * valsPerVertex_Ints + j]);
                         }
                     }
 
@@ -890,7 +890,7 @@ namespace Vintagestory.API.Client
 
                         for (int j = 0; j < valsPerVertex_Floats; j++)
                         {
-                            CustomFloats.Add(dataCustomFloats.Values[vertexNum / valsPerVertex_Floats + j]);
+                            CustomFloats.Add(dataCustomFloats.Values[vertexNum * valsPerVertex_Floats + j]);
                         }
                     }
 
@@ -901,7 +901,7 @@ namespace Vintagestory.API.Client
 
                         for (int j = 0; j < valsPerVertex_Shorts; j++)
                         {
-                            CustomShorts.Add(dataCustomShorts.Values[vertexNum / valsPerVertex_Shorts + j]);
+                            CustomShorts.Add(dataCustomShorts.Values[vertexNum * valsPerVertex_Shorts + j]);
                         }
                     }
 
@@ -912,7 +912,7 @@ namespace Vintagestory.API.Client
 
                         for (int j = 0; j < valsPerVertex_Bytes; j++)
                         {
-                            CustomBytes.Add(dataCustomBytes.Values[vertexNum / valsPerVertex_Bytes + j]);
+                            CustomBytes.Add(dataCustomBytes.Values[vertexNum * valsPerVertex_Bytes + j]);
                         }
                     }
 
@@ -1090,7 +1090,7 @@ namespace Vintagestory.API.Client
                 AddTextureId(sourceTextureIds[sourceTextureIndices[i]]);
             }
 
-            int start = IndicesCount > 0 ? (mode == EnumDrawMode.Triangles ? Indices[IndicesCount - 1] + 1 : Indices[IndicesCount - 2] + 1) : 0;
+            int start = VerticesCount - sourceMesh.VerticesCount;
 
             var sourceIndicesCount = sourceMesh.IndicesCount;
             var sourceIndices = sourceMesh.Indices;
@@ -1251,6 +1251,34 @@ namespace Vintagestory.API.Client
                 fixed (byte* rgbaByte = Rgba)
                 {
                     int* rgbaInt = (int*)rgbaByte;
+                    rgbaInt[count] = color;
+                }
+            }
+
+            VerticesCount = count + 1;
+        }
+
+        public void AddVertexSkipTex(float x, float y, float z, uint color)
+        {
+            int count = VerticesCount;
+            if (count >= VerticesMax)
+            {
+                GrowVertexBuffer();
+            }
+
+            float[] xyz = this.xyz;
+
+            int xyzCount = count * 3;
+            xyz[xyzCount + 0] = x;
+            xyz[xyzCount + 1] = y;
+            xyz[xyzCount + 2] = z;
+
+            // Write int color into byte array
+            unsafe
+            {
+                fixed (byte* rgbaByte = Rgba)
+                {
+                    uint* rgbaInt = (uint*)rgbaByte;
                     rgbaInt[count] = color;
                 }
             }

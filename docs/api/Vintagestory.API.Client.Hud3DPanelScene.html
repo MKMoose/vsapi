@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class Hud3DPanelScene | VintageStory API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class Hud3DPanelScene | VintageStory API ">
+      
+      <meta name="description" content="Reusable 3D panel scene that owns a shape, mesh, animator, raycaster, and scene-local tessellation state. This avoids mutating shared dialog texture source state when a dialog needs multiple independently rendered shapes. Open in GitHub">
+      <link rel="icon" href="../images/gameicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="VintageStory API">
+            VintageStory API
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Vintagestory.API.Client.Hud3DPanelScene">
+
+
+
+  <h1 id="Vintagestory_API_Client_Hud3DPanelScene" data-uid="Vintagestory.API.Client.Hud3DPanelScene" class="text-break">
+Class Hud3DPanelScene  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.Client.html">Client</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Reusable 3D panel scene that owns a shape, mesh, animator, raycaster, and
+scene-local tessellation state. This avoids mutating shared dialog texture
+source state when a dialog needs multiple independently rendered shapes. <a href=https://github.com/anegostudios/vsapi/blob/master///Client/UI/Hud3D/Hud3DPanelScene.cs>Open in GitHub</a></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Hud3DPanelScene : ITexPositionSource, IDisposable</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">Hud3DPanelScene</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Vintagestory.API.Client.ITexPositionSource.html">ITexPositionSource</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable">IDisposable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToGcHandle_System_Object_">ObjectHandleExtensions.ToGcHandle(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene__ctor_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene__ctor_Vintagestory_API_Client_ICoreClientAPI_System_String_System_String_System_Func_System_Single__System_Func_System_Single__System_Func_System_Single__System_Func_System_ValueTuple_System_Single_System_Single___System_Boolean_System_Boolean_System_Func_System_String_System_Boolean__System_Func_System_Single__" data-uid="Vintagestory.API.Client.Hud3DPanelScene.#ctor(Vintagestory.API.Client.ICoreClientAPI,System.String,System.String,System.Func{System.Single},System.Func{System.Single},System.Func{System.Single},System.Func{System.ValueTuple{System.Single,System.Single}},System.Boolean,System.Boolean,System.Func{System.String,System.Boolean},System.Func{System.Single})">
+  Hud3DPanelScene(ICoreClientAPI, string, string, Func&lt;float&gt;, Func&lt;float&gt;, Func&lt;float&gt;, Func&lt;(float x, float y)&gt;, bool, bool, Func&lt;string, bool&gt;, Func&lt;float&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Hud3DPanelScene(ICoreClientAPI capi, string rendererName, string shapePath, Func&lt;float&gt; getYaw, Func&lt;float&gt; getPitch, Func&lt;float&gt; getScale, Func&lt;(float x, float y)&gt; getScreenPosition, bool flipY, bool centerModelOrigin, Func&lt;string, bool&gt; isInteractiveHitbox, Func&lt;float&gt; getZOffset = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>capi</code> <a class="xref" href="Vintagestory.API.Client.ICoreClientAPI.html">ICoreClientAPI</a></dt>
+    <dd></dd>
+    <dt><code>rendererName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>shapePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>getYaw</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>getPitch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>getScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>getScreenPosition</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.single,system.single-.x">x</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.single,system.single-.y">y</a>)&gt;</dt>
+    <dd></dd>
+    <dt><code>flipY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>centerModelOrigin</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>isInteractiveHitbox</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</dt>
+    <dd></dd>
+    <dt><code>getZOffset</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_Animator_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Animator*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_Animator" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Animator">
+  Animator
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ClientAnimator Animator { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ClientAnimator.html">ClientAnimator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_AtlasSize_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.AtlasSize*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_AtlasSize" data-uid="Vintagestory.API.Client.Hud3DPanelScene.AtlasSize">
+  AtlasSize
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>This returns the size of the atlas this texture resides in.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Size2i AtlasSize { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.Size2i.html">Size2i</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_AtlasTextureId_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.AtlasTextureId*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_AtlasTextureId" data-uid="Vintagestory.API.Client.Hud3DPanelScene.AtlasTextureId">
+  AtlasTextureId
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int AtlasTextureId { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_Item_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Item*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_Item_System_String_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Item(System.String)">
+  this[string]
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TextureAtlasPosition this[string textureCode] { get; }</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>textureCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.TextureAtlasPosition.html">TextureAtlasPosition</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_MeshRef_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.MeshRef*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_MeshRef" data-uid="Vintagestory.API.Client.Hud3DPanelScene.MeshRef">
+  MeshRef
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiTextureMeshRef MeshRef { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_RayCaster_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RayCaster*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_RayCaster" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RayCaster">
+  RayCaster
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModelRayCaster RayCaster { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.ModelRayCaster.html">ModelRayCaster</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_Shape_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Shape*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_Shape" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Shape">
+  Shape
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Shape Shape { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Shape.html">Shape</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_BuildModelMatrix_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.BuildModelMatrix*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_BuildModelMatrix" data-uid="Vintagestory.API.Client.Hud3DPanelScene.BuildModelMatrix">
+  BuildModelMatrix()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrixf BuildModelMatrix()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.Matrixf.html">Matrixf</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_CreateRayCaster_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.CreateRayCaster*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_CreateRayCaster" data-uid="Vintagestory.API.Client.Hud3DPanelScene.CreateRayCaster">
+  CreateRayCaster()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CreateRayCaster()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_Dispose_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Dispose*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_Dispose" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Dispose">
+  Dispose()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_FindElementByName_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.FindElementByName*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_FindElementByName_Vintagestory_API_Common_ShapeElement___System_String_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.FindElementByName(Vintagestory.API.Common.ShapeElement[],System.String)">
+  FindElementByName(ShapeElement[], string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ShapeElement FindElementByName(ShapeElement[] elements, string name)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>elements</code> <a class="xref" href="Vintagestory.API.Common.ShapeElement.html">ShapeElement</a>[]</dt>
+    <dd></dd>
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ShapeElement.html">ShapeElement</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_Load_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Load*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_Load" data-uid="Vintagestory.API.Client.Hud3DPanelScene.Load">
+  Load()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Load()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_RayCastToHitbox_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RayCastToHitbox*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_RayCastToHitbox_System_Int32_System_Int32_Vintagestory_API_Client_ElementHitbox__Vintagestory_API_MathTools_Vec3d__" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RayCastToHitbox(System.Int32,System.Int32,Vintagestory.API.Client.ElementHitbox@,Vintagestory.API.MathTools.Vec3d@)">
+  RayCastToHitbox(int, int, out ElementHitbox, out Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RayCastToHitbox(int x, int y, out ElementHitbox hitbox, out Vec3d hitPosition)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>hitbox</code> <a class="xref" href="Vintagestory.API.Client.ElementHitbox.html">ElementHitbox</a></dt>
+    <dd></dd>
+    <dt><code>hitPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_RenderMeshInline_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RenderMeshInline*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_RenderMeshInline_Vintagestory_API_Client_IShaderProgram_Vintagestory_API_Client_MultiTextureMeshRef_System_Boolean_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RenderMeshInline(Vintagestory.API.Client.IShaderProgram,Vintagestory.API.Client.MultiTextureMeshRef,System.Boolean)">
+  RenderMeshInline(IShaderProgram, MultiTextureMeshRef, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RenderMeshInline(IShaderProgram prog, MultiTextureMeshRef mesh = null, bool applyAnimation = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prog</code> <a class="xref" href="Vintagestory.API.Client.IShaderProgram.html">IShaderProgram</a></dt>
+    <dd></dd>
+    <dt><code>mesh</code> <a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+    <dt><code>applyAnimation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_RenderMeshStandalone_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RenderMeshStandalone*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_RenderMeshStandalone_Vintagestory_API_Client_IShaderProgram_Vintagestory_API_Client_MultiTextureMeshRef_System_Boolean_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.RenderMeshStandalone(Vintagestory.API.Client.IShaderProgram,Vintagestory.API.Client.MultiTextureMeshRef,System.Boolean)">
+  RenderMeshStandalone(IShaderProgram, MultiTextureMeshRef, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RenderMeshStandalone(IShaderProgram prog, MultiTextureMeshRef mesh = null, bool applyAnimation = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prog</code> <a class="xref" href="Vintagestory.API.Client.IShaderProgram.html">IShaderProgram</a></dt>
+    <dd></dd>
+    <dt><code>mesh</code> <a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+    <dt><code>applyAnimation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_ReplaceMesh_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.ReplaceMesh*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_ReplaceMesh_Vintagestory_API_Client_MultiTextureMeshRef_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.ReplaceMesh(Vintagestory.API.Client.MultiTextureMeshRef)">
+  ReplaceMesh(MultiTextureMeshRef)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ReplaceMesh(MultiTextureMeshRef mesh)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>mesh</code> <a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_StartAnimation_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StartAnimation*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_StartAnimation_System_String_System_Single_System_Boolean_Vintagestory_API_Common_EnumAnimationBlendMode_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StartAnimation(System.String,System.Single,System.Boolean,Vintagestory.API.Common.EnumAnimationBlendMode)">
+  StartAnimation(string, float, bool, EnumAnimationBlendMode)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool StartAnimation(string code, float speed = 1, bool stopOthers = false, EnumAnimationBlendMode blendMode = EnumAnimationBlendMode.Average)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>speed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>stopOthers</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>blendMode</code> <a class="xref" href="Vintagestory.API.Common.EnumAnimationBlendMode.html">EnumAnimationBlendMode</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_StopAnimation_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StopAnimation*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_StopAnimation_System_String_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StopAnimation(System.String)">
+  StopAnimation(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StopAnimation(string code)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>code</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_StopAnimationsWithPrefix_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StopAnimationsWithPrefix*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_StopAnimationsWithPrefix_System_String_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.StopAnimationsWithPrefix(System.String)">
+  StopAnimationsWithPrefix(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StopAnimationsWithPrefix(string prefix)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefix</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_TessellateElementWithTemporaryFaceTexture_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.TessellateElementWithTemporaryFaceTexture*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_TessellateElementWithTemporaryFaceTexture_System_String_System_String_System_String_System_Int32_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.TessellateElementWithTemporaryFaceTexture(System.String,System.String,System.String,System.Int32)">
+  TessellateElementWithTemporaryFaceTexture(string, string, string, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiTextureMeshRef TessellateElementWithTemporaryFaceTexture(string elementName, string elementPath, string faceTextureCode, int faceIndex = 4)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>elementName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>elementPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>faceTextureCode</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>faceIndex</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_TessellateFiltered_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.TessellateFiltered*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_TessellateFiltered_System_String___System_String___" data-uid="Vintagestory.API.Client.Hud3DPanelScene.TessellateFiltered(System.String[],System.String[])">
+  TessellateFiltered(string[], string[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MultiTextureMeshRef TessellateFiltered(string[] selectiveElements = null, string[] ignoreElements = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>selectiveElements</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+    <dt><code>ignoreElements</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Client.MultiTextureMeshRef.html">MultiTextureMeshRef</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Client_Hud3DPanelScene_UpdateAnimations_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.UpdateAnimations*"></a>
+
+  <h3 id="Vintagestory_API_Client_Hud3DPanelScene_UpdateAnimations_System_Single_" data-uid="Vintagestory.API.Client.Hud3DPanelScene.UpdateAnimations(System.Single)">
+  UpdateAnimations(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateAnimations(float deltaTime)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>deltaTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

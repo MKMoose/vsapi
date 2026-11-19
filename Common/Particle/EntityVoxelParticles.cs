@@ -1,6 +1,7 @@
-﻿using System.IO;
+using System.IO;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
 #nullable disable
@@ -88,9 +89,9 @@ namespace Vintagestory.API.Common
             writer.Write(maxScale);
         }
 
-        public override void FromBytes(BinaryReader reader, IWorldAccessor resolver)
+        public override void FromBytes(ref BinarySpanReader reader, IWorldAccessor resolver)
         {
-            particlePos = Vec3d.CreateFromBytes(reader);
+            particlePos = Vec3d.CreateFromBytes(ref reader);
             entityId = reader.ReadInt64();
             quantity = reader.ReadInt32();
             radius = reader.ReadSingle();

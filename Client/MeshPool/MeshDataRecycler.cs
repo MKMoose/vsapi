@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -38,8 +38,8 @@ namespace Vintagestory.API.Client
      *     20. To access Array.BinarySearch on our SortedLists, we need to use reflection to access a private field in the library class :o
      *     
      *   Further implementation details
-     *     21. We periodically calculate the size of the contents of all three lists, and remove the oldest element in the list if the list is over a certain size (allowing up to approx. 400MB to be used by this system, radfast arbitrary choice)
-     *     22. On these periodic checks, we always remove the oldest element in the list if it has remained there unused for 3 minutes (arbitrary choice)
+     *     21. Admission reserves actual basic-array bytes against each size-class budget, including pending returns.
+     *     22. Once per second, including while idle, remove all entries unused for TTL milliseconds.
      *     23. Using and then recycling an element will refresh its timestamp
      *     24. A MeshData obtained from this system has its `Recyclable` field set to true; it will be set to false again when it is actually recycled; this prevents double attempts to recycle the same MeshData
      */
@@ -61,9 +61,35 @@ namespace Vintagestory.API.Client
         SortedList<float, MeshData> largeSizes = new SortedList<float, MeshData>(); 
 
         private IClientWorldAccessor game;
-        private bool disposed;               // If set to true will fully disable further use of the recycling system (memory held will be cleared and non-recycled MeshData will always be created)
+        private volatile bool disposed;               // If set to true will fully disable further use of the recycling system (memory held will be cleared and non-recycled MeshData will always be created)
         private ConcurrentQueue<MeshData> forRecycling = new ConcurrentQueue<MeshData>();
         private FieldInfo keysAccessor;
+        private readonly object recyclingLock = new object();
+
+        // 40 MB for small meshes
+        // 120 MB for medium meshes
+        // 300 MB for large meshes
+        private static readonly long[] byteBudgets = { 40*1024*1024, 120*1024*1024, 300*1024*1024 };
+        private readonly long[] heldBytes = new long[3];
+        private long nextExpiryCheck;
+
+        private static int SizeClass(MeshData mesh) => mesh.VerticesMax / Four < smallLimit ? 0 : mesh.VerticesMax / Four < mediumLimit ? 1 : 2;
+
+        private static long BasicDataBytes(MeshData mesh) => 4 * ((long)(mesh.xyz?.Length ?? 0) + (mesh.Uv?.Length ?? 0) + (mesh.Flags?.Length ?? 0) + (mesh.Indices?.Length ?? 0)) + (mesh.Rgba?.Length ?? 0);
+
+        private void ReleaseReservation(MeshData mesh)
+        {
+            lock (recyclingLock)
+            {
+                heldBytes[SizeClass(mesh)] -= BasicDataBytes(mesh);
+            }
+        }
+
+        private void Discard(MeshData mesh)
+        {
+            ReleaseReservation(mesh);
+            mesh.DisposeBasicData();
+        }
 
         public MeshDataRecycler(IClientWorldAccessor clientMain)
         {
@@ -89,20 +115,10 @@ namespace Vintagestory.API.Client
             if (newMesh == null)
             {
                 if (!disposed) minimumVertices = ((minimumVertices * 41 / 40 + Four - 1) / Four) * Four;    // Create one 2.5% larger than requested, this makes for better recyclability if vertices are being added (player building, lake ice forming, grass growing etc)
-
-                //if (minimumVertices >= 21250)
-                //{
-                //    newMesh = new MeshData(minimumVertices);
-                //    game.Logger.VerboseDebug("Allocated new large MeshData from LOH: size " + minimumVertices * 34);
-                //}
-                //else
-                {
-                    newMesh = new MeshData(minimumVertices);
-                }
+                newMesh = new MeshData(minimumVertices);
             }
             else
             {
-                //if (minimumVertices >= 21250) game.Logger.VerboseDebug("Recycle large MeshData, saving LOH: size " + minimumVertices * 34);
                 if (newMesh.IndicesMax != newMesh.VerticesMax * MeshData.StandardIndicesPerFace / MeshData.StandardVerticesPerFace)  // Check Indices is still in the standard 6:4 ratio
                 {
                     newMesh.Indices = new int[newMesh.VerticesMax * MeshData.StandardIndicesPerFace / MeshData.StandardVerticesPerFace];
@@ -120,26 +136,39 @@ namespace Vintagestory.API.Client
         {
             if (disposed)
             {
-                // Do the disposal action on the same thread which accesses these lists, to avoid any race-condition
-                forRecycling.Clear();
+                // Lists belong to the consumer thread. Producers cannot enqueue after Dispose.
+                while (forRecycling.TryDequeue(out MeshData pending)) Discard(pending);
+                foreach (var mesh in smallSizes.Values) Discard(mesh);
+                foreach (var mesh in mediumSizes.Values) Discard(mesh);
+                foreach (var mesh in largeSizes.Values) Discard(mesh);
                 smallSizes.Clear();
                 mediumSizes.Clear();
                 largeSizes.Clear();
+                return;
             }
 
-            if (forRecycling.IsEmpty) return;
-
-            ControlSizeOfLists();   // Only control the size of the lists if we are going to add something to them - is this controlled often enough, will they get out of control? Let's see?
-
-            while (!forRecycling.IsEmpty && forRecycling.TryDequeue(out MeshData recycled))
+            long now = game.ElapsedMilliseconds;
+            // Run even when idle, but avoid scanning every tesselation tick.
+            if (now >= nextExpiryCheck)
             {
-                int entrySize = recycled.VerticesMax / Four;   // round up to multiple of 4; then divide by 4 to get the size for the purposes of our lists where the key is VerticesMax/4
+                RemoveExpired(smallSizes, now);
+                RemoveExpired(mediumSizes, now);
+                RemoveExpired(largeSizes, now);
+                nextExpiryCheck = now + 1000;
+            }
 
+            while (forRecycling.TryDequeue(out MeshData recycled))
+            {
+                // TTL starts when returned, not when a delayed consumer eventually drains it.
+                if (disposed || now - recycled.RecyclingTime >= TTL)
+                {
+                    Discard(recycled);
+                    continue;
+                }
+                int entrySize = recycled.VerticesMax / Four;
                 if (entrySize < smallLimit) TryAdd(smallSizes, entrySize, recycled);
                 else if (entrySize < mediumLimit) TryAdd(mediumSizes, entrySize, recycled);
                 else TryAdd(largeSizes, entrySize, recycled);
-
-                recycled.RecyclingTime = game.ElapsedMilliseconds;
             }
         }
 
@@ -149,10 +178,19 @@ namespace Vintagestory.API.Client
         /// <param name="meshData"></param>
         public void Recycle(MeshData meshData)
         {
-            if (!disposed)     // Don't recycle or retain anything after client stop
+            long bytes = BasicDataBytes(meshData);
+            int sizeClass = SizeClass(meshData);
+            lock (recyclingLock)
             {
-                forRecycling.Enqueue(meshData);
+                if (!disposed && bytes > 0 && bytes <= byteBudgets[sizeClass] - heldBytes[sizeClass])
+                {
+                    heldBytes[sizeClass] += bytes;
+                    meshData.RecyclingTime = game.ElapsedMilliseconds;
+                    forRecycling.Enqueue(meshData);
+                    return;
+                }
             }
+            meshData.DisposeBasicData();
         }
 
         /// <summary>
@@ -160,41 +198,20 @@ namespace Vintagestory.API.Client
         /// </summary>
         public void Dispose()
         {
-            this.disposed = true;
+            lock (recyclingLock) this.disposed = true;
         }
 
 
         // ===== Private methods =====
 
-        private void ControlSizeOfLists()
+        private void RemoveExpired(SortedList<float, MeshData> list, long now)
         {
-            RemoveOldest(smallSizes, 300000);   //multiplied by sizeinbytes of 136 gives 40MB  max, about 1000 entries of average size;  note key in the lists is VerticesMax * 4, so each +1 in key is approximately 136 bytes
-            RemoveOldest(mediumSizes, 900000);   //multiplied by sizeinbytes of 136 gives 120MB  max, about 800 entries of average size
-            RemoveOldest(largeSizes, 2240000);   //multiplied by sizeinbytes of 136 gives 300MB  max, about 200 entries of arbitrary large size
-        }
-
-        private void RemoveOldest(SortedList<float, MeshData> list, int maxSize)
-        {
-            if (list.Count == 0) return;   // Nothing to do and logic fails on empty list
-
-            int totalsize = 0;
-            int indexOldest = 0;
-            long timeOldest = list.GetValueAtIndex(0).RecyclingTime;
-            int index = 0;
-            foreach (var entry in list)
+            for (int i = list.Count - 1; i >= 0; i--)
             {
-                totalsize += (int)entry.Key;
-                if (entry.Value.RecyclingTime < timeOldest)
-                {
-                    indexOldest = index;
-                    timeOldest = entry.Value.RecyclingTime;
-                }
-                index++;
-            }
-            if (totalsize > maxSize || timeOldest < game.ElapsedMilliseconds - TTL)    // Always remove one if more than 45 seconds in queue unused
-            {
-                list.GetValueAtIndex(indexOldest).DisposeBasicData();     // Help to release its memory to the GC
-                list.RemoveAt(indexOldest);
+                MeshData mesh = list.GetValueAtIndex(i);
+                if (now - mesh.RecyclingTime < TTL) continue;
+                list.RemoveAt(i);
+                Discard(mesh);
             }
         }
 
@@ -221,7 +238,7 @@ namespace Vintagestory.API.Client
                 key = newkey;
             }
 
-            entry.DisposeBasicData();    // we failed to add it for recycling, therefore clear its fields to help the GC
+            Discard(entry);    // Duplicate size slots are full; release both arrays and budget.
         }
 
         private MeshData TryGet(SortedList<float, MeshData> list, int entrySize)
@@ -241,6 +258,7 @@ namespace Vintagestory.API.Client
 
             MeshData result = list.GetValueAtIndex(index);
             list.RemoveAt(index);
+            ReleaseReservation(result);
             return result;
         }
 

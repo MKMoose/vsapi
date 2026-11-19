@@ -2,6 +2,7 @@ using Cairo;
 using SkiaSharp;
 using System;
 using System.IO;
+using System.Threading;
 using Vintagestory.API.Client;
 using Vintagestory.API.Util;
 
@@ -10,15 +11,29 @@ namespace Vintagestory.API.Common
 {
     public static class SurfaceDrawImage
     {
+        [Obsolete("Use 'Image' method that has 'BitmapExternal' as argument.")]
         public static void Image(this ImageSurface surface, BitmapRef bmp, int xPos, int yPos, int width, int height)
         {
-            surface.Image(((BitmapExternal)bmp).bmp, xPos, yPos, width, height);
+            if (bmp is not BitmapExternal bmpExternal)
+            {
+                throw new ArgumentException($"'SurfaceDrawImage.Image' should receive 'BitmapExternal' as its '{nameof(bmp)}' argument, instead received '{bmp.GetType()}'", nameof(bmp));
+            }
+
+            surface.Image(bmpExternal.bmp, xPos, yPos, width, height);
+        }
+
+        public static void Image(this ImageSurface surface, BitmapExternal bmp, int xPos, int yPos, int width, int height)
+        {
+            surface.Image(bmp.bmp, xPos, yPos, width, height);
         }
     }
 
     public class BitmapExternal : BitmapRef
     {
-        public SKBitmap bmp;
+        public SKBitmap bmp
+        {
+            get => bitmap ?? throw new ObjectDisposedException(nameof(bitmap), "Trying to access bitmap from bitmap reference after it was disposed.");
+        }
 
         public override int Height => bmp.Height;
 
@@ -37,19 +52,19 @@ namespace Vintagestory.API.Common
 
         public BitmapExternal(SKBitmap bmp)
         {
-            this.bmp = bmp;
+            bitmap = bmp;
         }
 
         public BitmapExternal(int width, int height)
         {
-            bmp = new SKBitmap(width, height);
+            bitmap = new SKBitmap(width, height);
         }
 
         public BitmapExternal(MemoryStream ms, ILogger logger, AssetLocation? loc = null)
         {
             try
             {
-                bmp = Decode(ms.ToArray());
+                bitmap = Decode(ms.ToArray());
             }
             catch (Exception e)
             {
@@ -63,8 +78,8 @@ namespace Vintagestory.API.Common
                     logger.Error("Failed loading bitmap. Will default to an empty 1x1 bitmap.");
                     logger.Error(e);
                 }
-                bmp = new SKBitmap(1, 1);
-                bmp.SetPixel(0, 0, SKColors.Orange);
+                bitmap = new SKBitmap(1, 1);
+                bitmap.SetPixel(0, 0, SKColors.Orange);
             }
         }
 
@@ -75,14 +90,14 @@ namespace Vintagestory.API.Common
         {
             try
             {
-                bmp = Decode(File.ReadAllBytes(filePath));
+                bitmap = Decode(File.ReadAllBytes(filePath));
             }
             catch (Exception ex)
             {
                 logger?.Error("Failed loading bitmap from data. Will default to an empty 1x1 bitmap.");
                 logger?.Error(ex);
-                bmp = new SKBitmap(1, 1);
-                bmp.SetPixel(0, 0, SKColors.Orange);
+                bitmap = new SKBitmap(1, 1);
+                bitmap.SetPixel(0, 0, SKColors.Orange);
             }
         }
 
@@ -95,14 +110,14 @@ namespace Vintagestory.API.Common
             {
                 byte[] buffer = new byte[stream.Length];
                 stream.ReadExactly(buffer);
-                bmp = Decode(buffer);
+                bitmap = Decode(buffer);
             }
             catch (Exception ex)
             {
                 logger?.Error("Failed loading bitmap from data. Will default to an empty 1x1 bitmap.");
                 logger?.Error(ex);
-                bmp = new SKBitmap(1, 1);
-                bmp.SetPixel(0, 0, SKColors.Orange);
+                bitmap = new SKBitmap(1, 1);
+                bitmap.SetPixel(0, 0, SKColors.Orange);
             }
         }
 
@@ -113,14 +128,14 @@ namespace Vintagestory.API.Common
         {
             try
             {
-                bmp = Decode(data.AsSpan()[..dataLength]);
+                bitmap = Decode(data.AsSpan()[..dataLength]);
             }
             catch (Exception ex)
             {
                 logger.Error("Failed loading bitmap from data. Will default to an empty 1x1 bitmap.");
                 logger.Error(ex);
-                bmp = new SKBitmap(1, 1);
-                bmp.SetPixel(0, 0, SKColors.Orange);
+                bitmap = new SKBitmap(1, 1);
+                bitmap.SetPixel(0, 0, SKColors.Orange);
             }
         }
 
@@ -150,7 +165,14 @@ namespace Vintagestory.API.Common
 
         public override void Dispose()
         {
-            bmp.Dispose();
+            lock(disposeLock)
+            {
+                if (bitmap == null) return;
+
+                SKBitmap? bitmapToDispose = bitmap;
+                bitmap = null;
+                bitmapToDispose?.Dispose();
+            }
         }
 
         public override void Save(string filename)
@@ -220,7 +242,7 @@ namespace Vintagestory.API.Common
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        int baseY = x * width;
+                        int baseY = x * height;
                         for (int y = 0; y < height; y++)
                         {
                             bmpPixels[y + baseY] = fastBitmap.GetPixel(width - x - 1, y * stride);
@@ -247,7 +269,7 @@ namespace Vintagestory.API.Common
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        int baseY = x * width;
+                        int baseY = x * height;
                         for (int y = 0; y < height; y++)
                         {
                             bmpPixels[y + baseY] = fastBitmap.GetPixel(x, (height - y - 1) * stride);
@@ -301,5 +323,15 @@ namespace Vintagestory.API.Common
 
             return new BitmapExternal(bmpPixels);
         }
+
+
+        /// <summary>
+        /// Is set only in constructor and Dispose method
+        /// </summary>
+        private SKBitmap? bitmap;
+        /// <summary>
+        /// To prevent double diposing in concurrent scenarious
+        /// </summary>
+        private readonly Lock disposeLock = new();
     }
 }

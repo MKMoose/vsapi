@@ -204,7 +204,7 @@ public class PlayerGroup</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[JsonProperty]
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
 public List&lt;ChatLine&gt; ChatHistory</code></pre>
   </div>
 
@@ -390,7 +390,8 @@ public string Name</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;IPlayer&gt; OnlinePlayers</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonIgnore]
+public List&lt;IPlayer&gt; OnlinePlayers</code></pre>
   </div>
 
 

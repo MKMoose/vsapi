@@ -120,7 +120,11 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Util.CustomFastSerializerAttribute.html">CustomFastSerializerAttribute</a></dt>
-      <dd><p>Indicates that the FastSerialize() method should call a custom method to serialize this field: the custom method being of the pattern FastSerializerDelegate <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>
+      <dd><p>Indicates that the FastSerialize() method should call a custom method to serialize this field.
+The custom method being of the pattern &quot;FastSerialize[memberName](ms, fieldId, ref count, ref position);&quot; ,
+where memberName will automatically strip a &quot;Serialized&quot; suffix from the field name for the called methode name, so &quot;EntitiesCount&quot; and &quot;EntitiesSerialized&quot; field will generate the following code: FastSerializeEntitiesCount(ms, 5, ref count, ref position); FastSerializeEntities(ms, 6, ref count, ref position);.
+The FastSerializeEntitiesCount() and FastSerializeEntities() need to be implemented in the class by hand.
+See FastSerializeGenerator.cs <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -135,7 +139,7 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Util.EnumerableExtensions.html">EnumerableExtensions</a></dt>
-      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Util/ArrayExtensions.cs>Open in GitHub</a></p>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Util/EnumerableExtensions.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -205,6 +209,11 @@ Classes
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.API.Util.ShapeCache.html">ShapeCache</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Util/ShapeCache.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Util.SlidingPitchSound.html">SlidingPitchSound</a></dt>
       <dd><p><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityTalkUtil.cs>Open in GitHub</a></p>
 </dd>
@@ -267,10 +276,6 @@ Delegates
 </h3>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.API.Util.CreateCachableObjectDelegate-1.html">CreateCachableObjectDelegate&lt;T&gt;</a></dt>
-      <dd></dd>
-    </dl>
-    <dl class="jumplist">
-      <dt><a class="xref" href="Vintagestory.API.Util.FastSerializerDelegate.html">FastSerializerDelegate</a></dt>
       <dd></dd>
     </dl>
     <dl class="jumplist">

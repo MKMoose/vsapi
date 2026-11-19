@@ -265,36 +265,6 @@ public AssetLocation? Location</code></pre>
 
 
 
-  <h3 id="Vintagestory_API_Common_SoundAttributes_NatFloatOne" data-uid="Vintagestory.API.Common.SoundAttributes.NatFloatOne">
-  NatFloatOne
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static NatFloat NatFloatOne</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
   <h3 id="Vintagestory_API_Common_SoundAttributes_Pitch" data-uid="Vintagestory.API.Common.SoundAttributes.Pitch">
   Pitch
   
@@ -306,7 +276,7 @@ public AssetLocation? Location</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;1&quot;, false)]
-public NatFloat Pitch</code></pre>
+public INatFloat Pitch</code></pre>
   </div>
 
 
@@ -314,37 +284,7 @@ public NatFloat Pitch</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Vintagestory_API_Common_SoundAttributes_RandomPitch" data-uid="Vintagestory.API.Common.SoundAttributes.RandomPitch">
-  RandomPitch
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static NatFloat RandomPitch</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
+    <dt><a class="xref" href="Vintagestory.API.MathTools.INatFloat.html">INatFloat</a></dt>
     <dd></dd>
   </dl>
 
@@ -433,7 +373,7 @@ public EnumSoundType Type</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;1&quot;, false)]
-public NatFloat Volume</code></pre>
+public INatFloat Volume</code></pre>
   </div>
 
 
@@ -441,7 +381,7 @@ public NatFloat Volume</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="Vintagestory.API.MathTools.NatFloat.html">NatFloat</a></dt>
+    <dt><a class="xref" href="Vintagestory.API.MathTools.INatFloat.html">INatFloat</a></dt>
     <dd></dd>
   </dl>
 
@@ -574,12 +514,51 @@ public NatFloat Volume</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static SoundAttributes FromBytes(BinaryReader reader, string version)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static SoundAttributes FromBytes(BinaryReader reader, string version)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+    <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.SoundAttributes.html">SoundAttributes</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_SoundAttributes_FromBytes_" data-uid="Vintagestory.API.Common.SoundAttributes.FromBytes*"></a>
+
+  <h3 id="Vintagestory_API_Common_SoundAttributes_FromBytes_Vintagestory_API_Datastructures_BinarySpanReader__System_String_" data-uid="Vintagestory.API.Common.SoundAttributes.FromBytes(Vintagestory.API.Datastructures.BinarySpanReader@,System.String)">
+  FromBytes(ref BinarySpanReader, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static SoundAttributes FromBytes(ref BinarySpanReader reader, string version)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
     <dt><code>version</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>

@@ -144,29 +144,45 @@ namespace Vintagestory.API.Client
             return (int)((temperature + 20) * 4.25f);
         }
 
+        float retroModeAccum = 0f;
         public void Update(float dt, ICoreClientAPI capi)
         {
             IGameCalendar calendar = capi.World.Calendar;
             dt *= calendar.SpeedOfTime / 60f;
             if (capi.IsGamePaused) dt = 0;
 
-            WaterStillCounter = (WaterStillCounter + dt / 1.5f) % 2f;
-            WaterFlowCounter = (WaterFlowCounter + dt / 1.5f) % 6000f;
-            WaterWaveCounter = (WaterWaveCounter + dt * 0.75f) % 6000f;
-            
-            WindWaveCounter = (WindWaveCounter + (0.5f + 2 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * dt) % 6000f;
-            WindSpeed = GlobalConstants.CurrentSurfaceWindSpeedClient.X;
+            float freq = (0.4f + WindSpeed / 10);
 
+
+            if (RuntimeEnv.RetroMode)
+            {
+                retroModeAccum += dt;
+                float s = 0.4f;
+                if (retroModeAccum > 0.1f)
+                {
+                    retroModeAccum = 0f;
+                    WaterStillCounter = (WaterStillCounter + s / 1.5f) % 2f;
+                    WaterFlowCounter = (WaterFlowCounter + s / 1.5f) % 6000f;
+                    WaterWaveCounter = (WaterWaveCounter + s * 0.75f) % 6000f;
+                    WindWaveCounter = (WindWaveCounter + (0.5f + 2 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * s) % 6000f;
+                    WindWaveCounterHighFreq = (WindWaveCounterHighFreq + freq * (0.5f + 5 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * s) % 6000f;
+                }
+            }
+            else
+            {
+
+                WaterStillCounter = (WaterStillCounter + dt / 1.5f) % 2f;
+                WaterFlowCounter = (WaterFlowCounter + dt / 1.5f) % 6000f;
+                WaterWaveCounter = (WaterWaveCounter + dt * 0.75f) % 6000f;
+                WindWaveCounter = (WindWaveCounter + (0.5f + 2 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * dt) % 6000f;
+                WindWaveCounterHighFreq = (WindWaveCounterHighFreq + freq * (0.5f + 5 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * dt) % 6000f;
+            }
+
+            WindSpeed = GlobalConstants.CurrentSurfaceWindSpeedClient.X;
             WaterWaveIntensity = 0.75f + GlobalConstants.CurrentSurfaceWindSpeedClient.X * 0.9f;
 
-            float freq = (0.4f + WindSpeed / 10);
-            WindWaveCounterHighFreq = (WindWaveCounterHighFreq + freq * (0.5f + 5 * GlobalConstants.CurrentSurfaceWindSpeedClient.X * (1 - GlitchStrength)) * dt) % 6000f;
-
-
             TimeCounter += dt;
-
             FogWaveCounter += 0.1f * dt;
-
             
             plrPos.Set(capi.World.Player.Entity.Pos.XInt, capi.World.Player.Entity.Pos.YInt, capi.World.Player.Entity.Pos.ZInt);
 

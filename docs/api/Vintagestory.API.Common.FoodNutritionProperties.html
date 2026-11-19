@@ -309,8 +309,8 @@ public float Satiety</code></pre>
 
 
 
-  <h3 id="Vintagestory_API_Common_FoodNutritionProperties_SaturationLossDelay" data-uid="Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay">
-  SaturationLossDelay
+  <h3 id="Vintagestory_API_Common_FoodNutritionProperties_SatietyLossDelay" data-uid="Vintagestory.API.Common.FoodNutritionProperties.SatietyLossDelay">
+  SatietyLossDelay
   
   </h3>
 
@@ -320,7 +320,7 @@ public float Satiety</code></pre>
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;10&quot;, false)]
-public float SaturationLossDelay</code></pre>
+public float SatietyLossDelay</code></pre>
   </div>
 
 
@@ -342,6 +342,73 @@ public float SaturationLossDelay</code></pre>
 
   <h2 class="section" id="properties">Properties
 </h2>
+
+
+  <a id="Vintagestory_API_Common_FoodNutritionProperties_HealthDurationSec_" data-uid="Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec*"></a>
+
+  <h3 id="Vintagestory_API_Common_FoodNutritionProperties_HealthDurationSec" data-uid="Vintagestory.API.Common.FoodNutritionProperties.HealthDurationSec">
+  HealthDurationSec
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>If greater than zero, healing will be turned into healing over time and will be fully applied over this time.
+If HealthTicks is set to 1, it will mean that healing will just be delayed by HealthDurationSec.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;0&quot;, false)]
+public float HealthDurationSec { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_FoodNutritionProperties_HealthTicks_" data-uid="Vintagestory.API.Common.FoodNutritionProperties.HealthTicks*"></a>
+
+  <h3 id="Vintagestory_API_Common_FoodNutritionProperties_HealthTicks" data-uid="Vintagestory.API.Common.FoodNutritionProperties.HealthTicks">
+  HealthTicks
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>If HealthDurationSec greater than zero, total healing will be split into this many portions, each applied in HealthDurationSec/HealthTicks time after another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Optional&quot;, &quot;1&quot;, false)]
+public int HealthTicks { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
 
 
   <a id="Vintagestory_API_Common_FoodNutritionProperties_Intoxication_" data-uid="Vintagestory.API.Common.FoodNutritionProperties.Intoxication*"></a>
@@ -425,6 +492,40 @@ public float Psychedelic { get; set; }</code></pre>
     <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Obsolete&quot;, &quot;&quot;, false)]
 [Obsolete(&quot;Use Satiety instead.&quot;)]
 public float Saturation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_FoodNutritionProperties_SaturationLossDelay_" data-uid="Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay*"></a>
+
+  <h3 id="Vintagestory_API_Common_FoodNutritionProperties_SaturationLossDelay" data-uid="Vintagestory.API.Common.FoodNutritionProperties.SaturationLossDelay">
+  SaturationLossDelay
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Obsolete - Please use <a class="xref" href="Vintagestory.API.Common.FoodNutritionProperties.html#Vintagestory_API_Common_FoodNutritionProperties_SatietyLossDelay">SatietyLossDelay</a> instead.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DocumentAsJson(&quot;Obsolete&quot;, &quot;&quot;, false)]
+[Obsolete(&quot;Use SatietyLossDelay instead.&quot;)]
+public float SaturationLossDelay { get; set; }</code></pre>
   </div>
 
 

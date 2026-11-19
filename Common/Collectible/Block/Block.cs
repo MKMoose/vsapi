@@ -22,6 +22,11 @@ namespace Vintagestory.API.Common
         Water
     }
 
+    public interface ICustomSnowAccumBehavior
+    {
+        bool SnowAccumAffected { get; }
+    }
+
     /// <summary>
     /// Basic class for a placeable block
     /// </summary>
@@ -166,8 +171,15 @@ namespace Vintagestory.API.Common
 
         /// <summary>
         /// 9-slice overlay texture path, e.g. "game:block/sand_overlay". Null disables overlay blending.
+        /// A trailing wildcard ("grass_overlay*") bakes all matches as random variants, picked per receiving position.
         /// </summary>
         public string BleedOverlayTexture = null;
+
+        /// <summary>
+        /// Single tile drawn (rotated into the quadrant) at inverted corners instead of two straight edge cells.
+        /// Null disables inside-corner blending. Same trailing-wildcard random-variant support as BleedOverlayTexture.
+        /// </summary>
+        public string BleedCornerOverlayTexture = null;
 
         /// <summary>
         /// Only top face (UP) receives bleeding. For grass-type blocks.
@@ -180,10 +192,16 @@ namespace Vintagestory.API.Common
         public string BleedGroup = null;
 
         /// <summary>
-        /// Baked overlay texture subId lookup. Set during texture collection.
+        /// Baked overlay texture lookup. Set during texture collection. Holds BakedVariants when randomized.
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         public CompositeTexture BleedOverlayTextureBaked = null;
+
+        /// <summary>
+        /// Baked inverted-corner overlay texture lookup. Set during texture collection. Holds BakedVariants when randomized.
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public CompositeTexture BleedCornerOverlayTextureBaked = null;
 
         /// <summary>
         /// Occludes bleeding from neighbors behind. False for glass/transparent blocks.
@@ -749,7 +767,13 @@ namespace Vintagestory.API.Common
         /// <param name="blockModelData">The original block model</param>
         public virtual void GetDecal(IWorldAccessor world, BlockPos pos, ITexPositionSource decalTexSource, ref MeshData decalModelData, ref MeshData blockModelData)
         {
-
+            foreach (BlockBehavior behavior in BlockBehaviors)
+            {
+                EnumHandling handled = EnumHandling.PassThrough;
+                behavior.GetDecal(world, pos, decalTexSource, ref decalModelData, ref blockModelData);
+                
+                if (handled == EnumHandling.PreventSubsequent) return;
+            }
         }
 
 
@@ -1063,13 +1087,55 @@ namespace Vintagestory.API.Common
                 double posz = blockSel.Position.Z + blockSel.HitPosition.Z;
 
                 BlockSounds sounds = GetSounds(api.World.BlockAccessor, blockSel);
+                // Sync block hit sounds to animation frames when the held hit animation defines damageAtFrame.
+                string animCode = stack == null ? "breakhand" : stack.Collectible.GetHeldTpHitAnimation(itemslot, player.Entity);
+                bool hasFrameSound = resistance > 0
+                && animCode != null
+                && player.Entity.Properties.Client.AnimationsByMetaCode.TryGetValue(animCode, out AnimationMetaData animMeta)
+                && ((animMeta.Attributes?["damageAtFrame"].AsFloat(-1) ?? -1) >= 0 || (animMeta.Attributes?["damageAtFrames"].AsArray<float>(null)?.Length ?? 0) > 0)
+                && GetEstimatedBreakingTime(player, blockSel, itemslot) >= 2f;
 
-                player.Entity.World.PlaySoundAt(resistance > 0 ? sounds.GetHitSound(player) : sounds.GetBreakSound(player), posx, posy, posz, blockSel.Position.dimension, player);
+                if (!hasFrameSound)
+                {
+                    player.Entity.World.PlaySoundAt(resistance > 0 ? sounds.GetHitSound(player) : sounds.GetBreakSound(player), posx, posy, posz, blockSel.Position.dimension, player);
+                }
 
                 api.ObjectCache["totalMsBlockBreaking"] = nowMs;
             }
 
             return resistance;
+        }
+
+        public float GetEstimatedBreakingTime(IPlayer player, BlockSelection blockSel, ItemSlot itemslot)
+        {
+            int requiredMiningTier = GetRequiredMiningTier(api.World, blockSel.Position);
+            ItemStack stack = itemslot.Itemstack;
+
+            if (stack == null && requiredMiningTier != 0) return float.PositiveInfinity;
+
+            if (stack != null && requiredMiningTier > 0 &&
+                (stack.Collectible.GetToolTier(itemslot) < requiredMiningTier ||
+                stack.Collectible.GetMiningSpeeds(itemslot)?.ContainsKey(GetBlockMaterial(api.World.BlockAccessor, blockSel.Position)) != true))
+            {
+                return float.PositiveInfinity;
+            }
+
+            // workaround to keep tree chopping sounds synchronized since tree resistance is not accounted for.
+            if (stack?.Collectible.GetTool(itemslot) == EnumTool.Axe
+                && Attributes?["treeFellingGroupCode"].AsString() != null
+                && Attributes?["treeFellingGroupSpreadIndex"].AsInt() >= 2) return 2f;
+
+            float miningSpeed = stack?.Collectible.GetMiningSpeed(stack, blockSel, this, player) ?? 1f;
+
+            if (requiredMiningTier == 0)
+            {
+                foreach (BlockBehavior behavior in BlockBehaviors)
+                {
+                    miningSpeed *= behavior.GetMiningSpeedModifier(api.World, blockSel.Position, player);
+                }
+            }
+
+            return GetResistance(api.World.BlockAccessor, blockSel.Position) / miningSpeed;
         }
 
         [Obsolete("No longer used in 1.22. Set SoundAttributes.Pitch on the sound instead.")]
@@ -1421,7 +1487,7 @@ namespace Vintagestory.API.Common
             {
                 if (pos.X == neibpos.X && pos.Z == neibpos.Z && pos.Y + 1 == neibpos.Y && world.BlockAccessor.GetBlock(neibpos).Id != 0)
                 {
-                    world.BlockAccessor.SetBlock(notSnowCovered.Id, pos);
+                    world.BlockAccessor.ExchangeBlock(notSnowCovered.Id, pos);
                 }
             }
         }
@@ -1581,7 +1647,17 @@ namespace Vintagestory.API.Common
         /// <param name="pos"></param>
         public virtual void OnEntityInside(IWorldAccessor world, Entity entity, BlockPos pos)
         {
+            bool preventDefault = false;
+            foreach (BlockBehavior behavior in BlockBehaviors)
+            {
+                EnumHandling handled = EnumHandling.PassThrough;
 
+                behavior.OnEntityInside(world, entity, pos, ref handled);
+                if (handled == EnumHandling.PreventDefault) preventDefault = true;
+                if (handled == EnumHandling.PreventSubsequent) return;
+            }
+
+            if (preventDefault) return;
         }
 
 
@@ -1597,6 +1673,18 @@ namespace Vintagestory.API.Common
         /// <param name="isImpact"></param>
         public virtual void OnEntityCollide(IWorldAccessor world, Entity entity, BlockPos pos, BlockFacing facing, Vec3d collideSpeed, bool isImpact)
         {
+            bool preventDefault = false;
+            foreach (BlockBehavior behavior in BlockBehaviors)
+            {
+                EnumHandling handled = EnumHandling.PassThrough;
+
+                behavior.OnEntityCollide(world, entity, pos, facing, collideSpeed, isImpact, ref handled);
+                if (handled == EnumHandling.PreventDefault) preventDefault = true;
+                if (handled == EnumHandling.PreventSubsequent) return;
+            }
+
+            if (preventDefault) return;
+
             if (entity.Properties.CanClimb == true && (IsClimbable(pos) || entity.Properties.CanClimbAnywhere) && facing.IsHorizontal && entity is EntityAgent)
             {
                 EntityAgent ea = entity as EntityAgent;
@@ -1845,9 +1933,9 @@ namespace Vintagestory.API.Common
             if (CollisionBoxes != null && CollisionBoxes.Length > 0)
             {
                 Cuboidf mainBox = CollisionBoxes[0];
-                TopMiddlePos.X = (mainBox.X1 + mainBox.X2) / 2;
+                TopMiddlePos.X = mainBox.MidX;
                 TopMiddlePos.Y = mainBox.Y2;
-                TopMiddlePos.Z = (mainBox.Z1 + mainBox.Z2) / 2;
+                TopMiddlePos.Z = mainBox.MidZ;
 
                 for (int i = 1; i < CollisionBoxes.Length; i++)
                 {
@@ -1860,9 +1948,9 @@ namespace Vintagestory.API.Common
             if (SelectionBoxes != null && SelectionBoxes.Length > 0)
             {
                 Cuboidf mainBox = SelectionBoxes[0];
-                TopMiddlePos.X = (mainBox.X1 + mainBox.X2) / 2;
+                TopMiddlePos.X = mainBox.MidX;
                 TopMiddlePos.Y = mainBox.Y2;
-                TopMiddlePos.Z = (mainBox.Z1 + mainBox.Z2) / 2;
+                TopMiddlePos.Z = mainBox.MidZ;
 
                 for (int i = 1; i < SelectionBoxes.Length; i++)
                 {
@@ -2445,21 +2533,8 @@ namespace Vintagestory.API.Common
             (Textures as TextureDictionary).BakeAndCollect(api.Assets, textureDict, Code, "Baked variant of block ");
             (TexturesInventory as TextureDictionary).BakeAndCollect(api.Assets, textureDict, Code, "Baked inventory variant of block ");
 
-            // Bake and collect bleed overlay texture if specified
-            if (!string.IsNullOrEmpty(BleedOverlayTexture))
-            {
-                var overlayLoc = AssetLocation.Create(BleedOverlayTexture, Code?.Domain);
-                var overlayTex = new CompositeTexture(overlayLoc);
-                overlayTex.Bake(api.Assets);
-                if (overlayTex.Baked != null)
-                {
-                    if (!textureDict.ContainsKey(overlayTex.Baked.BakedName))
-                    {
-                        textureDict.SetTextureLocation(new AssetLocationAndSource(overlayTex.Baked.BakedName, "Bleed overlay for block ", Code));
-                    }
-                }
-                BleedOverlayTextureBaked = overlayTex;
-            }
+            BleedOverlayTextureBaked = BakeAndCollectBleedOverlay(api, textureDict, BleedOverlayTexture, "Bleed overlay for block ");
+            BleedCornerOverlayTextureBaked = BakeAndCollectBleedOverlay(api, textureDict, BleedCornerOverlayTexture, "Bleed corner overlay for block ");
 
             foreach (var val in Textures)
             {
@@ -2469,6 +2544,30 @@ namespace Vintagestory.API.Common
                     api.Logger.Warning("Block {0} defines a wildcard texture {1} (or one of its alternates), key {2}, but no matching texture found", Code, f, val.Key);
                 }
             }
+        }
+
+        /// <summary>
+        /// Bakes a bleed overlay path and registers every variant (wildcard bases expand to randoms) in the atlas.
+        /// </summary>
+        private CompositeTexture BakeAndCollectBleedOverlay(ICoreAPI api, ITextureLocationDictionary textureDict, string texturePath, string sourceLabel)
+        {
+            if (string.IsNullOrEmpty(texturePath)) return null;
+
+            var overlayLoc = AssetLocation.Create(texturePath, Code?.Domain);
+            var overlayTex = new CompositeTexture(overlayLoc);
+            overlayTex.Bake(api.Assets);
+            if (overlayTex.Baked == null) return overlayTex;
+
+            var variants = overlayTex.Baked.BakedVariants ?? new[] { overlayTex.Baked };
+            foreach (var variant in variants)
+            {
+                if (variant != null && !textureDict.ContainsKey(variant.BakedName))
+                {
+                    textureDict.SetTextureLocation(new AssetLocationAndSource(variant.BakedName, sourceLabel, Code));
+                }
+            }
+
+            return overlayTex;
         }
 
 
@@ -2596,7 +2695,8 @@ namespace Vintagestory.API.Common
 
             if (ClimateColorMapResolved != null || SeasonColorMapResolved != null)
             {
-                color = capi.World.ApplyColorMapOnRgba(ClimateColorMapResolved, SeasonColorMapResolved, color, pos.X, pos.Y, pos.Z);
+                if (rndIndex < 0) rndIndex = capi.World.Rand.Next(30);
+                color = capi.World.ApplyColorMapOnRgba(ClimateColorMapResolved, SeasonColorMapResolved, color, pos.X + rndIndex, pos.Y, pos.Z);
             }
 
             return color;
@@ -2682,12 +2782,34 @@ namespace Vintagestory.API.Common
         }
 
         /// <summary>
+        /// Alias of api.World.BlockAccessor.GetBlockEntity(position) as T
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public virtual T GetBlockEntity<T>(FastBlockPos position) where T : BlockEntity
+        {
+            return api.World.BlockAccessor.GetBlockEntity(position) as T;
+        }
+
+        /// <summary>
         /// Alias of api.World.BlockAccessor.GetBlockEntity(pos)?.GetBehavior&lt;T&gt;()
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="pos"></param>
         /// <returns></returns>
         public virtual T GetBEBehavior<T>(BlockPos pos) where T : BlockEntityBehavior
+        {
+            return api.World.BlockAccessor.GetBlockEntity(pos)?.GetBehavior<T>();
+        }
+
+        /// <summary>
+        /// Alias of api.World.BlockAccessor.GetBlockEntity(pos)?.GetBehavior&lt;T&gt;()
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public virtual T GetBEBehavior<T>(FastBlockPos pos) where T : BlockEntityBehavior
         {
             return api.World.BlockAccessor.GetBlockEntity(pos)?.GetBehavior<T>();
         }
@@ -2713,15 +2835,31 @@ namespace Vintagestory.API.Common
             var be = world.BlockAccessor.GetBlockEntity(pos);
             if (be is T bet) return bet;
 
-            if (be != null)
-            {
-                var beh = be.GetBehavior<T>();
-                if (beh is T beht) return beht;
-            }
-
-            return null;
+            return be?.GetBehavior<T>();
         }
 
+        /// <summary>
+        /// Returns instance of class that implements this interface in the following order<br/>
+        /// 1. Block (returns itself)<br/>
+        /// 2. BlockBehavior (returns on of our own behavior)<br/>
+        /// 3. BlockEntity<br/>
+        /// 4. BlockEntityBehavior
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="world"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        public virtual T GetInterface<T>(IWorldAccessor world, FastBlockPos pos) where T: class
+        {
+            if (this is T blockt) return blockt;
+            var bh = GetBehavior(typeof(T), true);
+            if (bh != null) return bh as T;
+
+            var be = world.BlockAccessor.GetBlockEntity(pos);
+            if (be is T bet) return bet;
+
+            return be?.GetBehavior<T>();
+        }
 
         /// <summary>
         /// Creates a deep copy of the block

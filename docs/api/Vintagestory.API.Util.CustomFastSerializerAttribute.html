@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class CustomFastSerializerAttribute | VintageStory API ">
       
-      <meta name="description" content="Indicates that the FastSerialize() method should call a custom method to serialize this field: the custom method being of the pattern FastSerializerDelegate Open in GitHub">
+      <meta name="description" content="Indicates that the FastSerialize() method should call a custom method to serialize this field. The custom method being of the pattern &amp;quot;FastSerialize[memberName](ms, fieldId, ref count, ref position);&amp;quot; , where memberName will automatically strip a &amp;quot;Serialized&amp;quot; suffix from the field name for the called methode name, so &amp;quot;EntitiesCount&amp;quot; and &amp;quot;EntitiesSerialized&amp;quot; field will generate the following code: FastSerializeEntitiesCount(ms, 5, ref count, ref position); FastSerializeEntities(ms, 6, ref count, ref position);. The FastSerializeEntitiesCount() and FastSerializeEntities() need to be implemented in the class by hand. See FastSerializeGenerator.cs Open in GitHub">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,11 @@ Class CustomFastSerializerAttribute
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>Indicates that the FastSerialize() method should call a custom method to serialize this field: the custom method being of the pattern FastSerializerDelegate <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p>Indicates that the FastSerialize() method should call a custom method to serialize this field.
+The custom method being of the pattern &quot;FastSerialize[memberName](ms, fieldId, ref count, ref position);&quot; ,
+where memberName will automatically strip a &quot;Serialized&quot; suffix from the field name for the called methode name, so &quot;EntitiesCount&quot; and &quot;EntitiesSerialized&quot; field will generate the following code: FastSerializeEntitiesCount(ms, 5, ref count, ref position); FastSerializeEntities(ms, 6, ref count, ref position);.
+The FastSerializeEntitiesCount() and FastSerializeEntities() need to be implemented in the class by hand.
+See FastSerializeGenerator.cs <a href=https://github.com/anegostudios/vsapi/blob/master///Util/FastSerializer.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 

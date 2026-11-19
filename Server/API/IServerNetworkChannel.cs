@@ -1,5 +1,6 @@
 ﻿using System;
 using Vintagestory.API.Client;
+using Vintagestory.API.MathTools;
 
 #nullable disable
 
@@ -65,6 +66,13 @@ namespace Vintagestory.API.Server
         /// <param name="message"></param>
         /// <param name="exceptPlayers"></param>
         void BroadcastPacket<T>(T message, params IServerPlayer[] exceptPlayers);
+
+        /// <summary>
+        /// Sends the packet to all connected players that may have the given position within their loaded chunks
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="pos"></param>
+        void BroadcastPacketInRange<T>(FastBlockPos pos, T message);
 
     }
 }

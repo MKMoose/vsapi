@@ -245,6 +245,13 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         IWorldChunk GetChunkAtBlockPos(BlockPos pos);
 
+        /// <summary>
+        /// Retrieve chunk at given block position, returns null if chunk is not loaded
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        IWorldChunk GetChunkAtBlockPos(FastBlockPos pos);
+
 
         /// <summary>
         /// Get the block id of the block at the given world coordinate
@@ -253,6 +260,14 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         int GetBlockId(BlockPos pos);
 
+
+        /// <summary>
+        /// Get the block id of the block at the given world coordinate
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        int GetBlockId(FastBlockPos pos);
+
         /// <summary>
         /// Get the block type of the block at the given world coordinate, dimension aware. Will never return null. For air blocks or invalid coordinates you'll get a block instance with block code "air" and id 0
         /// Same as <see cref="GetBlock(BlockPos, int)"/> with BlockLayersAccess.Default as layer
@@ -260,6 +275,14 @@ namespace Vintagestory.API.Common
         /// <param name="pos"></param>
         /// <returns></returns>
         Block GetBlock(BlockPos pos);
+
+        /// <summary>
+        /// Get the block type of the block at the given world coordinate, dimension aware. Will never return null. For air blocks or invalid coordinates you'll get a block instance with block code "air" and id 0
+        /// Same as <see cref="GetBlock(BlockPos, int)"/> with BlockLayersAccess.Default as layer
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        Block GetBlock(FastBlockPos pos);
 
         /// <summary>
         /// Direct raw coordinate access to blocks. PLEASE NOTE: The caller has to ensure dimension awareness (i.e. pos.InternalY when using BlockPos)<br/>
@@ -281,6 +304,15 @@ namespace Vintagestory.API.Common
         /// <returns></returns>
         Block GetBlock(BlockPos pos, int layer);
 
+        /// <summary>
+        /// Get block type at given world coordinate, dimension aware. Will never return null. For airblocks or invalid coordinates you'll get a block instance with block code "air" and id 0
+        /// <br/>Reads the block from the specified layer(s), see BlockLayersAccess documentation for details.
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name = "layer">blocks layer e.g. solid, fluid etc.</param>
+        /// <returns></returns>
+        Block GetBlock(FastBlockPos pos, int layer);
+
 
         /// <summary>
         /// Same as <see cref="GetBlock(BlockPos, int)"/> with BlockLayersAccess.MostSolid as layer
@@ -288,6 +320,13 @@ namespace Vintagestory.API.Common
         /// <param name="pos"></param>
         /// <returns></returns>
         Block GetMostSolidBlock(BlockPos pos);
+
+        /// <summary>
+        /// Same as <see cref="GetBlock(BlockPos, int)"/> with BlockLayersAccess.MostSolid as layer
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        Block GetMostSolidBlock(FastBlockPos pos);
 
 
 
@@ -504,12 +543,25 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Retrieve the block entity at given position. Returns null if there is no block entity at this position
         /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        BlockEntity GetBlockEntity(FastBlockPos position);
+
+        /// <summary>
+        /// Retrieve the block entity at given position. Returns null if there is no block entity at this position
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="position"></param>
         /// <returns></returns>
         T GetBlockEntity<T>(BlockPos position) where T : BlockEntity;
 
-
+        /// <summary>
+        /// Retrieve the block entity at given position. Returns null if there is no block entity at this position
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        T GetBlockEntity<T>(FastBlockPos position) where T : BlockEntity;
 
         /// <summary>
         /// Checks if the position is inside the maps boundaries

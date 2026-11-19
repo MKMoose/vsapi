@@ -37,7 +37,8 @@ namespace Vintagestory.API.Server
                 controlplayergroups,
                 manageplayergroups,
                 selfkill,
-                manageotherplayergroups
+                manageotherplayergroups,
+                minbrightness
             };
         }
 
@@ -186,5 +187,10 @@ namespace Vintagestory.API.Server
         /// Ability to modify others players groups
         /// </summary>
         public static string manageotherplayergroups = "manageotherplayergroups";
+
+        /// <summary>
+        /// Ability to modify the brightness
+        /// </summary>
+        public static string minbrightness = "minbrightness";
     }
 }

@@ -56,5 +56,38 @@ namespace Vintagestory.API.Server
         string WorldName { get; }
 
         bool IsFullyLoadedChunk(BlockPos pos);
+
+        /// <summary>
+        /// The world generation seed. Accessible only on the server
+        /// Used for generating all tarrein, placing blocks, structures, and world features
+        /// </summary>
+        int SeedWorldgen { get; }
+
+        /// <summary>
+        /// Gets the world's total time elapsed while unpaused in milliseconds
+        /// </summary>
+        public long GetTotalUnpausedTimeMs();
+
+        /// <summary>
+        /// Gets the world's total time elapsed in milliseconds
+        /// </summary>
+        public long GetTotalUptimeMs();
+
+        /// <summary>
+        /// Trigger the block place event manually, current purpose 1. to Log it in BlockLogger and 2. to record it in the Anti Abuse Monitor
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="oldBlockId"></param>
+        /// <param name="blockSelection"></param>
+        /// <param name="withItemStack"></param>
+        void TriggerDidPlaceBlock(IPlayer player, int oldBlockId, BlockSelection blockSelection, ItemStack withItemStack);
+
+        /// <summary>
+        /// Trigger the block break event manually, current purpose 1. to Log it in BlockLogger and 2. to record it in the Anti Abuse Monitor
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="oldBlockId"></param>
+        /// <param name="blockSelection"></param>
+        void TriggerDidBreakBlock(IPlayer player, int oldBlockId, BlockSelection blockSelection);
     }
 }

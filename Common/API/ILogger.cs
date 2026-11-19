@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 #nullable disable
 
@@ -11,6 +12,13 @@ namespace Vintagestory.API.Common
     /// </summary>
     public interface ILogger
     {
+        internal static AsyncLocal<ILogger> instance = new();
+        internal static ILogger fallback;
+        /// <summary>
+        /// Allows you to log without access to an ICoreAPI.
+        /// </summary>
+        public static ILogger Instance => instance.Value ?? fallback;
+
         /// <summary>
         /// If true, will also print to Diagnostics.Debug.
         /// </summary>

@@ -379,6 +379,74 @@ Class CollisionTester
 
 
 
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_SlidingOnSteepCollider_" data-uid="Vintagestory.API.MathTools.CollisionTester.SlidingOnSteepCollider*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_SlidingOnSteepCollider" data-uid="Vintagestory.API.MathTools.CollisionTester.SlidingOnSteepCollider">
+  SlidingOnSteepCollider
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether the latest collision contacted a steep collider without being walkable</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SlidingOnSteepCollider { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_SupportingCollider_" data-uid="Vintagestory.API.MathTools.CollisionTester.SupportingCollider*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_SupportingCollider" data-uid="Vintagestory.API.MathTools.CollisionTester.SupportingCollider">
+  SupportingCollider
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The registered collider which supported the entity during the most recent terrain collision, or null for terrain and non-floor collisions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Collider SupportingCollider { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Collider.html">Collider</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -512,6 +580,91 @@ Class CollisionTester
 
 
 
+  <a id="Vintagestory_API_MathTools_CollisionTester_ApplyTerrainCollision_" data-uid="Vintagestory.API.MathTools.CollisionTester.ApplyTerrainCollision*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_ApplyTerrainCollision_Vintagestory_API_Common_Entities_Entity_Vintagestory_API_Common_Entities_EntityPos_Vintagestory_API_MathTools_Vec3d_System_Single_Vintagestory_API_MathTools_Vec3d__System_Int64_System_Single_System_Single_" data-uid="Vintagestory.API.MathTools.CollisionTester.ApplyTerrainCollision(Vintagestory.API.Common.Entities.Entity,Vintagestory.API.Common.Entities.EntityPos,Vintagestory.API.MathTools.Vec3d,System.Single,Vintagestory.API.MathTools.Vec3d@,System.Int64,System.Single,System.Single)">
+  ApplyTerrainCollision(Entity, EntityPos, Vec3d, float, ref Vec3d, long, float, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies an explicit displacement while respecting terrain and registered colliders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyTerrainCollision(Entity entity, EntityPos entityPos, Vec3d displacement, float dtFactor, ref Vec3d newPosition, long excludedColliderId = 0, float stepHeight = 1, float yExtra = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a></dt>
+    <dd></dd>
+    <dt><code>entityPos</code> <a class="xref" href="Vintagestory.API.Common.Entities.EntityPos.html">EntityPos</a></dt>
+    <dd></dd>
+    <dt><code>displacement</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>dtFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>newPosition</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>excludedColliderId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd><p>A collider which supplies the displacement and must not block it.</p>
+</dd>
+    <dt><code>stepHeight</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>yExtra</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_ClipColliderVelocity_" data-uid="Vintagestory.API.MathTools.CollisionTester.ClipColliderVelocity*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_ClipColliderVelocity_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.MathTools.CollisionTester.ClipColliderVelocity(Vintagestory.API.MathTools.Vec3d)">
+  ClipColliderVelocity(Vec3d)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clips horizontal velocity against registered collider walls which constrained the latest movement solve.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ClipColliderVelocity(Vec3d velocity)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>velocity</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><p>True when the latest solve applied at least one wall constraint.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_MathTools_CollisionTester_GenerateCollisionBoxList_" data-uid="Vintagestory.API.MathTools.CollisionTester.GenerateCollisionBoxList*"></a>
 
   <h3 id="Vintagestory_API_MathTools_CollisionTester_GenerateCollisionBoxList_Vintagestory_API_Common_IBlockAccessor_System_Double_System_Double_System_Double_System_Single_System_Single_System_Int32_" data-uid="Vintagestory.API.MathTools.CollisionTester.GenerateCollisionBoxList(Vintagestory.API.Common.IBlockAccessor,System.Double,System.Double,System.Double,System.Single,System.Single,System.Int32)">
@@ -576,6 +729,51 @@ Class CollisionTester
     <dt><code>entityBoxRel</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidf.html">Cuboidf</a></dt>
     <dd></dd>
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Block.html">Block</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_GetCollidingBlock_" data-uid="Vintagestory.API.MathTools.CollisionTester.GetCollidingBlock*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_GetCollidingBlock_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_MathTools_Cuboidf_Vintagestory_API_MathTools_Vec3d_System_Int32_System_Boolean_" data-uid="Vintagestory.API.MathTools.CollisionTester.GetCollidingBlock(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.MathTools.Cuboidf,Vintagestory.API.MathTools.Vec3d,System.Int32,System.Boolean)">
+  GetCollidingBlock(IBlockAccessor, Cuboidf, Vec3d, int, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the colliding terrain block at a dimension-local position in the supplied dimension.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Block GetCollidingBlock(IBlockAccessor blockAccessor, Cuboidf entityBoxRel, Vec3d pos, int dimension, bool alsoCheckTouch = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dd></dd>
+    <dt><code>entityBoxRel</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidf.html">Cuboidf</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
     <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
@@ -712,6 +910,134 @@ Class CollisionTester
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
     <dd></dd>
     <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_IsColliding_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsColliding*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_IsColliding_Vintagestory_API_Common_IBlockAccessor_Vintagestory_API_MathTools_Cuboidf_Vintagestory_API_MathTools_Vec3d_System_Int32_System_Boolean_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsColliding(Vintagestory.API.Common.IBlockAccessor,Vintagestory.API.MathTools.Cuboidf,Vintagestory.API.MathTools.Vec3d,System.Int32,System.Boolean)">
+  IsColliding(IBlockAccessor, Cuboidf, Vec3d, int, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests terrain collision at a dimension-local position in the supplied dimension.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsColliding(IBlockAccessor blockAccessor, Cuboidf entityBoxRel, Vec3d pos, int dimension, bool alsoCheckTouch = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>blockAccessor</code> <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html">IBlockAccessor</a></dt>
+    <dd></dd>
+    <dt><code>entityBoxRel</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidf.html">Cuboidf</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_IsColliding_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsColliding*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_IsColliding_Vintagestory_API_Common_IWorldAccessor_Vintagestory_API_MathTools_Cuboidf_Vintagestory_API_MathTools_Vec3d_System_Int32_System_Boolean_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsColliding(Vintagestory.API.Common.IWorldAccessor,Vintagestory.API.MathTools.Cuboidf,Vintagestory.API.MathTools.Vec3d,System.Int32,System.Boolean)">
+  IsColliding(IWorldAccessor, Cuboidf, Vec3d, int, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tests terrain and registered colliders at a dimension-local position in the supplied dimension.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsColliding(IWorldAccessor worldAccessor, Cuboidf entityBoxRel, Vec3d pos, int dimension, bool alsoCheckTouch = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>worldAccessor</code> <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html">IWorldAccessor</a></dt>
+    <dd></dd>
+    <dt><code>entityBoxRel</code> <a class="xref" href="Vintagestory.API.MathTools.Cuboidf.html">Cuboidf</a></dt>
+    <dd></dd>
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+    <dt><code>dimension</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>alsoCheckTouch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_CollisionTester_IsWalkableColliderSurface_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsWalkableColliderSurface*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CollisionTester_IsWalkableColliderSurface_Vintagestory_API_MathTools_FastVec3d_System_Double_" data-uid="Vintagestory.API.MathTools.CollisionTester.IsWalkableColliderSurface(Vintagestory.API.MathTools.FastVec3d,System.Double)">
+  IsWalkableColliderSurface(FastVec3d, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsWalkableColliderSurface(FastVec3d normal, double maxSlopeGrade)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>normal</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>maxSlopeGrade</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
     <dd></dd>
   </dl>
 

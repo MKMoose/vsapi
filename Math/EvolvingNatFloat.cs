@@ -2,6 +2,7 @@ using System;
 using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics.CodeAnalysis;
+using Vintagestory.API.Datastructures;
 
 #nullable disable
 
@@ -146,6 +147,7 @@ namespace Vintagestory.API.MathTools
         }
 
 
+        [Obsolete("Prefer using the BinarySpanReader overload.")]
         public static EvolvingNatFloat CreateFromBytes(BinaryReader reader)
         {
             EvolvingNatFloat evo = new EvolvingNatFloat()
@@ -156,10 +158,25 @@ namespace Vintagestory.API.MathTools
             return evo;
         }
 
+        public static EvolvingNatFloat CreateFromBytes(ref BinarySpanReader reader)
+        {
+            EvolvingNatFloat evo = new EvolvingNatFloat()
+            {
+                transform = (EnumTransformFunction)reader.ReadByte(),
+                factor = reader.ReadSingle()
+            };
+            return evo;
+        }
+
+
+        public bool Equals(EvolvingNatFloat other)
+        {
+            return other.Transform == Transform && other.factor == factor;
+        }
+
         public override bool Equals([NotNullWhen(true)] object obj)
         {
-            if (obj is not EvolvingNatFloat enf) return false;
-            return enf.Transform == Transform && enf.factor == factor;
+            return obj is EvolvingNatFloat other && Equals(other);
         }
 
         public static bool operator ==(EvolvingNatFloat left, EvolvingNatFloat right)

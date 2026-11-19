@@ -101,7 +101,7 @@ Classes
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.AttributeAttachableToEntity.html">AttributeAttachableToEntity</a></dt>
-      <dd><p>A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorContainer.cs>Open in GitHub</a></p>
+      <dd><p>A set of properties that make a collectible attachable to an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/AttributeAttachableToEntity.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -605,8 +605,7 @@ This is not a usable entity behavior, but other entity behaviors may used this. 
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.EntityBehaviorGait.html">EntityBehaviorGait</a></dt>
-      <dd><p>Allows to define gaits of an entity.
-<br>Uses the &quot;gait&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>
+      <dd><p>Defines gaits and movement for an entity <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorGait.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -643,6 +642,12 @@ This is not a usable entity behavior, but other entity behaviors may used this. 
       <dt><a class="xref" href="Vintagestory.GameContent.EntityBehaviorIdleAnimations.html">EntityBehaviorIdleAnimations</a></dt>
       <dd><p>Plays random animation from predefined list of idle animations when entity isn't moving or mounted on another entity.
 <br>Uses the &quot;idleanimations&quot; code <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Entity/Behavior/BehaviorIdleAnims.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.GameContent.EntityBehaviorKinematicCollider.html">EntityBehaviorKinematicCollider</a></dt>
+      <dd><p>Registers entity-local collision boxes as a transformed collider.
+<br>Uses the &quot;kinematiccollider&quot; code. <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorKinematicCollider.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -710,7 +715,7 @@ This is not a usable entity behavior, but other entity behaviors may used this. 
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.EntityBehaviorPlayerPhysics.html">EntityBehaviorPlayerPhysics</a></dt>
-      <dd><p>Client-side player physics. This class has no further properties.
+      <dd><p>Client-side player physics.
 <br>Uses the &quot;playerphysics&quot; code <a href=https://github.com/anegostudios/vsessentialsmod/blob/master///Entity/Behavior/BehaviorPlayerPhysics.cs>Open in GitHub</a></p>
 </dd>
     </dl>
@@ -794,13 +799,29 @@ when another player interacts with them using a collectible that has the Behavio
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.GameContent.InPieProperties.html">InPieProperties</a></dt>
+      <dd><p>Defines the type of ingredient (crust, filling, topping), food category
+for mixing, and what mixing codes it can be used with, if any. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///BlockEntity/BEPie.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.KnappingRecipe.html">KnappingRecipe</a></dt>
       <dd><p>Defines a stone/flint knapping recipe. Uses all properties from LayeredVoxelRecipe&lt;T&gt;, however always uses a single layer. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Recipe/KnappingRecipe.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.GameContent.LiquidTopOpenContainerProps.html">LiquidTopOpenContainerProps</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Liquid/WaterTightContainableProps.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.MetalAlloyIngredient.html">MetalAlloyIngredient</a></dt>
       <dd><p>Defines an ingredient for a <a class="xref" href="Vintagestory.GameContent.AlloyRecipe.html">AlloyRecipe</a> recipe. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Recipe/MetalAlloyIngredient.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.GameContent.PieTopCrustType.html">PieTopCrustType</a></dt>
+      <dd><p>A definition for a top crust type, including its code and shape element. <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Block/BlockPie.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">
@@ -827,6 +848,11 @@ when another player interacts with them using a collectible that has the Behavio
     <dl class="jumplist">
       <dt><a class="xref" href="Vintagestory.GameContent.TextAreaConfig.html">TextAreaConfig</a></dt>
       <dd><p>Font settings for signs and other writeable surfaces <a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Block/BlockSign.cs>Open in GitHub</a></p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="Vintagestory.GameContent.WaterTightContainableProps.html">WaterTightContainableProps</a></dt>
+      <dd><p><a href=https://github.com/anegostudios/vssurvivalmod/blob/master///Systems/Liquid/WaterTightContainableProps.cs>Open in GitHub</a></p>
 </dd>
     </dl>
     <dl class="jumplist">

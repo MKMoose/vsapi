@@ -938,6 +938,85 @@ Same as <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html#Vintag
 
 
 
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetBlock_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlock*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlock_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlock(Vintagestory.API.MathTools.FastBlockPos)">
+  GetBlock(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the block type of the block at the given world coordinate, dimension aware. Will never return null. For air blocks or invalid coordinates you'll get a block instance with block code &quot;air&quot; and id 0
+Same as <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html#Vintagestory_API_Common_IBlockAccessor_GetBlock_Vintagestory_API_MathTools_BlockPos_System_Int32_">GetBlock(BlockPos, int)</a> with BlockLayersAccess.Default as layer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Block GetBlock(FastBlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Block.html">Block</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetBlock_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlock*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlock_Vintagestory_API_MathTools_FastBlockPos_System_Int32_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlock(Vintagestory.API.MathTools.FastBlockPos,System.Int32)">
+  GetBlock(FastBlockPos, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get block type at given world coordinate, dimension aware. Will never return null. For airblocks or invalid coordinates you'll get a block instance with block code &quot;air&quot; and id 0
+<br>Reads the block from the specified layer(s), see BlockLayersAccess documentation for details.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Block GetBlock(FastBlockPos pos, int layer)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
+    <dd></dd>
+    <dt><code>layer</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd><p>blocks layer e.g. solid, fluid etc.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Block.html">Block</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity*"></a>
 
   <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_Vintagestory_API_MathTools_BlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity(Vintagestory.API.MathTools.BlockPos)">
@@ -977,6 +1056,43 @@ Same as <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html#Vintag
 
   <a id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity*"></a>
 
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity(Vintagestory.API.MathTools.FastBlockPos)">
+  GetBlockEntity(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieve the block entity at given position. Returns null if there is no block entity at this position</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">BlockEntity GetBlockEntity(FastBlockPos position)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>position</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.BlockEntity.html">BlockEntity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity*"></a>
+
   <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity__1_Vintagestory_API_MathTools_BlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity``1(Vintagestory.API.MathTools.BlockPos)">
   GetBlockEntity&lt;T&gt;(BlockPos)
   
@@ -993,6 +1109,48 @@ Same as <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html#Vintag
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>position</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlockEntity__1_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockEntity``1(Vintagestory.API.MathTools.FastBlockPos)">
+  GetBlockEntity&lt;T&gt;(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieve the block entity at given position. Returns null if there is no block entity at this position</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T GetBlockEntity&lt;T&gt;(FastBlockPos position) where T : BlockEntity</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>position</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
   </dl>
 
@@ -1077,6 +1235,43 @@ int GetBlockId(int posX, int posY, int posZ)</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetBlockId_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockId*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetBlockId_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetBlockId(Vintagestory.API.MathTools.FastBlockPos)">
+  GetBlockId(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get the block id of the block at the given world coordinate</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int GetBlockId(FastBlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
   </dl>
 
@@ -1331,6 +1526,43 @@ Gets the block type of the block at the given world coordinate.</p>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.IWorldChunk.html">IWorldChunk</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetChunkAtBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetChunkAtBlockPos*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetChunkAtBlockPos_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetChunkAtBlockPos(Vintagestory.API.MathTools.FastBlockPos)">
+  GetChunkAtBlockPos(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Retrieve chunk at given block position, returns null if chunk is not loaded</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IWorldChunk GetChunkAtBlockPos(FastBlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
   </dl>
 
@@ -2014,6 +2246,43 @@ Block GetMostSolidBlock(int x, int y, int z)</code></pre>
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Block.html">Block</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_IBlockAccessor_GetMostSolidBlock_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetMostSolidBlock*"></a>
+
+  <h3 id="Vintagestory_API_Common_IBlockAccessor_GetMostSolidBlock_Vintagestory_API_MathTools_FastBlockPos_" data-uid="Vintagestory.API.Common.IBlockAccessor.GetMostSolidBlock(Vintagestory.API.MathTools.FastBlockPos)">
+  GetMostSolidBlock(FastBlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Same as <a class="xref" href="Vintagestory.API.Common.IBlockAccessor.html#Vintagestory_API_Common_IBlockAccessor_GetBlock_Vintagestory_API_MathTools_BlockPos_System_Int32_">GetBlock(BlockPos, int)</a> with BlockLayersAccess.MostSolid as layer</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Block GetMostSolidBlock(FastBlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.FastBlockPos.html">FastBlockPos</a></dt>
     <dd></dd>
   </dl>
 

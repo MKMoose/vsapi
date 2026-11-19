@@ -97,7 +97,7 @@ Class ProtectionModifiers
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/EntityAgent.cs>Open in GitHub</a></p>
+  <div class="markdown summary"><p><a href=https://github.com/anegostudios/vsapi/blob/master///Common/Entity/ProtectionModifiers.cs>Open in GitHub</a></p>
 </div>
   <div class="markdown conceptual"></div>
 
@@ -159,13 +159,14 @@ Class ProtectionModifiers
 
 
 
-  <h2 class="section" id="fields">Fields
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
+  <a id="Vintagestory_API_Common_ProtectionModifiers_DamageReductionValues_" data-uid="Vintagestory.API.Common.ProtectionModifiers.DamageReductionValues*"></a>
 
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_FlatDamageReduction" data-uid="Vintagestory.API.Common.ProtectionModifiers.FlatDamageReduction">
-  FlatDamageReduction
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_DamageReductionValues" data-uid="Vintagestory.API.Common.ProtectionModifiers.DamageReductionValues">
+  DamageReductionValues
   
   </h3>
 
@@ -173,13 +174,255 @@ Class ProtectionModifiers
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float FlatDamageReduction</code></pre>
+    <pre><code class="lang-csharp hljs">public static List&lt;List&lt;float&gt;&gt; DamageReductionValues { get; set; }</code></pre>
   </div>
 
 
 
 
-  <h4 class="section">Field Value</h4>
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_MinDamageReductionValue_" data-uid="Vintagestory.API.Common.ProtectionModifiers.MinDamageReductionValue*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_MinDamageReductionValue" data-uid="Vintagestory.API.Common.ProtectionModifiers.MinDamageReductionValue">
+  MinDamageReductionValue
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float MinDamageReductionValue { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_ProtectionTierRounding_" data-uid="Vintagestory.API.Common.ProtectionModifiers.ProtectionTierRounding*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_ProtectionTierRounding" data-uid="Vintagestory.API.Common.ProtectionModifiers.ProtectionTierRounding">
+  ProtectionTierRounding
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ProtectionModifiers.EnumRoundingType ProtectionTierRounding { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.html">ProtectionModifiers</a>.<a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.EnumRoundingType.html">EnumRoundingType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_ProtectionTiers_" data-uid="Vintagestory.API.Common.ProtectionModifiers.ProtectionTiers*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_ProtectionTiers" data-uid="Vintagestory.API.Common.ProtectionModifiers.ProtectionTiers">
+  ProtectionTiers
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;EnumDamageType, int&gt; ProtectionTiers { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="Vintagestory.API.Common.EnumDamageType.html">EnumDamageType</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_Add_" data-uid="Vintagestory.API.Common.ProtectionModifiers.Add*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_Add_Vintagestory_API_Common_ProtectionModifiers___" data-uid="Vintagestory.API.Common.ProtectionModifiers.Add(Vintagestory.API.Common.ProtectionModifiers[])">
+  Add(params ProtectionModifiers[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ProtectionModifiers Add(params ProtectionModifiers[] modifiers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modifiers</code> <a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.html">ProtectionModifiers</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.html">ProtectionModifiers</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_Apply_" data-uid="Vintagestory.API.Common.ProtectionModifiers.Apply*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_Apply_System_Single__System_Int32__Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_DamageSource_" data-uid="Vintagestory.API.Common.ProtectionModifiers.Apply(System.Single@,System.Int32@,Vintagestory.API.Common.EntityAgent,Vintagestory.API.Common.DamageSource)">
+  Apply(ref float, out int, EntityAgent, DamageSource)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Apply(ref float damage, out int durabilityLoss, EntityAgent receiver, DamageSource damageStats)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>damage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+    <dt><code>durabilityLoss</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>receiver</code> <a class="xref" href="Vintagestory.API.Common.EntityAgent.html">EntityAgent</a></dt>
+    <dd></dd>
+    <dt><code>damageStats</code> <a class="xref" href="Vintagestory.API.Common.DamageSource.html">DamageSource</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_Average_" data-uid="Vintagestory.API.Common.ProtectionModifiers.Average*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_Average_System_ValueTuple_Vintagestory_API_Common_ProtectionModifiers_System_Single____" data-uid="Vintagestory.API.Common.ProtectionModifiers.Average(System.ValueTuple{Vintagestory.API.Common.ProtectionModifiers,System.Single}[])">
+  Average(params (ProtectionModifiers modifiers, float weight)[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ProtectionModifiers Average(params (ProtectionModifiers modifiers, float weight)[] modifiers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modifiers</code> (<a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.html">ProtectionModifiers</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-vintagestory.api.common.protectionmodifiers,system.single-.modifiers">modifiers</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-vintagestory.api.common.protectionmodifiers,system.single-.weight">weight</a>)[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.ProtectionModifiers.html">ProtectionModifiers</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_GetDamageReduction_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetDamageReduction*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_GetDamageReduction_System_Int32_System_Int32_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetDamageReduction(System.Int32,System.Int32)">
+  GetDamageReduction(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static float GetDamageReduction(int attackTier, int protectionTier)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>attackTier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>protectionTier</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd></dd>
@@ -194,8 +437,11 @@ Class ProtectionModifiers
 
 
 
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_HighDamageTierResistant" data-uid="Vintagestory.API.Common.ProtectionModifiers.HighDamageTierResistant">
-  HighDamageTierResistant
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_GetDescription_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetDescription*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_GetDescription_System_Text_StringBuilder_Vintagestory_API_Common_ICoreAPI_System_Boolean_System_Boolean_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetDescription(System.Text.StringBuilder,Vintagestory.API.Common.ICoreAPI,System.Boolean,System.Boolean)">
+  GetDescription(StringBuilder, ICoreAPI, bool, bool)
   
   </h3>
 
@@ -203,15 +449,18 @@ Class ProtectionModifiers
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool HighDamageTierResistant</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual void GetDescription(StringBuilder description, ICoreAPI api, bool broken = false, bool header = true)</code></pre>
   </div>
 
-
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+    <dt><code>api</code> <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html">ICoreAPI</a></dt>
+    <dd></dd>
+    <dt><code>broken</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>header</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 
@@ -224,8 +473,12 @@ Class ProtectionModifiers
 
 
 
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_PerTierFlatDamageReductionLoss" data-uid="Vintagestory.API.Common.ProtectionModifiers.PerTierFlatDamageReductionLoss">
-  PerTierFlatDamageReductionLoss
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_GetProtectionTier_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetProtectionTier*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_GetProtectionTier_Vintagestory_API_Common_EntityAgent_Vintagestory_API_Common_DamageSource_" data-uid="Vintagestory.API.Common.ProtectionModifiers.GetProtectionTier(Vintagestory.API.Common.EntityAgent,Vintagestory.API.Common.DamageSource)">
+  GetProtectionTier(EntityAgent, DamageSource)
   
   </h3>
 
@@ -233,73 +486,18 @@ Class ProtectionModifiers
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float[] PerTierFlatDamageReductionLoss</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual int GetProtectionTier(EntityAgent receiver, DamageSource damageStats)</code></pre>
   </div>
 
-
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</dt>
+    <dt><code>receiver</code> <a class="xref" href="Vintagestory.API.Common.EntityAgent.html">EntityAgent</a></dt>
+    <dd></dd>
+    <dt><code>damageStats</code> <a class="xref" href="Vintagestory.API.Common.DamageSource.html">DamageSource</a></dt>
     <dd></dd>
   </dl>
 
-
-
-
-
-
-
-
-
-
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_PerTierRelativeProtectionLoss" data-uid="Vintagestory.API.Common.ProtectionModifiers.PerTierRelativeProtectionLoss">
-  PerTierRelativeProtectionLoss
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float[] PerTierRelativeProtectionLoss</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_ProtectionTier" data-uid="Vintagestory.API.Common.ProtectionModifiers.ProtectionTier">
-  ProtectionTier
-  
-  </h3>
-
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int ProtectionTier</code></pre>
-  </div>
-
-
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd></dd>
@@ -314,8 +512,11 @@ Class ProtectionModifiers
 
 
 
-  <h3 id="Vintagestory_API_Common_ProtectionModifiers_RelativeProtection" data-uid="Vintagestory.API.Common.ProtectionModifiers.RelativeProtection">
-  RelativeProtection
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_LoadDamageReductionTable_" data-uid="Vintagestory.API.Common.ProtectionModifiers.LoadDamageReductionTable*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_LoadDamageReductionTable_Vintagestory_API_Common_ICoreAPI_" data-uid="Vintagestory.API.Common.ProtectionModifiers.LoadDamageReductionTable(Vintagestory.API.Common.ICoreAPI)">
+  LoadDamageReductionTable(ICoreAPI)
   
   </h3>
 
@@ -323,17 +524,48 @@ Class ProtectionModifiers
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public float RelativeProtection</code></pre>
+    <pre><code class="lang-csharp hljs">public static void LoadDamageReductionTable(ICoreAPI api)</code></pre>
   </div>
 
-
-
-
-  <h4 class="section">Field Value</h4>
+  <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dt><code>api</code> <a class="xref" href="Vintagestory.API.Common.ICoreAPI.html">ICoreAPI</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_ProtectionModifiers_SetDamageReductionTable_" data-uid="Vintagestory.API.Common.ProtectionModifiers.SetDamageReductionTable*"></a>
+
+  <h3 id="Vintagestory_API_Common_ProtectionModifiers_SetDamageReductionTable_System_Single_____" data-uid="Vintagestory.API.Common.ProtectionModifiers.SetDamageReductionTable(System.Single[][])">
+  SetDamageReductionTable(float[][])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetDamageReductionTable(float[][] values)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>values</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[][]</dt>
+    <dd></dd>
+  </dl>
+
+
+
 
 
 

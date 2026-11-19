@@ -6,6 +6,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 #nullable disable
 
@@ -349,41 +350,39 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Called whenever a blockentity packet at the blocks position has been received from the client
         /// </summary>
-        /// <param name="fromPlayer"></param>
-        /// <param name="packetid"></param>
-        /// <param name="data"></param>
-        public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetid, byte[] data)
+        /// <returns>true if further handlers should be skipped, false otherwise. Used to propagate security checks.</returns>
+        [Obsolete("Use the overload with CachedAccessPerms. Never override both.")]
+        public virtual void OnReceivedClientPacket(IPlayer fromPlayer, int packetId, byte[] packetData)
         {
             foreach (var behavior in Behaviors)
             {
-                behavior.OnReceivedClientPacket(fromPlayer, packetid, data);
+                behavior.OnReceivedClientPacket(fromPlayer, packetId, packetData);
             }
         }
 
-
         #nullable enable
+        /// <summary>
+        /// Called whenever a blockentity packet at the blocks position has been received from the client
+        /// </summary>
+        /// <returns>true if further handlers should be skipped, false otherwise. Used to propagate security checks.</returns>
+        public virtual void OnReceivedClientPacket(Server.IServerPlayer fromPlayer, int packetId, SerializedData packetData, ref CachedAccessPerms perms)
+        {
+            foreach (var behavior in Behaviors)
+            {
+                behavior.OnReceivedClientPacket(fromPlayer, packetId, packetData, ref perms);
+            }
+        }
+
         /// <summary> Access permissions cache for a specific block for a specific player. Used in packet handling to not have to duplicate work if multiple handlers are interested in validation. </summary>
-        /// <remarks> Proper use of this (passdown into handlers) will be introduced in the next version. </remarks>
-        public struct CachedAccessPerms {
+        public struct CachedAccessPerms(IWorldAccessor world, FastBlockPos blockPos, IPlayer player)
+        {
             public EnumBlockAccessFlags TestedFlags;
             public EnumBlockAccessFlags GrantedFlags;
             public EnumReachability Reachable;
-            private readonly IWorldAccessor world;
-            private readonly BlockPos blockPos;
-            private readonly IPlayer player;
-
-            [Obsolete("This signature will change in 1.23. Avoid it for now.")]
-            public CachedAccessPerms(IWorldAccessor world, BlockPos blockPos, IPlayer player)
-            {
-                this.world = world;
-                this.blockPos = blockPos;
-                this.player = player;
-            }
-
             public enum EnumReachability { Unknown = default, Reachable = 1, OutOfReach = -1 }
 
             /// <summary>Test for permissions and log an audit message if the permission is not given.</summary>
-            public bool IsInteractingPlayerAllowedTo(EnumBlockAccessFlags accessToCheck, bool validatePickRange, string thingNameForLog)
+            public bool TryAccessingBlockAtPos(EnumBlockAccessFlags accessToCheck, bool validatePickRange, string thingNameForLog)
             {
                 if (validatePickRange)
                 {
@@ -405,7 +404,8 @@ namespace Vintagestory.API.Common
 
                 if ((accessToCheck & this.TestedFlags) != accessToCheck)
                 {
-                    if (world.Claims.TryAccess(player, blockPos, accessToCheck))
+                    // Rennorb 26.06.2026 perf: Remove this blockPos allocation once the claim system can take a fast one.
+                    if (world.Claims.TryAccess(player, new (blockPos), accessToCheck))
                     {
                         this.GrantedFlags |= accessToCheck;
                     }
@@ -426,20 +426,30 @@ namespace Vintagestory.API.Common
                 return true;
             }
         }
-        #nullable disable
 
         /// <summary>
         /// Called whenever a blockentity packet at the blocks position has been received from the server
         /// </summary>
-        /// <param name="packetid"></param>
-        /// <param name="data"></param>
-        public virtual void OnReceivedServerPacket(int packetid, byte[] data)
+        [Obsolete("Use the overload with SerializedData. Never override both.")]
+        public virtual void OnReceivedServerPacket(int packetId, byte[] packetData)
         {
             foreach (var val in Behaviors)
             {
-                val.OnReceivedServerPacket(packetid, data);
+                val.OnReceivedServerPacket(packetId, packetData);
             }
         }
+
+        /// <summary>
+        /// Called whenever a blockentity packet at the blocks position has been received from the server
+        /// </summary>
+        public virtual void OnReceivedServerPacket(int packetId, SerializedData packetData)
+        {
+            foreach (var val in Behaviors)
+            {
+                val.OnReceivedServerPacket(packetId, packetData);
+            }
+        }
+        #nullable disable
 
 
         /// <summary>
@@ -551,7 +561,7 @@ namespace Vintagestory.API.Common
         /// <param name="centerrockblockid"></param>
         /// <param name="layerBlock">If block.CustomBlockLayerHandler is true and the block is below the surface, this value is set</param>
         /// <param name="resolveImports">Turn it off to spawn structures as they are. For example, in this mode, instead of traders, their meta spawners will spawn</param>
-        public virtual void OnPlacementBySchematic(Server.ICoreServerAPI api, IBlockAccessor blockAccessor, BlockPos pos, Dictionary<int, Dictionary<int, int>> replaceBlocks, int centerrockblockid, Block layerBlock, bool resolveImports)
+        public virtual void OnPlacementBySchematic(ICoreServerAPI api, IBlockAccessor blockAccessor, BlockPos pos, Dictionary<int, Dictionary<int, int>> replaceBlocks, int centerrockblockid, Block layerBlock, bool resolveImports)
         {
             Pos = pos.Copy();
 
@@ -560,6 +570,24 @@ namespace Vintagestory.API.Common
                 Behaviors[i].OnPlacementBySchematic(api, blockAccessor, pos, replaceBlocks, centerrockblockid, layerBlock, resolveImports);
             }
         }
-    }
 
+        /// <summary>
+        /// Called when a schematic is placed, the tree may contain special data for example to spawn door keys per dungeon.
+        /// The custom data needs to be supplied via the SchematicPlacementData.Attributes when calling PlaceEntitiesAndBlockEntities or PlacePartial
+        /// </summary>
+        /// <param name="sapi"></param>
+        /// <param name="worldAccessor"></param>
+        /// <param name="schematicTreeData"></param>
+        /// <returns>return true if the ITreeAttribute was modified</returns>
+        public virtual bool OnPlacementBySchematicCustom(ICoreServerAPI sapi, IBlockAccessor worldAccessor, ITreeAttribute schematicTreeData)
+        {
+            var result = false;
+            for (int i = 0; i < Behaviors.Count; i++)
+            {
+                result |= Behaviors[i].OnPlacementBySchematicCustom(sapi, worldAccessor, schematicTreeData);
+            }
+
+            return result;
+        }
+    }
 }

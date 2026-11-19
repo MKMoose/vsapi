@@ -586,7 +586,8 @@ Class GuiDialogGeneric
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool IsInRangeOfBlock(BlockPos blockEntityPos)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using player.IsInInteractionRangeOf. A dialog does not have an in-world position.&quot;, true)]
+public virtual bool IsInRangeOfBlock(BlockPos blockEntityPos)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>

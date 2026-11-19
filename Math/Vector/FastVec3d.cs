@@ -539,6 +539,16 @@ namespace Vintagestory.API.MathTools
             return new FastVec3d(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
         }
 
+        public static FastVec3d operator +(Vec3d left, FastVec3d right)
+        {
+            return new FastVec3d(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+        }
+
+        public static FastVec3d operator +(FastVec3d left, Vec3d right)
+        {
+            return new FastVec3d(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
+        }
+
         public static FastVec3d operator +(FastVec3d left, Vec3i right)
         {
             return new FastVec3d(left.X + right.X, left.Y + right.Y, left.Z + right.Z);

@@ -1,39 +1,40 @@
-﻿using System.IO;
+using System;
+using System.IO;
 
-#nullable disable
+namespace Vintagestory.API.Datastructures;
 
-namespace Vintagestory.API.Datastructures
+public class IntAttribute : ScalarAttribute<int>, IAttribute
 {
-    public class IntAttribute : ScalarAttribute<int>, IAttribute
+    public IntAttribute()
     {
-        public IntAttribute()
-        {
 
-        }
+    }
+    public IntAttribute(int value)
+    {
+        this.value = value;
+    }
 
-        public IntAttribute(int value)
-        {
-            this.value = value;
-        }
+    [Obsolete("Use the BinarySpanReader overload.", true)]
+    public void FromBytes(BinaryReader reader)
+        => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-        public void FromBytes(BinaryReader stream)
-        {
-            value = stream.ReadInt32();
-        }
+    public void FromBytes(ref BinarySpanReader reader)
+    {
+        value = reader.ReadInt32();
+    }
 
-        public void ToBytes(BinaryWriter stream)
-        {
-            stream.Write(value);
-        }
+    public void ToBytes(BinaryWriter stream)
+    {
+        stream.Write(value);
+    }
 
-        public int GetAttributeId()
-        {
-            return 1;
-        }
+    public int GetAttributeId()
+    {
+        return 1;
+    }
 
-        public IAttribute Clone()
-        {
-            return new IntAttribute(value);
-        }
+    public IAttribute Clone()
+    {
+        return new IntAttribute(value);
     }
 }

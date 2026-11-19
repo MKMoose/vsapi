@@ -159,6 +159,37 @@ Class Caller
 
 
 
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Vintagestory_API_Common_Caller__ctor_" data-uid="Vintagestory.API.Common.Caller.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_Common_Caller__ctor" data-uid="Vintagestory.API.Common.Caller.#ctor">
+  Caller()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Internal use only, use one of the static `From*` methods.&quot;)]
+public Caller()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="fields">Fields
 </h2>
 
@@ -173,7 +204,7 @@ Class Caller
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string[] CallerPrivileges</code></pre>
+    <pre><code class="lang-csharp hljs">public string[]? CallerPrivileges</code></pre>
   </div>
 
 
@@ -203,7 +234,7 @@ Class Caller
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string CallerRole</code></pre>
+    <pre><code class="lang-csharp hljs">public string? CallerRole</code></pre>
   </div>
 
 
@@ -263,7 +294,7 @@ Class Caller
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Vec3d Pos</code></pre>
+    <pre><code class="lang-csharp hljs">public Vec3d? Pos</code></pre>
   </div>
 
 
@@ -328,7 +359,7 @@ Class Caller
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Entity Entity { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">public Entity? Entity { get; set; }</code></pre>
   </div>
 
 
@@ -359,7 +390,8 @@ Class Caller
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IPlayer Player { get; set; }</code></pre>
+    <pre><code class="lang-csharp hljs">[DisallowNull]
+public IPlayer? Player { get; set; }</code></pre>
   </div>
 
 
@@ -381,6 +413,156 @@ Class Caller
 
   <h2 class="section" id="methods">Methods
 </h2>
+
+
+  <a id="Vintagestory_API_Common_Caller_FromBlock_" data-uid="Vintagestory.API.Common.Caller.FromBlock*"></a>
+
+  <h3 id="Vintagestory_API_Common_Caller_FromBlock_Vintagestory_API_MathTools_BlockPos_" data-uid="Vintagestory.API.Common.Caller.FromBlock(Vintagestory.API.MathTools.BlockPos)">
+  FromBlock(BlockPos)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Caller FromBlock(BlockPos pos)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.BlockPos.html">BlockPos</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Caller.html">Caller</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Caller_FromConsole_" data-uid="Vintagestory.API.Common.Caller.FromConsole*"></a>
+
+  <h3 id="Vintagestory_API_Common_Caller_FromConsole_Vintagestory_API_MathTools_Vec3d_" data-uid="Vintagestory.API.Common.Caller.FromConsole(Vintagestory.API.MathTools.Vec3d)">
+  FromConsole(Vec3d?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Caller FromConsole(Vec3d? pos = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>pos</code> <a class="xref" href="Vintagestory.API.MathTools.Vec3d.html">Vec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Caller.html">Caller</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Caller_FromEntity_" data-uid="Vintagestory.API.Common.Caller.FromEntity*"></a>
+
+  <h3 id="Vintagestory_API_Common_Caller_FromEntity_Vintagestory_API_Common_Entities_Entity_System_String___" data-uid="Vintagestory.API.Common.Caller.FromEntity(Vintagestory.API.Common.Entities.Entity,System.String[])">
+  FromEntity(Entity, string[]?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Caller FromEntity(Entity entity, string[]? privileges = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>entity</code> <a class="xref" href="Vintagestory.API.Common.Entities.Entity.html">Entity</a></dt>
+    <dd></dd>
+    <dt><code>privileges</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Caller.html">Caller</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Common_Caller_FromPlayer_" data-uid="Vintagestory.API.Common.Caller.FromPlayer*"></a>
+
+  <h3 id="Vintagestory_API_Common_Caller_FromPlayer_Vintagestory_API_Common_IPlayer_System_Int32_System_String___" data-uid="Vintagestory.API.Common.Caller.FromPlayer(Vintagestory.API.Common.IPlayer,System.Int32,System.String[])">
+  FromPlayer(IPlayer, int, string[]?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Caller FromPlayer(IPlayer player, int fromChatGroupId = 0, string[]? privileges = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>player</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
+    <dd></dd>
+    <dt><code>fromChatGroupId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>privileges</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.Common.Caller.html">Caller</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
 
 
   <a id="Vintagestory_API_Common_Caller_GetName_" data-uid="Vintagestory.API.Common.Caller.GetName*"></a>

@@ -5,7 +5,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-#nullable disable
+#nullable disable annotations
 
 namespace Vintagestory.API.Common
 {
@@ -49,7 +49,8 @@ namespace Vintagestory.API.Common
             return false;
         }
 
-        public static IMountableSeat GetSeatOfMountedEntity(this IMountable mountable, Entity entity)
+        #nullable enable annotations
+        public static IMountableSeat? GetSeatOfMountedEntity(this IMountable mountable, Entity entity)
         {
             foreach (var seat in mountable.Seats)
             {
@@ -58,6 +59,7 @@ namespace Vintagestory.API.Common
 
             return null;
         }
+        #nullable disable annotations
 
 
         public static bool IsBeingControlled(this IMountable mountable)
@@ -116,7 +118,7 @@ namespace Vintagestory.API.Common
         /// <summary>
         /// Optional maximum yaw rotation (in radians) that a player can turn to look to left or right (relative to their body) while seated.
         /// <br/>If null, no yaw limit is applied.  
-        /// <br/>The limit is applied relative to the seat�s mount rotation
+        /// <br/>The limit is applied relative to the seats mount rotation
         /// </summary>
         [DocumentAsJson("Optional", "None")]
         public float? BodyYawLimit;

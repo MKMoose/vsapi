@@ -184,6 +184,9 @@ Interface IServerWorldAccessor
       <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_CollisionTester">IWorldAccessor.CollisionTester</a>
     </div>
     <div>
+      <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_CollisionScene">IWorldAccessor.CollisionScene</a>
+    </div>
+    <div>
       <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_Rand">IWorldAccessor.Rand</a>
     </div>
     <div>
@@ -209,6 +212,9 @@ Interface IServerWorldAccessor
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_GetRecipeRegistry_System_String_">IWorldAccessor.GetRecipeRegistry(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_GetCustomRegistry_System_String_">IWorldAccessor.GetCustomRegistry(string)</a>
     </div>
     <div>
       <a class="xref" href="Vintagestory.API.Common.IWorldAccessor.html#Vintagestory_API_Common_IWorldAccessor_DefaultEntityTrackingRange">IWorldAccessor.DefaultEntityTrackingRange</a>
@@ -492,6 +498,39 @@ Interface IServerWorldAccessor
 
 
 
+  <a id="Vintagestory_API_Server_IServerWorldAccessor_SeedWorldgen_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.SeedWorldgen*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerWorldAccessor_SeedWorldgen" data-uid="Vintagestory.API.Server.IServerWorldAccessor.SeedWorldgen">
+  SeedWorldgen
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The world generation seed. Accessible only on the server
+Used for generating all tarrein, placing blocks, structures, and world features</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int SeedWorldgen { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Server_IServerWorldAccessor_TreeGenerators_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TreeGenerators*"></a>
 
   <h3 id="Vintagestory_API_Server_IServerWorldAccessor_TreeGenerators" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TreeGenerators">
@@ -636,6 +675,70 @@ Interface IServerWorldAccessor
 
 
 
+  <a id="Vintagestory_API_Server_IServerWorldAccessor_GetTotalUnpausedTimeMs_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.GetTotalUnpausedTimeMs*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerWorldAccessor_GetTotalUnpausedTimeMs" data-uid="Vintagestory.API.Server.IServerWorldAccessor.GetTotalUnpausedTimeMs">
+  GetTotalUnpausedTimeMs()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the world's total time elapsed while unpaused in milliseconds</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">long GetTotalUnpausedTimeMs()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerWorldAccessor_GetTotalUptimeMs_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.GetTotalUptimeMs*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerWorldAccessor_GetTotalUptimeMs" data-uid="Vintagestory.API.Server.IServerWorldAccessor.GetTotalUptimeMs">
+  GetTotalUptimeMs()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the world's total time elapsed in milliseconds</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">long GetTotalUptimeMs()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Vintagestory_API_Server_IServerWorldAccessor_IsFullyLoadedChunk_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.IsFullyLoadedChunk*"></a>
 
   <h3 id="Vintagestory_API_Server_IServerWorldAccessor_IsFullyLoadedChunk_Vintagestory_API_MathTools_BlockPos_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.IsFullyLoadedChunk(Vintagestory.API.MathTools.BlockPos)">
@@ -661,6 +764,80 @@ Interface IServerWorldAccessor
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerWorldAccessor_TriggerDidBreakBlock_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TriggerDidBreakBlock*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerWorldAccessor_TriggerDidBreakBlock_Vintagestory_API_Common_IPlayer_System_Int32_Vintagestory_API_Common_BlockSelection_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TriggerDidBreakBlock(Vintagestory.API.Common.IPlayer,System.Int32,Vintagestory.API.Common.BlockSelection)">
+  TriggerDidBreakBlock(IPlayer, int, BlockSelection)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Trigger the block break event manually, current purpose 1. to Log it in BlockLogger and 2. to record it in the Anti Abuse Monitor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerDidBreakBlock(IPlayer player, int oldBlockId, BlockSelection blockSelection)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>player</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
+    <dd></dd>
+    <dt><code>oldBlockId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>blockSelection</code> <a class="xref" href="Vintagestory.API.Common.BlockSelection.html">BlockSelection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_Server_IServerWorldAccessor_TriggerDidPlaceBlock_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TriggerDidPlaceBlock*"></a>
+
+  <h3 id="Vintagestory_API_Server_IServerWorldAccessor_TriggerDidPlaceBlock_Vintagestory_API_Common_IPlayer_System_Int32_Vintagestory_API_Common_BlockSelection_Vintagestory_API_Common_ItemStack_" data-uid="Vintagestory.API.Server.IServerWorldAccessor.TriggerDidPlaceBlock(Vintagestory.API.Common.IPlayer,System.Int32,Vintagestory.API.Common.BlockSelection,Vintagestory.API.Common.ItemStack)">
+  TriggerDidPlaceBlock(IPlayer, int, BlockSelection, ItemStack)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Trigger the block place event manually, current purpose 1. to Log it in BlockLogger and 2. to record it in the Anti Abuse Monitor</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void TriggerDidPlaceBlock(IPlayer player, int oldBlockId, BlockSelection blockSelection, ItemStack withItemStack)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>player</code> <a class="xref" href="Vintagestory.API.Common.IPlayer.html">IPlayer</a></dt>
+    <dd></dd>
+    <dt><code>oldBlockId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+    <dt><code>blockSelection</code> <a class="xref" href="Vintagestory.API.Common.BlockSelection.html">BlockSelection</a></dt>
+    <dd></dd>
+    <dt><code>withItemStack</code> <a class="xref" href="Vintagestory.API.Common.ItemStack.html">ItemStack</a></dt>
+    <dd></dd>
+  </dl>
+
 
 
 

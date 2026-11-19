@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Vintagestory.API.Client;
 
 #nullable disable
@@ -62,5 +62,10 @@ namespace Vintagestory.API.Common
         /// Set to true if the asset has been patched by JsonPatchLoader - if so, we don't want to unload it
         /// </summary>
         bool IsPatched { get; set; }
+
+        /// <summary>
+        /// Only set if AssetManager.Debug is on. Contains the full file path of the asset on disk.
+        /// </summary>
+        string FullFilePath { get; set; }
     }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-#nullable disable
+#nullable disable annotations
 
 
 namespace Vintagestory.API.Common.CommandAbbr
@@ -88,18 +89,67 @@ namespace Vintagestory.API.Common
         Unknown
     }
 
+    #nullable enable annotations
     public class Caller
     {
-        public EnumCallerType Type = EnumCallerType.Player;
-        public string[] CallerPrivileges;
-        public string CallerRole;
+        public EnumCallerType Type;
+        public string[]? CallerPrivileges;
+        public string? CallerRole;
         public int FromChatGroupId;
-        public Vec3d Pos;
+        public Vec3d? Pos;
 
-        private IPlayer player;
-        private Entity entity;
+        private IPlayer? player;
+        private Entity? entity;
 
-        public IPlayer Player {
+        #pragma warning disable CS0618 // Type or member is obsolete
+        public static Caller FromPlayer(IPlayer player, int fromChatGroupId = default, string[]? privileges = null) => new()
+        #pragma warning restore CS0618
+        {
+            Type             = EnumCallerType.Player,
+            player           = player,
+            entity           = player.Entity,
+            Pos              = player.Entity?.Pos.XYZ,
+            FromChatGroupId  = fromChatGroupId,
+            CallerPrivileges = privileges,
+        };
+
+        #pragma warning disable CS0618 // Type or member is obsolete
+        public static Caller FromEntity(Entity entity, string[]? privileges = null) => new()
+        #pragma warning restore CS0618
+        {
+            Type             = EnumCallerType.Entity,
+            player           = (entity as EntityPlayer)?.Player,
+            Pos              = entity.Pos.XYZ,
+            Entity           = entity,
+            CallerPrivileges = privileges,
+        };
+
+        #pragma warning disable CS0618 // Type or member is obsolete
+        public static Caller FromBlock(BlockPos pos) => new()
+        #pragma warning restore CS0618
+        {
+            Type = EnumCallerType.Block,
+            Pos = pos.ToVec3d(),
+            CallerPrivileges = [ "*" ],
+        };
+
+
+        #pragma warning disable CS0618 // Type or member is obsolete
+        public static Caller FromConsole(Vec3d? pos = null) => new()
+        #pragma warning restore CS0618
+        {
+            Type             = EnumCallerType.Console,
+            Pos              = pos,
+            CallerRole       = "admin",
+            CallerPrivileges = [ "*" ],
+            FromChatGroupId  = GlobalConstants.ConsoleGroup,
+        };
+
+        [Obsolete("Internal use only, use one of the static `From*` methods.")]
+        public Caller() { }
+
+        [DisallowNull]
+        public IPlayer? Player {
             get {
                 return player;
             }
@@ -111,7 +161,7 @@ namespace Vintagestory.API.Common
             }
         }
         
-        public Entity Entity
+        public Entity? Entity
         {
             get
             {
@@ -126,8 +176,8 @@ namespace Vintagestory.API.Common
 
         public bool HasPrivilege(string privilege)
         {
-            if (Player != null && Player.HasPrivilege(privilege)) return true;
             if (CallerPrivileges != null && (CallerPrivileges.Contains(privilege) || CallerPrivileges.Contains("*"))) return true;
+            if (Player != null && Player.HasPrivilege(privilege)) return true;
             return false;
         }
 
@@ -146,6 +196,7 @@ namespace Vintagestory.API.Common
             return "Unknown caller";
         }
     }
+    #nullable restore annotations
 
 
     public class TextCommandCallingArgs

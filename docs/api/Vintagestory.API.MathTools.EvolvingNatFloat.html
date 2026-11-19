@@ -385,12 +385,49 @@ public struct EvolvingNatFloat</code></pre>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EvolvingNatFloat CreateFromBytes(BinaryReader reader)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Prefer using the BinarySpanReader overload.&quot;)]
+public static EvolvingNatFloat CreateFromBytes(BinaryReader reader)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>reader</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.binaryreader">BinaryReader</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.EvolvingNatFloat.html">EvolvingNatFloat</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_EvolvingNatFloat_CreateFromBytes_" data-uid="Vintagestory.API.MathTools.EvolvingNatFloat.CreateFromBytes*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_EvolvingNatFloat_CreateFromBytes_Vintagestory_API_Datastructures_BinarySpanReader__" data-uid="Vintagestory.API.MathTools.EvolvingNatFloat.CreateFromBytes(Vintagestory.API.Datastructures.BinarySpanReader@)">
+  CreateFromBytes(ref BinarySpanReader)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EvolvingNatFloat CreateFromBytes(ref BinarySpanReader reader)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>reader</code> <a class="xref" href="Vintagestory.API.Datastructures.BinarySpanReader.html">BinarySpanReader</a></dt>
     <dd></dd>
   </dl>
 
@@ -437,6 +474,42 @@ public struct EvolvingNatFloat</code></pre>
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">obj</code> and this instance are the same type and represent the same value; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
 </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Vintagestory_API_MathTools_EvolvingNatFloat_Equals_" data-uid="Vintagestory.API.MathTools.EvolvingNatFloat.Equals*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_EvolvingNatFloat_Equals_Vintagestory_API_MathTools_EvolvingNatFloat_" data-uid="Vintagestory.API.MathTools.EvolvingNatFloat.Equals(Vintagestory.API.MathTools.EvolvingNatFloat)">
+  Equals(EvolvingNatFloat)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(EvolvingNatFloat other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Vintagestory.API.MathTools.EvolvingNatFloat.html">EvolvingNatFloat</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
   </dl>
 
 

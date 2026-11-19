@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Delegate FastSerializerDelegate | VintageStory API </title>
+      <title>Struct CuboidContact | VintageStory API </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Delegate FastSerializerDelegate | VintageStory API ">
+      <meta name="title" content="Struct CuboidContact | VintageStory API ">
       
-      
+      <meta name="description" content="The closest-axis contact between two cuboids. Separation is positive for a gap, zero for touching, and negative for penetration.">
       <link rel="icon" href="../images/gameicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -84,43 +84,55 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Vintagestory.API.Util.FastSerializerDelegate">
+        <article data-uid="Vintagestory.API.MathTools.CuboidContact">
 
 
 
-  <h1 id="Vintagestory_API_Util_FastSerializerDelegate" data-uid="Vintagestory.API.Util.FastSerializerDelegate" class="text-break">
-Delegate FastSerializerDelegate  
+  <h1 id="Vintagestory_API_MathTools_CuboidContact" data-uid="Vintagestory.API.MathTools.CuboidContact" class="text-break">
+Struct CuboidContact  
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.Util.html">Util</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Vintagestory.html">Vintagestory</a>.<a class="xref" href="Vintagestory.API.html">API</a>.<a class="xref" href="Vintagestory.API.MathTools.html">MathTools</a></dd></dl>
   <dl><dt>Assembly</dt><dd>VintagestoryAPI.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"></div>
+  <div class="markdown summary"><p>The closest-axis contact between two cuboids. Separation is positive for a gap, zero for touching, and negative for penetration.</p>
+</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public delegate void FastSerializerDelegate(FastMemoryStream ms, int id, ref int count, ref int position)</code></pre>
+    <pre><code class="lang-csharp hljs">public readonly struct CuboidContact</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>ms</code> <a class="xref" href="Vintagestory.API.Datastructures.FastMemoryStream.html">FastMemoryStream</a></dt>
-    <dd></dd>
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-    <dt><code>position</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
-    <dd></dd>
-  </dl>
 
 
 
 
 
 
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
 
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
@@ -132,6 +144,110 @@ Delegate FastSerializerDelegate
       <a class="xref" href="Vintagestory.API.Util.ObjectHandleExtensions.html#Vintagestory_API_Util_ObjectHandleExtensions_ToIntPtr_System_Object_">ObjectHandleExtensions.ToIntPtr(object)</a>
   </div>
   </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Vintagestory_API_MathTools_CuboidContact__ctor_" data-uid="Vintagestory.API.MathTools.CuboidContact.#ctor*"></a>
+
+  <h3 id="Vintagestory_API_MathTools_CuboidContact__ctor_Vintagestory_API_MathTools_FastVec3d_System_Double_" data-uid="Vintagestory.API.MathTools.CuboidContact.#ctor(Vintagestory.API.MathTools.FastVec3d,System.Double)">
+  CuboidContact(FastVec3d, double)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The closest-axis contact between two cuboids. Separation is positive for a gap, zero for touching, and negative for penetration.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CuboidContact(FastVec3d normal, double separation)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>normal</code> <a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+    <dt><code>separation</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Vintagestory_API_MathTools_CuboidContact_Normal" data-uid="Vintagestory.API.MathTools.CuboidContact.Normal">
+  Normal
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The unit normal pointing from the source cuboid toward the queried cuboid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly FastVec3d Normal</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Vintagestory.API.MathTools.FastVec3d.html">FastVec3d</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Vintagestory_API_MathTools_CuboidContact_Separation" data-uid="Vintagestory.API.MathTools.CuboidContact.Separation">
+  Separation
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>The distance between the cuboids along <a class="xref" href="Vintagestory.API.MathTools.CuboidContact.html#Vintagestory_API_MathTools_CuboidContact_Normal">Normal</a>, or a negative penetration depth.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly double Separation</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
 
 
 

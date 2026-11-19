@@ -1,8 +1,6 @@
 using System;
 using Vintagestory.API.Common.Entities;
 
-#nullable disable
-
 namespace Vintagestory.API.MathTools
 {
     /// <summary>
@@ -10,6 +8,8 @@ namespace Vintagestory.API.MathTools
     /// </summary>
     public class Cuboidd : ICuboid<double,Cuboidd>
     {
+        public virtual bool IsRotated() => false;
+
         const double epsilon = 0.000016;   // 1 millionth of a block multiplied by 16.  See RemoveRoundingErrors().  Needed because a rounding error of this kind of size is seen in practice when EntityBox is offset by EntityPos and EntityPos is in the region of 500,000, due to limits on the precision of double arithmetic on large numbers.  The error leads to clipping of the player into blocks, when testing collisions, because with the rounding error the player is seen as "already" inside the block: for example player z-pos is 500000.3, player half-width is 0.3, entityBox.Z1 is 499999.999999988 with the rounding error.  Actually the error in that example is 1/90th of epsilon at positions around 500,000 but choosing this epsilon value of 0.000001 allows some safety even for map edge positions in larger world sizes up to 32Mx32M blocks with no problem. 64M worlds could maybe have minor clipping issues far away from the map centre, untested.
 
         public double X1;
@@ -21,35 +21,52 @@ namespace Vintagestory.API.MathTools
         public double Z2;
 
         /// <summary>
-        /// MaxX-MinX
+        /// Half size of the Cuboid on the X axis.
         /// </summary>
-        public double Width => MaxX - MinX;
+        public double HalfExtentX =>  Math.Abs(X2 * 0.5 - X1 * 0.5);
         /// <summary>
-        /// MaxY-MinY
+        /// Half size of the Cuboid on the Y axis.
         /// </summary>
-        public double Height => MaxY - MinY;
+        public double HalfExtentY =>  Math.Abs(Y2 * 0.5 - Y1 * 0.5);
         /// <summary>
-        /// MaxZ-MinZ
+        /// Half size of the Cuboid on the Z axis.
         /// </summary>
-        public double Length => MaxZ - MinZ;
+        public double HalfExtentZ =>  Math.Abs(Z2 * 0.5 - Z1 * 0.5);
+        /// <summary>
+        /// Size of the Cuboid on the X axis, can be infinity for large Cuboids.
+        /// </summary>
+        public double Width => Math.Abs(X2 - X1);
+        /// <summary>
+        /// Size of the Cuboid on the Y axis, can be infinity for large Cuboids.
+        /// </summary>
+        public double Height => Math.Abs(Y2 - Y1);
+        /// <summary>
+        /// Size of the Cuboid on the Z axis, can be infinity for large Cuboids.
+        /// </summary>
+        public double Length => Math.Abs(Z2 - Z1);
 
-        public double MinX { get { return Math.Min(X1, X2); } }
-        public double MinY { get { return Math.Min(Y1, Y2); } }
-        public double MinZ { get { return Math.Min(Z1, Z2); } }
-        public double MaxX { get { return Math.Max(X1, X2); } }
-        public double MaxY { get { return Math.Max(Y1, Y2); } }
-        public double MaxZ { get { return Math.Max(Z1, Z2); } }
+        public double MinX => Math.Min(X1, X2);
+        public double MinY => Math.Min(Y1, Y2);
+        public double MinZ => Math.Min(Z1, Z2);
+        public double MaxX => Math.Max(X1, X2);
+        public double MaxY => Math.Max(Y1, Y2);
+        public double MaxZ => Math.Max(Z1, Z2);
 
+        /// <summary>
+        /// Center point of the Cuboid on the X axis.
+        /// </summary>
+        public double MidX => X1 * 0.5 + X2 * 0.5;
+        /// <summary>
+        /// Center point of the Cuboid on the Y axis.
+        /// </summary>
+        public double MidY => Y1 * 0.5 + Y2 * 0.5;
+        /// <summary>
+        /// Center point of the Cuboid on the Z axis.
+        /// </summary>
+        public double MidZ => Z1 * 0.5 + Z2 * 0.5;
 
-        public Vec3d Start
-        {
-            get { return new Vec3d(MinX, MinY, MinZ); }
-        }
-
-        public Vec3d End
-        {
-            get { return new Vec3d(MaxX, MaxY, MaxZ); }
-        }
+        public Vec3d Start => new(MinX, MinY, MinZ);
+        public Vec3d End => new(MaxX, MaxY, MaxZ);
 
         public Cuboidd()
         {
@@ -194,7 +211,7 @@ namespace Vintagestory.API.MathTools
             this.Z2 += dz;
             return this;
         }
-        
+
         /// <summary>
         /// Returns if the given point is inside the cuboid
         /// </summary>
@@ -255,7 +272,7 @@ namespace Vintagestory.API.MathTools
             return Math.Sqrt(cx*cx + cy*cy + cz*cz);
         }
 
-        
+
         public Cuboidi ToCuboidi()
         {
             return new Cuboidi((int)X1, (int)Y1, (int)Z1, (int)X2, (int)Y2, (int)Z2);
@@ -404,7 +421,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new x coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutX(Cuboidd from, double motx, ref EnumPushDirection direction)
+        public virtual double pushOutX(Cuboidd from, double motx, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.Z2 > Z1 && from.Z1 < Z2 && from.Y2 > Y1 && from.Y1 < Y2)
@@ -427,7 +444,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new y coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutY(Cuboidd from, double moty, ref EnumPushDirection direction)
+        public virtual double pushOutY(Cuboidd from, double moty, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.X2 > X1 && from.X1 < X2 && from.Z2 > Z1 && from.Z1 < Z2)
@@ -450,7 +467,7 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Returns a new z coordinate that's ensured to be outside this cuboid. Used for collision detection.
         /// </summary>
-        public double pushOutZ(Cuboidd from, double motz, ref EnumPushDirection direction)
+        public virtual double pushOutZ(Cuboidd from, double motz, ref EnumPushDirection direction)
         {
             direction = EnumPushDirection.None;
             if (from.X2 > X1 && from.X1 < X2 && from.Y2 > Y1 && from.Y1 < Y2)
@@ -484,12 +501,8 @@ namespace Vintagestory.API.MathTools
             Mat4d.RotateY(matrix, matrix, radY);
             Mat4d.RotateZ(matrix, matrix, radZ);
 
-            double[] pos = new double[] { 0, 0, 0, 1 };
-
-            //Vec3d origin = new Vec3d(0.5, 0.5, 0.5);
-
-            double[] min = new double[] { X1 - origin.X, Y1 - origin.Y, Z1 - origin.Z, 1 };
-            double[] max = new double[] { X2 - origin.X, Y2 - origin.Y, Z2 - origin.Z, 1 };
+            double[] min = [X1 - origin.X, Y1 - origin.Y, Z1 - origin.Z, 1];
+            double[] max = [X2 - origin.X, Y2 - origin.Y, Z2 - origin.Z, 1];
 
             min = Mat4d.MulWithVec4(matrix, min);
             max = Mat4d.MulWithVec4(matrix, max);
@@ -556,8 +569,10 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool Intersects(Cuboidd other)
+        public virtual bool Intersects(Cuboidd other)
         {
+            if (other is RotatedCuboidd rotated && rotated.IsRotated()) return rotated.Intersects(this);
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             if (X2 > other.X1 &&
                 X1 < other.X2 &&
@@ -573,8 +588,10 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool Intersects(Cuboidf other)
+        public virtual bool Intersects(Cuboidf other)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated()) return rotated.Intersects(this);
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             if (X2 > other.X1 &&
                 X1 < other.X2 &&
@@ -590,8 +607,13 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool Intersects(Cuboidf other, Vec3d offset)
+        public virtual bool Intersects(Cuboidf other, Vec3d offset)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.Intersects(this, new Vec3d(-offset.X, -offset.Y, -offset.Z));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 > other.X1 + offset.X &&
@@ -605,8 +627,13 @@ namespace Vintagestory.API.MathTools
             return false;
         }
 
-        public bool Intersects(Cuboidf other, double offsetx, double offsety, double offsetz)
+        public virtual bool Intersects(Cuboidf other, double offsetx, double offsety, double offsetz)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.Intersects(this, new Vec3d(-offsetx, -offsety, -offsetz));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 > other.X1 + offsetx &&
@@ -624,8 +651,13 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool IntersectsOrTouches(Cuboidd other)
+        public virtual bool IntersectsOrTouches(Cuboidd other)
         {
+            if (other is RotatedCuboidd rotated && rotated.IsRotated())
+            {
+                return rotated.IntersectsOrTouches(this, new Vec3d(0, 0, 0));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 >= other.X1 &&
@@ -643,8 +675,13 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool IntersectsOrTouches(Cuboidf other, Vec3d offset)
+        public virtual bool IntersectsOrTouches(Cuboidf other, Vec3d offset)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.IntersectsOrTouches(this, new Vec3d(-offset.X, -offset.Y, -offset.Z));
+            }
+
             // For performance, this is a conditional statement with && conjunction: the conditional will fail early if any is false
             // We test the X pair first, then the Z pair, then the Y pair, as it's quite easy for any given pair to test false
             if (X2 >= other.X1 + offset.X &&
@@ -661,8 +698,13 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// If the given cuboid intersects with this cuboid
         /// </summary>
-        public bool IntersectsOrTouches(Cuboidf other, double offsetX, double offsetY, double offsetZ)
+        public virtual bool IntersectsOrTouches(Cuboidf other, double offsetX, double offsetY, double offsetZ)
         {
+            if (other is RotatedCuboidf rotated && rotated.IsRotated())
+            {
+                return rotated.IntersectsOrTouches(this, new Vec3d(-offsetX, -offsetY, -offsetZ));
+            }
+
             bool isOutSide =
                 X2 < other.X1 + offsetX ||
                 X1 > other.X2 + offsetX ||
@@ -684,17 +726,17 @@ namespace Vintagestory.API.MathTools
         /// <summary>
         /// Creates a copy of the cuboid
         /// </summary>
-        public Cuboidd Clone()
+        public virtual Cuboidd Clone()
         {
             Cuboidd cloned = (Cuboidd)MemberwiseClone();
             return cloned;
         }
 
-        public bool Equals(Cuboidd other)
+        public bool Equals(Cuboidd? other)
         {
-            return other.X1 == X1 && other.Y1 == Y1 && other.Z1 == Z1 && other.X2 == X2 && other.Y2 == Y2 && other.Z2 == Z2;
+            return other != null
+                && other.X1.Equals(X1) && other.Y1.Equals(Y1) && other.Z1.Equals(Z1)
+                && other.X2.Equals(X2) && other.Y2.Equals(Y2) && other.Z2.Equals(Z2);
         }
-
-        
     }
 }

@@ -140,7 +140,7 @@ namespace Vintagestory.API.Common.Entities
         /// <summary>
         /// The drops for the entity when they are killed.
         /// </summary>
-        public BlockDropItemStack[] Drops;
+        public EntityDropItemStack[] Drops;
         public byte[] DropsPacket;
 
         /// <summary>
@@ -167,12 +167,12 @@ namespace Vintagestory.API.Common.Entities
         /// <returns></returns>
         public EntityProperties Clone()
         {
-            BlockDropItemStack[] DropsCopy;
+            EntityDropItemStack[] DropsCopy;
             if (Drops == null)
                 DropsCopy = null;
             else
             {
-                DropsCopy = new BlockDropItemStack[Drops.Length];
+                DropsCopy = new EntityDropItemStack[Drops.Length];
                 for (int i = 0; i < DropsCopy.Length; i++)
                     DropsCopy[i] = Drops[i].Clone();
             }
@@ -285,21 +285,18 @@ namespace Vintagestory.API.Common.Entities
 
         internal void PopulateDrops(IWorldAccessor worldForResolve)
         {
-            using (MemoryStream ms = new MemoryStream(DropsPacket))
-            {
-                BinaryReader reader = new BinaryReader(ms);
-                int len = reader.ReadInt32();
-                BlockDropItemStack[] drops = new BlockDropItemStack[len];
-                for (int i = 0; i < drops.Length; i++)
-                {
-                    drops[i] = new BlockDropItemStack();
-                    drops[i].FromBytes(reader, worldForResolve.ClassRegistry);
-                    drops[i].Resolve(worldForResolve, "decode entity drops for ", Code);
-                }
+            var reader = new BinarySpanReader(DropsPacket);
 
-                Drops = drops;
+            int len = reader.ReadInt32();
+            EntityDropItemStack[] drops = new EntityDropItemStack[len];
+            for (int i = 0; i < drops.Length; i++)
+            {
+                drops[i] = new EntityDropItemStack();
+                drops[i].FromBytes(ref reader, worldForResolve.ClassRegistry);
+                drops[i].Resolve(worldForResolve, "decode entity drops for ", Code);
             }
-            DropsPacket = null;
+
+            Drops = drops;
         }
     }
 

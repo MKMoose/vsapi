@@ -15,7 +15,7 @@ namespace Vintagestory.API.Common
 
         int[] Pixels { get; }
 
-        int[] GetPixelsTransformed(int rot = 0, int alpha = 100);
+        int[] GetPixelsTransformed(int rot = 0, int alpha = 255);
     }
 
     public class BakedBitmap : IBitmap
@@ -44,7 +44,7 @@ namespace Vintagestory.API.Common
             return new SKColor((uint)TexturePixels[Width * (int)(y * Height) + (int)(x * Width)]);
         }
 
-        public int[] GetPixelsTransformed(int rot = 0, int alpha = 100)
+        public int[] GetPixelsTransformed(int rot = 0, int alpha = 255)
         {
             int[] bmpPixels = new int[Width * Height];
 
@@ -52,20 +52,14 @@ namespace Vintagestory.API.Common
             switch (rot)
             {
                 case 0:
-                    for (int x = 0; x < Width; x++)
-                    {
-                        for (int y = 0; y < Height; y++)
-                        {
-                            bmpPixels[x + y * Width] = GetPixelArgb(x, y);
-                        }
-                    }
+                    Array.Copy(TexturePixels, bmpPixels, bmpPixels.Length);
                     break;
                 case 90:
                     for (int x = 0; x < Width; x++)
                     {
                         for (int y = 0; y < Height; y++)
                         {
-                            bmpPixels[y + x * Width] = GetPixelArgb(Width - x - 1, y);
+                            bmpPixels[y + x * Height] = GetPixelArgb(Width - x - 1, y);
                         }
                     }
                     break;
@@ -84,20 +78,20 @@ namespace Vintagestory.API.Common
                     {
                         for (int y = 0; y < Height; y++)
                         {
-                            bmpPixels[y + x * Width] = GetPixelArgb(x, Height - y - 1);
+                            bmpPixels[y + x * Height] = GetPixelArgb(x, Height - y - 1);
                         }
                     }
                     break;
             }
 
-            if (alpha != 100)
+            if (alpha != 255)
             {
-                float af = alpha / 100f;
+                float af = alpha / 255f;
                 for (int i = 0; i < bmpPixels.Length; i++)
                 {
                     var current = bmpPixels[i];
                     int currAlpha = (current >> 24) & 0xff;
-                    bmpPixels[i] = current | (int)(currAlpha * af) << 24;
+                    bmpPixels[i] = (current & 0x00ffffff) | (int)(currAlpha * af) << 24;
                 }
             }
 

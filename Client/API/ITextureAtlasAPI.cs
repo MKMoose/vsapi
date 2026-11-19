@@ -142,6 +142,19 @@ namespace Vintagestory.API.Client
         bool GetOrInsertTexture(AssetLocation path, out int textureSubId, out TextureAtlasPosition texPos, CreateTextureDelegate onCreate = null, float alphaTest = 0f);
 
         /// <summary>
+        /// Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+        /// When done with it, call ReleaseTextureReference().
+        /// Call from the main thread only.
+        /// </summary>
+        bool InsertTextureOrAddReference(AssetLocationAndSource path, out int textureSubId, out TextureAtlasPosition texPos, CreateTextureDelegate onCreate = null, float alphaTest = 0f);
+        /// <summary>
+        /// Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+        /// When done with it, call ReleaseTextureReference().
+        /// Call from the main thread only.
+        /// </summary>
+        bool InsertTextureOrAddReference(AssetLocation path, out int textureSubId, out TextureAtlasPosition texPos, CreateTextureDelegate onCreate = null, float alphaTest = 0f);
+
+        /// <summary>
         /// Same as <see cref="InsertTexture(IBitmap, out int, out TextureAtlasPosition, float)"/> but this method remembers the inserted texure, which you can access using capi.TextureAtlas[path]
         /// A subsequent call to this method will update the texture, but retain the same texPos. Also a run-time texture reload will reload this texture automatically.
         /// </summary>
@@ -168,7 +181,12 @@ namespace Vintagestory.API.Client
 
 
         bool GetOrInsertTexture(CompositeTexture ct, out int textureSubId, out TextureAtlasPosition texPos, float alphaTest = 0f);
-
+        /// <summary>
+        /// Same as GetOrInsertTexture, but will also add to the count of how many things are using this texture.
+        /// When done with it, call ReleaseTextureReference().
+        /// Call from the main thread only.
+        /// </summary>
+        bool InsertTextureOrAddReference(CompositeTexture ct, out int textureSubId, out TextureAtlasPosition texPos, float alphaTest = 0f);
 
         /// <summary>
         /// Deallocates a previously allocated texture space
@@ -177,10 +195,16 @@ namespace Vintagestory.API.Client
         void FreeTextureSpace(int textureSubId);
 
         /// <summary>
-        /// Deallocates a previously allocated texture space
+        /// Deallocates a previously allocated texture space. This frees the texture even if references to it still remain.
         /// </summary>
         /// <param name="assetloc"></param>
         void FreeTextureSpace(AssetLocationAndSource assetloc);
+
+        /// <summary>
+        /// Call this when done with a reference counted texture. It will be freed if you were the last user.
+        /// Call from the main thread only.
+        /// </summary>
+        void ReleaseTextureReference(AssetLocation loc);
 
         /// <summary>
         /// Returns an rgba value picked randomly inside the given texture (defined by its sub-id)

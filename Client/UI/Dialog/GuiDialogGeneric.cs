@@ -79,10 +79,10 @@ namespace Vintagestory.API.Client
         /// </summary>
         /// <param name="blockEntityPos">The block's position.</param>
         /// <returns>In range or no?</returns>
-        // [Obsolete("Prefer using player."+nameof(IPlayer.IsInInteractionRangeOf)+". A dialog does not have an in-world position.", true)] // Rennorb: Obsolete in 1.23.
+        [Obsolete("Prefer using player."+nameof(IPlayer.IsInInteractionRangeOf)+". A dialog does not have an in-world position.", true)]
         public virtual bool IsInRangeOfBlock(BlockPos blockEntityPos)
         {
-            return capi.World.Player.IsInInteractionRangeOf(blockEntityPos, .5f); // Rennorb 2026.07.06: Slack will change to standardized .25 in 1.23.
+            return capi.World.Player.IsInInteractionRangeOf(new FastBlockPos(blockEntityPos));
         }
     }
 }

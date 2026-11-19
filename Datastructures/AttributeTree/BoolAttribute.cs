@@ -1,45 +1,47 @@
-﻿using System.IO;
+using System;
+using System.IO;
 
-#nullable disable
+namespace Vintagestory.API.Datastructures;
 
-namespace Vintagestory.API.Datastructures
+public class BoolAttribute : ScalarAttribute<bool>, IAttribute
 {
-    public class BoolAttribute : ScalarAttribute<bool>, IAttribute
+    public BoolAttribute()
     {
-        public BoolAttribute()
-        {
 
-        }
+    }
 
-        public BoolAttribute(bool value)
-        {
-            this.value = value;
-        }
+    public BoolAttribute(bool value)
+    {
+        this.value = value;
+    }
 
-        public void FromBytes(BinaryReader stream)
-        {
-            value = stream.ReadBoolean();
-        }
+    [Obsolete("Use the BinarySpanReader overload.", true)]
+    public void FromBytes(BinaryReader reader)
+        => reader.UnsafeActAsBinarySpanReader(FromBytes);
 
-        public void ToBytes(BinaryWriter stream)
-        {
-            stream.Write(value);
-        }
+    public void FromBytes(ref BinarySpanReader reader)
+    {
+        value = reader.ReadBoolean();
+    }
 
-        public int GetAttributeId()
-        {
-            return 9;
-        }
+    public void ToBytes(BinaryWriter stream)
+    {
+        stream.Write(value);
+    }
 
-        public override string ToJsonToken()
-        {
-            // Newtonsoft.Json does not like uppercase True/False o.O
-            return value ? "true" : "false";
-        }
+    public int GetAttributeId()
+    {
+        return 9;
+    }
 
-        public IAttribute Clone()
-        {
-            return new BoolAttribute(value);
-        }
+    public override string ToJsonToken()
+    {
+        // Newtonsoft.Json does not like uppercase True/False o.O
+        return value ? "true" : "false";
+    }
+
+    public IAttribute Clone()
+    {
+        return new BoolAttribute(value);
     }
 }

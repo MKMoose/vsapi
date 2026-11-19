@@ -8,7 +8,8 @@ using Vintagestory.API.MathTools;
 namespace Vintagestory.API.Datastructures
 {
     /// <summary>
-    /// Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility
+    /// Just like CachedCuboidList except we use structs internally, for RAM access performance. We leave CachedCuboidList just as it is for mod backwards compatibility.
+    /// Rotated cuboids are stored as their local AABB here — the rotation is dropped to keep the per-tick collision loop allocation-free. Use CachedCuboidList where rotation precision matters.
     /// </summary>
     public class CachedCuboidListFaster: IEnumerable<Cuboidd>
     {
@@ -43,21 +44,14 @@ namespace Vintagestory.API.Datastructures
             if (Count >= populatedSize)
             {
                 if (Count >= cuboids.Length) ExpandArrays();
-                cuboids[Count] = cuboid.OffsetCopyDouble(x, y % BlockPos.DimensionBoundary, z);
+                cuboids[Count] = new Cuboidd().SetAndTranslate(cuboid, x, y % BlockPos.DimensionBoundary, z);
                 positions[Count] = new FastVec3i(x, y, z);
                 blocks[Count] = block;
                 populatedSize++;
             }
             else
             {
-                cuboids[Count].Set(
-                    cuboid.X1 + x,
-                    cuboid.Y1 + y % BlockPos.DimensionBoundary,
-                    cuboid.Z1 + z,
-                    cuboid.X2 + x,
-                    cuboid.Y2 + y % BlockPos.DimensionBoundary,
-                    cuboid.Z2 + z
-                );
+                cuboids[Count].SetAndTranslate(cuboid, x, y % BlockPos.DimensionBoundary, z);
                 positions[Count].Set(x, y, z);
                 blocks[Count] = block;
             }

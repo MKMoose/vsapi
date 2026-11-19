@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Common.Entities;
@@ -98,6 +98,7 @@ namespace Vintagestory.API.Common
             else
             {
                 animator = manager.LoadAnimator(api, entity, entityShape, copyOverAnims, requirePosesOnServer, disableElements, requireJointsForElements);
+                manager.Animator = animator;
                 animCache[dictKey] = new AnimCacheEntry()
                 {
                     Animations = entityShape.Animations,
